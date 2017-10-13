@@ -40,35 +40,42 @@
           </div>
         </div>
         <div class="element">
+          <p>账号</p>
+          <div class="width140">
+            <el-input v-model="zend" placeholder="请输入账号" class="input"></el-input>
+          </div>
+        </div>
+        <div class="element">
           <p>姓名</p>
           <div class="width120">
-            <el-input v-model="mobile" placeholder="请输入姓名" class="input"></el-input>
+            <el-input v-model="name" placeholder="请输入姓名" class="input"></el-input>
           </div>
         </div>
         <div class="element">
           <p>身份证号</p>
           <div class="width180">
-            <el-input placeholder="请输入身份证号" class="input"></el-input>
+            <el-input placeholder="请输入身份证号" class="input" v-model="carNum"></el-input>
           </div>
         </div>
         <div class="element">
           <p>所在城市</p>
-          <div class="width180">
-            <el-cascader :options="provinceCitys" @active-item-change="handleItemChange" :props="props"></el-cascader>
-          </div>
+          <el-input placeholder="请输入所在城市" class="input" v-model="cityOrProvince"></el-input>
+          <!-- <div class="width180">
+              <el-cascader :options="provinceCitys" @active-item-change="handleItemChange" :props="props"></el-cascader>
+            </div> -->
         </div>
         <div class="element" style="margin-top:22px;margin-left:0px;" @click="search">
           <el-button type="primary">查询</el-button>
         </div>
       </div>
       <!-- <div>
-                        <div class="element">
-                          <p>业务员姓名</p>
-                          <div>
-                            <el-input v-model="employeeName" placeholder="请输入内容" class="input"></el-input>
-                          </div>
-                        </div>
-                      </div> -->
+                            <div class="element">
+                              <p>业务员姓名</p>
+                              <div>
+                                <el-input v-model="employeeName" placeholder="请输入内容" class="input"></el-input>
+                              </div>
+                            </div>
+                          </div> -->
       <table>
         <thead>
           <tr>
@@ -88,17 +95,18 @@
         </thead>
         <tbody>
           <tr v-for="(item, index) in getList" :key="item.value" v-show="getList.length > 0">
-            <td>{{item.orderNo}}</td>
-            <td>{{item.platform}}</td>
-            <td>{{item.amount/100}}</td>
-            <td>{{item.applyTime|getTime}}</td>
-            <td>{{item.employeeName}}</td>
-            <td>{{item.companyName}}</td>
-            <td>{{item.checkStatus|getStatus}}</td>
-            <td>
-              <el-button type="primary" @click="review(index)" v-show="item.checkStatus ===5">审核</el-button>
-              <el-button type="primary" @click="review(index)" v-show="item.checkStatus ===7||item.checkStatus ===6">详情</el-button>
-            </td>
+            <td>{{item.updated}}</td>
+            <td>{{item.zedAccount}}</td>
+            <td>{{item.title}}</td>
+            <td>{{item.regDate|getTime}}</td>
+            <td>{{item.province}}{{item.city}}</td>
+            <td>{{item.mile}}</td>
+            <td>{{item.highPrice}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.mobile}}</td>
+            <td>{{item.carNum}}</td>
+            <td>{{item.pushPlatformType|getFormtype}}</td>
+            <td>{{item.applyStatus |getStatus}}</td>
           </tr>
           <tr v-show="getList.length === 0">
             <td class="noData" colspan="12">暂无数据...</td>
@@ -115,12 +123,16 @@
 <script>
 import { ERR_OK } from '../../common/js/config'
 import { format } from '../../common/js/times'
-import { checkView } from '../../api/index'
+import { cheCredit } from '../../api/index'
 // import { mapMutations } from 'vuex'
 export default {
   data() {
     return {
       mobile: '',
+      carNum: '',
+      name: '',
+      cityOrProvince: '',
+      zend: '',
       platform: '',
       platforms: [{
         value: '0',
@@ -177,14 +189,19 @@ export default {
     }
   },
   created() {
-    // this.getval()
+    this.getval()
   },
   filters: {
     getTime(t) {
-      return format(t)
+      if (t) {
+        return format(t)
+      }
+    },
+    getFormtype(t) {
+      return t === 1 ? '微贷网' : ''
     },
     getStatus(t) {
-      return t === 5 ? '待审核' : t === 6 ? '审核驳回' : t === 7 ? '审核通过' : ''
+      return t === 1 ? '已评估' : t === 3 ? '已申请' : t === 5 ? '申请成功' : ''
     }
   },
   methods: {
@@ -212,15 +229,19 @@ export default {
 
     getval() {
       let params = {
-        checkStatus: this.value,
+        applyStatus: this.value,
         _startTime: this.timer[0] ? Date.parse(this.timer[0]) : '',
         _endTime: this.timer[1] ? Date.parse(this.timer[1]) : '',
-        companyName: this.companyName,
-        employeeName: this.employeeName,
+        pushPlatformType: this.platform,
+        zedAccount: this.zend,
+        cityOrProvince: this.cityOrProvince,
+        name: this.name,
+        carNum: this.carNum,
+        mobile: this.mobile,
         pageIndex: this.pageIndex,
         pageSize: this.pageSize
       }
-      checkView(params).then(res => {
+      cheCredit(params).then(res => {
         console.log(res)
         if (res.code === ERR_OK) {
           this.getList = res.list

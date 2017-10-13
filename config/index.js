@@ -28,14 +28,14 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/zyd':{
+      '/cdd':{
         // target:'http://192.168.18.220:8061', // 修庆
         // target:'http://192.168.18.218:8061',
-        target:'http://192.168.18.170:8061',
+        target:'http://192.168.18.177:8030',
         // target:'http://192.168.18.178:3000',
         changeOrigin: true,
         pathRewrite: {
-          '^/zyd': ''
+          '^/cdd': ''
         }
       }
     },
