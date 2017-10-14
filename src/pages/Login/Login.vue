@@ -4,13 +4,13 @@
     <div class="ms-login">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
         <el-form-item prop="username">
-          <el-input v-model="ruleForm.account" placeholder="username"></el-input>
+          <el-input v-model="ruleForm.username" placeholder="username"></el-input>
         </el-form-item>
         <el-form-item prop="password">
           <el-input type="password" placeholder="password" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')"></el-input>
         </el-form-item>
         <el-form-item prop="">
-          <el-input placeholder="验证码" v-model="ruleForm.checkCode" style="width:220px;" @keyup.native="sure($event)"></el-input>
+          <el-input placeholder="验证码" v-model="ruleForm.inputCode" style="width:220px;" @keyup.native="sure($event)"></el-input>
           <img :src="imgUrl" alt="" @click="img">
         </el-form-item>
         <p style="font-size:12px;line-height:28px;color:#ff4949;
@@ -29,7 +29,7 @@ import { ERR_OK } from '../../common/js/config'
 export default {
   data: function() {
     return {
-      imgUrl: '/zyd/common/checkCode.jpg',
+      imgUrl: '/cdd/checkCode.jpg',
       ruleForm: {
         account: '',
         password: '',
@@ -60,11 +60,11 @@ export default {
             console.log(res)
             if (res.code === ERR_OK) {
               // localStorage.setItem('ms_username', self.ruleForm.username)
-              sessionStorage.setItem('adminerName', res.obj.adminerName)
-              sessionStorage.setItem('account', res.obj.account)
-              sessionStorage.setItem('role', res.obj.role)
-              sessionStorage.setItem('id', res.obj.id)
-              self.$router.push('/stageReview')
+              // sessionStorage.setItem('adminerName', res.obj.adminerName)
+              // sessionStorage.setItem('account', res.obj.account)
+              // sessionStorage.setItem('role', res.obj.role)
+              // sessionStorage.setItem('id', res.obj.id)
+              // self.$router.push('/stageReview')
             } else {
               this.falval = res.error
             }
