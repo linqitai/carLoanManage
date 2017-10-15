@@ -6,11 +6,11 @@
         <el-breadcrumb-item>里程</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <div class="base">
+    <div class="allWrapper">
       <div class="searchCondition">
         <div class="element">
           <p>时间</p>
-          <div>
+          <div class="width204">
             <el-date-picker v-model="timer" type="daterange" placeholder="选择日期范围">
             </el-date-picker>
           </div>
@@ -60,28 +60,17 @@
         <div class="element">
           <p>所在城市</p>
           <el-input placeholder="请输入所在城市" class="input" v-model="cityOrProvince"></el-input>
-          <!-- <div class="width180">
-              <el-cascader :options="provinceCitys" @active-item-change="handleItemChange" :props="props"></el-cascader>
-            </div> -->
         </div>
-        <div class="element" style="margin-top:22px;margin-left:0px;" @click="search">
+        <div class="element" style="margin-top:32px;margin-left:0px;" @click="search">
           <el-button type="primary">查询</el-button>
         </div>
       </div>
-      <!-- <div>
-                            <div class="element">
-                              <p>业务员姓名</p>
-                              <div>
-                                <el-input v-model="employeeName" placeholder="请输入内容" class="input"></el-input>
-                              </div>
-                            </div>
-                          </div> -->
       <table>
         <thead>
           <tr>
             <th>时间</th>
             <th>账号</th>
-            <th>车型</th>
+            <th class="width180">车型</th>
             <th>上牌时间</th>
             <th>所在城市</th>
             <th>行驶里程</th>
@@ -109,7 +98,7 @@
             <td>{{item.applyStatus |getStatus}}</td>
           </tr>
           <tr v-show="getList.length === 0">
-            <td class="noData" colspan="12">暂无数据...</td>
+            <td class="noData" colspan="12">暂无数据</td>
           </tr>
         </tbody>
       </table>
@@ -271,43 +260,6 @@ export default {
 </script>
 
 <style lang="scss">
-.mileage {
-  .base {
-    .searchCondition {
-      overflow: hidden;
-      .element {
-        float: left;
-        margin-right: 15px;
-        p {
-          margin-bottom: 10px;
-        }
-      }
-      .btn {}
-    }
-    table {
-      border: 1px solid #e1e6ef;
-      width: 93%;
-      margin-top: 20px;
-      thead {
-        background-color: #e1e6ef;
-      }
-      tbody {
-        background-color: #ffffff;
-      }
-      tr th,
-      tr td {
-        padding: 14px 16px;
-        text-align: center;
-      }
-      tr:hover {
-        background-color: #F1F2F7;
-      }
-    }
-    .noData {
-      font-size: 16px;
-      padding: 30px;
-    }
-  }
-}
+@import './Mileage'
 </style>
 

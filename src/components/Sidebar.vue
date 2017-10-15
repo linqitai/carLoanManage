@@ -56,7 +56,7 @@ export default {
 .sidebar {
   display: block;
   position: absolute;
-  width: 200px;
+  width: auto;
   left: 0;
   top: 70px;
   bottom: 0;

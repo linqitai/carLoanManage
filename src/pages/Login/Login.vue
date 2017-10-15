@@ -1,22 +1,20 @@
 <template>
   <div class="login-wrap">
-    <div class="ms-title">后台管理系统</div>
-    <div class="ms-login">
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
+    <div class="msLogin">
+      <div class="msTitle">车抵贷款后台管理系统</div>
+      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm" @keyup.enter.native="submitForm('ruleForm')">
         <el-form-item prop="username">
           <el-input v-model="ruleForm.username" placeholder="username"></el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input type="password" placeholder="password" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')"></el-input>
+          <el-input type="password" placeholder="password" v-model="ruleForm.password"></el-input>
         </el-form-item>
         <el-form-item prop="">
-          <el-input placeholder="验证码" v-model="ruleForm.inputCode" style="width:220px;" @keyup.native="sure($event)"></el-input>
+          <el-input placeholder="验证码" v-model="ruleForm.inputCode" style="width:220px;"></el-input>
           <img :src="imgUrl" alt="" @click="img">
         </el-form-item>
-        <p style="font-size:12px;line-height:28px;color:#ff4949;
-                                margin-top:-25px;height:28px;">{{falval}}</p>
         <div class="login-btn">
-          <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
+          <el-button type="primary" @click="submitForm('ruleForm')" ref="loginBtn">登录</el-button>
         </div>
       </el-form>
     </div>
@@ -25,17 +23,16 @@
 
 <script>
 import { userLogin } from '../../api/index'
-import { ERR_OK } from '../../common/js/config'
+const dir = '/cdd'
 export default {
   data: function() {
     return {
-      imgUrl: '/cdd/checkCode.jpg',
+      imgUrl: dir + '/checkCode.jpg?a=' + Math.random(),
       ruleForm: {
         account: '',
         password: '',
         checkCode: ''
       },
-      falval: '',
       myurl: '',
       rules: {
         account: [
@@ -58,7 +55,8 @@ export default {
           userLogin(params).then((res) => {
             console.log(params)
             console.log(res)
-            if (res.code === ERR_OK) {
+            if (res.code === 0) {
+              this.$router.push('/Mileage')
               // localStorage.setItem('ms_username', self.ruleForm.username)
               // sessionStorage.setItem('adminerName', res.obj.adminerName)
               // sessionStorage.setItem('account', res.obj.account)
@@ -66,7 +64,7 @@ export default {
               // sessionStorage.setItem('id', res.obj.id)
               // self.$router.push('/stageReview')
             } else {
-              this.falval = res.error
+              this.$message(res.error);
             }
           })
         } else {
@@ -75,13 +73,8 @@ export default {
         }
       })
     },
-    sure(ev) {
-      if (ev.keyCode === 13) {
-        this.submitForm('formName')
-      }
-    },
     img() {
-      this.imgUrl = '/zyd/common/checkCode.jpg' + '?' + Math.random()
+      this.imgUrl = dir + '/checkCode.jpg' + '?' + Math.random()
     }
   }
 }
@@ -94,23 +87,19 @@ export default {
   background: #ccc;
 }
 
-.ms-title {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  margin-top: -230px;
-  text-align: center;
-  font-size: 30px;
-  color: #fff;
+.msTitle {
+  font-size: 28px;
+  color: #000000;
+  padding-bottom: 18px;
 }
 
-.ms-login {
+.msLogin {
   position: absolute;
   left: 50%;
   top: 50%;
   width: 300px;
-  height: 160px;
-  margin: -150px 0 0 -190px;
+  height: 260px;
+  transform: translate(-50%, -50%);
   padding: 40px;
   border-radius: 5px;
   background: #fff;
