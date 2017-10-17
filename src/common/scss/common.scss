@@ -19,6 +19,9 @@
 .width180{
   width: 180px;
 }
+.width190{
+  width: 190px;
+}
 .width200{
   width: 200px;
 }
@@ -27,4 +30,66 @@
 }
 .width210{
   width: 210px;
+}
+.width230{
+  width: 230px;
+}
+.width240{
+  width: 240px;
+}
+.hidden{
+  overflow: hidden;
+}
+.mtb18{
+  margin-top: 18px;
+  margin-bottom: 10px;
+}
+// margin左
+.ml5{
+  margin-left: 5px;
+}
+.ml10{
+  margin-left: 10px;
+}
+// margin右
+.mr20{
+  margin-right: 20px;
+}
+// margin上
+.mt10{
+  margin-top: 10px;
+}
+.mt24{
+  margin-top: 24px;
+}
+.mt42{
+  margin-top: 43px;
+}
+.mt52{
+  margin-top: 52px;
+}
+.mt66{
+  margin-top: 66px;
+}
+.mt82{
+  margin-top: 82px;
+}
+// padding上
+.pdt42{
+  padding-bottom: 42px;
+}
+
+$mainColor:#00917e;
+$sidebarWidth: 160px;
+.left{
+  float: left;
+}
+.right{
+  float: right;
+}
+.colorWhite{
+  color: #ffffff;
+}
+.pointer{
+  cursor: pointer;
 }

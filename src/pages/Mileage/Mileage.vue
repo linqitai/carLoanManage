@@ -10,8 +10,8 @@
       <div class="searchCondition">
         <div class="element">
           <p>时间</p>
-          <div class="width204">
-            <el-date-picker v-model="timer" type="daterange" placeholder="选择日期范围">
+          <div class="width200">
+            <el-date-picker style="width:200px;" v-model="timer" type="daterange" placeholder="选择日期范围">
             </el-date-picker>
           </div>
         </div>
@@ -36,7 +36,7 @@
         <div class="element">
           <p>手机号</p>
           <div class="width140">
-            <el-input v-model="mobile" placeholder="请输入手机号码" class="input"></el-input>
+            <el-input type="text" v-model="mobile" placeholder="请输入手机号码" class="input"></el-input>
           </div>
         </div>
         <div class="element">
@@ -70,7 +70,7 @@
           <tr>
             <th>时间</th>
             <th>账号</th>
-            <th class="width180">车型</th>
+            <th>车型</th>
             <th>上牌时间</th>
             <th>所在城市</th>
             <th>行驶里程</th>
@@ -84,18 +84,18 @@
         </thead>
         <tbody>
           <tr v-for="(item, index) in getList" :key="item.value" v-show="getList.length > 0">
-            <td>{{item.updated}}</td>
-            <td>{{item.zedAccount}}</td>
-            <td>{{item.title}}</td>
-            <td>{{item.regDate|getTime}}</td>
-            <td>{{item.province}}{{item.city}}</td>
-            <td>{{item.mile}}</td>
-            <td>{{item.highPrice}}</td>
-            <td>{{item.name}}</td>
-            <td>{{item.mobile}}</td>
-            <td>{{item.carNum}}</td>
-            <td>{{item.pushPlatformType|getFormtype}}</td>
-            <td>{{item.applyStatus |getStatus}}</td>
+            <td class="width80">{{item.updated}}</td>
+            <td class="width80">{{item.zedAccount}}</td>
+            <td class="width210">{{item.title}}</td>
+            <td class="width80">{{item.regDate|getTime}}</td>
+            <td class="width60">{{item.province}}{{item.city}}</td>
+            <td class="width60">{{item.mile}}</td>
+            <td class="width80">{{item.highPrice}}</td>
+            <td class="width60">{{item.name}}</td>
+            <td class="width80">{{item.mobile}}</td>
+            <td class="width120">{{item.carNum}}</td>
+            <td class="width60">{{item.pushPlatformType|getFormtype}}</td>
+            <td class="width60">{{item.applyStatus |getStatus}}</td>
           </tr>
           <tr v-show="getList.length === 0">
             <td class="noData" colspan="12">暂无数据</td>
@@ -112,7 +112,7 @@
 <script>
 import { ERR_OK } from '../../common/js/config'
 import { format } from '../../common/js/times'
-import { cheCredit } from '../../api/index'
+import { cheCredit, testKY } from '../../api/index'
 // import { mapMutations } from 'vuex'
 export default {
   data() {
@@ -178,7 +178,8 @@ export default {
     }
   },
   created() {
-    this.getval()
+    this.getval();
+    // testKY();
   },
   filters: {
     getTime(t) {
@@ -194,6 +195,11 @@ export default {
     }
   },
   methods: {
+    testKY() {
+      testKY().then(res => {
+        console.log(res)
+      })
+    },
     handleItemChange(val) {
       console.log('active item:', val);
       setTimeout(_ => {
@@ -215,7 +221,6 @@ export default {
     look() {
       this.$router.push('/look')
     },
-
     getval() {
       let params = {
         applyStatus: this.value,

@@ -8,7 +8,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import 'babel-polyfill'
 import './common/scss/reset.scss'
-import './common/scss/common.scss'
+import 'font-awesome/css/font-awesome.css'
 import utils from './common/js/utils'
 
 Vue.config.productionTip = false

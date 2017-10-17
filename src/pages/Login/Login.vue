@@ -1,16 +1,16 @@
 <template>
   <div class="login-wrap">
     <div class="msLogin">
-      <div class="msTitle">车抵贷款后台管理系统</div>
+      <div class="msTitle">臻商-后台管理系统</div>
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm" @keyup.enter.native="submitForm('ruleForm')">
         <el-form-item prop="username">
-          <el-input v-model="ruleForm.username" placeholder="username"></el-input>
+          <el-input type="text" placeholder="用户名" v-model="ruleForm.username"></el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input type="password" placeholder="password" v-model="ruleForm.password"></el-input>
+          <el-input type="password" placeholder="密码" v-model="ruleForm.password"></el-input>
         </el-form-item>
         <el-form-item prop="">
-          <el-input placeholder="验证码" v-model="ruleForm.inputCode" style="width:220px;"></el-input>
+          <el-input type="text" placeholder="验证码" v-model="ruleForm.inputCode" style="width:220px;"></el-input>
           <img :src="imgUrl" alt="" @click="img">
         </el-form-item>
         <div class="login-btn">
@@ -23,23 +23,26 @@
 
 <script>
 import { userLogin } from '../../api/index'
-const dir = '/cdd'
+const dir = '/rz'
 export default {
   data: function() {
     return {
       imgUrl: dir + '/checkCode.jpg?a=' + Math.random(),
       ruleForm: {
-        account: '',
+        username: '',
         password: '',
-        checkCode: ''
+        inputCode: ''
       },
       myurl: '',
       rules: {
-        account: [
+        username: [
           { required: true, message: '请输入用户名', trigger: 'blur' }
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' }
+        ],
+        inputCode: [
+          { required: true, message: '请输入验证码', trigger: 'blur' }
         ]
       }
     }

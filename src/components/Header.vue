@@ -1,15 +1,17 @@
 <template>
   <div class="header">
-    <div class="logo">车抵贷后台管理系统V1.0</div>
-    <div class="user-info">
+    <div class="logoText left">臻商-后台管理系统V1.0</div>
+
+    <div class="mr20 right">
+      <img src="../common/images/logo.png" alt="">
+    </div>
+    <div class="user-info mr20 right">
       <el-dropdown trigger="click" @command="handleCommand">
-        <span class="el-dropdown-link">
-          <img src="../assets/user.png" class="user-icon">
-          <span style="margin-left:8px;margin-right:10px">{{role}} {{name}}</span>
-          <i class="el-icon-caret-bottom"></i>
+        <span class="el-dropdown-link colorWhite pointer">
+          <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+          <i class="ml5">用户名</i>
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="personInfo">个人信息</el-dropdown-item>
           <el-dropdown-item command="loginout">退出</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -17,6 +19,7 @@
   </div>
 </template>
 <script>
+import { userLoginOut } from '../api/index'
 export default {
   data() {
     return {
@@ -24,17 +27,15 @@ export default {
       name: sessionStorage.getItem('adminerName')
     }
   },
-  // computed: {
-  //   username() {
-  //     let usernames = localStorage.getItem('ms_username')
-  //     return usernames ? usernames : this.name
-  //   }
-  // },
   methods: {
     handleCommand(command) {
       if (command === 'loginout') {
-        localStorage.removeItem('ms_username')
-        this.$router.push('/login')
+        userLoginOut().then(res => {
+          console.log(res)
+          if (res.code === 0) {
+            this.$router.push('/login')
+          }
+        })
       } else if (command === 'personInfo') {
         this.$router.push('/personInfo')
       }
@@ -54,44 +55,19 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import '../common/scss/common.scss';
 .header {
   position: relative;
   box-sizing: border-box;
   width: 100%;
-  height: 70px;
+  height: 50px;
   font-size: 22px;
-  line-height: 70px;
-  color: #fff;
-  background: #1f2d3d;
-}
-
-.header .logo {
-  float: left;
-  width: 250px;
-  text-align: center;
-  font-size: 16px;
-}
-
-.user-info {
-  float: right;
-  padding-right: 50px;
-  font-size: 16px;
-  color: #fff;
-  .user-icon {
-    vertical-align: middle;
+  line-height: 50px;
+  color: #ffffff;
+  background: $mainColor;
+  .logoText {
+    font-size: 18px;
+    padding-left: 20px;
   }
-}
-
-.user-info .el-dropdown-link {
-  position: relative;
-  display: inline-block;
-  padding-left: 50px;
-  color: #fff;
-  cursor: pointer;
-  vertical-align: middle;
-}
-
-.el-dropdown-menu__item {
-  text-align: center;
 }
 </style>

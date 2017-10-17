@@ -1,8 +1,5 @@
 @import '../../common/scss/common';
 .mileage {
-  .el-date-editor--daterange.el-input{
-    width: auto;
-  }
   .allWrapper {
     padding: 5px 20px 0px 20px;
     .searchCondition {
@@ -14,11 +11,14 @@
           margin-bottom: 10px;
           margin-top: 10px;
         }
+        &:last-child{
+          margin-right: 0px;
+        }
       }
     }
     table {
       border: 1px solid #e1e6ef;
-      width: 93%;
+      width: 100%;
       margin-top: 20px;
       thead {
         background-color: #e1e6ef;
@@ -26,10 +26,14 @@
       tbody {
         background-color: #ffffff;
       }
-      tr th,
-      tr td {
-        padding: 14px 16px;
+      tr th{
+        padding: 12px 8px;
         text-align: center;
+      }
+      tr td {
+        padding: 6px 8px;
+        text-align: center;
+        line-height: 16px;
       }
       tr:hover {
         background-color: #f1f2f7;

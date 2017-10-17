@@ -1,5 +1,5 @@
 <template>
-  <div class="nav">
+  <div>
     <el-breadcrumb separator="/">
       <template v-for="item in items">
         <el-breadcrumb-item :to="item.path" :key="item.title">{{item.title}}</el-breadcrumb-item>

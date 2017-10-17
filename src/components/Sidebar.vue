@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar" :data-role="role">
-    <el-menu :default-active="onRoutes" class="el-menu-vertical-demo" theme="dark" unique-opened router>
+    <el-menu :default-active="onRoutes" class="el-menu-vertical-demo" unique-opened router>
       <template v-for="item in items">
         <template v-if="item.subs">
           <el-submenu :index="item.index" :key="item.index">
@@ -27,14 +27,57 @@ export default {
       role: '',
       titles: [],
       items: [{
-        icon: 'el-icon-setting',
+        icon: 'el-icon-menu',
         index: 'mileage',
-        title: '里程'
+        title: '车抵贷管理',
+        subs: [
+          {
+            index: 'mileage', // 路由名
+            title: '历程'
+          },
+          {
+            index: 'mileage1',
+            title: '统计分析'
+          },
+          {
+            index: 'mileage2',
+            title: '佣金计算'
+          }
+        ]
       },
       {
         icon: 'el-icon-menu',
-        index: 'review',
-        title: '统计分析'
+        index: '1',
+        title: '臻小贷管理',
+        subs: [
+          {
+            index: 'mileage',
+            title: '历程'
+          },
+          {
+            index: 'mileage1',
+            title: '统计分析'
+          },
+          {
+            index: 'mileage2',
+            title: '佣金计算'
+          }
+        ]
+      },
+      {
+        icon: 'el-icon-menu',
+        index: '11',
+        title: '系统管理',
+        subs: [
+          {
+            index: '2',
+            title: '用户管理'
+          },
+          {
+            index: '3',
+            title: '角色管理'
+          }
+        ]
       }
       ]
     }
@@ -46,21 +89,38 @@ export default {
   },
   methods: {},
   mounted() {
-    this.role = sessionStorage.getItem('role')
-    console.log('role:' + sessionStorage.getItem('role'))
+    // this.role = sessionStorage.getItem('role')
+    // console.log('role:' + sessionStorage.getItem('role'))
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss">
+@import '../common/scss/common.scss';
+.el-submenu__title {
+  color: #ffffff;
+}
+
+.el-menu-item.is-active {
+  color: #ffffff;
+}
+
+.el-submenu__title:hover {
+  background-color: #6DC0B6;
+}
+
+.el-menu-item {
+  color: #ffffff;
+}
+
 .sidebar {
   display: block;
   position: absolute;
-  width: auto;
+  width: $sidebarWidth;
   left: 0;
-  top: 70px;
+  top: 50px;
   bottom: 0;
-  background: #2E363F;
+  background-color: $mainColor;
 }
 
 .sidebar>ul {

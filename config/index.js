@@ -23,22 +23,23 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: 8082,
+    port: 8080,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/cdd':{
+      '/rz':{
         // target:'http://192.168.18.220:8061', // 修庆
         // target:'http://192.168.18.218:8061',
         target:'http://192.168.18.177:8030',
         // target:'http://192.168.18.178:3000',
         changeOrigin: true,
         pathRewrite: {
-          '^/cdd': ''
+          '^/rz': ''
         }
       }
     },
+    // 114.55.32.138:80 http://fq.51puhui.cn/zyd/m/zzg/home.json
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
     // (https://github.com/webpack/css-loader#sourcemaps)
