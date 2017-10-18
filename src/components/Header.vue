@@ -70,7 +70,7 @@ export default {
   background: $mainColor;
   border-bottom: 1px solid #016458;
   .logoText {
-    font-size: 18px;
+    font-size: 16px;
     padding-left: 20px;
   }
   .userIcon{

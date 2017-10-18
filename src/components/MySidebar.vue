@@ -107,7 +107,14 @@ export default {
   background-color: #14AC98;
   .menu {
     background-color: #00917e;
+    color: $menuColor;
     .borderTopParent {
+      .el-submenu__title{
+        color: #ffffff;
+        &:hover{
+          background-color: #14AC98;
+        }
+      }
       border-top: 1px solid $borderColor;
       &:first-child {
         border-top: 1px solid transparent;
@@ -117,6 +124,7 @@ export default {
       }
     }
     .child {
+      color: $menuColor;
       border-top: 1px solid $borderColor2;
       background-color: #14AC98;
       &:hover {

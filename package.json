@@ -2,7 +2,7 @@
   "name": "carLoanManage",
   "version": "1.0.0",
   "description": "A Vue.js project",
-  "author": "林祺泰 <514917919@qq.com>",
+  "author": "linqitai <514917919@qq.com>",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
