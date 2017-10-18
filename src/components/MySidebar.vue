@@ -1,12 +1,12 @@
 <template>
   <div class="sidebar" :data-role="role">
-    <el-menu :default-active="onRoutes" class="el-menu-vertical-demo" unique-opened router>
+    <el-menu :default-active="onRoutes" class="el-menu-vertical-demo menu" unique-opened router>
       <template v-for="item in items">
         <template v-if="item.subs">
-          <el-submenu class="sub" :index="item.index" :key="item.index">
+          <el-submenu :index="item.index" :key="item.index" class="borderTopParent">
             <template slot="title">
               <i :class="item.icon"></i>{{ item.title }}</template>
-            <el-menu-item v-for="(subItem,i) in item.subs" :key="i" :index="subItem.index">{{ subItem.title }}
+            <el-menu-item class="child" v-for="(subItem,i) in item.subs" :key="i" :index="subItem.index">{{ subItem.title }}
             </el-menu-item>
           </el-submenu>
         </template>
@@ -104,8 +104,28 @@ export default {
   left: 0;
   top: 50px;
   bottom: 0;
-  background-color: $mainColor;
+  background-color: #14AC98;
+  .menu {
+    background-color: #00917e;
+    .borderTopParent {
+      border-top: 1px solid $borderColor;
+      &:first-child {
+        border-top: 1px solid transparent;
+      }
+      &:last-child {
+        border-bottom: 1px solid $borderColor;
+      }
+    }
+    .child {
+      border-top: 1px solid $borderColor2;
+      background-color: #14AC98;
+      &:hover {
+        background-color: #6dc0b6;
+      }
+    }
+  }
 }
+
 .sidebar>ul {
   height: 100%;
 }

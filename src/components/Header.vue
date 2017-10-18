@@ -5,11 +5,11 @@
     <div class="mr20 right">
       <img src="../common/images/logo.png" alt="">
     </div>
-    <div class="user-info mr20 right">
+    <div class="mr20 right">
       <el-dropdown trigger="click" @command="handleCommand">
         <span class="el-dropdown-link colorWhite pointer">
-          <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-          <i class="ml5">用户名</i>
+          <img class="userIcon" src="../common/images/user.png" alt="">
+          <i class="ml5">{{username}}</i>
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="loginout">退出</el-dropdown-item>
@@ -19,15 +19,26 @@
   </div>
 </template>
 <script>
-import { userLoginOut } from '../api/index'
+import { userLoginOut, userInfo } from '../api/index'
 export default {
   data() {
     return {
       role: '',
-      name: sessionStorage.getItem('adminerName')
+      username: ''
     }
   },
   methods: {
+    getUserInfo() {
+      userInfo().then(res => {
+        console.log(res)
+        if (res.code === 1002) {
+          this.$router.push('/login')
+        } else if (res.code === 0) {
+          this.username = res.obj.username
+          console.log('username:' + this.username)
+        }
+      })
+    },
     handleCommand(command) {
       if (command === 'loginout') {
         userLoginOut().then(res => {
@@ -42,15 +53,7 @@ export default {
     }
   },
   created() {
-    this.role = sessionStorage.getItem('role')
-    if (this.role === '1') {
-      this.role = '管理员'
-      console.log('管理员')
-    } else if (this.role === '0') {
-      this.role = '超级管理员'
-    }
-    console.log('role:')
-    console.log(sessionStorage.getItem('role'))
+    this.getUserInfo()
   }
 }
 </script>
@@ -65,9 +68,17 @@ export default {
   line-height: 50px;
   color: #ffffff;
   background: $mainColor;
+  border-bottom: 1px solid #016458;
   .logoText {
     font-size: 18px;
     padding-left: 20px;
+  }
+  .userIcon{
+    vertical-align: middle;
+    height: 50px;
+    line-height: 50px;
+    width: 16px;
+    height: 16px;
   }
 }
 </style>

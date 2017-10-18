@@ -12,7 +12,7 @@
 
 <script>
 import vHead from './Header.vue'
-import vSidebar from './Sidebar.vue'
+import vSidebar from './MySidebar.vue'
 export default {
   components: {
     vHead, vSidebar
@@ -23,9 +23,6 @@ export default {
 @import '../common/scss/common.scss';
 .home {
   font-size: 13px;
-  .el-menu{
-    background-color: $mainColor;
-  }
   .content {
     background: none repeat scroll 0 0 #f2f2f2;
     position: absolute;

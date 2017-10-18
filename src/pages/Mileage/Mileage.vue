@@ -3,106 +3,117 @@
     <div class="nav">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>当前位置</el-breadcrumb-item>
-        <el-breadcrumb-item>里程</el-breadcrumb-item>
+        <el-breadcrumb-item>车抵贷管理</el-breadcrumb-item>
+        <el-breadcrumb-item>历程</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="allWrapper">
       <div class="searchCondition">
-        <div class="element">
-          <p>时间</p>
-          <div class="width200">
-            <el-date-picker style="width:200px;" v-model="timer" type="daterange" placeholder="选择日期范围">
-            </el-date-picker>
+        <div class="searchBox">
+          <div class="element">
+            <p class="inline">时间</p>
+            <div class="width200 inline">
+              <el-date-picker style="width:200px;" v-model="timer" type="daterange" placeholder="选择日期范围">
+              </el-date-picker>
+            </div>
+          </div>
+          <div class="element">
+            <p class="inline">账号</p>
+            <div class="width140 inline">
+              <el-input v-model="zend" placeholder="请输入账号" class="input" maxlength="18"></el-input>
+            </div>
+          </div>
+          <div class="element">
+            <p class="inline">状态</p>
+            <div class="width120 inline">
+              <el-select v-model="value" placeholder="请选择">
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+          </div>
+          <div class="element">
+            <p class="inline">平台选择</p>
+            <div class="width120 inline">
+              <el-select v-model="platform" placeholder="请选择">
+                <el-option v-for="item in platforms" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+          </div>
+          <div class="element">
+            <p class="inline">姓名</p>
+            <div class="width120 inline">
+              <el-input v-model="name" placeholder="请输入姓名" class="input"></el-input>
+            </div>
+          </div>
+          <div class="element">
+            <p class="inline">手机号</p>
+            <div class="width140 inline">
+              <el-input type="text" v-model="mobile" placeholder="请输入手机号码" class="input" maxlength="18"></el-input>
+            </div>
+          </div>
+          <div class="element" @click="search">
+            <el-button type="primary">查询</el-button>
+          </div>
+          <div class="element" @click="moreBtn">
+            <img class="moreIcon" src="../../common/images/topIcon.png" width="32" v-if="!searchCell">
+            <img class="moreIcon iconTransform" src="../../common/images/topIcon.png" width="32" v-if="searchCell">
           </div>
         </div>
-        <div class="element">
-          <p>状态</p>
-          <div class="width120">
-            <el-select v-model="value" placeholder="请选择">
-              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-              </el-option>
-            </el-select>
+        <div class="searchBox clear" v-if="searchCell">
+          <div class="element">
+            <p class="inline">所在城市</p>
+            <div class="width140 inline">
+              <el-input placeholder="请输入所在城市" class="input" v-model="cityOrProvince"></el-input>
+            </div>
           </div>
-        </div>
-        <div class="element">
-          <p>平台选择</p>
-          <div class="width120">
-            <el-select v-model="platform" placeholder="请选择">
-              <el-option v-for="item in platforms" :key="item.value" :label="item.label" :value="item.value">
-              </el-option>
-            </el-select>
+          <div class="element">
+            <p class="inline">身份证号</p>
+            <div class="width180 inline">
+              <el-input placeholder="请输入身份证号" class="input" v-model="carNum" maxlength="18"></el-input>
+            </div>
           </div>
-        </div>
-        <div class="element">
-          <p>手机号</p>
-          <div class="width140">
-            <el-input type="text" v-model="mobile" placeholder="请输入手机号码" class="input"></el-input>
-          </div>
-        </div>
-        <div class="element">
-          <p>账号</p>
-          <div class="width140">
-            <el-input v-model="zend" placeholder="请输入账号" class="input"></el-input>
-          </div>
-        </div>
-        <div class="element">
-          <p>姓名</p>
-          <div class="width120">
-            <el-input v-model="name" placeholder="请输入姓名" class="input"></el-input>
-          </div>
-        </div>
-        <div class="element">
-          <p>身份证号</p>
-          <div class="width180">
-            <el-input placeholder="请输入身份证号" class="input" v-model="carNum"></el-input>
-          </div>
-        </div>
-        <div class="element">
-          <p>所在城市</p>
-          <el-input placeholder="请输入所在城市" class="input" v-model="cityOrProvince"></el-input>
-        </div>
-        <div class="element" style="margin-top:32px;margin-left:0px;" @click="search">
-          <el-button type="primary">查询</el-button>
         </div>
       </div>
       <table>
         <thead>
           <tr>
-            <th>时间</th>
-            <th>账号</th>
-            <th>车型</th>
-            <th>上牌时间</th>
-            <th>所在城市</th>
-            <th>行驶里程</th>
-            <th>车辆估价</th>
-            <th>姓名</th>
-            <th>手机号</th>
-            <th>身份证号</th>
-            <th>平台选择</th>
-            <th>状态</th>
+            <th class="width80">时间</th>
+            <th class="width60">账号</th>
+            <th class="width200">车型</th>
+            <th class="width60">上牌时间</th>
+            <th class="width60">所在城市</th>
+            <th class="width70">行驶里程/公里</th>
+            <th class="width70">车辆估价/万</th>
+            <th class="width50">姓名</th>
+            <th class="width100">身份证号</th>
+            <th class="width50">手机号</th>
+            <th class="width50">平台选择</th>
+            <th class="width50">状态</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(item, index) in getList" :key="item.value" v-show="getList.length > 0">
-            <td class="width80">{{item.updated}}</td>
-            <td class="width80">{{item.zedAccount}}</td>
-            <td class="width210">{{item.title}}</td>
-            <td class="width80">{{item.regDate|getTime}}</td>
+            <td class="width80">{{item.updated|getFullDate}}</td>
+            <td class="width60">{{item.zedAccount}}</td>
+            <td class="width200">{{item.title}}</td>
+            <td class="width60">{{item.regDate}}</td>
             <td class="width60">{{item.province}}{{item.city}}</td>
-            <td class="width60">{{item.mile}}</td>
-            <td class="width80">{{item.highPrice}}</td>
-            <td class="width60">{{item.name}}</td>
-            <td class="width80">{{item.mobile}}</td>
-            <td class="width120">{{item.carNum}}</td>
-            <td class="width60">{{item.pushPlatformType|getFormtype}}</td>
-            <td class="width60">{{item.applyStatus |getStatus}}</td>
+            <td class="width70">{{item.mile}}</td>
+            <td class="width70">{{item.highPrice}}</td>
+            <td class="width50">{{item.name}}</td>
+            <td class="width100">{{item.carNum}}</td>
+            <td class="width50">{{item.mobile}}</td>
+            <td class="width50">{{item.pushPlatformType|getFormtype}}</td>
+            <td class="width50">{{item.applyStatus |getStatus}}</td>
           </tr>
           <tr v-show="getList.length === 0">
             <td class="noData" colspan="12">暂无数据</td>
           </tr>
         </tbody>
       </table>
-      <div class="block" style="margin-top:20px" v-show="showPageTag">
+      <div class="block" style="margin-top:10px" v-show="showPageTag">
         <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex" :page-size="pageSize" layout="prev, pager, next, jumper" :total="total">
         </el-pagination>
       </div>
@@ -117,6 +128,7 @@ import { cheCredit, testKY } from '../../api/index'
 export default {
   data() {
     return {
+      searchCell: false,
       mobile: '',
       carNum: '',
       name: '',
@@ -124,36 +136,18 @@ export default {
       zend: '',
       platform: '',
       platforms: [{
-        value: '0',
-        label: '微贷'
+        value: '1',
+        label: '微贷网'
       }],
       options: [{
-        value: '0',
-        label: '全部'
-      }, {
         value: '1',
-        label: '未审核'
-      }, {
-        value: '2',
-        label: '初审通过'
+        label: '已评估'
       }, {
         value: '3',
-        label: '初审未通过'
-      }, {
-        value: '4',
-        label: '发送中'
+        label: '已申请'
       }, {
         value: '5',
-        label: '已发送'
-      }, {
-        value: '6',
-        label: '已放款'
-      }, {
-        value: '7',
-        label: '未放款'
-      }, {
-        value: '8',
-        label: '有违约'
+        label: '已提交'
       }],
       provinceCitys: [{
         label: '江苏',
@@ -182,10 +176,8 @@ export default {
     // testKY();
   },
   filters: {
-    getTime(t) {
-      if (t) {
-        return format(t)
-      }
+    getFullDate(t) {
+      return format(t)
     },
     getFormtype(t) {
       return t === 1 ? '微贷网' : ''
@@ -195,27 +187,14 @@ export default {
     }
   },
   methods: {
+    moreBtn() {
+      this.searchCell = !this.searchCell
+      // console.log(this.searchCell)
+    },
     testKY() {
       testKY().then(res => {
         console.log(res)
       })
-    },
-    handleItemChange(val) {
-      console.log('active item:', val);
-      setTimeout(_ => {
-        if (val.indexOf('江苏') > -1 && !this.provinceCitys[0].cities.length) {
-          this.provinceCitys[0].cities = [{
-            label: '南京'
-          }];
-        } else if (val.indexOf('浙江') > -1 && !this.provinceCitys[1].cities.length) {
-          this.provinceCitys[1].cities = [{
-            label: '杭州'
-          }, {
-            label: '温州'
-          }];
-          this.provinceCitys[1].cities.push({ label: '宁波' })
-        }
-      }, 300);
     },
     // 查看
     look() {
@@ -236,7 +215,7 @@ export default {
         pageSize: this.pageSize
       }
       cheCredit(params).then(res => {
-        console.log(res)
+        console.log('list len:' + res.count)
         if (res.code === ERR_OK) {
           this.getList = res.list
           this.total = res.count
@@ -264,7 +243,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import './Mileage'
 </style>
 
