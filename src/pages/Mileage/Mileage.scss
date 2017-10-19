@@ -4,6 +4,10 @@
     padding: 5px 20px 0px 20px;
     .searchCondition {
       overflow: hidden;
+      .searchBox{
+        overflow: hidden;
+        margin-top: 10px;
+      }
       .element {
         float: left;
         margin-right: 15px;
@@ -14,34 +18,17 @@
         &:last-child{
           margin-right: 0px;
         }
+        .moreIcon{
+          margin-top: 3px;
+        }
+        .iconTransform{
+          transform: rotate(180deg);
+          -moz-transform:rotate(180deg);
+          -webkit-transform:rotate(180deg);
+          -o-transform:rotate(180deg); 
+          -ms-transform:rotate(180deg);
+        }
       }
-    }
-    table {
-      border: 1px solid #e1e6ef;
-      width: 100%;
-      margin-top: 20px;
-      thead {
-        background-color: #e1e6ef;
-      }
-      tbody {
-        background-color: #ffffff;
-      }
-      tr th{
-        padding: 12px 8px;
-        text-align: center;
-      }
-      tr td {
-        padding: 6px 8px;
-        text-align: center;
-        line-height: 16px;
-      }
-      tr:hover {
-        background-color: #f1f2f7;
-      }
-    }
-    .noData {
-      font-size: 16px;
-      padding: 30px;
     }
   }
 }

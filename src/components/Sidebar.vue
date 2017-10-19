@@ -3,7 +3,7 @@
     <el-menu :default-active="onRoutes" class="el-menu-vertical-demo" unique-opened router>
       <template v-for="item in items">
         <template v-if="item.subs">
-          <el-submenu :index="item.index" :key="item.index">
+          <el-submenu class="sub" :index="item.index" :key="item.index">
             <template slot="title">
               <i :class="item.icon"></i>{{ item.title }}</template>
             <el-menu-item v-for="(subItem,i) in item.subs" :key="i" :index="subItem.index">{{ subItem.title }}
@@ -97,22 +97,6 @@ export default {
 
 <style lang="scss">
 @import '../common/scss/common.scss';
-.el-submenu__title {
-  color: #ffffff;
-}
-
-.el-menu-item.is-active {
-  color: #ffffff;
-}
-
-.el-submenu__title:hover {
-  background-color: #6DC0B6;
-}
-
-.el-menu-item {
-  color: #ffffff;
-}
-
 .sidebar {
   display: block;
   position: absolute;
@@ -122,7 +106,6 @@ export default {
   bottom: 0;
   background-color: $mainColor;
 }
-
 .sidebar>ul {
   height: 100%;
 }
