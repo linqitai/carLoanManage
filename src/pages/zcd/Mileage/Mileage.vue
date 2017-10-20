@@ -131,7 +131,7 @@
         </tbody>
       </table>
       <div class="block" style="margin-top:10px" v-show="showPageTag">
-        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex" :page-size="pageSize" layout="prev, pager, next, jumper" :total="total">
+        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex" :page-size="pageSize" layout="total,prev, pager, next, jumper" :total="total">
         </el-pagination>
       </div>
     </div>
@@ -175,6 +175,9 @@ export default {
       }, {
         value: '15-30',
         label: '15-30'
+      }, {
+        value: '30-50',
+        label: '30-50'
       }, {
         value: '50-5000',
         label: '>50'

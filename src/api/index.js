@@ -1,6 +1,6 @@
 import http from './public'
 // 登录接口
-let cdd = '/rz'
+export const cdd = '/rz'
 export const userLogin = (params) => {
   return http.fetchPost(cdd + '/login.json', params)
 }

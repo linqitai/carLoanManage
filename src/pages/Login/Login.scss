@@ -34,9 +34,11 @@
         color: $mainColor;
       }
     }
-    img {
+    .inputCodeImg {
       float: right;
-      margin-top: 2px;
+      width: 70px;
+      height: 36px;
+      border-radius: 4px;
     }
   }
 }
