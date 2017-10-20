@@ -41,7 +41,8 @@ module.exports = {
       '/zyd':{
         // target:'http://192.168.18.220:8061', // 修庆
         // target:'http://192.168.18.218:8061',
-        target:'http://101.37.255.101:8061',
+        // target:'http://192.168.18.227:8090',
+        target:'http://101.37.255.101:8061', // 线上
         // target:'http://192.168.18.178:3000',
         changeOrigin: true,
         pathRewrite: {

@@ -17,21 +17,18 @@
         <div class="searchBox">
           <div class="element">
             <p class="inline">时间</p>
-            <div class="width200 inline">
-              <el-date-picker style="width:200px;" v-model="timer" type="daterange" placeholder="选择日期范围">
+            <div class="inline">
+              <el-date-picker class="inline" style="width:120px;" v-model="startTime" type="date" placeholder="开始时间" @change="startTimeChange">
               </el-date-picker>
-            </div>
-          </div>
-          <div class="element">
-            <p class="inline">账号</p>
-            <div class="width140 inline">
-              <el-input v-model="zend" placeholder="请输入账号" class="input" maxlength="18"></el-input>
+              <span class="inline">至</span>
+              <el-date-picker class="inline" style="width:120px;" v-model="endTime" type="date" placeholder="结束时间" @change="endTimeChange">
+              </el-date-picker>
             </div>
           </div>
           <div class="element">
             <p class="inline">状态</p>
             <div class="width120 inline">
-              <el-select v-model="value" placeholder="请选择">
+              <el-select v-model="applyStatus" placeholder="请选择" @change="search">
                 <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
@@ -40,22 +37,22 @@
           <div class="element">
             <p class="inline">平台选择</p>
             <div class="width120 inline">
-              <el-select v-model="platform" placeholder="请选择">
+              <el-select v-model="platform" placeholder="请选择" @change="search">
                 <el-option v-for="item in platforms" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
             </div>
           </div>
           <div class="element">
-            <p class="inline">姓名</p>
-            <div class="width120 inline">
-              <el-input v-model="name" placeholder="请输入姓名" class="input"></el-input>
+            <p class="inline">所在省市</p>
+            <div class="width140 inline">
+              <el-input placeholder="请输入所在省市" class="input" v-model="cityOrProvince" @keyup.enter.native="search"></el-input>
             </div>
           </div>
           <div class="element">
-            <p class="inline">手机号</p>
-            <div class="width140 inline">
-              <el-input type="text" v-model="mobile" placeholder="请输入手机号码" class="input" maxlength="18"></el-input>
+            <p class="inline">姓名</p>
+            <div class="width120 inline">
+              <el-input v-model="name" placeholder="请输入姓名" class="input" @keyup.enter.native="search"></el-input>
             </div>
           </div>
           <div class="element" @click="search">
@@ -68,15 +65,30 @@
         </div>
         <div class="searchBox clear" v-if="searchCell">
           <div class="element">
-            <p class="inline">所在城市</p>
+            <p class="inline">账号</p>
             <div class="width140 inline">
-              <el-input placeholder="请输入所在城市" class="input" v-model="cityOrProvince"></el-input>
+              <el-input v-model="zend" placeholder="请输入账号" class="input" @keyup.enter.native="search"></el-input>
             </div>
           </div>
           <div class="element">
             <p class="inline">身份证号</p>
             <div class="width180 inline">
-              <el-input placeholder="请输入身份证号" class="input" v-model="carNum" maxlength="18"></el-input>
+              <el-input placeholder="请输入身份证号" class="input" v-model="carNum" @keyup.enter.native="search"></el-input>
+            </div>
+          </div>
+          <div class="element">
+            <p class="inline">手机号</p>
+            <div class="width140 inline">
+              <el-input type="text" v-model="mobile" placeholder="请输入手机号码" class="input" @keyup.enter.native="search"></el-input>
+            </div>
+          </div>
+          <div class="element">
+            <p class="inline">车辆估价</p>
+            <div class="width120 inline">
+              <el-select v-model="highPrice" placeholder="请选择" @change="searchByPrice">
+                <el-option v-for="item in highPrices" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
             </div>
           </div>
         </div>
@@ -100,7 +112,7 @@
         </thead>
         <tbody>
           <tr v-for="(item, index) in getList" :key="item.value" v-show="getList.length > 0">
-            <td class="width80">{{item.updated|getFullDate}}</td>
+            <td class="width80">{{item.updated | getFullDate}}</td>
             <td class="width60">{{item.zedAccount}}</td>
             <td class="width200">{{item.title}}</td>
             <td class="width60">{{item.regDate}}</td>
@@ -110,8 +122,8 @@
             <td class="width50">{{item.name}}</td>
             <td class="width100">{{item.carNum}}</td>
             <td class="width50">{{item.mobile}}</td>
-            <td class="width50">{{item.pushPlatformType|getFormtype}}</td>
-            <td class="width50">{{item.applyStatus |getStatus}}</td>
+            <td class="width50">{{item.pushPlatformType | getFormtype}}</td>
+            <td class="width50">{{item.applyStatus | getStatus}}</td>
           </tr>
           <tr v-show="getList.length === 0">
             <td class="noData" colspan="12">暂无数据</td>
@@ -126,24 +138,51 @@
   </div>
 </template>
 <script>
-import { format } from '../../../common/js/times'
+import { format, getTime } from '../../../common/js/times'
 import { cheCredit, testKY } from '@/api/index'
-// import { mapMutations } from 'vuex'
+
 export default {
   data() {
     return {
       searchCell: false,
+      startTime: '',
+      endTime: '',
       mobile: '',
       carNum: '',
       name: '',
+      highPrice: '',
       cityOrProvince: '',
       zend: '',
+      maxPrice: '',
+      minPrice: '',
       platform: '',
       platforms: [{
+        value: '',
+        label: '全部'
+      }, {
         value: '1',
         label: '微贷网'
       }],
+      highPrices: [{
+        value: '',
+        label: '全部'
+      }, {
+        value: '0-5',
+        label: '0-5'
+      }, {
+        value: '5-15',
+        label: '5-15'
+      }, {
+        value: '15-30',
+        label: '15-30'
+      }, {
+        value: '50-5000',
+        label: '>50'
+      }],
       options: [{
+        value: '',
+        label: '全部'
+      }, {
         value: '1',
         label: '已评估'
       }, {
@@ -167,7 +206,7 @@ export default {
       pageIndex: 1,
       pageSize: 10,
       total: 1,
-      value: '',
+      applyStatus: '',
       timer: '',
       companyName: '',
       employeeName: '',
@@ -187,18 +226,28 @@ export default {
       return t === 1 ? '微贷网' : ''
     },
     getStatus(t) {
-      return t === 1 ? '已评估' : t === 3 ? '已申请' : t === 5 ? '申请成功' : ''
+      return t === 1 ? '已评估' : t === 3 ? '已申请' : t === 5 ? '已提交' : ''
     }
   },
   methods: {
-    moreBtn() {
-      this.searchCell = !this.searchCell
-      // console.log(this.searchCell)
-    },
     testKY() {
       testKY().then(res => {
         console.log(res)
       })
+    },
+    startTimeChange() {
+      if (this.endTime) {
+        this.getval()
+      }
+    },
+    endTimeChange() {
+      if (this.startTime) {
+        this.getval()
+      }
+    },
+    moreBtn() {
+      this.searchCell = !this.searchCell
+      // console.log(this.searchCell)
     },
     // 查看
     look() {
@@ -206,9 +255,9 @@ export default {
     },
     getval() {
       let params = {
-        applyStatus: this.value,
-        _startTime: this.timer[0] ? Date.parse(this.timer[0]) : '',
-        _endTime: this.timer[1] ? Date.parse(this.timer[1]) : '',
+        applyStatus: this.applyStatus,
+        _startTime: this.startTime ? getTime(this.startTime) : '',
+        _endTime: this.endTime ? getTime(this.endTime) : '',
         pushPlatformType: this.platform,
         zedAccount: this.zend,
         cityOrProvince: this.cityOrProvince,
@@ -216,7 +265,9 @@ export default {
         carNum: this.carNum,
         mobile: this.mobile,
         pageIndex: this.pageIndex,
-        pageSize: this.pageSize
+        pageSize: this.pageSize,
+        minPrice: this.minPrice,
+        maxPrice: this.maxPrice
       }
       cheCredit(params).then(res => {
         console.log('list len:' + res.count)
@@ -233,6 +284,13 @@ export default {
     },
     // 查询
     search() {
+      this.getval()
+    },
+    searchByPrice() {
+      let price = this.highPrice
+      console.log(price)
+      this.minPrice = price.split('-')[0]
+      this.maxPrice = price.split('-')[1]
       this.getval()
     },
     handleSizeChange(val) {

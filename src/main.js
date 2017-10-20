@@ -8,11 +8,11 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import 'babel-polyfill'
 import './common/scss/reset.scss'
-import utils from './common/js/utils'
+// import utils from './common/js/utils'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
-Vue.use(utils)
+// Vue.use(utils)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
