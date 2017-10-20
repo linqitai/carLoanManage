@@ -2,8 +2,13 @@
   <div class="mileage">
     <div class="nav">
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item>当前位置</el-breadcrumb-item>
-        <el-breadcrumb-item>车抵贷管理</el-breadcrumb-item>
+        <img class="hoemIcon left mr3" src="../../../common/images/homeIcon.png" alt="">
+        <el-breadcrumb-item>
+          <span class="text">当前位置</span>
+        </el-breadcrumb-item>
+        <el-breadcrumb-item>
+          <span class="text">车抵贷管理</span>
+        </el-breadcrumb-item>
         <el-breadcrumb-item>历程</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
@@ -54,11 +59,11 @@
             </div>
           </div>
           <div class="element" @click="search">
-            <el-button type="primary">查询</el-button>
+            <el-button type="primary" class="searchBtn">查询</el-button>
           </div>
           <div class="element" @click="moreBtn">
-            <img class="moreIcon" src="../../common/images/topIcon.png" width="32" v-if="!searchCell">
-            <img class="moreIcon iconTransform" src="../../common/images/topIcon.png" width="32" v-if="searchCell">
+            <img class="moreIcon" src="../../../common/images/arrow_down.png" v-if="!searchCell">
+            <img class="moreIcon iconTransform" src="../../../common/images/arrow_down.png" v-if="searchCell">
           </div>
         </div>
         <div class="searchBox clear" v-if="searchCell">
@@ -121,9 +126,8 @@
   </div>
 </template>
 <script>
-import { ERR_OK } from '../../common/js/config'
-import { format } from '../../common/js/times'
-import { cheCredit, testKY } from '../../api/index'
+import { format } from '../../../common/js/times'
+import { cheCredit, testKY } from '@/api/index'
 // import { mapMutations } from 'vuex'
 export default {
   data() {
@@ -216,7 +220,7 @@ export default {
       }
       cheCredit(params).then(res => {
         console.log('list len:' + res.count)
-        if (res.code === ERR_OK) {
+        if (res.code === 0) {
           this.getList = res.list
           this.total = res.count
           if (this.total <= this.pageSize) {
@@ -243,7 +247,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import './Mileage'
 </style>
 
