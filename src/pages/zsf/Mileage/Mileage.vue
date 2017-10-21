@@ -56,11 +56,11 @@
             </div>
           </div>
           <div class="element" @click="search()">
-            <el-button type="primary">查询</el-button>
+            <el-button type="primary" class="searchBtn">查询</el-button>
           </div>
           <div class="element" @click="">
-            <img class="moreIcon" src="../../../common/images/topIcon.png" width="32" v-if="!searchCell">
-            <img class="moreIcon iconTransform" src="../../../common/images/topIcon.png" width="32" v-if="searchCell">
+            <img class="moreIcon" src="../../../common/images/arrow_down.png" width="32" v-if="!searchCell">
+            <img class="moreIcon iconTransform" src="../../../common/images/arrow_down.png" width="32" v-if="searchCell">
           </div>
 
         </div>

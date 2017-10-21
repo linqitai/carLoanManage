@@ -62,7 +62,7 @@ export default {
 //        index: 'NoPage11',
 //        title: '佣金计算'
       {
-        icon: 'el-icon-menu',
+        icon: 'http://static.hpbanking.com/xg/uploads/files/f6d57143aaf418bd5556f0f45b630b0b-18-18.png',
         index: 'zsfMileage',
         title: '风控管理',
         subs: [
