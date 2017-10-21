@@ -82,15 +82,15 @@ export default {
       },
       {
         icon: 'http://static.hpbanking.com/xg/uploads/files/ef71d4b495346ef16e0ff79e5c87f893-18-18.png',
-        index: 'NoPage3',
+        index: 'user',
         title: '系统管理',
         subs: [
           {
-            index: 'NoPage4',
+            index: 'user',
             title: '用户管理'
           },
           {
-            index: 'NoPage6',
+            index: 'role',
             title: '角色管理'
           }
         ]

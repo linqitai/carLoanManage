@@ -5,6 +5,8 @@ import Home from '../components/Home'
 import Mileage from '../pages/zcd/Mileage/Mileage'
 import zsfMileage from '../pages/zsf/Mileage/Mileage'
 import NoPage from '../pages/common/NoPage'
+import user from '../pages/Manage/user'
+import role from '../pages/Manage/role'
 
 Vue.use(Router)
 
@@ -33,6 +35,16 @@ export default new Router({
           path: '/NoPage',
           name: 'NoPage',
           component: NoPage
+        },
+        {
+          path: '/user',
+          name: 'user',
+          component: user
+        },
+        {
+          path: '/role',
+          name: 'role',
+          component: role
         }
       ]
     },

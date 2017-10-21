@@ -63,35 +63,37 @@
             <img class="moreIcon iconTransform" src="../../../common/images/arrow_down.png" v-if="searchCell">
           </div>
         </div>
-        <div class="searchBox clear" v-if="searchCell">
-          <div class="element">
-            <p class="inline">账号</p>
-            <div class="width140 inline">
-              <el-input v-model="zend" placeholder="请输入账号" class="input" @keyup.enter.native="search"></el-input>
+        <transition name="fade">
+          <div class="searchBox clear" v-if="searchCell">
+            <div class="element">
+              <p class="inline">账号</p>
+              <div class="width140 inline">
+                <el-input v-model="zend" placeholder="请输入账号" class="input" @keyup.enter.native="search"></el-input>
+              </div>
+            </div>
+            <div class="element">
+              <p class="inline">身份证号</p>
+              <div class="width180 inline">
+                <el-input placeholder="请输入身份证号" class="input" v-model="carNum" @keyup.enter.native="search"></el-input>
+              </div>
+            </div>
+            <div class="element">
+              <p class="inline">手机号</p>
+              <div class="width140 inline">
+                <el-input type="text" v-model="mobile" placeholder="请输入手机号码" class="input" @keyup.enter.native="search"></el-input>
+              </div>
+            </div>
+            <div class="element">
+              <p class="inline">车辆估价</p>
+              <div class="width120 inline priceBox">
+                <el-select v-model="highPrice" placeholder="请选择" @change="searchByPrice">
+                  <el-option v-for="item in highPrices" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </div>
             </div>
           </div>
-          <div class="element">
-            <p class="inline">身份证号</p>
-            <div class="width180 inline">
-              <el-input placeholder="请输入身份证号" class="input" v-model="carNum" @keyup.enter.native="search"></el-input>
-            </div>
-          </div>
-          <div class="element">
-            <p class="inline">手机号</p>
-            <div class="width140 inline">
-              <el-input type="text" v-model="mobile" placeholder="请输入手机号码" class="input" @keyup.enter.native="search"></el-input>
-            </div>
-          </div>
-          <div class="element">
-            <p class="inline">车辆估价</p>
-            <div class="width120 inline">
-              <el-select v-model="highPrice" placeholder="请选择" @change="searchByPrice">
-                <el-option v-for="item in highPrices" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-          </div>
-        </div>
+        </transition>
       </div>
       <table>
         <thead>
@@ -131,7 +133,7 @@
         </tbody>
       </table>
       <div class="block" style="margin-top:10px" v-show="showPageTag">
-        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex" :page-size="pageSize" layout="prev, pager, next, jumper" :total="total">
+        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex" :page-size="pageSize" layout="total,prev, pager, next, jumper" :total="total">
         </el-pagination>
       </div>
     </div>
@@ -175,6 +177,9 @@ export default {
       }, {
         value: '15-30',
         label: '15-30'
+      }, {
+        value: '30-50',
+        label: '30-50'
       }, {
         value: '50-5000',
         label: '>50'
