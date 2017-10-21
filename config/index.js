@@ -23,7 +23,7 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: 8089,
+    port: 8081,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
@@ -31,21 +31,30 @@ module.exports = {
       '/rz':{
         // target:'http://192.168.18.220:8061', // 修庆
         // target:'http://192.168.18.218:8061',
-        target:'http://192.168.18.177:8030',
+        target:'http://192.168.18.177:8030', // 子涵
         // target:'http://192.168.18.178:3000',
         changeOrigin: true,
         pathRewrite: {
           '^/rz': ''
         }
       },
-      '/zyd':{
-        // target:'http://192.168.18.220:8061', // 修庆
-        // target:'http://192.168.18.218:8061',
-        target:'http://101.37.255.101:8061',
-        // target:'http://192.168.18.178:3000',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/zyd': ''
+      // '/zyd':{
+      //   // target:'http://192.168.18.220:8061', // 修庆
+      //   // target:'http://192.168.18.218:8061',
+      //   // target:'http://101.37.255.101:8061',
+      //   // target:'http://192.168.18.178:3000',
+      //   target:'http://192.168.18.227:8090', // 临时
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     '^/zyd': ''
+      //   }
+      // },
+      '/zsf':{
+        target:'http://192.168.18.227:8090',
+        // target:'http://114.55.86.215:8090',
+        changeOrigin:true,
+        pathRewrite:{
+          '^/zsf':''
         }
       }
     },

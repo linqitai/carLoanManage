@@ -47,20 +47,20 @@ export default {
       },
       {
         icon: 'el-icon-menu',
-        index: '1',
-        title: '臻小贷管理',
+        index: 'zsfMileage',
+        title: '风控管理',
         subs: [
           {
-            index: 'mileage',
+            index: 'zsfMileage',
             title: '历程'
           },
           {
-            index: 'mileage1',
+            index: 'zsfMileage',
             title: '统计分析'
           },
           {
-            index: 'mileage2',
-            title: '佣金计算'
+            index: 'zsfMileage',
+            title: '大数据'
           }
         ]
       },

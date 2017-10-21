@@ -1,6 +1,11 @@
 import http from './public'
+export const config = {
+  headers: {
+    'Content-Type': 'application/json'
+  }
+}
 // 登录接口
-let cdd = '/rz'
+export const cdd = '/rz'
 export const userLogin = (params) => {
   return http.fetchPost(cdd + '/login.json', params)
 }
@@ -16,8 +21,9 @@ export const userInfo = (params) => {
 export const cheCredit = (params) => {
   return http.fetchPost(cdd + '/filter/cheCredit/queryCheCreditList.json', params)
 }
-// 测试跨域问题
-let pg = '/zyd'
-export const testKY = (params) => {
-  return http.fetchPost(pg + '/employee/securityCompanyView.json', params)
+// 臻商分自评后台
+export const zsf = '/zsf'
+// 自评记录查询接口
+export const zsfQuery = (params) => {
+  return http.fetchPost2(zsf + '/selfeval/query', params)
 }
