@@ -2,7 +2,8 @@
   <div class="loginWrap">
     <!-- <div class="loginBox"><img src="../../common/images/logo.png"></div> -->
     <div class="msLogin">
-      <div class="msTitle left">臻商-后台管理系统</div><img src="../../common/images/logo.png" class="right">
+      <div class="msTitle left">臻商-后台管理系统</div>
+      <!-- <img src="../../common/images/logo.png" class="right"> -->
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
         <el-form-item prop="username">
           <el-input type="text" placeholder="用户名" v-model="ruleForm.username" @keyup.enter.native="tonext(1)"></el-input>

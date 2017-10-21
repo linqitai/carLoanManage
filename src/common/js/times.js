@@ -14,3 +14,16 @@ export function format(t) {
     (s < 10 ? '0' + s : s)
   )
 }
+// 获取完整的时间（年月日）
+export function getDate(t) {
+  var time = new Date(t)
+  var y = time.getFullYear()
+  var m = time.getMonth() + 1
+  var d = time.getDate()
+  return y + '-' + (m < 10 ? '0' + m : m) + '-' + (d < 10 ? '0' + d : d)
+}
+// 获取时间戳
+export function getTime(t) {
+  var time = new Date(t)
+  return time.getTime()
+}

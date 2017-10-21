@@ -1,0 +1,48 @@
+@mixin border_top($color) {
+  border: none;
+  &:after {
+    content: '';
+    position: absolute;
+    background: $color;
+    width: 100%;
+    height: 1px;
+    left: 0;
+    top: 0;
+    -webkit-transform: scaleY(0.7);
+    transform: scaleY(0.7);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+  }
+}
+@mixin border_bottom($color) {
+  border: none;
+  &:after {
+    content: '';
+    position: absolute;
+    background: $color;
+    width: 100%;
+    height: 1px;
+    left: 0;
+    bottom: 0;
+    -webkit-transform: scaleY(0.7);
+    transform: scaleY(0.7);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+  }
+}
+@mixin border_bottom2($color) {
+  border: none;
+  &:after {
+    content: '';
+    position: absolute;
+    background: $color;
+    width: 80%;
+    height: 1px;
+    right: 0;
+    bottom: 0;
+    -webkit-transform: scaleY(0.7);
+    transform: scaleY(0.7);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+  }
+}

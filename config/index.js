@@ -23,7 +23,7 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: 8081,
+    port: 8087,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
@@ -38,23 +38,23 @@ module.exports = {
           '^/rz': ''
         }
       },
-      // '/zyd':{
-      //   // target:'http://192.168.18.220:8061', // 修庆
-      //   // target:'http://192.168.18.218:8061',
-      //   // target:'http://101.37.255.101:8061',
-      //   // target:'http://192.168.18.178:3000',
-      //   target:'http://192.168.18.227:8090', // 临时
-      //   changeOrigin: true,
-      //   pathRewrite: {
-      //     '^/zyd': ''
-      //   }
-      // },
       '/zsf':{
         target:'http://192.168.18.227:8090',
         // target:'http://114.55.86.215:8090',
         changeOrigin:true,
         pathRewrite:{
           '^/zsf':''
+        }
+      },
+      '/zyd':{
+        // target:'http://192.168.18.220:8061', // 修庆
+        // target:'http://192.168.18.218:8061',
+        // target:'http://192.168.18.227:8090',
+        target:'http://101.37.255.101:8061', // 线上
+        // target:'http://192.168.18.178:3000',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/zyd': ''
         }
       }
     },

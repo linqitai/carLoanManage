@@ -28,7 +28,7 @@ export default {
     position: absolute;
     left: $sidebarWidth;
     right: 0;
-    top: 50px;
+    top: 42px;
     bottom: 0;
     width: auto;
     box-sizing: border-box;
@@ -36,6 +36,15 @@ export default {
     .nav {
       background: #ffffff;
       padding: 12px 0 10px 20px;
+      .hoemIcon {
+        height: 12px;
+      }
+      .text {
+        color: $mainColor;
+        &:hover {
+          color: $mainColor;
+        }
+      }
     }
   }
 }
@@ -45,8 +54,7 @@ export default {
   transition: opacity .5s
 }
 .fade-enter,
-.fade-leave-to
-{
+.fade-leave-to {
   opacity: 0
 }
 </style>

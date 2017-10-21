@@ -143,7 +143,7 @@
         <tr>
           <th class="width80">自评时间</th>
           <th class="width60">手机号</th>
-          <th class="width200">姓名</th>
+          <th class="width60">姓名</th>
           <th class="width60">身份证号</th>
           <th class="width60">婚姻状态</th>
           <th class="width70">配偶职业</th>
@@ -158,13 +158,13 @@
         <tr v-for="(item, index) in getList" :key="item.value" v-show="getList.length > 0">
           <td class="width80">{{item.date | getFullDate}}</td>
           <td class="width60">{{item.mobile}}</td>
-          <td class="width200">{{item.name}}</td>
+          <td class="width60">{{item.name}}</td>
           <td class="width60">{{item.identityNo}}</td>
           <td class="width60">{{item.marriage | getmarryStatus}}</td>
           <td class="width70">{{item.spouseOCP | getsupStatus}}</td>
           <td class="width70">{{item.childOCP | getsupStatus}}</td>
           <td class="width50">{{item.fmSaving}}</td>
-          <td class="width50">{{item.score}}</td>
+          <td class="width50">{{item.score | getInt}}</td>
           <td class="width50">{{item.quota}}</td>
           <td class="width50">{{item.status | getStatus}}</td>
         </tr>
@@ -290,6 +290,9 @@
       this.zsfQuery();
     },
     filters: {
+      getInt(t) {
+        return parseInt(t)
+      },
       getFullDate(t) {
         return format(t)
       },
