@@ -21,17 +21,20 @@
     // background-color: #20897A;
     overflow: hidden;
     .msTitle {
-      font-size: 20px;
+      font-size: 18px;
       color: #ffffff;
       padding-bottom: 18px;
       margin-top: 40px;
     }
     .login-btn {
-      text-align: center;
       .loginBtn {
         width: 100%;
         height: 36px;
         color: $mainColor;
+      }
+      img{
+        width: 36px;
+        margin-left: 95px;
       }
     }
     .inputCodeImg {
