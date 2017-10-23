@@ -56,7 +56,7 @@
             </div>
           </div>
           <div class="element" @click="search">
-            <el-button type="primary" class="searchBtn">查询</el-button>
+            <el-button type="" class="searchBtn">查询</el-button>
           </div>
           <div class="element" @click="moreBtn">
             <img class="moreIcon" src="../../../common/images/arrow_down.png" v-if="!searchCell">

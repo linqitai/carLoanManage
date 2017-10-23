@@ -120,7 +120,11 @@ $sidebarWidth: 160px;
   clear: both;
 }
 .searchBtn{
-  background-color: $mainColor;
+  background-color: $mainColor !important;
+  color: #ffffff !important;
+  &:hover{
+    color: #ffffff !important;
+  }
 }
 .moreIcon{
   margin-top: 10px;
