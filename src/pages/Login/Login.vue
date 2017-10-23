@@ -4,7 +4,7 @@
     <div class="msLogin">
       <div class="msTitle left">臻商后台管理系统V1.0</div>
       <!-- <img src="../../common/images/logo.png" class="right"> -->
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
+      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="ruleForm">
         <el-form-item prop="username">
           <el-input type="text" placeholder="用户名" auto-complete="true" v-model="ruleForm.username" @keyup.enter.native="tonext(1)" :autofocus="autofocus"></el-input>
         </el-form-item>
@@ -15,8 +15,8 @@
           <el-input type="text" placeholder="验证码" v-model="ruleForm.inputCode" style="width:220px;" @keyup.enter.native="submitForm('ruleForm')"></el-input>
           <img class="inputCodeImg" :src="imgUrl" alt="" @click="img">
         </el-form-item>
-        <div class="login-btn">
-          <img src="../../common/images/logoForLogin.png" @click="submitForm('ruleForm')">
+        <div class="loginBtn">
+          <img src="../../common/images/loginLogo.jpg" @click="submitForm('ruleForm')">
         </div>
         <!-- <div class="login-btn">
           <el-button type="default" class="loginBtn" @click="submitForm('ruleForm')" ref="loginBtn">登录</el-button>
