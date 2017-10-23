@@ -5,7 +5,10 @@
         <template v-if="item.subs">
           <el-submenu :index="item.index" :key="item.index" class="borderTopParent">
             <template slot="title">
-              <i><img :src="item.icon" class="titleIcon"><span class="titleText">{{ item.title }}</span></i></template>
+              <i><img :src="item.icon" class="titleIcon">
+                <span class="titleText">{{ item.title }}</span>
+              </i>
+            </template>
             <el-menu-item class="child" v-for="(subItem,i) in item.subs" :key="i" :index="subItem.index">
               <div class="text">{{ subItem.title }}</div>
             </el-menu-item>
@@ -37,46 +40,73 @@ export default {
             title: '历程'
           },
           {
-            index: 'NoPage',
+            index: 'sysAnalysis',
             title: '统计分析'
           },
           {
-            index: 'NoPage12',
+            index: 'comCalculation',
             title: '佣金计算'
           }
         ]
       },
-//        icon: 'http://static.hpbanking.com/xg/uploads/files/f6d57143aaf418bd5556f0f45b630b0b-18-18.png',
-//      index: 'NoPage2',
-//      title: '臻小贷管理',
-//      subs: [
-//      {
-//        index: 'NoPage111',
-//        title: '历程'
-//      },
-//      {
-//        index: 'NoPage111',
-//        title: '统计分析'
-//      },
-//      {
-//        index: 'NoPage11',
-//        title: '佣金计算'
       {
-        icon: 'el-icon-menu',
-        index: 'zsfMileage',
-        title: '风控管理',
+        icon: 'http://static.hpbanking.com/xg/uploads/files/f6d57143aaf418bd5556f0f45b630b0b-18-18.png',
+        index: 'zedMileage',
+        title: '臻e贷管理',
         subs: [
           {
-            index: 'zsfMileage',
+            index: 'zedMileage',
             title: '历程'
           },
           {
-            index: 'zsfMileage',
+            index: 'zedSysAnalysis',
             title: '统计分析'
           },
           {
+            index: 'zedComCalculation',
+            title: '佣金计算'
+          }
+        ]
+      },
+      {
+        icon: 'http://static.hpbanking.com/xg/uploads/files/f6d57143aaf418bd5556f0f45b630b0b-18-18.png',
+        index: 'zsfMileage',
+        title: '臻商分管理',
+        subs: [
+          {
             index: 'zsfMileage',
-            title: '大数据'
+            title: '自评历程'
+          },
+          {
+            index: 'zsfMileage',
+            title: '提额历程'
+          },
+          {
+            index: 'zsfSysAnalysis',
+            title: '统计分析'
+          },
+          {
+            index: 'zsfComCalculation',
+            title: '激活审批'
+          }
+        ]
+      },
+      {
+        icon: 'http://static.hpbanking.com/xg/uploads/files/f6d57143aaf418bd5556f0f45b630b0b-18-18.png',
+        index: 'bdBig',
+        title: '大数据管理',
+        subs: [
+          {
+            index: 'bdBig',
+            title: '大库'
+          },
+          {
+            index: 'bdSysAnalysis',
+            title: '小库'
+          },
+          {
+            index: 'bdComCalculation',
+            title: '商业开发'
           }
         ]
       },
@@ -126,10 +156,10 @@ export default {
     background-color: #00917e;
     color: $menuColor;
     .borderTopParent {
-      .titleIcon{
+      .titleIcon {
         margin-bottom: 3px;
       }
-      .titleText{
+      .titleText {
         padding-left: 4px;
       }
       .el-submenu__title {

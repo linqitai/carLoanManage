@@ -119,6 +119,23 @@ $sidebarWidth: 160px;
 .clear{
   clear: both;
 }
+.searchBtn{
+  background-color: $mainColor !important;
+  color: #ffffff !important;
+  &:hover{
+    color: #ffffff !important;
+  }
+}
+.moreIcon{
+  margin-top: 10px;
+  width: 16px;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in below version 2.1.8 */ {
+    opacity: 0
+}
 // 表格样式
 table {
   border: 1px solid #e1e6ef;
