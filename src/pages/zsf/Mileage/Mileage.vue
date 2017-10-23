@@ -2,8 +2,9 @@
   <div class="zsfMileage">
     <div class="nav">
       <el-breadcrumb separator="/">
+        <img class="hoemIcon left mr3" src="../../../common/images/homeIcon.png" alt="">
         <el-breadcrumb-item>当前位置</el-breadcrumb-item>
-        <el-breadcrumb-item>风控管理</el-breadcrumb-item>
+        <el-breadcrumb-item>臻商分管理</el-breadcrumb-item>
         <el-breadcrumb-item>历程</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
@@ -19,8 +20,6 @@
               <el-date-picker style="width:200px;" v-model="sdate" type="datetime" placeholder="选择日期范围">
               </el-date-picker>
             </div>
-          </div>
-          <div class="element">
             <p class="inline">至</p>
             <div class="width200 inline">
               <el-date-picker style="width:200px;" v-model="edate" type="datetime" placeholder="选择日期范围">
@@ -30,26 +29,27 @@
           <div class="element">
             <p class="inline">姓名:</p>
             <div class="width120 inline">
-              <el-input v-model="name" placeholder="" class="input"></el-input>
+              <el-input v-model="name" placeholder="请输入姓名" class="input" @keyup.enter.native="search"></el-input>
             </div>
           </div>
           <div class="element">
             <p class="inline">身份证号:</p>
             <div class="width180 inline">
-              <el-input placeholder="" class="input" v-model="identityNo" :maxlength="maxlengthid"></el-input>
+              <el-input placeholder="请输入身份证号" class="input" v-model="identityNo" :maxlength="maxlengthid"
+                        @keyup.enter.native="search"></el-input>
             </div>
           </div>
           <div class="element">
             <p class="inline">手机号:</p>
             <div class="width140 inline">
-              <el-input type="number" v-model="mobile" placeholder="" class="input"
-                        :maxlength="maxlengthMobole"></el-input>
+              <el-input type="number" v-model="mobile" placeholder="请输入手机号" class="input"
+                        :maxlength="maxlengthMobole" @keyup.enter.native="search"></el-input>
             </div>
           </div>
           <div class="element">
             <p class="inline">状态:</p>
             <div class="width120 inline">
-              <el-select v-model="state" placeholder="">
+              <el-select v-model="state" placeholder="" @change="search">
                 <el-option v-for="item in states" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
@@ -58,19 +58,20 @@
           <div class="element" @click="search()">
             <el-button type="primary" class="searchBtn">查询</el-button>
           </div>
-          <div class="element" @click="">
+          <div class="element" @click="moreBtn">
             <img class="moreIcon" src="../../../common/images/arrow_down.png" width="32" v-if="!searchCell">
-            <img class="moreIcon iconTransform" src="../../../common/images/arrow_down.png" width="32" v-if="searchCell">
+            <img class="moreIcon iconTransform" src="../../../common/images/arrow_down.png" width="32"
+                 v-if="searchCell">
           </div>
 
         </div>
         <!--第二行-->
 
-        <div class="searchBox clear" v-if="">
+        <div class="searchBox clear" v-if="searchCell">
           <div class="element">
             <p class="inline">婚姻状态:</p>
             <div class="width120 inline">
-              <el-select v-model="marriage" placeholder="">
+              <el-select v-model="marriage" placeholder="" @change="search">
                 <el-option v-for="item in marriageStates" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
@@ -79,48 +80,42 @@
           <div class="element">
             <p class="inline">家庭收支:</p>
             <div class="width120 inline">
-              <el-input type="number" v-model="savingMin" placeholder="" class="input"></el-input>
+              <el-input type="number" v-model="savingMin" placeholder="元" class="input"></el-input>
             </div>
-          </div>
-          <div class="element">
             <p class="inline">至</p>
             <div class="width120 inline">
-              <el-input type="number" v-model="savingMax" placeholder="" class="input"></el-input>
+              <el-input type="number" v-model="savingMax" placeholder="元" class="input"></el-input>
             </div>
           </div>
           <div class="element">
             <p class="inline">自评分值:</p>
             <div class="width120 inline">
-              <el-input type="number" v-model="scoreMin" placeholder="" class="input"></el-input>
+              <el-input type="number" v-model="scoreMin" placeholder="分" class="input"></el-input>
             </div>
-          </div>
-          <div class="element">
             <p class="inline">至</p>
             <div class="width120 inline">
-              <el-input type="number" v-model="scoreMax" placeholder="" class="input"></el-input>
+              <el-input type="number" v-model="scoreMax" placeholder="分" class="input"></el-input>
             </div>
           </div>
           <div class="element">
             <p class="inline">自评额度:</p>
             <div class="width120 inline">
-              <el-input type="number" v-model="quotaMin" placeholder="" class="input"></el-input>
+              <el-input type="number" v-model="quotaMin" placeholder="元" class="input"></el-input>
             </div>
-          </div>
-          <div class="element">
             <p class="inline">至</p>
             <div class="width120 inline">
-              <el-input type="number" v-model="quotaMax" placeholder="" class="input"></el-input>
+              <el-input type="number" v-model="quotaMax" placeholder="元" class="input"></el-input>
             </div>
           </div>
 
         </div>
 
         <!--第三行-->
-        <div class="searchBox clear" v-if="">
+        <div class="searchBox clear" v-if="searchCell">
           <div class="element">
             <p class="inline">配偶职业:</p>
             <div class="width120 inline">
-              <el-select v-model="spouseOCP" placeholder="">
+              <el-select v-model="spouseOCP" placeholder="" @change="search">
                 <el-option v-for="item in supStates" :key=" item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
@@ -129,7 +124,7 @@
           <div class="element">
             <p class="inline">子女职业:</p>
             <div class="width120 inline">
-              <el-select v-model="childOCP" placeholder="">
+              <el-select v-model="childOCP" placeholder="" @change="search">
                 <el-option v-for="item in childStates" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
@@ -156,7 +151,7 @@
         </thead>
         <tbody>
         <tr v-for="(item, index) in getList" :key="item.value" v-show="getList.length > 0">
-          <td class="width80">{{item.date | getFullDate}}</td>
+          <td class="width80">{{item.date}}</td>
           <td class="width60">{{item.mobile}}</td>
           <td class="width60">{{item.name}}</td>
           <td class="width60">{{item.identityNo}}</td>
@@ -188,7 +183,7 @@
 <script>
   //   import { ERR_OK } from '../../../common/js/config'
   import axios from 'axios'
-  import {format} from '../../../common/js/times'
+  import {format, getDateTime} from '../../../common/js/times'
   import {zsf, config} from '../../../api/index'
   // import { mapMutations } from 'vuex'
   export default {
@@ -311,12 +306,13 @@
         let params = {
           name: this.name,
           mobile: this.mobile,
+          date: this.date,
           identityNo: this.identityNo,
           marriage: this.marriage,
           spouseOCP: this.spouseOCP,
           childOCP: this.childOCP,
-          stateDate: this.sdate,
-          endDate: this.edate,
+          startDate: this.sdate ? getDateTime(this.sdate) : '',
+          endDate: this.edate ? getDateTime(this.edate) : '',
           status: this.state,
           scoreMin: this.scoreMin,
           scoreMax: this.scoreMax,
@@ -327,9 +323,10 @@
           pageInfo: {size: this.pageSize, page: this.pageIndex}
         }
         axios.post(zsf + '/selfeval/query', params, config).then(res => {
+          console.log(res)
           if (res.data.code === 1000) {
-            this.getList = res.data.data.records
-            this.total = res.data.data.total
+            this.getList = res.data.data.records ? res.data.data.records : []
+            this.total = parseInt(res.data.data.total)
             console.log('total' + this.total)
             if (this.total <= this.pageSize) {
               this.showPageTag = false
@@ -342,6 +339,20 @@
       // 查询
       search() {
         this.zsfQuery()
+      },
+      startTimeChange() {
+        if (this.sdate) {
+          this.zsfQuery()
+        }
+      },
+      endTimeChange() {
+        if (this.edate) {
+          this.getval()
+        }
+      },
+      moreBtn() {
+        this.searchCell = !this.searchCell
+        // console.log(this.searchCell)
       },
       handleSizeChange(val) {
         console.log(`每页 ${val} 条`)
