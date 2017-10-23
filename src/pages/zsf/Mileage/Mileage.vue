@@ -322,6 +322,8 @@
           scoreMax: this.scoreMax,
           quotaMin: this.quotaMin,
           quotaMax: this.quotaMax,
+          savingMin: this.savingMin,
+          savingMax: this.savingMax,
           pageInfo: {size: this.pageSize, page: this.pageIndex}
         }
         axios.post(zsf + '/selfeval/query', params, config).then(res => {
