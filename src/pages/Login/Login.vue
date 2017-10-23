@@ -2,7 +2,8 @@
   <div class="loginWrap">
     <!-- <div class="loginBox"><img src="../../common/images/logo.png"></div> -->
     <div class="msLogin">
-      <div class="msTitle left">臻商后台管理系统V1.0</div>
+      <hr class="loginLine">
+      <div class="msTitle">臻商后台管理系统V1.0</div>
       <!-- <img src="../../common/images/logo.png" class="right"> -->
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="ruleForm">
         <el-form-item prop="username">
@@ -16,7 +17,8 @@
           <img class="inputCodeImg" :src="imgUrl" alt="" @click="img">
         </el-form-item>
         <div class="loginBtn">
-          <img src="../../common/images/loginLogo.jpg" @click="submitForm('ruleForm')">
+          <div class="imgBtn" :class="[ishover?'bgimghover':'bgimg']" @click="submitForm('ruleForm')" v-on:mouseover="hover" v-on:mouseleave="hover"></div>
+          <!-- <img src="../../common/images/into.png" @click="submitForm('ruleForm')"> -->
         </div>
         <!-- <div class="login-btn">
           <el-button type="default" class="loginBtn" @click="submitForm('ruleForm')" ref="loginBtn">登录</el-button>
@@ -32,6 +34,7 @@ const dir = cdd
 export default {
   data: function() {
     return {
+      ishover: false,
       autofocus: true,
       imgUrl: dir + '/checkCode.jpg' + '?' + Math.random(),
       ruleForm: {
@@ -60,6 +63,9 @@ export default {
     console.log('focus')
   },
   methods: {
+    hover() {
+      this.ishover = !this.ishover
+    },
     tonext(index) {
       var inputs = document.getElementsByTagName('input')
       inputs[index].focus()
