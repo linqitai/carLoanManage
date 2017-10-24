@@ -52,12 +52,6 @@ export default {
         background-color: #00917e;
         color: $menuColor;
         .borderTopParent {
-          .titleIcon {
-            margin-bottom: 3px;
-          }
-          .titleText {
-            padding-left: 4px;
-          }
           .el-submenu__title {
             height: 42px;
             line-height: 42px;
@@ -65,6 +59,17 @@ export default {
             color: #ffffff;
             &:hover {
               background-color: #14AC98;
+            }
+            .titleIcon {
+              margin-bottom: 1px;
+            }
+            .titleText {
+              padding-left: 4px;
+              font-size: 13px;
+            }
+            .el-submenu__icon-arrow{
+              font-size: 8px;
+              margin-top: -4px;
             }
           }
           &:first-child {
@@ -148,6 +153,7 @@ export default {
     }
   }
 }
+
 
 
 

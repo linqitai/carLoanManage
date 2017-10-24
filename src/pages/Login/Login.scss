@@ -20,6 +20,12 @@
     border-radius: 5px;
     color: #646464;
     overflow: hidden;
+    .el-form-item__error{
+      color: #ffffff !important;
+    }
+    .el-input__inner{
+      border-color: #007465 !important;
+    }
     .loginLine{
       position: relative;
       height: 2px;

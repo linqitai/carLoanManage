@@ -31,7 +31,7 @@ export default {
       role: '',
       titles: [],
       items: [{
-        icon: 'http://static.hpbanking.com/xg/uploads/files/816abeaa35662043109a141b323450f7-16-16.png',
+        icon: 'http://static.hpbanking.com/xg/uploads/files/2834f7a41ec680117aa6f09c7dc1c04a-16-13.png',
         index: 'mileage',
         title: '臻车贷管理',
         subs: [
@@ -50,7 +50,7 @@ export default {
         ]
       },
       {
-        icon: 'http://static.hpbanking.com/xg/uploads/files/f6d57143aaf418bd5556f0f45b630b0b-18-18.png',
+        icon: 'http://static.hpbanking.com/xg/uploads/files/d132892f5b3b7654ff36462d133f2b8c-16-16.png',
         index: 'zedMileage',
         title: '臻e贷管理',
         subs: [
@@ -69,7 +69,7 @@ export default {
         ]
       },
       {
-        icon: 'http://static.hpbanking.com/xg/uploads/files/f6d57143aaf418bd5556f0f45b630b0b-18-18.png',
+        icon: 'http://static.hpbanking.com/xg/uploads/files/ab54e5fe5dd354bc251e3b8002f72555-18-18.png',
         index: 'zsfMileage',
         title: '臻商分管理',
         subs: [
@@ -92,7 +92,7 @@ export default {
         ]
       },
       {
-        icon: 'http://static.hpbanking.com/xg/uploads/files/f6d57143aaf418bd5556f0f45b630b0b-18-18.png',
+        icon: 'http://static.hpbanking.com/xg/uploads/files/6c79859609a6b66f76bb5d4ef544fb4f-18-18.png',
         index: 'bdBig',
         title: '大数据管理',
         subs: [
@@ -111,7 +111,7 @@ export default {
         ]
       },
       {
-        icon: 'http://static.hpbanking.com/xg/uploads/files/ef71d4b495346ef16e0ff79e5c87f893-18-18.png',
+        icon: 'http://static.hpbanking.com/xg/uploads/files/ee3035dd8a105b7ce44ee3cd5e1725d2-17-16.png',
         index: 'user',
         title: '系统管理',
         subs: [
