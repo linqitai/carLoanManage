@@ -7,7 +7,7 @@
           <span class="text">当前位置</span>
         </el-breadcrumb-item>
         <el-breadcrumb-item>
-          <span class="text">车抵贷管理</span>
+          <span class="text">臻车贷管理</span>
         </el-breadcrumb-item>
         <el-breadcrumb-item>历程</el-breadcrumb-item>
       </el-breadcrumb>
