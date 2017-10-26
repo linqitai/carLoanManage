@@ -15,16 +15,6 @@
         <div class="searchBox">
 
           <div class="element">
-            <!--<p class="inline">时间:</p>-->
-            <!--<div class="width200 inline">-->
-              <!--<el-date-picker style="width:200px;" v-model="sdate" type="datetime" placeholder="选择日期范围" @change="startTimeChange">-->
-              <!--</el-date-picker>-->
-            <!--</div>-->
-            <!--<p class="inline">至</p>-->
-            <!--<div class="width200 inline">-->
-              <!--<el-date-picker style="width:200px;" v-model="edate" type="datetime" placeholder="选择日期范围" @change="endTimeChange">-->
-              <!--</el-date-picker>-->
-            <!--</div>-->
            <div class="element">
             <p class="inline">时间</p>
             <div class="inline">
@@ -58,7 +48,7 @@
             </div>
           </div>
           <div class="element">
-            <p class="inline">状态:</p>
+            <p class="inline">动作:</p>
             <div class="width120 inline">
               <el-select v-model="state" placeholder="" @change="search">
                 <el-option v-for="item in states" :key="item.value" :label="item.label" :value="item.value">
@@ -147,7 +137,7 @@
       <table>
         <thead>
         <tr>
-          <th class="width80">自评时间</th>
+          <th class="width80">时间</th>
           <th class="width60">手机号</th>
           <th class="width60">姓名</th>
           <th class="width60">身份证号</th>
@@ -157,7 +147,7 @@
           <th class="width50">家庭收支(元)</th>
           <th class="width50">自评分值(分)</th>
           <th class="width50">自评额度(元)</th>
-          <th class="width50">状态</th>
+          <th class="width50">动作</th>
         </tr>
         </thead>
         <tbody>
@@ -233,14 +223,26 @@
           value: '',
           label: '全部'
         }, {
+          value: '0',
+          label: '去自评'
+        }, {
           value: '1',
-          label: '已自评'
+          label: '自评提交'
         }, {
           value: '2',
-          label: '借款'
+          label: '重自评'
         }, {
           value: '3',
-          label: '提额'
+          label: '重自评提交'
+        }, {
+          value: '4',
+          label: '去提额'
+        }, {
+          value: '5',
+          label: '申请臻e贷'
+        }, {
+          value: '6',
+          label: '申请臻分期'
         }],
         supStates: [{
           value: '',
@@ -315,7 +317,7 @@
         return t === 0 ? '无配偶' : t === 1 ? '政府部门' : t === 2 ? '事业单位' : t === 3 ? '其他' : t === 4 ? '共同经营' : ''
       },
       getStatus(t) {
-        return t === 1 ? '已自评' : t === 2 ? '借款' : t === 3 ? '提额' : ''
+        return t === 0 ? '去自评' : t === 1 ? '自评提交' : t === 2 ? '重自评' : t === 3 ? '重自评提交' : t === 4 ? '去提额' : t === 5 ? '申请臻e贷' : t === 6 ? '申请臻分期' : ''
       }
     },
     methods: {
@@ -330,7 +332,7 @@
           childOCP: this.childOCP,
           startDate: this.sdate ? getDate(this.sdate) : '',
           endDate: this.edate ? getDate(this.edate) : '',
-          status: this.status,
+          status: this.state,
           scoreMin: this.scoreMin,
           scoreMax: this.scoreMax,
           quotaMin: this.quotaMin,
