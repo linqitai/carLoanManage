@@ -23,7 +23,7 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: 8082,
+    port: 8083,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
@@ -40,7 +40,8 @@ module.exports = {
       },
       '/zsf':{
         // target:'http://192.168.18.227:8090',
-        target:'http://114.55.86.215:8090', // 线上
+        // target:'http://114.55.86.215:8090', // 线上
+         target:'http://192.168.18.5:8090', // 石智颖
         changeOrigin:true,
         pathRewrite:{
           '^/zsf':''

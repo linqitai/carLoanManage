@@ -15,16 +15,27 @@
         <div class="searchBox">
 
           <div class="element">
-            <p class="inline">时间:</p>
-            <div class="width200 inline">
-              <el-date-picker style="width:200px;" v-model="sdate" type="datetime" placeholder="选择日期范围">
+            <!--<p class="inline">时间:</p>-->
+            <!--<div class="width200 inline">-->
+              <!--<el-date-picker style="width:200px;" v-model="sdate" type="datetime" placeholder="选择日期范围" @change="startTimeChange">-->
+              <!--</el-date-picker>-->
+            <!--</div>-->
+            <!--<p class="inline">至</p>-->
+            <!--<div class="width200 inline">-->
+              <!--<el-date-picker style="width:200px;" v-model="edate" type="datetime" placeholder="选择日期范围" @change="endTimeChange">-->
+              <!--</el-date-picker>-->
+            <!--</div>-->
+           <div class="element">
+            <p class="inline">时间</p>
+            <div class="inline">
+              <el-date-picker class="inline" style="width:120px;" v-model="sdate" type="date" placeholder="开始时间" @change="startTimeChange">
+              </el-date-picker>
+              <span class="inline">至</span>
+              <el-date-picker class="inline" style="width:120px;" v-model="edate" type="date" placeholder="结束时间" @change="endTimeChange">
               </el-date-picker>
             </div>
-            <p class="inline">至</p>
-            <div class="width200 inline">
-              <el-date-picker style="width:200px;" v-model="edate" type="datetime" placeholder="选择日期范围">
-              </el-date-picker>
-            </div>
+          </div>
+
           </div>
           <div class="element">
             <p class="inline">姓名:</p>
@@ -132,7 +143,7 @@
           </div>
         </div>
       </div>
-      <!--------------------表格-->
+      <!--表格-->
       <table>
         <thead>
         <tr>
@@ -181,9 +192,9 @@
   </div>
 </template>
 <script>
-  //   import { ERR_OK } from '../../../common/js/config'
+  // import { ERR_OK } from '../../../common/js/config'
   import axios from 'axios'
-  import {format, getDateTime} from '../../../common/js/times'
+  import {format, getDate} from '../../../common/js/times'
   import {zsf, config} from '../../../api/index'
   // import { mapMutations } from 'vuex'
   export default {
@@ -192,7 +203,7 @@
         maxlengthMobole: 11,
         maxlengthid: 18,
         searchCell: false,
-        pageIndex: 1,    //
+        pageIndex: 1,
         pageSize: 10,
         name: '',
         mobile: '',
@@ -213,8 +224,8 @@
         quotaMax: '',
         savingMin: '',
         savingMax: '',
-//        pageInfo.page:'',  // 第几页
-//       pageInfo.size: ''   // 每页几条
+        // pageInfo.page:'',  // 第几页
+        // pageInfo.size: ''   // 每页几条
         getList: [],
         total: '',
         showPageTag: false,
@@ -241,6 +252,9 @@
           value: '2',
           label: '事业单位'
         }, {
+          value: '4',
+          label: '共同经营'
+        }, {
           value: '0',
           label: '无配偶'
         }, {
@@ -262,6 +276,9 @@
         }, {
           value: '2',
           label: '离异'
+        }, {
+          value: '4',
+          label: '丧偶'
         }],
         childStates: [{
           value: '',
@@ -292,10 +309,10 @@
         return format(t)
       },
       getmarryStatus(t) {
-        return t === 0 ? '未婚' : t === 1 ? '已经' : t === 2 ? '离异' : t === 3 ? '再婚' : ''
+        return t === 0 ? '未婚' : t === 1 ? '已婚' : t === 2 ? '离异' : t === 3 ? '再婚' : t === 4 ? '丧偶' : ''
       },
       getsupStatus(t) {
-        return t === 0 ? '无配偶' : t === 1 ? '政府部门' : t === 2 ? '事业单位' : t === 3 ? '其他' : ''
+        return t === 0 ? '无配偶' : t === 1 ? '政府部门' : t === 2 ? '事业单位' : t === 3 ? '其他' : t === 4 ? '共同经营' : ''
       },
       getStatus(t) {
         return t === 1 ? '已自评' : t === 2 ? '借款' : t === 3 ? '提额' : ''
@@ -311,9 +328,9 @@
           marriage: this.marriage,
           spouseOCP: this.spouseOCP,
           childOCP: this.childOCP,
-          startDate: this.sdate ? getDateTime(this.sdate) : '',
-          endDate: this.edate ? getDateTime(this.edate) : '',
-          status: this.state,
+          startDate: this.sdate ? getDate(this.sdate) : '',
+          endDate: this.edate ? getDate(this.edate) : '',
+          status: this.status,
           scoreMin: this.scoreMin,
           scoreMax: this.scoreMax,
           quotaMin: this.quotaMin,
@@ -341,12 +358,12 @@
         this.zsfQuery()
       },
       startTimeChange() {
-        if (this.sdate) {
+        if (this.edate) {
           this.zsfQuery()
         }
       },
       endTimeChange() {
-        if (this.edate) {
+        if (this.sdate) {
           this.getval()
         }
       },
