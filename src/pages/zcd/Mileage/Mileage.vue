@@ -100,7 +100,7 @@
           <tr>
             <th class="width80">时间</th>
             <th class="width60">账号</th>
-            <th class="width200">车型</th>
+            <th class="width180">车型</th>
             <th class="width60">上牌时间</th>
             <th class="width60">所在城市</th>
             <th class="width80">行驶里程/万公里</th>
@@ -114,9 +114,9 @@
         </thead>
         <tbody>
           <tr v-for="(item, index) in getList" :key="item.value" v-show="getList.length > 0">
-            <td class="width80">{{item.updated | getFullDate}}</td>
+            <td class="width80">{{item.updated | getDate}}</td>
             <td class="width60">{{item.zedAccount}}</td>
-            <td class="width200">{{item.title}}</td>
+            <td class="width180 ellipsis">{{item.title}}</td>
             <td class="width60">{{item.regDate}}</td>
             <td class="width60">{{item.province}}{{item.city}}</td>
             <td class="width80">{{item.mile}}</td>
@@ -140,7 +140,7 @@
   </div>
 </template>
 <script>
-import { format, getTime } from '../../../common/js/times'
+import { format, getTime, getDate } from '../../../common/js/times'
 import { cheCredit } from '@/api/index'
 
 export default {
@@ -226,6 +226,9 @@ export default {
   filters: {
     getFullDate(t) {
       return format(t)
+    },
+    getDate(t) {
+      return getDate(t)
     },
     getFormtype(t) {
       return t === 1 ? '微贷网' : ''

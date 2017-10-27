@@ -3,12 +3,12 @@
     <div class="mr20 right">
       <img class="logoIcon" src="../common/images/logo.png" alt="">
     </div>
-    <div class="logoText ml20 left">臻商后台管理系统V1.0</div>
+    <div class="logoText ml20 left" @click="toFirstPage">臻商后台管理系统V1.0</div>
     <div class="mr40 right">
       <el-dropdown trigger="click" @command="handleCommand">
         <span class="headerUserInfo">
           <!-- <img class="userIcon left" src="../common/images/userIcon.png" alt="">
-              <div class="ml5 right">{{username}}</div> -->
+                <div class="ml5 right">{{username}}</div> -->
           <!-- <i class="fa fa-user-circle-o left" aria-hidden="true"></i> -->
           <!-- <div class="userInfo">{{username}}</div> -->
           <div class="userInfo">{{username}}</div>
@@ -30,6 +30,9 @@ export default {
     }
   },
   methods: {
+    toFirstPage() {
+      this.$router.push('./firstPage')
+    },
     getUserInfo() {
       userInfo().then(res => {
         console.log(res)
@@ -75,9 +78,11 @@ export default {
     height: 24px;
   }
   .logoText {
-    font-size: 16px;
-    line-height: 48px;
-    padding-left: 2px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 51px;
+    padding-left: 10px;
+    cursor: pointer;
   }
   .headerUserInfo {
     color: #ffffff;
