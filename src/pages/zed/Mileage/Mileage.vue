@@ -2,7 +2,7 @@
   <div class="mileage">
     <div class="nav">
       <el-breadcrumb separator="/">
-        <img class="hoemIcon left mr3" src="../../../common/images/homeIcon.png" alt="">
+        <img class="hoemIcon left mr3" src="../../../common/images/homeIconGray.png" alt="">
         <el-breadcrumb-item>
           <span class="text">当前位置</span>
         </el-breadcrumb-item>

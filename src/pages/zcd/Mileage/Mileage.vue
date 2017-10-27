@@ -209,7 +209,7 @@ export default {
         children: 'cities'
       },
       pageIndex: 1,
-      pageSize: 10,
+      pageSize: 16,
       total: 1,
       applyStatus: '',
       timer: '',
