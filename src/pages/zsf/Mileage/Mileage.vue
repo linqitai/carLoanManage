@@ -2,9 +2,9 @@
   <div class="zsfMileage">
     <div class="nav">
       <el-breadcrumb separator="/">
-        <img class="hoemIcon left mr3" src="../../../common/images/homeIcon.png" alt="">
-        <el-breadcrumb-item>当前位置</el-breadcrumb-item>
-        <el-breadcrumb-item>臻商分管理</el-breadcrumb-item>
+        <img class="hoemIcon left mr3" src="../../../common/images/homeIconGray.png" alt="">
+        <el-breadcrumb-item><span class="text">当前位置</span></el-breadcrumb-item>
+        <el-breadcrumb-item><span class="text">臻商分管理</span></el-breadcrumb-item>
         <el-breadcrumb-item>历程</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
@@ -152,7 +152,7 @@
         </thead>
         <tbody>
         <tr v-for="(item, index) in getList" :key="item.value" v-show="getList.length > 0">
-          <td class="width80">{{item.date}}</td>
+          <td class="width80">{{item.date | getDate}}</td>
           <td class="width60">{{item.mobile}}</td>
           <td class="width60">{{item.name}}</td>
           <td class="width60">{{item.identityNo}}</td>
@@ -194,7 +194,7 @@
         maxlengthid: 18,
         searchCell: false,
         pageIndex: 1,
-        pageSize: 10,
+        pageSize: 16,
         name: '',
         mobile: '',
         identityNo: '',  // 身份证号
@@ -304,6 +304,9 @@
       getFullDate(t) {
         return format(t)
       },
+      getDate(t) {
+        return getDate(t)
+      },
       getmarryStatus(t) {
         return t === 0 ? '未婚' : t === 1 ? '已婚' : t === 2 ? '离异' : t === 3 ? '再婚' : t === 4 ? '丧偶' : ''
       },
@@ -326,7 +329,7 @@
           childOCP: this.childOCP,
           startDate: this.sdate ? getDate(this.sdate) : '',
           endDate: this.edate ? getDate(this.edate) : '',
-          status: this.state,
+          action: this.state,
           scoreMin: this.scoreMin,
           scoreMax: this.scoreMax,
           quotaMin: this.quotaMin,
