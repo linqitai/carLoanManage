@@ -2,6 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '../pages/Login/Login'
 import Home from '../components/Home'
+import firstPage from '../pages/common/firstPage'
+import NoPage from '../pages/common/NoPage'
+import user from '../pages/Manage/user'
+import role from '../pages/Manage/role'
 // 臻车贷
 import Mileage from '../pages/zcd/Mileage/Mileage'
 import sysAnalysis from '../pages/zcd/sysAnalysis/sysAnalysis'
@@ -14,9 +18,6 @@ import zedComCalculation from '../pages/zed/comCalculation/comCalculation'
 import zsfMileage from '../pages/zsf/Mileage/Mileage'
 import zsfSysAnalysis from '../pages/zsf/sysAnalysis/sysAnalysis'
 import zsfComCalculation from '../pages/zsf/comCalculation/comCalculation'
-import NoPage from '../pages/common/NoPage'
-import user from '../pages/Manage/user'
-import role from '../pages/Manage/role'
 // 大数据
 import bdBig from '../pages/dsj/Mileage/Mileage'
 import bdSysAnalysis from '../pages/dsj/sysAnalysis/sysAnalysis'
@@ -59,6 +60,11 @@ export default new Router({
           path: '/NoPage',
           name: 'NoPage',
           component: NoPage
+        },
+        {
+          path: '/firstPage',
+          name: 'firstPage',
+          component: firstPage
         },
         {
           path: '/user',

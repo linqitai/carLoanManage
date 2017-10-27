@@ -171,7 +171,7 @@
       </table>
       <div class="block" style="margin-top:10px" v-show="showPageTag">
         <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                       :current-page.sync="pageIndex" :page-size="pageSize" layout="prev, pager, next, jumper"
+                       :current-page.sync="pageIndex" :page-size="pageSize" layout="total, prev, pager, next, jumper"
                        :total="total">
         </el-pagination>
       </div>
@@ -357,6 +357,7 @@
       },
       // 查询
       search() {
+        this.pageIndex = 1
         this.zsfQuery()
       },
       startTimeChange() {

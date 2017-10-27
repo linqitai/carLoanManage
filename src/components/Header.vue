@@ -75,7 +75,7 @@ export default {
     height: 24px;
   }
   .logoText {
-    font-size: 15px;
+    font-size: 16px;
     line-height: 48px;
     padding-left: 2px;
   }

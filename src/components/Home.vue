@@ -64,8 +64,8 @@ export default {
               margin-bottom: 1px;
             }
             .titleText {
-              padding-left: 4px;
-              font-size: 13px;
+              padding-left: 2px;
+              font-size: 14px;
             }
             .el-submenu__icon-arrow{
               font-size: 8px;
@@ -141,12 +141,15 @@ export default {
         background: #ffffff;
         padding: 12px 0 10px 20px;
         .hoemIcon {
-          height: 12px;
+          height: 11px;
+        }
+        .el-breadcrumb__item__inner{
+          color: #00917e;
         }
         .text {
-          color: $mainColor;
+          color: #646464;
           &:hover {
-            color: $mainColor;
+            color: #646464;
           }
         }
       }

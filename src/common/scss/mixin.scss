@@ -1,3 +1,15 @@
+// 扩展点击区域
+@mixin extend_click() {
+  position: relative;
+  &:before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+  }
+}
 @mixin border_top($color) {
   border: none;
   &:after {

@@ -31,6 +31,29 @@ export default {
       role: '',
       titles: [],
       items: [{
+        icon: 'http://static.hpbanking.com/xg/uploads/files/ab54e5fe5dd354bc251e3b8002f72555-18-18.png',
+        index: 'zsfMileage',
+        title: '臻商分管理',
+        subs: [
+          {
+            index: 'zsfMileage',
+            title: '自评历程'
+          },
+          {
+            index: 'zsfMileage',
+            title: '提额历程'
+          },
+          {
+            index: 'zsfSysAnalysis',
+            title: '统计分析'
+          },
+          {
+            index: 'zsfComCalculation',
+            title: '激活审批'
+          }
+        ]
+      },
+      {
         icon: 'http://static.hpbanking.com/xg/uploads/files/2834f7a41ec680117aa6f09c7dc1c04a-16-13.png',
         index: 'mileage',
         title: '臻车贷管理',
@@ -65,29 +88,6 @@ export default {
           {
             index: 'zedComCalculation',
             title: '佣金计算'
-          }
-        ]
-      },
-      {
-        icon: 'http://static.hpbanking.com/xg/uploads/files/ab54e5fe5dd354bc251e3b8002f72555-18-18.png',
-        index: 'zsfMileage',
-        title: '臻商分管理',
-        subs: [
-          {
-            index: 'zsfMileage',
-            title: '自评历程'
-          },
-          {
-            index: 'zsfMileage',
-            title: '提额历程'
-          },
-          {
-            index: 'zsfSysAnalysis',
-            title: '统计分析'
-          },
-          {
-            index: 'zsfComCalculation',
-            title: '激活审批'
           }
         ]
       },

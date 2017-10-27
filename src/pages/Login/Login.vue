@@ -6,13 +6,13 @@
       <div class="msTitle">臻商后台管理系统V1.0</div>
       <!-- <img src="../../common/images/logo.png" class="right"> -->
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="ruleForm">
-        <el-form-item prop="username">
+        <el-form-item prop="">
           <el-input type="text" placeholder="用户名" auto-complete="true" v-model="ruleForm.username" @keyup.enter.native="tonext(1)" :autofocus="autofocus"></el-input>
         </el-form-item>
-        <el-form-item prop="password">
+        <el-form-item prop="">
           <el-input type="password" placeholder="密码" auto-complete="true" v-model="ruleForm.password" @keyup.enter.native="tonext(2)"></el-input>
         </el-form-item>
-        <el-form-item prop="inputCode">
+        <el-form-item prop="">
           <el-input type="text" placeholder="验证码" v-model="ruleForm.inputCode" style="width:220px;" @keyup.enter.native="submitForm('ruleForm')"></el-input>
           <img class="inputCodeImg" :src="imgUrl" alt="" @click="img">
         </el-form-item>
@@ -79,7 +79,7 @@ export default {
             console.log(params)
             console.log(res)
             if (res.code === 0) {
-              this.$router.push('/Mileage')
+              this.$router.push('/firstPage')
             } else {
               this.$message(res.error);
             }

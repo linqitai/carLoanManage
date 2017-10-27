@@ -2,7 +2,7 @@
   <div class="mileage">
     <div class="nav">
       <el-breadcrumb separator="/">
-        <img class="hoemIcon left mr3" src="../../../common/images/homeIcon.png" alt="">
+        <img class="hoemIcon left mr3" src="../../../common/images/homeIconGray.png" alt="">
         <el-breadcrumb-item>
           <span class="text">当前位置</span>
         </el-breadcrumb-item>
@@ -103,7 +103,7 @@
             <th class="width200">车型</th>
             <th class="width60">上牌时间</th>
             <th class="width60">所在城市</th>
-            <th class="width70">行驶里程/公里</th>
+            <th class="width80">行驶里程/万公里</th>
             <th class="width70">车辆估价/万</th>
             <th class="width50">姓名</th>
             <th class="width100">身份证号</th>
@@ -119,7 +119,7 @@
             <td class="width200">{{item.title}}</td>
             <td class="width60">{{item.regDate}}</td>
             <td class="width60">{{item.province}}{{item.city}}</td>
-            <td class="width70">{{item.mile}}</td>
+            <td class="width80">{{item.mile}}</td>
             <td class="width70">{{item.highPrice}}</td>
             <td class="width50">{{item.name}}</td>
             <td class="width100">{{item.carNum}}</td>
@@ -133,7 +133,7 @@
         </tbody>
       </table>
       <div class="block" style="margin-top:10px" v-show="showPageTag">
-        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex" :page-size="pageSize" layout="total,prev, pager, next, jumper" :total="total">
+        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex" :page-size="pageSize" layout="total, prev, pager, next, jumper" :total="total">
         </el-pagination>
       </div>
     </div>
@@ -284,6 +284,7 @@ export default {
     },
     // 查询
     search() {
+      this.pageIndex = 1
       this.getval()
     },
     searchByPrice() {
