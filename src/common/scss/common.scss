@@ -107,6 +107,11 @@ $sidebarWidth: 160px;
 .right{
   float: right;
 }
+.ellipsis{
+  overflow: hidden;  /*溢出隐藏*/
+  text-overflow: ellipsis; /*以省略号...显示*/
+  white-space: nowrap;  /*强制不换行*/
+}
 .inline{
   display: inline-block;
 }

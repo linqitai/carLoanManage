@@ -53,8 +53,9 @@ export default {
         color: $menuColor;
         .borderTopParent {
           .el-submenu__title {
+            padding-left: 28px !important;
             height: 42px;
-            line-height: 42px;
+            line-height: 46px;
             @include border_bottom($color: #ffffff);
             color: #ffffff;
             &:hover {
@@ -64,12 +65,12 @@ export default {
               margin-bottom: 1px;
             }
             .titleText {
-              padding-left: 2px;
+              padding-left: 0px;
               font-size: 14px;
             }
             .el-submenu__icon-arrow{
               font-size: 8px;
-              margin-top: -4px;
+              margin-top: -2px;
             }
           }
           &:first-child {

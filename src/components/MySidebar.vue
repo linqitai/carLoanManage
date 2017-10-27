@@ -46,10 +46,6 @@ export default {
           {
             index: 'zsfSysAnalysis',
             title: '统计分析'
-          },
-          {
-            index: 'zsfComCalculation',
-            title: '激活审批'
           }
         ]
       },
@@ -103,6 +99,10 @@ export default {
           {
             index: 'bdSysAnalysis',
             title: '小库'
+          },
+          {
+            index: 'bdSysAnalysis',
+            title: '大数据分析'
           },
           {
             index: 'bdComCalculation',
