@@ -28,27 +28,27 @@
 
           </div>
           <div class="element">
-            <p class="inline">姓名:</p>
+            <p class="inline">姓名</p>
             <div class="width120 inline">
               <el-input v-model="name" placeholder="请输入姓名" class="input" @keyup.enter.native="search"></el-input>
             </div>
           </div>
           <div class="element">
-            <p class="inline">身份证号:</p>
+            <p class="inline">身份证号</p>
             <div class="width180 inline">
               <el-input placeholder="请输入身份证号" class="input" v-model="identityNo" :maxlength="maxlengthid"
                         @keyup.enter.native="search"></el-input>
             </div>
           </div>
           <div class="element">
-            <p class="inline">手机号:</p>
+            <p class="inline">手机号</p>
             <div class="width140 inline">
               <el-input type="number" v-model="mobile" placeholder="请输入手机号" class="input"
                         :maxlength="maxlengthMobole" @keyup.enter.native="search"></el-input>
             </div>
           </div>
           <div class="element">
-            <p class="inline">动作:</p>
+            <p class="inline">动作</p>
             <div class="width120 inline">
               <el-select v-model="state" placeholder="" @change="search">
                 <el-option v-for="item in states" :key="item.value" :label="item.label" :value="item.value">
@@ -70,7 +70,7 @@
 
         <div class="searchBox clear" v-if="searchCell">
           <div class="element">
-            <p class="inline">婚姻状态:</p>
+            <p class="inline">婚姻状态</p>
             <div class="width120 inline">
               <el-select v-model="marriage" placeholder="" @change="search">
                 <el-option v-for="item in marriageStates" :key="item.value" :label="item.label" :value="item.value">
@@ -79,7 +79,7 @@
             </div>
           </div>
           <div class="element">
-            <p class="inline">家庭收支:</p>
+            <p class="inline">家庭收支</p>
             <div class="width120 inline">
               <el-input type="number" v-model="savingMin" placeholder="元" class="input"></el-input>
             </div>
@@ -89,7 +89,7 @@
             </div>
           </div>
           <div class="element">
-            <p class="inline">自评分值:</p>
+            <p class="inline">自评分值</p>
             <div class="width120 inline">
               <el-input type="number" v-model="scoreMin" placeholder="分" class="input"></el-input>
             </div>
@@ -99,7 +99,7 @@
             </div>
           </div>
           <div class="element">
-            <p class="inline">自评额度:</p>
+            <p class="inline">自评额度</p>
             <div class="width120 inline">
               <el-input type="number" v-model="quotaMin" placeholder="元" class="input"></el-input>
             </div>
@@ -114,7 +114,7 @@
         <!--第三行-->
         <div class="searchBox clear" v-if="searchCell">
           <div class="element">
-            <p class="inline">配偶职业:</p>
+            <p class="inline">配偶职业</p>
             <div class="width120 inline">
               <el-select v-model="spouseOCP" placeholder="" @change="search">
                 <el-option v-for="item in supStates" :key=" item.value" :label="item.label" :value="item.value">
@@ -123,7 +123,7 @@
             </div>
           </div>
           <div class="element">
-            <p class="inline">子女职业:</p>
+            <p class="inline">子女职业</p>
             <div class="width120 inline">
               <el-select v-model="childOCP" placeholder="" @change="search">
                 <el-option v-for="item in childStates" :key="item.value" :label="item.label" :value="item.value">
@@ -257,9 +257,6 @@
           value: '4',
           label: '共同经营'
         }, {
-          value: '0',
-          label: '无配偶'
-        }, {
           value: '3',
           label: '其他'
         }],
@@ -267,11 +264,11 @@
           value: '',
           label: '全部'
         }, {
-          value: '0',
-          label: '未婚'
-        }, {
           value: '1',
           label: '已婚'
+        }, {
+          value: '0',
+          label: '未婚'
         }, {
           value: '3',
           label: '再婚'
@@ -292,9 +289,6 @@
           value: '2',
           label: '事业单位'
         }, {
-          value: '0',
-          label: '无配偶'
-        }, {
           value: '3',
           label: '其他'
         }]
@@ -314,7 +308,7 @@
         return t === 0 ? '未婚' : t === 1 ? '已婚' : t === 2 ? '离异' : t === 3 ? '再婚' : t === 4 ? '丧偶' : ''
       },
       getsupStatus(t) {
-        return t === 0 ? '无配偶' : t === 1 ? '政府部门' : t === 2 ? '事业单位' : t === 3 ? '其他' : t === 4 ? '共同经营' : ''
+        return t === 1 ? '政府部门' : t === 2 ? '事业单位' : t === 3 ? '其他' : t === 4 ? '共同经营' : ''
       },
       getStatus(t) {
         return t === 0 ? '去自评' : t === 1 ? '自评提交' : t === 2 ? '重自评' : t === 3 ? '重自评提交' : t === 4 ? '去提额' : t === 5 ? '申请臻e贷' : t === 6 ? '申请臻分期' : ''
