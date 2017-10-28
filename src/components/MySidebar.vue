@@ -94,19 +94,23 @@ export default {
         subs: [
           {
             index: 'bdBig',
-            title: '大库'
+            title: '数据归集'
           },
           {
             index: 'bdSysAnalysis',
-            title: '小库'
+            title: '数据清洗'
           },
           {
             index: 'bdSysAnalysis',
+            title: '数字画像'
+          },
+          {
+            index: 'bdComCalculation',
             title: '大数据分析'
           },
           {
             index: 'bdComCalculation',
-            title: '商业开发'
+            title: '商业应用'
           }
         ]
       },
