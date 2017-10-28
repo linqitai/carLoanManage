@@ -15,16 +15,18 @@
         <div class="searchBox">
 
           <div class="element">
-           <div class="element">
-            <p class="inline">时间</p>
-            <div class="inline">
-              <el-date-picker class="inline" style="width:120px;" v-model="sdate" type="date" placeholder="开始时间" @change="startTimeChange">
-              </el-date-picker>
-              <span class="inline">至</span>
-              <el-date-picker class="inline" style="width:120px;" v-model="edate" type="date" placeholder="结束时间" @change="endTimeChange">
-              </el-date-picker>
+            <div class="element">
+              <p class="inline">时间</p>
+              <div class="inline">
+                <el-date-picker class="inline" style="width:120px;" v-model="sdate" type="date" placeholder="开始时间"
+                                @change="startTimeChange">
+                </el-date-picker>
+                <span class="inline">至</span>
+                <el-date-picker class="inline" style="width:120px;" v-model="edate" type="date" placeholder="结束时间"
+                                @change="endTimeChange">
+                </el-date-picker>
+              </div>
             </div>
-          </div>
 
           </div>
           <div class="element">
@@ -162,7 +164,7 @@
           <td class="width50">{{item.fmSaving}}</td>
           <td class="width50">{{item.score | getInt}}</td>
           <td class="width50">{{item.quota}}</td>
-          <td class="width50">{{item.status | getStatus}}</td>
+          <td class="width50">{{item.action | getStatus}}</td>
         </tr>
         <tr v-show="getList.length === 0">
           <td class="noData" colspan="12">暂无数据</td>
@@ -299,7 +301,7 @@
     },
     filters: {
       getInt(t) {
-        return parseInt(t)
+        return t ? parseInt(t) : 0
       },
       getFullDate(t) {
         return format(t)
@@ -336,9 +338,10 @@
           quotaMax: this.quotaMax,
           savingMin: this.savingMin,
           savingMax: this.savingMax,
-          pageInfo: {size: this.pageSize, page: this.pageIndex}
+          page: this.pageIndex,
+          size: this.pageSize
         }
-        axios.post(zsf + '/selfeval/query', params, config).then(res => {
+        axios.post(zsf + '/selfeval/queryAction', params, config).then(res => {
           console.log(res)
           if (res.data.code === 1000) {
             this.getList = res.data.data.records ? res.data.data.records : []
