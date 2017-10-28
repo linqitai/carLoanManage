@@ -103,7 +103,7 @@
             <th class="width180">车型</th>
             <th class="width60">上牌时间</th>
             <th class="width60">所在城市</th>
-            <th class="width80">行驶里程/万公里</th>
+            <th class="width90">行驶里程/万公里</th>
             <th class="width70">车辆估价/万</th>
             <th class="width50">姓名</th>
             <th class="width100">身份证号</th>
@@ -116,10 +116,14 @@
           <tr v-for="(item, index) in getList" :key="item.value" v-show="getList.length > 0">
             <td class="width80">{{item.updated | getDate}}</td>
             <td class="width60">{{item.zedAccount}}</td>
-            <td class="width180 ellipsis">{{item.title}}</td>
+            <td class="width180">
+              <el-tooltip :content="item.title" placement="right" effect="light">
+                <el-button size="mini" class="width180 ellipsis">{{item.title}}</el-button>
+              </el-tooltip>
+            </td>
             <td class="width60">{{item.regDate}}</td>
             <td class="width60">{{item.province}}{{item.city}}</td>
-            <td class="width80">{{item.mile}}</td>
+            <td class="width90">{{item.mile}}</td>
             <td class="width70">{{item.highPrice}}</td>
             <td class="width50">{{item.name}}</td>
             <td class="width100">{{item.carNum}}</td>
@@ -141,6 +145,7 @@
 </template>
 <script>
 import { format, getTime, getDate } from '../../../common/js/times'
+import { getLimiteText } from '../../../common/js/utils'
 import { cheCredit } from '@/api/index'
 
 export default {
@@ -209,7 +214,7 @@ export default {
         children: 'cities'
       },
       pageIndex: 1,
-      pageSize: 16,
+      pageSize: 12,
       total: 1,
       applyStatus: '',
       timer: '',
@@ -224,6 +229,9 @@ export default {
     // testKY();
   },
   filters: {
+    getLimiteText(t) {
+      return getLimiteText(t)
+    },
     getFullDate(t) {
       return format(t)
     },
