@@ -359,11 +359,13 @@
       },
       startTimeChange() {
         if (this.edate) {
+          this.pageIndex = 1
           this.zsfQuery()
         }
       },
       endTimeChange() {
         if (this.sdate) {
+          this.pageIndex = 1
           this.getval()
         }
       },
