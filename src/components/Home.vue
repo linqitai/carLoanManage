@@ -66,7 +66,7 @@ export default {
             }
             .titleText {
               padding-left: 0px;
-              font-size: 14px;
+              font-size: 13px;
             }
             .el-submenu__icon-arrow{
               font-size: 8px;
@@ -157,24 +157,14 @@ export default {
     }
   }
 }
-
-
-
-
-
-
-
-
-
 /* transition name='fade' .fade-leave-active in below version 2.1.8 */
+// .fade-enter-active,
+// .fade-leave-active {
+//   transition: opacity .1s ease-in-out
+// }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity .5s
-}
-
-.fade-enter,
-.fade-leave-to {
-  opacity: 0
-}
+// .fade-enter,
+// .fade-leave-to {
+//   opacity: 0 .3s ease-in-out
+// }
 </style>

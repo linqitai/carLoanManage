@@ -19,10 +19,12 @@ export default {
     }
   }
 }
-.el-select-dropdown__item{
-  padding:2px 10px !important;
+
+.el-select-dropdown__item {
+  padding: 2px 10px !important;
   height: 26px !important;
 }
+
 .el-select-dropdown__item {
   &.selected {
     background-color: $mainColor !important;
@@ -36,5 +38,8 @@ export default {
   .el-input__inner {
     height: 32px !important;
   }
+}
+table .el-button{
+  border: none;
 }
 </style>

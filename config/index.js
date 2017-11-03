@@ -31,8 +31,8 @@ module.exports = {
       '/rz':{
         // target:'http://192.168.18.220:8061', // 修庆
         // target:'http://192.168.18.218:8061',
-        // target:'http://192.168.18.177:8030', // 子涵
-        target:'http://121.199.33.100:8030', // 线上正式
+        target:'http://192.168.18.177:8030', // 子涵
+        // target:'http://121.199.33.100:8030', // 线上正式
         // target:'http://192.168.18.178:3000',
         changeOrigin: true,
         pathRewrite: {

@@ -35,6 +35,15 @@
             </div>
           </div>
           <div class="element">
+            <p class="inline">提交状态</p>
+            <div class="width120 inline">
+              <el-select v-model="submitStatus" placeholder="请选择" @change="search">
+                <el-option v-for="item in submitStatuOptions" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+          </div>
+          <div class="element">
             <p class="inline">平台选择</p>
             <div class="width120 inline">
               <el-select v-model="platform" placeholder="请选择" @change="search">
@@ -63,7 +72,7 @@
             <img class="moreIcon iconTransform" src="../../../common/images/arrow_down.png" v-if="searchCell">
           </div>
         </div>
-        <transition name="fade">
+        <transition name="">
           <div class="searchBox clear" v-if="searchCell">
             <div class="element">
               <p class="inline">账号</p>
@@ -98,11 +107,11 @@
       <table>
         <thead>
           <tr>
-            <th class="width80">时间</th>
-            <th class="width60">账号</th>
+            <th class="width100">时间</th>
+            <th class="width50">账号</th>
             <th class="width180">车型</th>
             <th class="width60">上牌时间</th>
-            <th class="width60">所在城市</th>
+            <th class="width80">所在城市</th>
             <th class="width90">行驶里程/万公里</th>
             <th class="width70">车辆估价/万</th>
             <th class="width50">姓名</th>
@@ -110,19 +119,20 @@
             <th class="width50">手机号</th>
             <th class="width50">平台选择</th>
             <th class="width50">状态</th>
+            <th class="width50">提交状态</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(item, index) in getList" :key="item.value" v-show="getList.length > 0">
-            <td class="width80">{{item.updated | getDate}}</td>
-            <td class="width60">{{item.zedAccount}}</td>
+            <td class="width100">{{item.updated | getDateHM}}</td>
+            <td class="width50">{{item.zedAccount}}</td>
             <td class="width180">
               <el-tooltip :content="item.title" placement="right" effect="light">
                 <el-button size="mini" class="width180 ellipsis">{{item.title}}</el-button>
               </el-tooltip>
             </td>
             <td class="width60">{{item.regDate}}</td>
-            <td class="width60">{{item.province}}{{item.city}}</td>
+            <td class="width80">{{item.province}}{{item.city}}</td>
             <td class="width90">{{item.mile}}</td>
             <td class="width70">{{item.highPrice}}</td>
             <td class="width50">{{item.name}}</td>
@@ -130,6 +140,7 @@
             <td class="width50">{{item.mobile}}</td>
             <td class="width50">{{item.pushPlatformType | getFormtype}}</td>
             <td class="width50">{{item.applyStatus | getStatus}}</td>
+            <td class="width50">{{item.submitStatus | getSubmitState}}</td>
           </tr>
           <tr v-show="getList.length === 0">
             <td class="noData" colspan="12">暂无数据</td>
@@ -144,7 +155,7 @@
   </div>
 </template>
 <script>
-import { format, getTime, getDate } from '../../../common/js/times'
+import { format, getTime, getDateHM } from '../../../common/js/times'
 import { getLimiteText } from '../../../common/js/utils'
 import { cheCredit } from '@/api/index'
 
@@ -157,12 +168,23 @@ export default {
       mobile: '',
       carNum: '',
       name: '',
+      submitStatus: '',
       highPrice: '',
       cityOrProvince: '',
       zend: '',
       maxPrice: '',
       minPrice: '',
       platform: '',
+      submitStatuOptions: [{
+        value: '',
+        label: '全部'
+      }, {
+        value: '1',
+        label: '成功'
+      }, {
+        value: '-1',
+        label: '失败'
+      }],
       platforms: [{
         value: '',
         label: '全部'
@@ -229,14 +251,17 @@ export default {
     // testKY();
   },
   filters: {
+    getSubmitState(t) {
+      return t === 1 ? '成功' : t === -1 ? '失败' : ''
+    },
     getLimiteText(t) {
       return getLimiteText(t)
     },
     getFullDate(t) {
       return format(t)
     },
-    getDate(t) {
-      return getDate(t)
+    getDateHM(t) {
+      return getDateHM(t)
     },
     getFormtype(t) {
       return t === 1 ? '微贷网' : ''
@@ -266,6 +291,7 @@ export default {
     },
     getval() {
       let params = {
+        submitStatus: this.submitStatus,
         applyStatus: this.applyStatus,
         _startTime: this.startTime ? getTime(this.startTime) : '',
         _endTime: this.endTime ? getTime(this.endTime) : '',
