@@ -143,7 +143,7 @@
             <td class="width50">{{item.submitStatus | getSubmitState}}</td>
           </tr>
           <tr v-show="getList.length === 0">
-            <td class="noData" colspan="12">暂无数据</td>
+            <td class="noData" colspan="13">暂无数据</td>
           </tr>
         </tbody>
       </table>
