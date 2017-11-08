@@ -9,7 +9,7 @@
         <el-breadcrumb-item>
           <span class="text">臻商分管理</span>
         </el-breadcrumb-item>
-        <el-breadcrumb-item>历程</el-breadcrumb-item>
+        <el-breadcrumb-item>自评历程</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
 
@@ -149,7 +149,7 @@
         </thead>
         <tbody>
           <tr v-for="(item, index) in getList" :key="item.value" v-show="getList.length > 0">
-            <td class="width80">{{item.date | getDate}}</td>
+            <td class="width80">{{item.date | getDateHM}}</td>
             <td class="width60">{{item.mobile}}</td>
             <td class="width60">{{item.name}}</td>
             <td class="width60">{{item.identityNo}}</td>
@@ -178,7 +178,7 @@
 <script>
 // import { ERR_OK } from '../../../common/js/config'
 import axios from 'axios'
-import { format, getDate } from '../../../common/js/times'
+import { format, getDate, getDateHM } from '../../../common/js/times'
 import { zsf, config } from '../../../api/index'
 // import { mapMutations } from 'vuex'
 export default {
@@ -300,6 +300,9 @@ export default {
     },
     getDate(t) {
       return getDate(t)
+    },
+    getDateHM(t) {
+      return getDateHM(t)
     },
     getmarryStatus(t) {
       return t === 0 ? '未婚' : t === 1 ? '已婚' : t === 2 ? '离异' : t === 3 ? '再婚' : t === 4 ? '丧偶' : ''

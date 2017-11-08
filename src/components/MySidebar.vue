@@ -40,7 +40,7 @@ export default {
             title: '自评历程'
           },
           {
-            index: 'zsfMileage',
+            index: 'zsfComCalculation',
             title: '提额历程'
           },
           {

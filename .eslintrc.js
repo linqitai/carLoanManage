@@ -26,6 +26,7 @@ module.exports = {
     'eol-last': 0,
     'space-before-function-paren': 0,
     'semi': [0],
-    'no-constant-condition': 0
+    'no-constant-condition': 0,
+    'no-unused-vars': 0
   }
 }
