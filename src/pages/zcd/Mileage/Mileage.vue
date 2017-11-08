@@ -112,7 +112,7 @@
             <th class="width180">车型</th>
             <th class="width60">上牌时间</th>
             <th class="width80">所在城市</th>
-            <th class="width90">行驶里程/万公里</th>
+            <th class="width90">行驶里程/公里</th>
             <th class="width70">车辆估价/万</th>
             <th class="width50">姓名</th>
             <th class="width100">身份证号</th>
@@ -133,7 +133,7 @@
             </td>
             <td class="width60">{{item.regDate}}</td>
             <td class="width80">{{item.province}}{{item.city}}</td>
-            <td class="width90">{{item.mile}}</td>
+            <td class="width90">{{item.inMile}}</td>
             <td class="width70">{{item.highPrice}}</td>
             <td class="width50">{{item.name}}</td>
             <td class="width100">{{item.carNum}}</td>

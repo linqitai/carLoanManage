@@ -146,8 +146,9 @@ $sidebarWidth: 160px;
 }
 // 表格样式
 table {
-  border: 1px solid #e1e6ef;
+  width: 100%;
   min-width: 1380px;
+  border: 1px solid #e1e6ef;
   margin-top: 10px;
   thead {
     background-color: #e1e6ef;

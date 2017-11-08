@@ -139,6 +139,7 @@ export default {
         }
       }
       .nav {
+        width: 100%;
         min-width: 1380px;
         background: #ffffff;
         padding: 12px 0 10px 20px;
@@ -161,6 +162,7 @@ export default {
 .allWrapper {
   padding: 5px 20px 0px 20px;
   .searchCondition {
+    width: 100%;
     min-width: 1380px;
     overflow: hidden;
     .searchBox {

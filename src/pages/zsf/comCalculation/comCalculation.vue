@@ -151,16 +151,6 @@
           <th class="width70">车辆价值</th>
           <th class="width50">是否店铺所有者</th>
           <th class="width50">店铺月营收</th>
-          <th class="width50">员工人数</th>
-          <th class="width50">店铺年租金</th>
-          <th class="width50">开业时长</th>
-          <th class="width50">所处区域</th>
-          <th class="width50">近三个月开门率</th>
-          <th class="width50">臻收银</th>
-          <th class="width50">客流统计</th>
-          <th class="width50">银行流水</th>
-          <th class="width50">征信报告</th>
-          <th class="width50">提升额度</th>
         </tr>
         </thead>
         <tbody>
@@ -184,7 +174,7 @@
           <td class="width50">{{item.submitStatus | getSubmitState}}</td>
         </tr>
         <tr v-show="getList.length === 0">
-          <td class="noData" colspan="12">暂无数据</td>
+          <td class="noData" colspan="9">暂无数据</td>
         </tr>
         </tbody>
       </table>
