@@ -283,7 +283,7 @@ export default {
     },
     moreBtn() {
       this.searchCell = !this.searchCell
-      // console.log(this.searchCell)
+      // // console.log(this.searchCell)
     },
     // 查看
     look() {
@@ -307,7 +307,7 @@ export default {
         maxPrice: this.maxPrice
       }
       cheCredit(params).then(res => {
-        console.log('list len:' + res.count)
+        // console.log('list len:' + res.count)
         if (res.code === 0) {
           this.getList = res.list
           this.total = res.count
@@ -326,16 +326,16 @@ export default {
     },
     searchByPrice() {
       let price = this.highPrice
-      console.log(price)
+      // console.log(price)
       this.minPrice = price.split('-')[0]
       this.maxPrice = price.split('-')[1]
       this.getval()
     },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`)
+      // console.log(`每页 ${val} 条`)
     },
     handleCurrentChange(val) {
-      console.log(val)
+      // console.log(val)
       this.pageIndex = val
       this.getval()
     }
