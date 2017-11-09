@@ -35,19 +35,19 @@ export default {
     },
     getUserInfo() {
       userInfo().then(res => {
-        console.log(res)
+        // console.log(res)
         if (res.code === 1002) {
           this.$router.push('/login')
         } else if (res.code === 0) {
           this.username = res.obj.username
-          console.log('username:' + this.username)
+          // console.log('username:' + this.username)
         }
       })
     },
     handleCommand(command) {
       if (command === 'loginout') {
         userLoginOut().then(res => {
-          console.log(res)
+          // console.log(res)
           if (res.code === 0) {
             this.$router.push('/login')
           }

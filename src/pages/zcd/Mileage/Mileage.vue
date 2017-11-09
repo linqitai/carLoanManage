@@ -112,7 +112,7 @@
             <th class="width180">车型</th>
             <th class="width60">上牌时间</th>
             <th class="width80">所在城市</th>
-            <th class="width90">行驶里程/万公里</th>
+            <th class="width90">行驶里程/公里</th>
             <th class="width70">车辆估价/万</th>
             <th class="width50">姓名</th>
             <th class="width100">身份证号</th>
@@ -133,7 +133,7 @@
             </td>
             <td class="width60">{{item.regDate}}</td>
             <td class="width80">{{item.province}}{{item.city}}</td>
-            <td class="width90">{{item.mile}}</td>
+            <td class="width90">{{item.inMile}}</td>
             <td class="width70">{{item.highPrice}}</td>
             <td class="width50">{{item.name}}</td>
             <td class="width100">{{item.carNum}}</td>
@@ -283,7 +283,7 @@ export default {
     },
     moreBtn() {
       this.searchCell = !this.searchCell
-      // console.log(this.searchCell)
+      // // console.log(this.searchCell)
     },
     // 查看
     look() {
@@ -307,7 +307,7 @@ export default {
         maxPrice: this.maxPrice
       }
       cheCredit(params).then(res => {
-        console.log('list len:' + res.count)
+        // console.log('list len:' + res.count)
         if (res.code === 0) {
           this.getList = res.list
           this.total = res.count
@@ -326,16 +326,16 @@ export default {
     },
     searchByPrice() {
       let price = this.highPrice
-      console.log(price)
+      // console.log(price)
       this.minPrice = price.split('-')[0]
       this.maxPrice = price.split('-')[1]
       this.getval()
     },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`)
+      // console.log(`每页 ${val} 条`)
     },
     handleCurrentChange(val) {
-      console.log(val)
+      // console.log(val)
       this.pageIndex = val
       this.getval()
     }

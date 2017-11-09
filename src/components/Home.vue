@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     clickLeftBtn() {
-      console.log('you click me')
+      // console.log('you click me')
       this.isShowSidebar = !this.isShowSidebar
     }
   },
@@ -68,7 +68,7 @@ export default {
               padding-left: 0px;
               font-size: 13px;
             }
-            .el-submenu__icon-arrow{
+            .el-submenu__icon-arrow {
               font-size: 8px;
               margin-top: -2px;
             }
@@ -139,12 +139,14 @@ export default {
         }
       }
       .nav {
+        width: 100%;
+        min-width: 1380px;
         background: #ffffff;
         padding: 12px 0 10px 20px;
         .hoemIcon {
           height: 11px;
         }
-        .el-breadcrumb__item__inner{
+        .el-breadcrumb__item__inner {
           color: #00917e;
         }
         .text {
@@ -157,12 +159,46 @@ export default {
     }
   }
 }
+.allWrapper {
+  padding: 5px 20px 0px 20px;
+  .searchCondition {
+    width: 100%;
+    min-width: 1380px;
+    overflow: hidden;
+    .searchBox {
+      overflow: hidden;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .element {
+      float: left;
+      margin-right: 15px;
+      .moreIcon {
+        @include extend_click();
+      }
+      p {
+        margin-bottom: 10px;
+        margin-top: 10px;
+      }
+      &:last-child {
+        margin-right: 0px;
+      }
+      .iconTransform {
+        transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+      }
+    }
+  }
+}
 /* transition name='fade' .fade-leave-active in below version 2.1.8 */
+
 // .fade-enter-active,
 // .fade-leave-active {
 //   transition: opacity .1s ease-in-out
 // }
-
 // .fade-enter,
 // .fade-leave-to {
 //   opacity: 0 .3s ease-in-out
