@@ -138,23 +138,23 @@
         </div>
       </div>
       <!--表格-->
-      <table>
+      <table style="width: 2000px;">
         <thead>
         <tr>
-          <th class="width80">提额时间</th>
+          <th class="width70">提额时间</th>
           <th class="width60">手机号</th>
           <th class="width60">姓名</th>
           <th class="width60">本地房产</th>
-          <th class="width60">房产价值(万元)</th>
+          <th class="width80">房产价值(万元)</th>
           <th class="width70">有无车辆</th>
-          <th class="width70">车辆价值(万元)</th>
-          <th class="width50">是否店铺所有者</th>
-          <th class="width50">店铺月营收(万元)</th>
+          <th class="width80">车辆价值(万元)</th>
+          <th class="width80">是否店铺所有者</th>
+          <th class="width70">店铺月营收(元)</th>
           <th class="width50">员工人数</th>
-          <th class="width50">店铺年租金(万元)</th>
+          <th class="width80">店铺年租金(万元)</th>
           <th class="width50">开业时长</th>
-          <th class="width50">所处区域</th>
-          <th class="width50">近三个月开门率</th>
+          <th class="width80">所处区域</th>
+          <th class="width70">近三个月开门率</th>
           <th class="width50">臻收银</th>
           <th class="width50">客流统计</th>
           <th class="width50">银行流水</th>
@@ -164,9 +164,9 @@
         </thead>
         <tbody>
         <tr v-for="item in getList" :key="item.id">
-          <td class="width180">{{item.date | getDateHM}}</td>
+          <td class="width180">{{item.modifyDate | getDateHM}}</td>
           <td class="width60">{{item.mobile}}</td>
-          <td class="width60"></td>
+          <td class="width60">{{item.name}}</td>
           <td class="width60">{{item.house | houseStatus}}</td>
           <td class="width60">{{item.houseValue}}</td>
           <td class="width70">{{item.car | carStatus}}</td>
@@ -358,13 +358,13 @@
         return t === 1 ? '有' : t === 0 ? '无' : ''
       },
       shopStatus(t) {
-        return t === 1 ? '有' : t === 0 ? '无' : ''
+        return t === 1 ? '是' : t === 0 ? '否' : ''
       },
       startYearStatus(t) {
         return t === 0 ? '一年以内' : t === 1 ? '3年以内' : t === 2 ? '3年以上' : ''
       },
       areaStatus(t) {
-        return t === 0 ? '郊区工业区' : t === 1 ? '郊区住宅区' : t === 2 ? '郊区商业区' : t === 3 ? '城区住宅区' : t === 4 ? '城区商业区' : ''
+        return t === 0 ? '郊区-工业区' : t === 1 ? '郊区-住宅区' : t === 2 ? '郊区-商业区' : t === 3 ? '城区-住宅区' : t === 4 ? '城区-商业区' : ''
       }
     },
     methods: {
