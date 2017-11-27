@@ -16,7 +16,7 @@ export default {
 }
 
 .el-breadcrumb__inner {
-  font-weight: normal;
+  font-weight: normal !important;
 }
 
 .borderTopParent {
@@ -53,7 +53,9 @@ export default {
     line-height: 26px !important;
   }
 }
-
+.el-button--mini {
+  padding: 4px 10px !important;
+}
 .loginWrap {
   .el-form-item {
     margin-bottom: 18px !important;
