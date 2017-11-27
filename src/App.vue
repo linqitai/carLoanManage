@@ -11,22 +11,25 @@ export default {
 </script>
 <style lang="scss">
 @import './common/scss/common';
-.el-breadcrumb{
+.el-breadcrumb {
   font-size: 13px !important;
 }
-.el-breadcrumb__inner{
+
+.el-breadcrumb__inner {
   font-weight: normal;
 }
-.borderTopParent{
-  .el-submenu__title{
-    .titleText{
+
+.borderTopParent {
+  .el-submenu__title {
+    .titleText {
       color: #fff;
     }
-    i{
+    i {
       color: #fff;
     }
   }
 }
+
 .el-pager {
   li {
     &.active {
@@ -36,16 +39,18 @@ export default {
     }
   }
 }
+
 .el-select-dropdown__item {
   padding: 0px 10px !important;
   height: 26px !important;
-  line-height: 28px !important;
+  line-height: 26px !important;
   &.selected {
     background-color: $mainColor !important;
-    color: #fff;
+    color: #fff !important;
   }
-  span{
-    line-height: 28px!important;
+  span {
+    height: 26px !important;
+    line-height: 26px !important;
   }
 }
 
@@ -57,13 +62,16 @@ export default {
     height: 32px !important;
   }
 }
-table .el-button{
+
+table .el-button {
   border: none;
 }
-.el-dialog{
+
+.el-dialog {
   box-shadow: none!important;
 }
-.el-dialog__footer{
+
+.el-dialog__footer {
   text-align: center;
 }
 </style>
