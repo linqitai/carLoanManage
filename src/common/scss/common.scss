@@ -1,3 +1,15 @@
+.width10{
+  width: 10px;
+}
+.width20{
+  width: 20px;
+}
+.width30{
+  width: 30px;
+}
+.width40{
+  width: 40px;
+}
 .width50{
   width: 50px;
 }
@@ -163,6 +175,9 @@ $sidebarWidth: 160px;
     tr th{
       padding: 12px 8px;
       text-align: center;
+      &:nth-of-type(2){
+        width: 100px;
+      }
     }
   }
   tbody {
@@ -179,8 +194,16 @@ $sidebarWidth: 160px;
       line-height: 16px;
     }
   }
+<<<<<<< HEAD
   .noData {
     font-size: 16px;
     padding: 30px;
   }
 }
+=======
+}
+.noData {
+  font-size: 16px;
+  padding: 30px;
+}
+>>>>>>> 125917bf4b5601d730a77bc758642714292abb3c
