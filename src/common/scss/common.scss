@@ -1,0 +1,201 @@
+.width10{
+  width: 10px;
+}
+.width20{
+  width: 20px;
+}
+.width30{
+  width: 30px;
+}
+.width40{
+  width: 40px;
+}
+.width50{
+  width: 50px;
+}
+.width60{
+  width: 60px;
+}
+.width70{
+  width: 70px;
+}
+.width80{
+  width: 80px;
+}
+.width90{
+  width: 90px;
+}
+.width100{
+  width: 100px;
+}
+.width120{
+  width: 120px;
+}
+.width140{
+  width: 140px;
+}
+.width160{
+  width: 160px;
+}
+.width180{
+  width: 180px;
+}
+.width190{
+  width: 190px;
+}
+.width200{
+  width: 200px;
+}
+.width204{
+  width: 204px;
+}
+.width210{
+  width: 210px;
+}
+.width230{
+  width: 230px;
+}
+.width240{
+  width: 240px;
+}
+.hidden{
+  overflow: hidden;
+}
+.mtb18{
+  margin-top: 18px;
+  margin-bottom: 10px;
+}
+// margin左
+.ml5{
+  margin-left: 5px;
+}
+.ml10{
+  margin-left: 10px;
+}
+.ml20{
+  margin-left: 20px;
+}
+// margin右
+.mr3{
+  margin-right: 3px;
+}
+.mr20{
+  margin-right: 20px;
+}
+.mr40{
+  margin-right: 40px;
+}
+.mr60{
+  margin-right: 60px;
+}
+// margin上
+.mt10{
+  margin-top: 10px;
+}
+.mt24{
+  margin-top: 24px;
+}
+.mt42{
+  margin-top: 43px;
+}
+.mt52{
+  margin-top: 52px;
+}
+.mt66{
+  margin-top: 66px;
+}
+.mt82{
+  margin-top: 82px;
+}
+// padding上
+.pdt42{
+  padding-bottom: 42px;
+}
+$menuColor:#ffffff;
+$borderColor:#ffffff;
+$borderColor2:#069F8B;
+$mainColor:#00917e;
+$sidebarWidth: 160px;
+.mainColor{
+  color: #00917e;
+}
+.left{
+  float: left;
+}
+.right{
+  float: right;
+}
+.ellipsis{
+  overflow: hidden;  /*溢出隐藏*/
+  text-overflow: ellipsis; /*以省略号...显示*/
+  white-space: nowrap;  /*强制不换行*/
+}
+.inline{
+  display: inline-block;
+}
+.colorWhite{
+  color: #ffffff;
+}
+.pointer{
+  cursor: pointer;
+}
+.clear{
+  clear: both;
+}
+.searchBtn{
+  background-color: $mainColor !important;
+  color: #ffffff !important;
+  &:hover{
+    color: #ffffff !important;
+  }
+}
+.moreIcon{
+  margin-top: 10px;
+  width: 16px;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in below version 2.1.8 */ {
+    opacity: 0
+}
+.nav{
+  .text{
+    font-size: 13px;
+  }
+}
+// 表格样式
+.tableList {
+  width: 100%;
+  min-width: 1380px;
+  border: 1px solid #e1e6ef;
+  margin-top: 10px;
+  thead {
+    background-color: #e1e6ef;
+    tr th{
+      padding: 12px 8px;
+      text-align: center;
+      &:nth-of-type(2){
+        width: 100px;
+      }
+    }
+  }
+  tbody {
+    background-color: #ffffff;
+    tr{
+      border-top: 1px solid #DDDDDD
+    }
+    tr:hover {
+      background-color: #f1f2f7;
+    }
+    tr td {
+      padding: 8px 8px;
+      text-align: center;
+      line-height: 16px;
+    }
+  }
+  .noData {
+    font-size: 16px;
+    padding: 30px;
+  }
+}
