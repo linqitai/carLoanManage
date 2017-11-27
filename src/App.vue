@@ -42,4 +42,10 @@ export default {
 table .el-button{
   border: none;
 }
+.el-dialog{
+  box-shadow: none!important;
+}
+.el-dialog__footer{
+  text-align: center;
+}
 </style>

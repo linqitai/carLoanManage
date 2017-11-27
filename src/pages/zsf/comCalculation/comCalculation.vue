@@ -53,13 +53,14 @@
           <div class="element" @click="search()">
             <el-button type="primary" class="searchBtn">查询</el-button>
           </div>
+          <!--<div class="message" v-show>111</div>-->
           <div class="element" @click="moreBtn">
             <img class="moreIcon" src="../../../common/images/arrow_down.png" v-if="!searchCell">
             <img class="moreIcon iconTransform" src="../../../common/images/arrow_down.png" v-if="searchCell">
           </div>
         </div>
         <!--第二行-->
-        <div class=" searchBox clear" v-if="searchCell" >
+        <div class=" searchBox clear" v-if="searchCell">
           <div class="element">
             <p class="inline">房产价值</p>
             <div class="width120 inline">
@@ -88,7 +89,7 @@
             </div>
           </div>
           <div class="element">
-            <p class="inline">开门率</p>
+            <p class="inline">安保服务</p>
             <div class="width120 inline">
               <el-select v-model="openDoor" placeholder="" @change="searchByOpenDoor">
                 <el-option v-for="item in openDoorState" :key="item.value" :label="item.label" :value="item.value">
@@ -138,51 +139,84 @@
         </div>
       </div>
       <!--表格-->
-      <table style="width: 2000px;">
+      <table style="width:2000px;">
         <thead>
         <tr>
           <th class="width70">提额时间</th>
-          <th class="width60">手机号</th>
-          <th class="width60">姓名</th>
-          <th class="width60">本地房产</th>
-          <th class="width80">房产价值(万元)</th>
-          <th class="width70">有无车辆</th>
-          <th class="width80">车辆价值(万元)</th>
-          <th class="width80">是否店铺所有者</th>
-          <th class="width70">店铺月营收(元)</th>
+          <th class="width40">手机号</th>
+          <th class="width30">姓名</th>
+          <th class="width30">本地房产</th>
+          <th class="width60">房产价值(万元)</th>
+          <th class="width40">有无车辆</th>
+          <th class="width60">车辆价值(万元)</th>
+          <th class="width50">店铺所有者</th>
+          <th class="width60">店铺月营收(元)</th>
           <th class="width50">员工人数</th>
-          <th class="width80">店铺年租金(万元)</th>
+          <th class="width70">店铺年租金(万元)</th>
           <th class="width50">开业时长</th>
-          <th class="width80">所处区域</th>
-          <th class="width70">近三个月开门率</th>
-          <th class="width50">臻收银</th>
-          <th class="width50">客流统计</th>
-          <th class="width50">银行流水</th>
-          <th class="width50">征信报告</th>
-          <th class="width50">提升额度(元)</th>
+          <th class="width50">所处区域</th>
+          <th class="width60 bg">资产与经营(元)</th>
+          <th class="width50 bg">银行流水(元)</th>
+          <th class="width50 bg">征信报告(元)</th>
+          <th class="width50 bg">安保服务(元)</th>
+          <th class="width50 bg">客流统计(元)</th>
+          <th class="width50 bg">臻收银(元)</th>
+          <th class="width60 bg">总提升额度(元)</th>
         </tr>
         </thead>
         <tbody>
         <tr v-for="item in getList" :key="item.id">
-          <td class="width180">{{item.modifyDate | getDateHM}}</td>
-          <td class="width60">{{item.mobile}}</td>
-          <td class="width60">{{item.name}}</td>
-          <td class="width60">{{item.house | houseStatus}}</td>
-          <td class="width60">{{item.houseValue}}</td>
-          <td class="width70">{{item.car | carStatus}}</td>
-          <td class="width70">{{item.carValue}}</td>
+          <td class="width70">{{item.modifyDate | getDateHM}}</td>
+          <td class="width40">{{item.mobile}}</td>
+          <td class="width30">{{item.name}}</td>
+          <td class="width50">{{item.house | houseStatus}}</td>
+          <td class="width60">{{item.houseValue | assetStatus}}</td>
+          <td class="width40">{{item.car | carStatus}}</td>
+          <td class="width60">{{item.carValue | assetStatus}}</td>
           <td class="width50">{{item.shop | shopStatus}}</td>
-          <td class="width50">{{item.monthlySales}}</td>
-          <td class="width50">{{item.employeeNum}}</td>
-          <td class="width50">{{item.annualRent}}</td>
+          <td class="width60">{{item.monthlySales | assetStatus}}</td>
+          <td class="width50">{{item.employeeNum | assetStatus}}</td>
+          <td class="width60">{{item.annualRent | assetStatus}}</td>
           <td class="width50">{{item.startBusinessTime | startYearStatus}}</td>
           <td class="width50">{{item.area | areaStatus}}</td>
-          <td class="width50">{{item.openRate}}</td>
-          <td class="width50">{{item.openCashier}}</td>
-          <td class="width50">{{item.footfall}}</td>
-          <td class="width50">{{item.bankStatementFlag}}</td>
-          <td class="width50">{{item.creditReportFlag}}</td>
-          <td class="width50">{{item.promTotal}}</td>
+          <td class="widtt60">{{item.asset | assetStatus}}</td>
+          <td class="width50">{{item.bankStatementFlag | assetStatus}}</td>
+          <td class="width60">{{item.creditReportFlag | assetStatus}}</td>
+          <td class="width50" id="protect">
+            <a @click="securityBtn(item.isInstallAB, item.rate)">{{item.security | assetStatus}}</a>
+            <!--安保对话框-->
+            <el-dialog
+              title="安保服务详情"
+              :visible.sync="centerDialogVisible"
+              center>
+              <div class="dialog-div">
+                <p>使用时长：{{isInstallAB | isInstallABStatus}}</p>
+                <p>近三个月开门率：{{dialogRate | rateStatus}}%</p>
+              </div>
+              <span slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="centerDialogVisible = false">关 闭</el-button>
+              </span>
+            </el-dialog>
+          </td>
+          <td class="width50" id="people">
+            <a @click="passengerBtn(item.installDays, item.threeWeekPeople, item.nineWeekPeople)">{{item.passenger | assetStatus}}</a>
+            <!--客流对话框-->
+            <el-dialog
+              title="客流统计详情"
+              :visible.sync="centerDialogVisible1"
+              center>
+              <div class="dialog-div">
+                <p>使用时长：{{installDays | rateStatus}}天</p>
+                <p>前9周周平均客流：{{threeWeekPeople | rateStatus}}人</p>
+                <p>后3周周平均客流：{{nineWeekPeople | rateStatus}}人</p>
+              </div>
+              <span slot="footer" class="dialog-footer">
+    <el-button type="primary" @click="centerDialogVisible1 = false">关 闭</el-button>
+  </span>
+            </el-dialog>
+            </td>
+          <td class="width50">{{item.openCashier | assetStatus}}</td>
+          <td class="width50">{{item.promTotal | assetStatus}}</td>
         </tr>
         <tr v-show="getList.length === 0">
           <td class="noData" colspan="19">暂无数据</td>
@@ -207,6 +241,13 @@
   export default {
     data() {
       return {
+        installDays: '',
+        threeWeekPeople: '',
+        nineWeekPeople: '',
+        dialogRate: '',
+        isInstallAB: '',
+        centerDialogVisible: false,
+        centerDialogVisible1: false,
         mobile: '',
         name: '',
         total: '',
@@ -283,17 +324,11 @@
           value: '',
           label: '全部'
         }, {
-          value: '0.9',
-          label: '≥90%'
+          value: '0',
+          label: '0-5000'
         }, {
-          value: '0.8-0.9',
-          label: '80%-90%'
-        }, {
-          value: '0.7-0.8',
-          label: '70%-80%'
-        }, {
-          value: '0-0.7',
-          label: '≤70%'
+          value: '1',
+          label: '5000-10000'
         }],
         // 臻收银
         collectMoneyState: [{
@@ -312,10 +347,10 @@
           label: '全部'
         }, {
           value: '0',
-          label: '有'
+          label: '0-10000'
         }, {
           value: '1',
-          label: '无'
+          label: '10000-20000'
         }],
         // 银行流水
         bankState: [{
@@ -352,22 +387,42 @@
         return getDate(t)
       },
       houseStatus(t) {
-        return t === 1 ? '有' : t === 0 ? '无' : ''
+        return t === undefined ? '---' : t === 1 ? '有' : t === 0 ? '无' : ''
       },
       carStatus(t) {
-        return t === 1 ? '有' : t === 0 ? '无' : ''
+        return t === undefined ? '---' : t === 1 ? '有' : t === 0 ? '无' : ''
       },
       shopStatus(t) {
-        return t === 1 ? '是' : t === 0 ? '否' : ''
+        return t === undefined ? '---' : t === 1 ? '是' : t === 0 ? '否' : ''
       },
       startYearStatus(t) {
-        return t === 0 ? '一年以内' : t === 1 ? '3年以内' : t === 2 ? '3年以上' : ''
+        return t === undefined ? '---' : t === 0 ? '一年以内' : t === 1 ? '3年以内' : t === 2 ? '3年以上' : ''
       },
       areaStatus(t) {
-        return t === 0 ? '郊区-工业区' : t === 1 ? '郊区-住宅区' : t === 2 ? '郊区-商业区' : t === 3 ? '城区-住宅区' : t === 4 ? '城区-商业区' : ''
+        return t === undefined ? '---' : t === 0 ? '郊区-工业区' : t === 1 ? '郊区-住宅区' : t === 2 ? '郊区-商业区' : t === 3 ? '城区-住宅区' : t === 4 ? '城区-商业区' : ''
+      },
+      isInstallABStatus(t) {
+        return t === 0 ? '未安装' : '已安装'
+      },
+      rateStatus(t) {
+        return t === undefined ? '0' : t
+      },
+      assetStatus(t) {
+        return t === undefined ? '---' : t
       }
     },
     methods: {
+      securityBtn(isInstallAB, rate) {
+        this.centerDialogVisible = true
+        this.dialogRate = rate
+        this.isInstallAB = isInstallAB
+      },
+      passengerBtn(installDays, threeWeekPeople, nineWeekPeople) {
+        this.centerDialogVisible1 = true
+        this.installDays = installDays
+        this.threeWeekPeople = threeWeekPeople
+        this.nineWeekPeople = nineWeekPeople
+      },
       search() {
         let params = {
           mobile: this.mobile,
@@ -382,11 +437,12 @@
           houseValueMax: this.houseValueMax,
           carValueMin: this.carValueMin,
           carValueMax: this.carValueMax,
-          openDoorRateMin: this.openDoorRateMin,
-          openDoorRateMax: this.openDoorRateMax,
+//          openDoorRateMin: this.openDoorRateMin,
+//          openDoorRateMax: this.openDoorRateMax,
+          securityMoneyFlag: this.openDoor,
           shop: this.shopOwner,
           cashier: this.collectMoney,
-          fallfoot: this.people,
+          fallFootMoneyFlag: this.people,
           bankStatementFlag: this.bank,
           creditReportFlag: this.report
 
@@ -397,6 +453,8 @@
             this.$nextTick(() => {
               this.getList = res.data.data.result ? res.data.data.result : ''
               this.total = res.data.data.total
+              console.log(res.data.data.result)
+//              this.asset = (res.data.data.asset === undefined) ? -1 : res.data.data.asset;
               if (this.total <= this.pageSize) {
                 this.showPageTag = false
               } else {

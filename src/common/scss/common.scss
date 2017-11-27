@@ -1,3 +1,15 @@
+.width10{
+  width: 10px;
+}
+.width20{
+  width: 20px;
+}
+.width30{
+  width: 30px;
+}
+.width40{
+  width: 40px;
+}
 .width50{
   width: 50px;
 }
@@ -155,6 +167,9 @@ table {
     tr th{
       padding: 12px 8px;
       text-align: center;
+      &:nth-of-type(2){
+        width: 100px;
+      }
     }
   }
   tbody {

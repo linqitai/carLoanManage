@@ -136,9 +136,9 @@
           <tr>
             <th class="width80">时间</th>
             <th class="width60">手机号</th>
-            <th class="width60">姓名</th>
-            <th class="width60">身份证号</th>
-            <th class="width60">婚姻状态</th>
+            <th class="width50">姓名</th>
+            <th class="width50">身份证号</th>
+            <th class="width50">婚姻状态</th>
             <th class="width70">配偶职业</th>
             <th class="width70">子女职业</th>
             <th class="width50">家庭收支(元)</th>
@@ -151,9 +151,9 @@
           <tr v-for="(item, index) in getList" :key="item.value" v-show="getList.length > 0">
             <td class="width80">{{item.date | getDateHM}}</td>
             <td class="width60">{{item.mobile}}</td>
-            <td class="width60">{{item.name}}</td>
-            <td class="width60">{{item.identityNo}}</td>
-            <td class="width60">{{item.marriage | getmarryStatus}}</td>
+            <td class="width50">{{item.name}}</td>
+            <td class="width50">{{item.identityNo}}</td>
+            <td class="width50">{{item.marriage | getmarryStatus}}</td>
             <td class="width70">{{item.spouseOCP | getsupStatus}}</td>
             <td class="width70">{{item.childOCP | getsupStatus}}</td>
             <td class="width50">{{item.fmSaving}}</td>
@@ -308,7 +308,7 @@ export default {
       return t === 0 ? '未婚' : t === 1 ? '已婚' : t === 2 ? '离异' : t === 3 ? '再婚' : t === 4 ? '丧偶' : ''
     },
     getsupStatus(t) {
-      return t === 1 ? '政府部门' : t === 2 ? '事业单位' : t === 3 ? '其他' : t === 4 ? '共同经营' : ''
+      return t === 1 ? '政府部门' : t === 2 ? '事业单位' : t === 3 ? '其他' : t === 4 ? '共同经营' : '--'
     },
     getStatus(t) {
       return t === 0 ? '去自评' : t === 1 ? '自评提交' : t === 2 ? '重自评' : t === 3 ? '重自评提交' : t === 4 ? '去提额' : t === 5 ? '申请臻e贷' : t === 6 ? '申请臻分期' : ''
