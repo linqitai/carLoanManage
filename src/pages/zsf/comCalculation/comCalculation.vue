@@ -1,6 +1,6 @@
 <template>
-  <div class="zsfComCalculation" ref="zsfComCalculation">
-    <div class="nav" ref="nav">
+  <div class="zsfComCalculation">
+    <div class="nav">
       <el-breadcrumb separator="/">
         <img class="hoemIcon left mr3" src="../../../common/images/homeIconGray.png" alt="">
         <el-breadcrumb-item>
@@ -9,9 +9,7 @@
         <el-breadcrumb-item>
           <span class="text">臻商分管理</span>
         </el-breadcrumb-item>
-        <el-breadcrumb-item>
-          <span class="mainColor">提额历程</span>
-        </el-breadcrumb-item>
+        <el-breadcrumb-item>提额历程</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="allWrapper">
@@ -20,17 +18,20 @@
           <div class="element">
             <p class="inline">提额时间</p>
             <div class="inline">
-              <el-date-picker class="inline" style="width:140px;" v-model="sdate" type="date" placeholder="开始时间" @change="startTimeChange">
+              <el-date-picker class="inline" style="width:120px;" v-model="sdate" type="date" placeholder="开始时间"
+                              @change="startTimeChange">
               </el-date-picker>
               <span class="inline">至</span>
-              <el-date-picker class="inline" style="width:140px;" v-model="edate" type="date" placeholder="结束时间" @change="endTimeChange">
+              <el-date-picker class="inline" style="width:120px;" v-model="edate" type="date" placeholder="结束时间"
+                              @change="endTimeChange">
               </el-date-picker>
             </div>
           </div>
           <div class="element">
             <p class="inline">手机号</p>
             <div class="width140 inline">
-              <el-input type="number" v-model="mobile" placeholder="请输入手机号" class="input" @keyup.enter.native="search"></el-input>
+              <el-input type="number" v-model="mobile" placeholder="请输入手机号" class="input"
+                        @keyup.enter.native="search"></el-input>
             </div>
           </div>
           <div class="element">
@@ -138,58 +139,7 @@
         </div>
       </div>
       <!--表格-->
-<<<<<<< HEAD
-      <table class="tableList" style="width: 2000px;">
-        <thead>
-          <tr>
-            <th class="width70">提额时间</th>
-            <th class="width60">手机号</th>
-            <th class="width60">姓名</th>
-            <th class="width60">本地房产</th>
-            <th class="width80">房产价值(万元)</th>
-            <th class="width70">有无车辆</th>
-            <th class="width80">车辆价值(万元)</th>
-            <th class="width80">是否店铺所有者</th>
-            <th class="width70">店铺月营收(元)</th>
-            <th class="width50">员工人数</th>
-            <th class="width80">店铺年租金(万元)</th>
-            <th class="width50">开业时长</th>
-            <th class="width80">所处区域</th>
-            <th class="width70">近三个月开门率</th>
-            <th class="width50">臻收银</th>
-            <th class="width50">客流统计</th>
-            <th class="width50">银行流水</th>
-            <th class="width50">征信报告</th>
-            <th class="width50">提升额度(元)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in getList" :key="item.id">
-            <td class="width180">{{item.modifyDate | getDateHM}}</td>
-            <td class="width60">{{item.mobile}}</td>
-            <td class="width60">{{item.name}}</td>
-            <td class="width60">{{item.house | houseStatus}}</td>
-            <td class="width60">{{item.houseValue}}</td>
-            <td class="width70">{{item.car | carStatus}}</td>
-            <td class="width70">{{item.carValue}}</td>
-            <td class="width50">{{item.shop | shopStatus}}</td>
-            <td class="width50">{{item.monthlySales}}</td>
-            <td class="width50">{{item.employeeNum}}</td>
-            <td class="width50">{{item.annualRent}}</td>
-            <td class="width50">{{item.startBusinessTime | startYearStatus}}</td>
-            <td class="width50">{{item.area | areaStatus}}</td>
-            <td class="width50">{{item.openRate}}</td>
-            <td class="width50">{{item.openCashier}}</td>
-            <td class="width50">{{item.footfall}}</td>
-            <td class="width50">{{item.bankStatementFlag}}</td>
-            <td class="width50">{{item.creditReportFlag}}</td>
-            <td class="width50">{{item.promTotal}}</td>
-          </tr>
-          <tr v-show="getList.length === 0">
-            <td class="noData" colspan="19">暂无数据</td>
-          </tr>
-=======
-      <table style="width:2000px;">
+      <table class="tableList" style="width:2000px;">
         <thead>
         <tr>
           <th class="width70">提额时间</th>
@@ -216,9 +166,9 @@
         </thead>
         <tbody>
         <tr v-for="item in getList" :key="item.id">
-          <td class="width70">{{item.modifyDate | getDateHM}}</td>
-          <td class="width40">{{item.mobile}}</td>
-          <td class="width30">{{item.name}}</td>
+          <td class="width70 fix">{{item.modifyDate | getDateHM}}</td>
+          <td class="width40 fix">{{item.mobile}}</td>
+          <td class="width30 fix">{{item.name}}</td>
           <td class="width50">{{item.house | houseStatus}}</td>
           <td class="width60">{{item.houseValue | assetStatus}}</td>
           <td class="width40">{{item.car | carStatus}}</td>
@@ -233,7 +183,7 @@
           <td class="width50">{{item.bankStatementFlag | assetStatus}}</td>
           <td class="width60">{{item.creditReportFlag | assetStatus}}</td>
           <td class="width50" id="protect">
-            <a @click="securityBtn(item.isInstallAB, item.rate)">{{item.security | assetStatus}}</a>
+            <a type="text" @click="securityBtn(item.isInstallAB, item.rate)">{{item.security | assetStatus}}</a>
             <!--安保对话框-->
             <el-dialog
               title="安保服务详情"
@@ -249,7 +199,7 @@
             </el-dialog>
           </td>
           <td class="width50" id="people">
-            <a @click="passengerBtn(item.installDays, item.threeWeekPeople, item.nineWeekPeople)">{{item.passenger | assetStatus}}</a>
+            <a type="text" @click="passengerBtn(item.installDays, item.threeWeekPeople, item.nineWeekPeople)">{{item.passenger | assetStatus}}</a>
             <!--客流对话框-->
             <el-dialog
               title="客流统计详情"
@@ -264,18 +214,19 @@
     <el-button type="primary" @click="centerDialogVisible1 = false">关 闭</el-button>
   </span>
             </el-dialog>
-            </td>
+          </td>
           <td class="width50">{{item.openCashier | assetStatus}}</td>
           <td class="width50">{{item.promTotal | assetStatus}}</td>
         </tr>
         <tr v-show="getList.length === 0">
           <td class="noData" colspan="19">暂无数据</td>
         </tr>
->>>>>>> 125917bf4b5601d730a77bc758642714292abb3c
         </tbody>
       </table>
       <div class="block" style="margin-top:10px" v-show="showPageTag">
-        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex" :page-size="pageSize" layout="total, prev, pager, next, jumper" :total="total">
+        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+                       :current-page.sync="pageIndex" :page-size="pageSize" layout="total, prev, pager, next, jumper"
+                       :total="total">
         </el-pagination>
       </div>
     </div>
@@ -283,155 +234,10 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
-import { format, getDate, getDateHM } from '../../../common/js/times'
-import { zsf, config } from '../../../api/index'
+  import axios from 'axios'
+  import {format, getDate, getDateHM} from '../../../common/js/times'
+  import {zsf, config} from '../../../api/index'
 
-<<<<<<< HEAD
-export default {
-  data() {
-    return {
-      mobile: '',
-      name: '',
-      total: 1,
-      searchCell: false,
-      sdate: '',
-      edate: '',
-      house: '',
-      car: '',
-      openDoor: '',
-      shopOwner: '',
-      collectMoney: '',
-      people: '',
-      bank: '',
-      report: '',
-      getList: '',
-      pageIndex: 1,
-      pageSize: 16,
-      showPageTag: false,
-      quotaMin: '',
-      quotaMax: '',
-      // 房子
-      houseState: [{
-        value: '',
-        label: '全部'
-      }, {
-        value: '0-0',
-        label: '无'
-      }, {
-        value: '0-100',
-        label: '100万以下'
-      }, {
-        value: '100-300',
-        label: '100万-300万'
-      }, {
-        value: '300-800',
-        label: '300万-800万'
-      }, {
-        value: '800',
-        label: '800万以上'
-      }],
-      // 车
-      carState: [{
-        value: '',
-        label: '全部'
-      }, {
-        value: '0-0',
-        label: '无'
-      }, {
-        value: '0-20',
-        label: '20万以下'
-      }, {
-        value: '20-50',
-        label: '20万-50万'
-      }, {
-        value: '50-100',
-        label: '50万-100万'
-      }, {
-        value: '100',
-        label: '100万以上'
-      }],
-      // 是否店铺所有者
-      shopOwnerState: [{
-        value: '',
-        label: '全部'
-      }, {
-        value: '0',
-        label: '是'
-      }, {
-        value: '1',
-        label: '否'
-      }],
-      // 开门率
-      openDoorState: [{
-        value: '',
-        label: '全部'
-      }, {
-        value: '0.9',
-        label: '≥90%'
-      }, {
-        value: '0.8-0.9',
-        label: '80%-90%'
-      }, {
-        value: '0.7-0.8',
-        label: '70%-80%'
-      }, {
-        value: '0-0.7',
-        label: '≤70%'
-      }],
-      // 臻收银
-      collectMoneyState: [{
-        value: '',
-        label: '全部'
-      }, {
-        value: '0',
-        label: '有'
-      }, {
-        value: '1',
-        label: '无'
-      }],
-      // 客流统计
-      peopleState: [{
-        value: '',
-        label: '全部'
-      }, {
-        value: '0',
-        label: '有'
-      }, {
-        value: '1',
-        label: '无'
-      }],
-      // 银行流水
-      bankState: [{
-        value: '',
-        label: '全部'
-      }, {
-        value: '0',
-        label: '有'
-      }, {
-        value: '1',
-        label: '无'
-      }],
-      // 统计报告
-      reportState: [{
-        value: '',
-        label: '全部'
-      }, {
-        value: '0',
-        label: '有'
-      }, {
-        value: '1',
-        label: '无'
-      }]
-    }
-  },
-  created() {
-    this.search()
-  },
-  filters: {
-    getDateHM(t) {
-      return getDateHM(t)
-=======
   export default {
     data() {
       return {
@@ -569,51 +375,10 @@ export default {
           label: '无'
         }]
       }
->>>>>>> 125917bf4b5601d730a77bc758642714292abb3c
     },
-    getDate(t) {
-      return getDate(t)
+    created() {
+      this.search();
     },
-<<<<<<< HEAD
-    houseStatus(t) {
-      return t === 1 ? '有' : t === 0 ? '无' : ''
-    },
-    carStatus(t) {
-      return t === 1 ? '有' : t === 0 ? '无' : ''
-    },
-    shopStatus(t) {
-      return t === 1 ? '是' : t === 0 ? '否' : ''
-    },
-    startYearStatus(t) {
-      return t === 0 ? '一年以内' : t === 1 ? '3年以内' : t === 2 ? '3年以上' : ''
-    },
-    areaStatus(t) {
-      return t === 0 ? '郊区-工业区' : t === 1 ? '郊区-住宅区' : t === 2 ? '郊区-商业区' : t === 3 ? '城区-住宅区' : t === 4 ? '城区-商业区' : ''
-    }
-  },
-  methods: {
-    search() {
-      let params = {
-        mobile: this.mobile,
-        page: this.pageIndex,
-        size: this.pageSize,
-        startDate: this.sdate ? getDate(this.sdate) : '',
-        endDate: this.edate ? getDate(this.edate) : '',
-        name: this.name,
-        quotaMin: this.quotaMin,
-        quotaMax: this.quotaMax,
-        houseValueMin: this.houseValueMin,
-        houseValueMax: this.houseValueMax,
-        carValueMin: this.carValueMin,
-        carValueMax: this.carValueMax,
-        openDoorRateMin: this.openDoorRateMin,
-        openDoorRateMax: this.openDoorRateMax,
-        shop: this.shopOwner,
-        cashier: this.collectMoney,
-        fallfoot: this.people,
-        bankStatementFlag: this.bank,
-        creditReportFlag: this.report
-=======
     filters: {
       getDateHM(t) {
         return getDateHM(t)
@@ -680,63 +445,8 @@ export default {
           fallFootMoneyFlag: this.people,
           bankStatementFlag: this.bank,
           creditReportFlag: this.report
->>>>>>> 125917bf4b5601d730a77bc758642714292abb3c
 
-      }
-      axios.post(zsf + '/promoteQuota/queryForWeb', params, config).then(res => {
-        if (res.data.code === 1000) {
-          // this.getList = res.data.data.result ? res.data.data.result : '';
-          this.$nextTick(() => {
-            this.getList = res.data.data.result ? res.data.data.result : ''
-            this.total = parseInt(res.data.data.total)
-            if (this.total <= this.pageSize) {
-              this.showPageTag = false
-            } else {
-              this.showPageTag = true
-            }
-          })
         }
-<<<<<<< HEAD
-        // 设置面包屑导航的宽度
-        let width = this.$refs.zsfComCalculation.scrollWidth
-        this.$refs.nav.style.width = width + 'px'
-      })
-    },
-    handleSizeChange(val) {
-      console.log(`每页 ${val} 条`)
-    },
-    handleCurrentChange(val) {
-      console.log(val)
-      this.pageIndex = val
-      this.search()
-    },
-    searchByHouseValue() {
-      let price = this.house
-      console.log(price)
-      this.houseValueMin = price.split('-')[0]
-      this.houseValueMax = price.split('-')[1]
-      this.search()
-    },
-    searchByCarValue() {
-      let price = this.car
-      console.log(price)
-      this.carValueMin = price.split('-')[0]
-      this.carValueMax = price.split('-')[1]
-      this.search()
-    },
-    searchByOpenDoor() {
-      let price = this.openDoor
-      console.log(price)
-      this.openDoorRateMin = price.split('-')[0]
-      this.openDoorRateMax = price.split('-')[1]
-      this.search()
-    },
-    moreBtn() {
-      this.searchCell = !this.searchCell
-    },
-    startTimeChange() {
-      if (this.edate) {
-=======
         axios.post(zsf + '/promoteQuota/queryForWeb', params, config).then(res => {
           if (res.data.code === 1000) {
             // this.getList = res.data.data.result ? res.data.data.result : '';
@@ -774,20 +484,36 @@ export default {
         console.log(price)
         this.carValueMin = price.split('-')[0]
         this.carValueMax = price.split('-')[1]
->>>>>>> 125917bf4b5601d730a77bc758642714292abb3c
         this.search()
-      }
-    },
-    endTimeChange() {
-      if (this.sdate) {
+      },
+      searchByOpenDoor() {
+        let price = this.openDoor
+        console.log(price)
+        this.openDoorRateMin = price.split('-')[0]
+        this.openDoorRateMax = price.split('-')[1]
         this.search()
+      },
+      moreBtn() {
+        this.searchCell = !this.searchCell
+      },
+      startTimeChange() {
+        if (this.edate) {
+          this.search()
+        }
+      },
+      endTimeChange() {
+        if (this.sdate) {
+          this.search()
+        }
       }
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>
-@import './comCalculation'
+  @import './comCalculation'
+  /*.nopage{*/
+  /*text-align: center;*/
+  /*padding-top: 200px;*/
+  /*}*/
 </style>
-
