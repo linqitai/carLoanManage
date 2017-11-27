@@ -18,11 +18,11 @@
           <div class="element">
             <p class="inline">提额时间</p>
             <div class="inline">
-              <el-date-picker class="inline" style="width:120px;" v-model="sdate" type="date" placeholder="开始时间"
+              <el-date-picker class="inline" style="width:140px;" v-model="sdate" type="date" placeholder="开始时间"
                               @change="startTimeChange">
               </el-date-picker>
               <span class="inline">至</span>
-              <el-date-picker class="inline" style="width:120px;" v-model="edate" type="date" placeholder="结束时间"
+              <el-date-picker class="inline" style="width:140px;" v-model="edate" type="date" placeholder="结束时间"
                               @change="endTimeChange">
               </el-date-picker>
             </div>
@@ -219,7 +219,7 @@
           <td class="width50">{{item.promTotal | assetStatus}}</td>
         </tr>
         <tr v-show="getList.length === 0">
-          <td class="noData" colspan="19">暂无数据</td>
+          <td class="noData" colspan="20">暂无数据</td>
         </tr>
         </tbody>
       </table>
