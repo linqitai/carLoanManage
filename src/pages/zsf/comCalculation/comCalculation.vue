@@ -9,7 +9,9 @@
         <el-breadcrumb-item>
           <span class="text">臻商分管理</span>
         </el-breadcrumb-item>
-        <el-breadcrumb-item>提额历程</el-breadcrumb-item>
+        <el-breadcrumb-item>
+          <span class="mainColor">提额历程</span>
+        </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="allWrapper">
@@ -250,7 +252,7 @@
         centerDialogVisible1: false,
         mobile: '',
         name: '',
-        total: '',
+        total: 1,
         searchCell: false,
         sdate: '',
         edate: '',
