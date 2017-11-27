@@ -11,23 +11,41 @@ export default {
 </script>
 <style lang="scss">
 @import './common/scss/common';
+.el-breadcrumb{
+  font-size: 13px !important;
+}
+.el-breadcrumb__inner{
+  font-weight: normal;
+}
+.borderTopParent{
+  .el-submenu__title{
+    .titleText{
+      color: #fff;
+    }
+    i{
+      color: #fff;
+    }
+  }
+}
 .el-pager {
   li {
     &.active {
       border-color: $mainColor !important;
       background-color: $mainColor !important;
+      color: #fff !important;
     }
   }
 }
-
 .el-select-dropdown__item {
-  padding: 2px 10px !important;
+  padding: 0px 10px !important;
   height: 26px !important;
-}
-
-.el-select-dropdown__item {
+  line-height: 28px !important;
   &.selected {
     background-color: $mainColor !important;
+    color: #fff;
+  }
+  span{
+    line-height: 28px!important;
   }
 }
 

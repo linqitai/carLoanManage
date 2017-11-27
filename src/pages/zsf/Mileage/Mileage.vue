@@ -1,6 +1,6 @@
 <template>
-  <div class="zsfMileage">
-    <div class="nav">
+  <div class="zsfMileage" ref="zsfMileage">
+    <div class="nav" ref="nav">
       <el-breadcrumb separator="/">
         <img class="hoemIcon left mr3" src="../../../common/images/homeIconGray.png" alt="">
         <el-breadcrumb-item>
@@ -9,7 +9,9 @@
         <el-breadcrumb-item>
           <span class="text">臻商分管理</span>
         </el-breadcrumb-item>
-        <el-breadcrumb-item>自评历程</el-breadcrumb-item>
+        <el-breadcrumb-item>
+          <span class="mainColor">自评历程</span>
+        </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
 
@@ -20,10 +22,10 @@
             <div class="element">
               <p class="inline">时间</p>
               <div class="inline">
-                <el-date-picker class="inline" style="width:120px;" v-model="sdate" type="date" placeholder="开始时间" @change="startTimeChange">
+                <el-date-picker size="medium" class="inline" style="width:140px;" v-model="sdate" type="date" placeholder="开始时间" @change="startTimeChange">
                 </el-date-picker>
                 <span class="inline">至</span>
-                <el-date-picker class="inline" style="width:120px;" v-model="edate" type="date" placeholder="结束时间" @change="endTimeChange">
+                <el-date-picker size="medium" class="inline" style="width:140px;" v-model="edate" type="date" placeholder="结束时间" @change="endTimeChange">
                 </el-date-picker>
               </div>
             </div>
@@ -31,32 +33,32 @@
           <div class="element">
             <p class="inline">姓名</p>
             <div class="width120 inline">
-              <el-input v-model="name" placeholder="请输入姓名" class="input" @keyup.enter.native="search"></el-input>
+              <el-input size="medium" v-model="name" placeholder="请输入姓名" class="input" @keyup.enter.native="search"></el-input>
             </div>
           </div>
           <div class="element">
             <p class="inline">身份证号</p>
             <div class="width180 inline">
-              <el-input placeholder="请输入身份证号" class="input" v-model="identityNo" :maxlength="maxlengthid" @keyup.enter.native="search"></el-input>
+              <el-input size="medium" placeholder="请输入身份证号" class="input" v-model="identityNo" :maxlength="maxlengthid" @keyup.enter.native="search"></el-input>
             </div>
           </div>
           <div class="element">
             <p class="inline">手机号</p>
             <div class="width140 inline">
-              <el-input type="number" v-model="mobile" placeholder="请输入手机号" class="input" :maxlength="maxlengthMobole" @keyup.enter.native="search"></el-input>
+              <el-input size="medium" type="number" v-model="mobile" placeholder="请输入手机号" class="input" :maxlength="maxlengthMobole" @keyup.enter.native="search"></el-input>
             </div>
           </div>
           <div class="element">
             <p class="inline">动作</p>
             <div class="width120 inline">
-              <el-select v-model="state" placeholder="" @change="search">
+              <el-select size="medium" v-model="state" placeholder="" @change="search">
                 <el-option v-for="item in states" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
             </div>
           </div>
           <div class="element" @click="search()">
-            <el-button type="primary" class="searchBtn">查询</el-button>
+            <el-button size="medium" type="primary" class="searchBtn">查询</el-button>
           </div>
           <div class="element" @click="moreBtn">
             <img class="moreIcon" src="../../../common/images/arrow_down.png" width="32" v-if="!searchCell">
@@ -69,7 +71,7 @@
             <div class="element ">
               <p class="inline ">婚姻状态</p>
               <div class="width120 inline ">
-                <el-select v-model="marriage " placeholder=" " @change="search ">
+                <el-select size="medium" v-model="marriage " placeholder=" " @change="search ">
                   <el-option v-for="item in marriageStates " :key="item.value " :label="item.label " :value="item.value ">
                   </el-option>
                 </el-select>
@@ -78,31 +80,31 @@
             <div class="element ">
               <p class="inline ">家庭收支</p>
               <div class="width120 inline ">
-                <el-input type="number " v-model="savingMin " placeholder="元 " class="input "></el-input>
+                <el-input size="medium" type="number " v-model="savingMin " placeholder="元 " class="input "></el-input>
               </div>
               <p class="inline ">至</p>
               <div class="width120 inline ">
-                <el-input type="number " v-model="savingMax " placeholder="元 " class="input "></el-input>
+                <el-input size="medium" type="number " v-model="savingMax " placeholder="元 " class="input "></el-input>
               </div>
             </div>
             <div class="element ">
               <p class="inline ">自评分值</p>
               <div class="width120 inline ">
-                <el-input type="number " v-model="scoreMin " placeholder="分 " class="input "></el-input>
+                <el-input size="medium" type="number " v-model="scoreMin " placeholder="分 " class="input "></el-input>
               </div>
               <p class="inline ">至</p>
               <div class="width120 inline ">
-                <el-input type="number " v-model="scoreMax " placeholder="分 " class="input "></el-input>
+                <el-input size="medium" type="number " v-model="scoreMax " placeholder="分 " class="input "></el-input>
               </div>
             </div>
             <div class="element ">
               <p class="inline ">自评额度</p>
               <div class="width120 inline ">
-                <el-input type="number " v-model="quotaMin " placeholder="元 " class="input "></el-input>
+                <el-input size="medium" type="number " v-model="quotaMin " placeholder="元 " class="input "></el-input>
               </div>
               <p class="inline ">至</p>
               <div class="width120 inline ">
-                <el-input type="number " v-model="quotaMax " placeholder="元 " class="input "></el-input>
+                <el-input size="medium" type="number " v-model="quotaMax " placeholder="元 " class="input "></el-input>
               </div>
             </div>
           </div>
@@ -111,7 +113,7 @@
             <div class="element">
               <p class="inline">配偶职业</p>
               <div class="width120 inline">
-                <el-select v-model="spouseOCP" placeholder="" @change="search">
+                <el-select size="medium" v-model="spouseOCP" placeholder="" @change="search">
                   <el-option v-for="item in supStates" :key=" item.value" :label="item.label" :value="item.value">
                   </el-option>
                 </el-select>
@@ -120,7 +122,7 @@
             <div class="element">
               <p class="inline">子女职业</p>
               <div class="width120 inline">
-                <el-select v-model="childOCP" placeholder="" @change="search">
+                <el-select size="medium" v-model="childOCP" placeholder="" @change="search">
                   <el-option v-for="item in childStates" :key="item.value" :label="item.label" :value="item.value">
                   </el-option>
                 </el-select>
@@ -131,7 +133,7 @@
         </transition>
       </div>
       <!--表格-->
-      <table>
+      <table class="tableList">
         <thead>
           <tr>
             <th class="width80">时间</th>
@@ -211,7 +213,7 @@ export default {
       // pageInfo.page:'',  // 第几页
       // pageInfo.size: ''   // 每页几条
       getList: [],
-      total: '',
+      total: 1,
       showPageTag: false,
       states: [{
         value: '',
@@ -348,6 +350,9 @@ export default {
             this.showPageTag = true
           }
         }
+        // 设置面包屑导航的宽度
+        let width = this.$refs.zsfMileage.scrollWidth
+        this.$refs.nav.style.width = width + 'px'
       })
     },
     // 查询

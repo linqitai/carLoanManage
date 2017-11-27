@@ -1,6 +1,6 @@
 <template>
-  <div class="mileage">
-    <div class="nav">
+  <div class="mileage" ref="mileage">
+    <div class="nav" ref="nav">
       <el-breadcrumb separator="/">
         <img class="hoemIcon left mr3" src="../../../common/images/homeIconGray.png" alt="">
         <el-breadcrumb-item>
@@ -9,7 +9,9 @@
         <el-breadcrumb-item>
           <span class="text">臻车贷管理</span>
         </el-breadcrumb-item>
-        <el-breadcrumb-item>历程</el-breadcrumb-item>
+        <el-breadcrumb-item>
+          <span class="mainColor">历程</span>
+        </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="allWrapper">
@@ -18,17 +20,17 @@
           <div class="element">
             <p class="inline">时间</p>
             <div class="inline">
-              <el-date-picker class="inline" style="width:120px;" v-model="startTime" type="date" placeholder="开始时间" @change="startTimeChange">
+              <el-date-picker size="medium" class="inline" style="width:140px;" v-model="startTime" type="date" placeholder="开始时间" @change="startTimeChange">
               </el-date-picker>
               <span class="inline">至</span>
-              <el-date-picker class="inline" style="width:120px;" v-model="endTime" type="date" placeholder="结束时间" @change="endTimeChange">
+              <el-date-picker size="medium" class="inline" style="width:140px;" v-model="endTime" type="date" placeholder="结束时间" @change="endTimeChange">
               </el-date-picker>
             </div>
           </div>
           <div class="element">
             <p class="inline">状态</p>
             <div class="width120 inline">
-              <el-select v-model="applyStatus" placeholder="请选择" @change="search">
+              <el-select size="medium" v-model="applyStatus" placeholder="请选择" @change="search">
                 <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
@@ -37,7 +39,7 @@
           <div class="element">
             <p class="inline">提交状态</p>
             <div class="width120 inline">
-              <el-select v-model="submitStatus" placeholder="请选择" @change="search">
+              <el-select size="medium" v-model="submitStatus" placeholder="请选择" @change="search">
                 <el-option v-for="item in submitStatuOptions" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
@@ -46,26 +48,14 @@
           <div class="element">
             <p class="inline">平台选择</p>
             <div class="width120 inline">
-              <el-select v-model="platform" placeholder="请选择" @change="search">
+              <el-select size="medium" v-model="platform" placeholder="请选择" @change="search">
                 <el-option v-for="item in platforms" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
             </div>
           </div>
-          <div class="element">
-            <p class="inline">所在省市</p>
-            <div class="width140 inline">
-              <el-input placeholder="请输入所在省市" class="input" v-model="cityOrProvince" @keyup.enter.native="search"></el-input>
-            </div>
-          </div>
-          <div class="element">
-            <p class="inline">姓名</p>
-            <div class="width120 inline">
-              <el-input v-model="name" placeholder="请输入姓名" class="input" @keyup.enter.native="search"></el-input>
-            </div>
-          </div>
           <div class="element" @click="search">
-            <el-button type="" class="searchBtn">查询</el-button>
+            <el-button size="medium" type="" class="searchBtn">查询</el-button>
           </div>
           <div class="element" @click="moreBtn">
             <img class="moreIcon" src="../../../common/images/arrow_down.png" v-if="!searchCell">
@@ -75,27 +65,39 @@
         <transition name="">
           <div class="searchBox clear" v-if="searchCell">
             <div class="element">
+              <p class="inline">所在省市</p>
+              <div class="width140 inline">
+                <el-input size="medium" placeholder="请输入所在省市" class="input" v-model="cityOrProvince" @keyup.enter.native="search"></el-input>
+              </div>
+            </div>
+            <div class="element">
+              <p class="inline">姓名</p>
+              <div class="width120 inline">
+                <el-input size="medium" v-model="name" placeholder="请输入姓名" class="input" @keyup.enter.native="search"></el-input>
+              </div>
+            </div>
+            <div class="element">
               <p class="inline">账号</p>
               <div class="width140 inline">
-                <el-input v-model="zend" placeholder="请输入账号" class="input" @keyup.enter.native="search"></el-input>
+                <el-input size="medium" v-model="zend" placeholder="请输入账号" class="input" @keyup.enter.native="search"></el-input>
               </div>
             </div>
             <div class="element">
               <p class="inline">身份证号</p>
               <div class="width180 inline">
-                <el-input placeholder="请输入身份证号" class="input" v-model="carNum" @keyup.enter.native="search"></el-input>
+                <el-input size="medium" placeholder="请输入身份证号" class="input" v-model="carNum" @keyup.enter.native="search"></el-input>
               </div>
             </div>
             <div class="element">
               <p class="inline">手机号</p>
               <div class="width140 inline">
-                <el-input type="text" v-model="mobile" placeholder="请输入手机号码" class="input" @keyup.enter.native="search"></el-input>
+                <el-input size="medium" type="text" v-model="mobile" placeholder="请输入手机号码" class="input" @keyup.enter.native="search"></el-input>
               </div>
             </div>
             <div class="element">
               <p class="inline">车辆估价</p>
               <div class="width120 inline priceBox">
-                <el-select v-model="highPrice" placeholder="请选择" @change="searchByPrice">
+                <el-select size="medium" v-model="highPrice" placeholder="请选择" @change="searchByPrice">
                   <el-option v-for="item in highPrices" :key="item.value" :label="item.label" :value="item.value">
                   </el-option>
                 </el-select>
@@ -104,7 +106,7 @@
           </div>
         </transition>
       </div>
-      <table>
+      <table class="tableList">
         <thead>
           <tr>
             <th class="width100">时间</th>
@@ -317,6 +319,9 @@ export default {
             this.showPageTag = true
           }
         }
+        // 设置面包屑导航的宽度
+        let width = this.$refs.mileage.scrollWidth
+        this.$refs.nav.style.width = width + 'px'
       })
     },
     // 查询

@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar" :data-role="role">
-    <el-menu :default-active="onRoutes" :active-text-color="activeColor" class="el-menu-vertical-demo menu" unique-opened router>
+    <el-menu  unique-opened router :background-color="backColor" :text-color="textColor" :active-text-color="textColor" class="el-menu-vertical-demo menu">
       <template v-for="item in items">
         <template v-if="item.subs">
           <el-submenu :index="item.index" :key="item.index" class="borderTopParent">
@@ -28,7 +28,8 @@
 export default {
   data() {
     return {
-      activeColor: '#b1b1b1',
+      backColor: '#14AC98',
+      textColor: '#fff',
       role: '',
       titles: [],
       items: [{
@@ -146,4 +147,5 @@ export default {
 }
 </script>
 <style lang="scss">
+
 </style>

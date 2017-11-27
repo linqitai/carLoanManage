@@ -104,6 +104,9 @@ $borderColor:#ffffff;
 $borderColor2:#069F8B;
 $mainColor:#00917e;
 $sidebarWidth: 160px;
+.mainColor{
+  color: #00917e;
+}
 .left{
   float: left;
 }
@@ -144,8 +147,13 @@ $sidebarWidth: 160px;
 .fade-enter, .fade-leave-to /* .fade-leave-active in below version 2.1.8 */ {
     opacity: 0
 }
+.nav{
+  .text{
+    font-size: 13px;
+  }
+}
 // 表格样式
-table {
+.tableList {
   width: 100%;
   min-width: 1380px;
   border: 1px solid #e1e6ef;
@@ -171,8 +179,8 @@ table {
       line-height: 16px;
     }
   }
-}
-.noData {
-  font-size: 16px;
-  padding: 30px;
+  .noData {
+    font-size: 16px;
+    padding: 30px;
+  }
 }

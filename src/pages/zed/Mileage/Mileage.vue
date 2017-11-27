@@ -18,33 +18,33 @@
           <div class="element">
             <p class="inline">时间</p>
             <div class="inline">
-              <el-date-picker class="inline" style="width:120px;" v-model="startTime" type="date" placeholder="开始时间" @change="startTimeChange">
+              <el-date-picker size="medium" class="inline" style="width:120px;" v-model="startTime" type="date" placeholder="开始时间" @change="startTimeChange">
               </el-date-picker>
               <span class="inline">至</span>
-              <el-date-picker class="inline" style="width:120px;" v-model="endTime" type="date" placeholder="结束时间" @change="endTimeChange">
+              <el-date-picker size="medium" class="inline" style="width:120px;" v-model="endTime" type="date" placeholder="结束时间" @change="endTimeChange">
               </el-date-picker>
             </div>
           </div>
           <div class="element">
             <p class="inline">姓名</p>
             <div class="width120 inline">
-              <el-input v-model="name" placeholder="请输入姓名" class="input" @keyup.enter.native="search"></el-input>
+              <el-input size="medium" v-model="name" placeholder="请输入姓名" class="input" @keyup.enter.native="search"></el-input>
             </div>
           </div>
           <div class="element">
             <p class="inline">手机号</p>
             <div class="width140 inline">
-              <el-input type="text" v-model="mobile" placeholder="请输入手机号码" class="input" @keyup.enter.native="search"></el-input>
+              <el-input size="medium" type="text" v-model="mobile" placeholder="请输入手机号码" class="input" @keyup.enter.native="search"></el-input>
             </div>
           </div>
           <div class="element">
             <p class="inline">身份证号</p>
             <div class="width180 inline">
-              <el-input placeholder="请输入身份证号" class="input" v-model="carNum" @keyup.enter.native="search"></el-input>
+              <el-input size="medium" placeholder="请输入身份证号" class="input" v-model="carNum" @keyup.enter.native="search"></el-input>
             </div>
           </div>
           <div class="element" @click="search">
-            <el-button type="" class="searchBtn">查询</el-button>
+            <el-button size="medium" type="" class="searchBtn">查询</el-button>
           </div>
           <div class="element" @click="moreBtn">
             <img class="moreIcon" src="../../../common/images/arrow_down.png" v-if="!searchCell">
@@ -56,7 +56,7 @@
             <div class="element">
               <p class="inline">动作</p>
               <div class="width120 inline">
-                <el-select v-model="action" placeholder="请选择" @change="search">
+                <el-select size="medium" v-model="action" placeholder="请选择" @change="search">
                   <el-option v-for="item in actions" :key="item.value" :label="item.label" :value="item.value">
                   </el-option>
                 </el-select>
@@ -65,13 +65,13 @@
             <div class="element">
               <p class="inline">信息</p>
               <div class="width100 inline">
-                <el-input v-model="info" placeholder="请输入信息" class="input" @keyup.enter.native="search"></el-input>
+                <el-input size="medium" v-model="info" placeholder="请输入信息" class="input" @keyup.enter.native="search"></el-input>
               </div>
             </div>
             <div class="element">
               <p class="inline">提款</p>
               <div class="width140 inline priceBox">
-                <el-select v-model="drawMoney" placeholder="请选择" @change="searchByDrawMoney">
+                <el-select size="medium" v-model="drawMoney" placeholder="请选择" @change="searchByDrawMoney">
                   <el-option v-for="item in drawMoneys" :key="item.value" :label="item.label" :value="item.value">
                   </el-option>
                 </el-select>
@@ -80,7 +80,7 @@
             <div class="element">
               <p class="inline">还款</p>
               <div class="width140 inline priceBox">
-                <el-select v-model="giveMoney" placeholder="请选择" @change="searchByGiveMoney">
+                <el-select size="medium" v-model="giveMoney" placeholder="请选择" @change="searchByGiveMoney">
                   <el-option v-for="item in giveMoneys" :key="item.value" :label="item.label" :value="item.value">
                   </el-option>
                 </el-select>
@@ -89,7 +89,7 @@
           </div>
         </transition>
       </div>
-      <table>
+      <table class="tableList">
         <thead>
           <tr>
             <th class="width80">时间</th>
