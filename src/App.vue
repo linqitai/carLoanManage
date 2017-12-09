@@ -42,15 +42,15 @@ export default {
 
 .el-select-dropdown__item {
   padding: 0px 10px !important;
-  height: 26px !important;
-  line-height: 26px !important;
+  height: 28px !important;
+  line-height: 28px !important;
   &.selected {
     background-color: $mainColor !important;
     color: #fff !important;
   }
   span {
     height: 26px !important;
-    line-height: 26px !important;
+    line-height: 30px !important;
   }
 }
 .el-button--mini {

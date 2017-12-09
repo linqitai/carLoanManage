@@ -42,8 +42,8 @@ module.exports = {
       '/zsf':{
         // target:'http://192.168.18.227:8090',
         // target:'http://114.55.86.215:8090', // 线上
-         target:'http://192.168.18.10:8090', // 石智颖
-        // target:'http://121.199.33.100:8090', // 线上正式环境
+        //  target:'http://192.168.18.10:8090', // 石智颖
+        target:'http://121.199.33.100:8090', // 线上正式环境
         changeOrigin:true,
         pathRewrite:{
           '^/zsf':''

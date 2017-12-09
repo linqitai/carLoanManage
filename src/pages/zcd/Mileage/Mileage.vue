@@ -67,31 +67,31 @@
             <div class="element">
               <p class="inline">所在省市</p>
               <div class="width140 inline">
-                <el-input size="medium" placeholder="请输入所在省市" class="input" v-model="cityOrProvince" @keyup.enter.native="search"></el-input>
+                <el-input size="medium" clearable placeholder="请输入所在省市" class="input" v-model="cityOrProvince" @keyup.enter.native="search"></el-input>
               </div>
             </div>
             <div class="element">
               <p class="inline">姓名</p>
               <div class="width120 inline">
-                <el-input size="medium" v-model="name" placeholder="请输入姓名" class="input" @keyup.enter.native="search"></el-input>
+                <el-input size="medium" clearable v-model="name" placeholder="请输入姓名" class="input" @keyup.enter.native="search"></el-input>
               </div>
             </div>
             <div class="element">
               <p class="inline">账号</p>
               <div class="width140 inline">
-                <el-input size="medium" v-model="zend" placeholder="请输入账号" class="input" @keyup.enter.native="search"></el-input>
+                <el-input size="medium" clearable v-model="zend" placeholder="请输入账号" class="input" @keyup.enter.native="search"></el-input>
               </div>
             </div>
             <div class="element">
               <p class="inline">身份证号</p>
               <div class="width180 inline">
-                <el-input size="medium" placeholder="请输入身份证号" class="input" v-model="carNum" @keyup.enter.native="search"></el-input>
+                <el-input size="medium" clearable placeholder="请输入身份证号" class="input" v-model="carNum" @keyup.enter.native="search"></el-input>
               </div>
             </div>
             <div class="element">
               <p class="inline">手机号</p>
               <div class="width140 inline">
-                <el-input size="medium" type="text" v-model="mobile" placeholder="请输入手机号码" class="input" @keyup.enter.native="search"></el-input>
+                <el-input size="medium" clearable type="text" v-model="mobile" placeholder="请输入手机号码" class="input" @keyup.enter.native="search"></el-input>
               </div>
             </div>
             <div class="element">
