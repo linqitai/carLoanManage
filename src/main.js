@@ -7,7 +7,7 @@ import store from './store'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'babel-polyfill'
-import './common/scss/reset.scss'
+import './common/scss/index.scss'
 // import utils from './common/js/utils'
 
 Vue.config.productionTip = false

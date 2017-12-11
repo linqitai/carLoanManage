@@ -64,6 +64,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '../common/scss/common.scss';
+@import '../common/scss/mixin.scss';
 .header {
   position: relative;
   box-sizing: border-box;
@@ -73,6 +74,8 @@ export default {
   font-size: 22px;
   color: #ffffff;
   background: $mainColor;
+  width: 100%;
+  @include border_bottom($borderLineColor);
   .logoIcon {
     width: 24px;
     height: 24px;
@@ -80,7 +83,6 @@ export default {
   .logoText {
     font-size: 14px;
     font-weight: 700;
-    line-height: 51px;
     padding-left: 10px;
     cursor: pointer;
   }

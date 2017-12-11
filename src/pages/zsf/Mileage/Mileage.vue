@@ -351,7 +351,7 @@ export default {
           }
         }
         // 设置面包屑导航的宽度
-        let width = this.$refs.zsfMileage.scrollWidth
+        let width = this.$refs.zsfMileage.clientWidth
         this.$refs.nav.style.width = width + 'px'
       })
     },

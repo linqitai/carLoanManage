@@ -111,11 +111,25 @@
 .pdt42{
   padding-bottom: 42px;
 }
+$tableLineColor: #e6ebf5;
+$borderLineColor: #007566;
+$menuHoverColor: #048473;
 $menuColor:#ffffff;
 $borderColor:#ffffff;
 $borderColor2:#069F8B;
 $mainColor:#00917e;
-$sidebarWidth: 160px;
+$colorBtnHover:#02A08B;
+$sidebarWidth: 190px;
+// 字体大小
+$font-size-s: 12px;
+$font-size-m: 14px;
+$font-size-l: 16px;
+$font-size-ll: 18px;
+.fontSizeS{
+  font-size: 12px;
+}
+// 宽度
+$content-min-width: 1370px;
 .mainColor{
   color: #00917e;
 }
@@ -142,60 +156,91 @@ $sidebarWidth: 160px;
 .clear{
   clear: both;
 }
-.searchBtn{
-  background-color: $mainColor !important;
-  color: #ffffff !important;
-  &:hover{
-    color: #ffffff !important;
-  }
-}
-.moreIcon{
-  margin-top: 10px;
-  width: 16px;
-}
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active in below version 2.1.8 */ {
     opacity: 0
 }
-.nav{
-  .text{
-    font-size: 13px;
+// 修改页面elementUI样式
+.el-breadcrumb {
+  font-size: 13px !important;
+}
+
+.el-breadcrumb__inner {
+  font-weight: normal !important;
+}
+
+.borderTopParent {
+  .el-submenu__title {
+    .titleText {
+      color: #fff;
+    }
+    i {
+      color: #fff;
+    }
   }
 }
-// 表格样式
-.tableList {
-  width: 100%;
-  min-width: 1380px;
-  border: 1px solid #e1e6ef;
-  margin-top: 5px;
-  thead {
-    background-color: #e1e6ef;
-    tr th{
-      padding: 12px 8px;
-      text-align: center;
-      &:nth-of-type(2){
-        width: 100px;
-      }
+
+.el-table thead tr {
+  background-color: $mainColor !important;
+  color: #ffffff;
+}
+
+.el-table td,
+.el-table th {
+  padding: 6px 0;
+  text-align: center;
+}
+
+// .el-menu-item:focus{
+//   background-color: none !important;
+// }
+.el-pager {
+  li {
+    &.active {
+      border-color: $mainColor !important;
+      background-color: $mainColor !important;
+      color: #fff !important;
     }
   }
-  tbody {
-    background-color: #ffffff;
-    tr{
-      border-top: 1px solid #DDDDDD
-    }
-    tr:hover {
-      background-color: #f1f2f7;
-    }
-    tr td {
-      padding: 8px 8px;
-      text-align: center;
-      line-height: 16px;
-    }
+}
+
+.el-select-dropdown__item {
+  padding: 0px 10px !important;
+  height: 28px !important;
+  line-height: 28px !important;
+  &.selected {
+    background-color: $mainColor !important;
+    color: #fff !important;
   }
-  .noData {
-    font-size: 16px;
-    padding: 30px;
+  span {
+    height: 26px !important;
+    line-height: 30px !important;
   }
+}
+
+.el-button--mini {
+  padding: 4px 10px !important;
+}
+
+.loginWrap {
+  .el-form-item {
+    margin-bottom: 18px !important;
+  }
+  .el-input__inner {
+    height: 32px !important;
+  }
+}
+
+table .el-button {
+  border: none;
+}
+
+.el-dialog {
+  box-shadow: none!important;
+}
+
+.el-dialog__footer {
+  text-align: center;
 }

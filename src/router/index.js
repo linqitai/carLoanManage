@@ -38,6 +38,44 @@ export default new Router({
     },
     {
       path: '/',
+      component: Home,
+      children: [
+        {
+          path: '/merchantManage',
+          component: resolve => require(['../pages/zsy/merchantManage/merchantManage'], resolve)
+        }
+        // {
+        //   path: '/detail',
+        //   component: resolve => require(['../pages/zsy/merchantManage/detail'], resolve)
+        // },
+        // {
+        //   path: '/experience',
+        //   component: resolve => require(['../pages/zsy/merchantManage/experience'], resolve)
+        // },
+        // {
+        //   path: '/storeManage',
+        //   component: resolve => require(['../pages/zsy/merchantManage/storeManage'], resolve)
+        // },
+        // {
+        //   path: '/operatorManage',
+        //   component: resolve => require(['../pages/zsy/merchantManage/operatorManage'], resolve)
+        // },
+        // {
+        //   path: '/QRcode',
+        //   component: resolve => require(['../pages/zsy/merchantManage/QRcode'], resolve)
+        // },
+        // {
+        //   path: '/agent',
+        //   component: resolve => require(['../pages/zsy/agentManage/agent'], resolve)
+        // },
+        // {
+        //   path: '/bill',
+        //   component: resolve => require(['../pages/zsy/financeManage/bill'], resolve)
+        // }
+      ]
+    },
+    {
+      path: '/',
       name: 'Home',
       component: Home,
       children: [
@@ -80,7 +118,6 @@ export default new Router({
     },
     {
       path: '/',
-      name: 'Home',
       component: Home,
       children: [
         {
@@ -102,7 +139,6 @@ export default new Router({
     },
     {
       path: '/',
-      name: 'Home',
       component: Home,
       children: [
         {
@@ -124,23 +160,27 @@ export default new Router({
     },
     {
       path: '/',
-      name: 'Home',
       component: Home,
       children: [
         {
           path: '/bdBig',
-          name: 'bdBig',
           component: bdBig
         },
         {
           path: '/bdSysAnalysis',
-          name: 'bdSysAnalysis',
           component: bdSysAnalysis
         },
         {
           path: '/bdComCalculation',
-          name: 'bdComCalculation',
           component: bdComCalculation
+        },
+        {
+          path: '/digitPortrayal',
+          component: resolve => require(['pages/dsj/digitPortrayal/digitPortrayal'], resolve)
+        },
+        {
+          path: '/businessApply',
+          component: resolve => require(['pages/dsj/businessApply/businessApply'], resolve)
         }
       ]
     }

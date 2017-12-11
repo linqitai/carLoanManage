@@ -26,7 +26,8 @@ module.exports = {
       'common': resolve('src/common'),
       'components': resolve('src/components'),
       'config': resolve('src/config'),
-      'api': resolve('src/api')
+      'api': resolve('src/api'),
+      'pages': resolve('src/pages')
     }
   },
   module: {

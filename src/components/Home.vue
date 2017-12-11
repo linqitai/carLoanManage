@@ -15,7 +15,7 @@
 
 <script>
 import vHead from './Header.vue'
-import vSidebar from './MySidebar.vue'
+import vSidebar from './MySidebar2.0.vue'
 export default {
   data() {
     return {
@@ -37,66 +37,17 @@ export default {
 @import '../common/scss/common.scss';
 @import '../common/scss/mixin.scss';
 .home {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
   font-size: 13px;
   .contentWrapper {
-    .sidebar {
-      display: block;
-      position: absolute;
-      width: $sidebarWidth;
-      left: 0;
-      top: 42px;
-      bottom: 0;
-      background-color: #14AC98;
-      overflow: hidden;
-      .menu {
-        background-color: #00917e;
-        color: $menuColor;
-        .borderTopParent {
-          .el-submenu__title {
-            padding-left: 28px !important;
-            height: 42px;
-            line-height: 46px;
-            @include border_bottom($color: #ffffff);
-            color: #ffffff;
-            &:hover {
-              background-color: #14AC98;
-            }
-            .titleIcon {
-              margin-bottom: 1px;
-            }
-            .titleText {
-              padding-left: 0px;
-              font-size: 13px;
-            }
-            .el-submenu__icon-arrow {
-              font-size: 8px;
-              margin-top: -2px;
-            }
-          }
-          &:first-child {
-            @include border_top($color: #ffffff);
-          }
-          &:last-child {
-            @include border_bottom($color: #ffffff);
-          }
-        }
-        .child {
-          font-size: 12px; // padding-left: 50px !important;
-          height: 30px;
-          line-height: 30px;
-          color: $menuColor; // @include border_bottom($color: #ffffff);
-          background-color: #00917e;
-          &:hover {
-            background-color: #00AF98;
-          }
-          .text {
-            width: 120px;
-            padding-left: 10px;
-            @include border_bottom($color: #ffffff);
-          }
-        }
-      }
-    }
+    position: relative;
+    width: 100%;
+    height: 100%;
     .contentLeft {
       left: $sidebarWidth;
     }
@@ -104,14 +55,12 @@ export default {
       left: 0;
     }
     .content {
-      background: none repeat scroll 0 0 #f2f2f2;
+      background-color: #f2f2f2;
       position: absolute;
       right: 0;
-      top: 42px;
+      top: 0;
       bottom: 0;
-      width: auto;
       box-sizing: border-box;
-      overflow-y: scroll;
       .leftBtn {
         position: absolute;
         left: -20px;
@@ -122,7 +71,7 @@ export default {
         background-color: #ffffff;
         background-repeat: no-repeat;
         background-position: 19px 19px;
-        z-index: 1001;
+        z-index: 1;
         &.imageArrowLeft {
           background-image: url('../common/images/leftArrow.png');
           &:hover {
@@ -138,11 +87,15 @@ export default {
           }
         }
       }
-      .nav {
-        width: 100%;
-        min-width: 1380px;
+      .breadcrumbWrapper {
+        width: 100%; // min-width: $content-min-width;
         background: #ffffff;
         padding: 12px 0 10px 20px;
+        .nav {
+          .text {
+            font-size: 13px;
+          }
+        }
         .hoemIcon {
           height: 11px;
         }
@@ -156,51 +109,99 @@ export default {
           }
         }
       }
+      .allWrapper {
+        padding: 5px 0px 0px 20px;
+        .searchCondition {
+          width: 100%;
+          min-width: $content-min-width;
+          .searchBox {
+            overflow: hidden;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            .searchBtn {
+              background-color: $mainColor !important;
+              color: #ffffff !important;
+              &:hover {
+                color: #ffffff !important;
+                background-color: $colorBtnHover !important;
+              }
+              &:active {
+                color: #ffffff !important;
+                background-color: $menuHoverColor !important;
+              }
+            }
+            .moreIcon {
+              margin-top: 10px;
+              width: 16px;
+            }
+          }
+          .element {
+            float: left;
+            margin-right: 15px;
+            .moreIcon {
+              @include extend_click();
+            }
+            p {
+              margin-bottom: 10px;
+              margin-top: 10px;
+            }
+            &:last-child {
+              margin-right: 0px;
+            }
+            .iconTransform {
+              transform: rotate(180deg);
+              -moz-transform: rotate(180deg);
+              -webkit-transform: rotate(180deg);
+              -o-transform: rotate(180deg);
+              -ms-transform: rotate(180deg);
+            }
+          }
+        } // 表格样式
+        .tableList {
+          border: 1px solid #e1e6ef;
+          margin-top: 5px;
+          thead {
+            background-color: $mainColor;
+            color: #ffffff;
+            tr th {
+              padding: 12px 8px;
+              text-align: center;
+              &:nth-of-type(2) {
+                width: 100px;
+              }
+            }
+          }
+          tbody {
+            background-color: #ffffff;
+            tr {
+              border-top: 1px solid $tableLineColor;
+            }
+            tr:hover {
+              background-color: #f1f2f7;
+            }
+            tr td {
+              padding: 8px 8px;
+              text-align: center;
+              line-height: 16px;
+            }
+          }
+          .noData {
+            font-size: 16px;
+            padding: 30px;
+          }
+        }
+        .tableBottom {
+          margin-top: 10px;
+          padding-right: 10px;
+          .pagination {
+            float: left;
+          }
+          .tableSwitch {
+            float: right;
+          }
+        }
+      }
     }
   }
 }
-.allWrapper {
-  padding: 5px 20px 0px 20px;
-  .searchCondition {
-    width: 100%;
-    min-width: 1380px;
-    overflow: hidden;
-    .searchBox {
-      overflow: hidden;
-      margin-top: 10px;
-      margin-bottom: 10px;
-    }
-    .element {
-      float: left;
-      margin-right: 15px;
-      .moreIcon {
-        @include extend_click();
-      }
-      p {
-        margin-bottom: 10px;
-        margin-top: 10px;
-      }
-      &:last-child {
-        margin-right: 0px;
-      }
-      .iconTransform {
-        transform: rotate(180deg);
-        -moz-transform: rotate(180deg);
-        -webkit-transform: rotate(180deg);
-        -o-transform: rotate(180deg);
-        -ms-transform: rotate(180deg);
-      }
-    }
-  }
-}
-/* transition name='fade' .fade-leave-active in below version 2.1.8 */
-
-// .fade-enter-active,
-// .fade-leave-active {
-//   transition: opacity .1s ease-in-out
-// }
-// .fade-enter,
-// .fade-leave-to {
-//   opacity: 0 .3s ease-in-out
-// }
 </style>
