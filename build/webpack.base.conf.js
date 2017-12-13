@@ -2,8 +2,14 @@ var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
+const museUiThemePath = path.join(
+  __dirname,
+  'node_modules',
+  'muse-ui',
+  'src/styles/themes/variables/default.less'
+)
 
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
@@ -32,6 +38,10 @@ module.exports = {
   },
   module: {
     rules: [
+      // {
+      //   test: /vue-preview.src.*?js$/,
+      //   loader: 'babel'
+      // },
       {
         test: /\.(js|vue)$/,
         loader: 'eslint-loader',

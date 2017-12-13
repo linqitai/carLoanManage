@@ -1,9 +1,9 @@
 <template>
   <div class="zsfMileage" ref="zsfMileage">
-    <div class="nav" ref="nav">
+    <div class="breadcrumbWrapper" ref="breadcrumbWrapper">
       <el-breadcrumb separator="/">
-        <img class="hoemIcon left mr3" src="../../../common/images/homeIconGray.png" alt="">
         <el-breadcrumb-item>
+          <img class="hoemIcon" src="../../../common/images/homeIconGray.png" alt="">
           <span class="text">当前位置</span>
         </el-breadcrumb-item>
         <el-breadcrumb-item>
@@ -14,7 +14,6 @@
         </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-
     <div class="allWrapper">
       <div class="searchCondition">
         <div class="searchBox">
@@ -133,48 +132,48 @@
         </transition>
       </div>
       <!--表格-->
-      <table class="tableList">
-        <thead>
-          <tr>
-            <th class="width80">时间</th>
-            <th class="width60">手机号</th>
-            <th class="width50">姓名</th>
-            <th class="width50">身份证号</th>
-            <th class="width50">婚姻状态</th>
-            <th class="width70">配偶职业</th>
-            <th class="width70">子女职业</th>
-            <th class="width50">家庭收支(元)</th>
-            <th class="width50">自评分值(分)</th>
-            <th class="width50">自评额度(元)</th>
-            <th class="width50">动作</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(item, index) in getList" :key="item.value" v-show="getList.length > 0">
-            <td class="width80">{{item.date | getDateHM}}</td>
-            <td class="width60">{{item.mobile}}</td>
-            <td class="width50">{{item.name}}</td>
-            <td class="width50">{{item.identityNo}}</td>
-            <td class="width50">{{item.marriage | getmarryStatus}}</td>
-            <td class="width70">{{item.spouseOCP | getsupStatus}}</td>
-            <td class="width70">{{item.childOCP | getsupStatus}}</td>
-            <td class="width50">{{item.fmSaving}}</td>
-            <td class="width50">{{item.score | getInt}}</td>
-            <td class="width50">{{item.quota}}</td>
-            <td class="width50">{{item.action | getStatus}}</td>
-          </tr>
-          <tr v-show="getList.length === 0">
-            <td class="noData" colspan="12">暂无数据</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="tableWrapper" style="overflow: auto;">
+        <table class="tableList" style="min-width:1060px;width:99%;">
+          <thead>
+            <tr>
+              <th class="width80">时间</th>
+              <th class="width60">手机号</th>
+              <th class="width50">姓名</th>
+              <th class="width50">身份证号</th>
+              <th class="width50">婚姻状态</th>
+              <th class="width70">配偶职业</th>
+              <th class="width70">子女职业</th>
+              <th class="width50">家庭收支(元)</th>
+              <th class="width50">自评分值(分)</th>
+              <th class="width50">自评额度(元)</th>
+              <th class="width50">动作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in getList" :key="item.value" v-show="getList.length > 0">
+              <td class="width80">{{item.date | getDateHM}}</td>
+              <td class="width60">{{item.mobile}}</td>
+              <td class="width50">{{item.name}}</td>
+              <td class="width50">{{item.identityNo}}</td>
+              <td class="width50">{{item.marriage | getmarryStatus}}</td>
+              <td class="width70">{{item.spouseOCP | getsupStatus}}</td>
+              <td class="width70">{{item.childOCP | getsupStatus}}</td>
+              <td class="width50">{{item.fmSaving}}</td>
+              <td class="width50">{{item.score | getInt}}</td>
+              <td class="width50">{{item.quota}}</td>
+              <td class="width50">{{item.action | getStatus}}</td>
+            </tr>
+            <tr v-show="getList.length === 0">
+              <td class="noData" colspan="12">暂无数据</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <div class="block" style="margin-top:10px" v-show="showPageTag">
         <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex" :page-size="pageSize" layout="total, prev, pager, next, jumper" :total="total">
         </el-pagination>
       </div>
-
     </div>
-
   </div>
 </template>
 <script>
@@ -351,8 +350,8 @@ export default {
           }
         }
         // 设置面包屑导航的宽度
-        let width = this.$refs.zsfMileage.clientWidth
-        this.$refs.nav.style.width = width + 'px'
+        // let width = this.$refs.zsfMileage.clientWidth
+        // this.$refs.nav.style.width = width + 'px'
       })
     },
     // 查询

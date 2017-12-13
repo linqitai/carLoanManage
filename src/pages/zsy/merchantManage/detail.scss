@@ -1,0 +1,48 @@
+@import '~common/scss/common';
+@import '~common/scss/mixin';
+.detail {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  .allWrapper{
+    overflow-y: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: $breadcrumbHeight;
+    bottom: 40px;
+    .infoBox{
+      border-bottom: 1px solid $tableLineColor;
+      padding-bottom: 6px;
+      .title{
+        font-size: $font-size-ml;
+        height: $detailTitleHeight;
+        line-height: $detailTitleHeight;
+        font-weight: bold;
+        border-bottom: 1px solid $tableLineColor;
+        color: $borderLineColor;
+      }
+      .contentText{
+        padding-top: 8px;
+        .lineText{
+          overflow: hidden;
+          font-size: $font-size-m;
+          padding: 8px 0;
+          .label{
+            float: left;
+            width: 100px;
+            color: $textColor;
+          }
+          .value{
+            float: left;
+            color: $tableTextColor;
+          }
+          a{
+            color: blue;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}

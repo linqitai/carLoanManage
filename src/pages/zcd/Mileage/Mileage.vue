@@ -2,8 +2,8 @@
   <div class="mileage" ref="mileage">
     <div class="breadcrumbWrapper" ref="breadcrumbWrapper">
       <el-breadcrumb separator="/">
-        <img class="hoemIcon left mr3" src="../../../common/images/homeIconGray.png" alt="">
         <el-breadcrumb-item>
+          <img class="hoemIcon" src="../../../common/images/homeIconGray.png" alt="">
           <span class="text">当前位置</span>
         </el-breadcrumb-item>
         <el-breadcrumb-item>
@@ -222,56 +222,6 @@ export default {
       tableSwitch: 2, // 1：大屏幕，2：小屏幕
       tableSwitch1: false,
       tableSwitch2: true,
-      tableData4: [{
-        date: '2016-05-03',
-        name: '王小虎',
-        province: '上海',
-        city: '普陀区',
-        address: '上海市普陀区金沙江路 1518 弄',
-        zip: 200333
-      }, {
-        date: '2016-05-02',
-        name: '王小虎',
-        province: '上海',
-        city: '普陀区',
-        address: '上海市普陀区金沙江路 1518 弄',
-        zip: 200333
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        province: '上海',
-        city: '普陀区',
-        address: '上海市普陀区金沙江路 1518 弄',
-        zip: 200333
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        province: '上海',
-        city: '普陀区',
-        address: '上海市普陀区金沙江路 1518 弄',
-        zip: 200333
-      }, {
-        date: '2016-05-08',
-        name: '王小虎',
-        province: '上海',
-        city: '普陀区',
-        address: '上海市普陀区金沙江路 1518 弄',
-        zip: 200333
-      }, {
-        date: '2016-05-06',
-        name: '王小虎',
-        province: '上海',
-        city: '普陀区',
-        address: '上海市普陀区金沙江路 1518 弄',
-        zip: 200333
-      }, {
-        date: '2016-05-07',
-        name: '王小虎',
-        province: '上海',
-        city: '普陀区',
-        address: '上海市普陀区金沙江路 1518 弄',
-        zip: 200333
-      }],
       maxLengthMobile: 11,
       maxLengthIdentity: 18,
       searchCell: false,

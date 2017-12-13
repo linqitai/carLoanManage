@@ -1,1 +1,191 @@
 export const ERR_OK = 0
+// mtypeList: ['全部', '自然人', '企业商户', '个体工商户'],
+// runTYpeList: ['全部', '美食', '超市便利店', '休闲娱乐', '购物', '爱车', '生活服务', '教育培训', '医疗健康', '航旅', '专业销售/批发', '政府/社会组织'],
+export const roleList = [
+  {
+    value: '',
+    label: '全部'
+  }, {
+    value: '1',
+    label: '收银员'
+  }, {
+    value: '0',
+    label: '管理员'
+  }
+]
+export const sexList = [
+  {
+    value: '',
+    label: '全部'
+  }, {
+    value: '1',
+    label: '男'
+  }, {
+    value: '0',
+    label: '女'
+  }
+]
+export const mtypeList = [
+  {
+    value: '',
+    label: '全部'
+  }, {
+    value: '1',
+    label: '自然人'
+  }, {
+    value: '2',
+    label: '企业商户'
+  }, {
+    value: '3',
+    label: '个体工商户'
+  }
+]
+export const runTYpeList = [
+  {
+    value: '',
+    label: '全部'
+  }, {
+    value: '1',
+    label: '美食'
+  }, {
+    value: '2',
+    label: '超市便利店'
+  }, {
+    value: '3',
+    label: '休闲娱乐'
+  }, {
+    value: '4',
+    label: '购物'
+  }, {
+    value: '5',
+    label: '爱车'
+  }, {
+    value: '6',
+    label: '生活服务'
+  }, {
+    value: '7',
+    label: '教育培训'
+  }, {
+    value: '8',
+    label: '医疗健康'
+  }, {
+    value: '9',
+    label: '航旅'
+  }, {
+    value: '10',
+    label: '专业销售/批发'
+  }, {
+    value: '11',
+    label: '政府/社会组织'
+  }
+]
+// statusList: ['全部', '待提交', '待审核', '审核驳回', '网商审核中', '网商驳回', '正常使用', '禁用中'],
+export const statusList = [
+  {
+    value: '',
+    label: '全部'
+  }, {
+    value: '1',
+    label: '待提交'
+  }, {
+    value: '2',
+    label: '待审核'
+  }, {
+    value: '3',
+    label: '审核驳回'
+  }, {
+    value: '4',
+    label: '网商审核中'
+  }, {
+    value: '5',
+    label: '网商驳回'
+  }, {
+    value: '6',
+    label: '正常使用'
+  }, {
+    value: '7',
+    label: '禁用中'
+  }
+]
+
+export const tableData = [
+  {
+    id: 1,
+    date: '2016-05-03 23:12:08',
+    name: '王小虎',
+    province: '上海',
+    city: '普陀区',
+    address: '上海市普陀区金沙江路 1518 弄',
+    zip: 200333,
+    isopen: 1
+  }, {
+    id: 2,
+    date: '2016-05-02',
+    name: '王小虎',
+    province: '上海',
+    city: '普陀区',
+    address: '上海市普陀区金沙江路 1518 弄',
+    zip: 200333,
+    isopen: 0
+  }, {
+    id: 3,
+    date: '2016-05-04',
+    name: '王小虎',
+    province: '上海',
+    city: '普陀区',
+    address: '上海市普陀区金沙江路 1518 弄',
+    zip: 200333,
+    isopen: 0
+  }, {
+    id: 4,
+    date: '2016-05-01',
+    name: '王小虎',
+    province: '上海',
+    city: '普陀区',
+    address: '上海市普陀区金沙江路 1518 弄',
+    zip: 200333,
+    isopen: 1
+  }]
+
+export const operatorData = [
+  {
+    id: 1,
+    date: '2016-05-03 23:12:08',
+    name: '王小虎1',
+    sex: '上海',
+    role: '普陀区',
+    mobile: '13987776325',
+    identity: '2016-05-03 23:12:08',
+    store: '上海市普陀区金沙江路 ',
+    merchant: 200333
+  }, {
+    id: 2,
+    date: '2016-05-03 23:12:08',
+    name: '王小虎2',
+    sex: '上海',
+    role: '普陀区',
+    mobile: '13987776325',
+    identity: '2016-05-03 23:12:08',
+    store: '上海市普陀区金沙江路 ',
+    merchant: 200333
+  }, {
+    id: 3,
+    date: '2016-05-03 23:12:08',
+    name: '王小虎3',
+    sex: '上海',
+    role: '普陀区',
+    mobile: '13987776325',
+    identity: '2016-05-03 23:12:08',
+    store: '上海市普陀区金沙江路 ',
+    merchant: 200333
+  }, {
+    id: 4,
+    date: '2016-05-03 23:12:08',
+    name: '王小虎4',
+    sex: '上海',
+    role: '普陀区',
+    mobile: '13987776325',
+    identity: '2016-05-03 23:12:08',
+    store: '上海市普陀区金沙江路 ',
+    merchant: 200333
+  }]

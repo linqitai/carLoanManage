@@ -26,6 +26,11 @@ export default {
     clickLeftBtn() {
       // console.log('you click me')
       this.isShowSidebar = !this.isShowSidebar
+    },
+    changeActiveIndex(index) {
+      console.log('index:' + index)
+      this.activeIndex = index
+      console.log(this.activeIndex)
     }
   },
   components: {
@@ -55,7 +60,7 @@ export default {
       left: 0;
     }
     .content {
-      background-color: #f2f2f2;
+      background-color: #ffffff;
       position: absolute;
       right: 0;
       top: 0;
@@ -88,16 +93,19 @@ export default {
         }
       }
       .breadcrumbWrapper {
+        display: block;
         width: 100%; // min-width: $content-min-width;
         background: #ffffff;
-        padding: 12px 0 10px 20px;
-        .nav {
-          .text {
-            font-size: 13px;
-          }
+        padding: 0px 20px;
+        border-bottom: 1px solid #efefef;
+        .el-breadcrumb {
+          vertical-align: middle;
+          align-items: center;
+          height: $breadcrumbHeight;
+          line-height: $breadcrumbHeight;
         }
         .hoemIcon {
-          height: 11px;
+          height: 12px;
         }
         .el-breadcrumb__item__inner {
           color: #00917e;
@@ -110,7 +118,7 @@ export default {
         }
       }
       .allWrapper {
-        padding: 5px 0px 0px 20px;
+        padding: 0px 0px 0px 20px;
         .searchCondition {
           width: 100%;
           min-width: $content-min-width;
@@ -159,9 +167,9 @@ export default {
         } // 表格样式
         .tableList {
           border: 1px solid #e1e6ef;
-          margin-top: 5px;
+          color: $tableTextColor;
+          font-family: '微软雅黑'; // margin-top: 5px;
           thead {
-            background-color: $mainColor;
             color: #ffffff;
             tr th {
               padding: 12px 8px;
@@ -180,7 +188,7 @@ export default {
               background-color: #f1f2f7;
             }
             tr td {
-              padding: 8px 8px;
+              padding: 4px 8px;
               text-align: center;
               line-height: 16px;
             }

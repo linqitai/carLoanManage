@@ -43,6 +43,22 @@ export default new Router({
         {
           path: '/merchantManage',
           component: resolve => require(['../pages/zsy/merchantManage/merchantManage'], resolve)
+        },
+        {
+          path: '/merchantManageDetail',
+          component: resolve => require(['../pages/zsy/merchantManage/detail'], resolve)
+        },
+        {
+          path: '/storeManage',
+          component: resolve => require(['../pages/zsy/merchantManage/storeManage'], resolve)
+        },
+        {
+          path: '/operatorManage',
+          component: resolve => require(['../pages/zsy/merchantManage/operatorManage'], resolve)
+        },
+        {
+          path: '/QRcode',
+          component: resolve => require(['../pages/zsy/merchantManage/QRcode'], resolve)
         }
         // {
         //   path: '/detail',

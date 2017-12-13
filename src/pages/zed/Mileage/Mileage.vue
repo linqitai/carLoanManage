@@ -1,9 +1,9 @@
 <template>
   <div class="mileage">
-    <div class="nav">
+    <div class="breadcrumbWrapper" ref="breadcrumbWrapper">
       <el-breadcrumb separator="/">
-        <img class="hoemIcon left mr3" src="../../../common/images/homeIconGray.png" alt="">
         <el-breadcrumb-item>
+          <img class="hoemIcon" src="../../../common/images/homeIconGray.png" alt="">
           <span class="text">当前位置</span>
         </el-breadcrumb-item>
         <el-breadcrumb-item>
