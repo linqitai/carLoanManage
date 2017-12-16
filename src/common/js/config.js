@@ -1,6 +1,24 @@
 export const ERR_OK = 0
 // mtypeList: ['全部', '自然人', '企业商户', '个体工商户'],
 // runTYpeList: ['全部', '美食', '超市便利店', '休闲娱乐', '购物', '爱车', '生活服务', '教育培训', '医疗健康', '航旅', '专业销售/批发', '政府/社会组织'],
+export const experienceRoleList = [
+  {
+    value: '',
+    label: '全部'
+  }, {
+    value: '1',
+    label: '经营者'
+  }, {
+    value: '2',
+    label: '管理员'
+  }, {
+    value: '3',
+    label: '收银员'
+  }, {
+    value: '4',
+    label: '游客'
+  }
+]
 export const roleList = [
   {
     value: '',

@@ -28,6 +28,9 @@
 .width100{
   width: 100px;
 }
+.width110{
+  width: 110px;
+}
 .width120{
   width: 120px;
 }
@@ -137,6 +140,9 @@ $colorBtnHover:#02A08B;
 $sidebarWidth: 190px;
 $textColor: #323232;
 $textColor-t: #646464;
+.colorGray {
+  color: #646464;
+}
 // 字体大小
 $font-size-s: 12px;
 $font-size-m: 14px;
@@ -146,6 +152,9 @@ $font-size-ll: 18px;
 $font-size-lll: 20px;
 .fontSizeS{
   font-size: 12px;
+}
+.fontSizeM{
+  font-size: 14px;
 }
 // 宽度
 $content-min-width: 1370px;
@@ -175,6 +184,9 @@ $breadcrumbHeight: 40px;
 }
 .right{
   float: right;
+}
+.textLeft{
+  text-align: left;
 }
 .ellipsis{
   overflow: hidden;  /*溢出隐藏*/
@@ -218,6 +230,27 @@ $breadcrumbHeight: 40px;
     }
   }
 }
+// dialog element
+$dialogPadding: 20px;
+.el-dialog__header{
+  padding: 0px $dialogPadding;
+  border-bottom: 1px solid $tableLineColor;
+  .el-dialog__title{
+    height: 40px;
+    line-height: 40px;
+    font-weight: bold;
+  }
+}
+.el-dialog__title{
+  display: block;
+  font-size: $font-size-ll;
+}
+.el-dialog__body{
+  padding: 0px 0px 0 $dialogPadding;
+}
+.el-dialog__footer{
+  border-top: 1px solid $tableLineColor;
+}
 
 thead tr {
   background-color: $tableTheadColor !important;
@@ -235,9 +268,6 @@ thead tr {
   text-align: center;
 }
 
-// .el-menu-item:focus{
-//   background-color: none !important;
-// }
 .el-pager {
   li {
     &.active {

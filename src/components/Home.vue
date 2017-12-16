@@ -118,7 +118,7 @@ export default {
         }
       }
       .allWrapper {
-        padding: 0px 0px 0px 20px;
+        padding: 0px 20px 0px 20px;
         .searchCondition {
           width: 100%;
           min-width: $content-min-width;
@@ -200,7 +200,6 @@ export default {
         }
         .tableBottom {
           margin-top: 10px;
-          padding-right: 10px;
           .pagination {
             float: left;
           }

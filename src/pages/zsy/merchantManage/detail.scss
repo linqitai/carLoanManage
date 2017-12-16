@@ -21,21 +21,24 @@
         font-weight: bold;
         border-bottom: 1px solid $tableLineColor;
         color: $borderLineColor;
+        padding-left: 10px;
       }
       .contentText{
-        padding-top: 8px;
+        padding: 12px 20px 12px 10px;
+        overflow: hidden;
         .lineText{
           overflow: hidden;
           font-size: $font-size-m;
           padding: 8px 0;
           .label{
             float: left;
-            width: 100px;
+            width: 110px;
             color: $textColor;
           }
           .value{
             float: left;
             color: $tableTextColor;
+            margin-left: 10px;
           }
           a{
             color: blue;
@@ -44,5 +47,17 @@
         }
       }
     }
+  }
+  .element {
+    text-align: left;
+    padding-top: 10px;
+    &:last-child {
+      padding-bottom: 10px;
+    }
+  }
+  .dialogFooter{
+    overflow: hidden;
+    text-align: center;
+    border-bottom: 1px solid $tableLineColor;
   }
 }

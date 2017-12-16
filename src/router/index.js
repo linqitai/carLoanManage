@@ -41,6 +41,10 @@ export default new Router({
       component: Home,
       children: [
         {
+          path: '/experience',
+          component: resolve => require(['../pages/zsy/merchantManage/experience'], resolve)
+        },
+        {
           path: '/merchantManage',
           component: resolve => require(['../pages/zsy/merchantManage/merchantManage'], resolve)
         },

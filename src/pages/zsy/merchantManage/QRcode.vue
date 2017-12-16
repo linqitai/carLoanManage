@@ -57,8 +57,11 @@
           </el-table-column>
         </el-table>
         <!-- <el-table :data="tableData" stripe style="min-width:1060px;max-width:1620px;width: 1150px;"></el-table> -->
-        <el-dialog class="qrDialog" title="名称" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
-          <div class="storeText"><span>所属门店:</span><span>所属门店</span></div>
+        <el-dialog class="qrDialog" title="名称" :visible.sync="dialogVisible" width="500" :before-close="handleClose">
+          <div class="storeText">
+            <span>所属门店:</span>
+            <span>所属门店</span>
+          </div>
           <img src="../../../common/images/qrCode.png" alt="">
         </el-dialog>
       </div>
@@ -149,20 +152,17 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
-  .qrDialog{
-    .el-dialog__header{
-      padding: 15px 0px 0px 0px;
-    }
-    .el-dialog__title{
+  .qrDialog {
+    .el-dialog__title {
       display: block;
       text-align: center !important;
       font-size: $font-size-ll;
     }
-    .el-dialog__body{
+    .el-dialog__body {
       text-align: center;
       padding: 0px 0px 20px 0;
     }
-    .storeText{
+    .storeText {
       padding-bottom: 3px;
       font-size: $font-size-s;
     }
