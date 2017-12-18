@@ -43,6 +43,9 @@
 .width140{
   width: 140px;
 }
+.width150{
+  width: 150px;
+}
 .width160{
   width: 160px;
 }
@@ -155,6 +158,12 @@ $font-size-lll: 20px;
 }
 .fontSizeM{
   font-size: 14px;
+  .editImgInput{
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
 }
 // 宽度
 $content-min-width: 1370px;
@@ -162,7 +171,10 @@ $content-min-width: 1370px;
 $detailTitleHeight: 40px;
 $detailLineTextHeight: 30px;
 $breadcrumbHeight: 40px;
-
+// 编辑图片按钮
+.editImg{
+  position: relative;
+}
 // 按钮
 .btn {
   background-color: $mainColor !important;
@@ -192,6 +204,9 @@ $breadcrumbHeight: 40px;
   overflow: hidden;  /*溢出隐藏*/
   text-overflow: ellipsis; /*以省略号...显示*/
   white-space: nowrap;  /*强制不换行*/
+}
+.lines{
+  white-space: pre-wrap;
 }
 .inline{
   display: inline-block;

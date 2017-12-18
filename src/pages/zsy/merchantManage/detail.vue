@@ -29,7 +29,18 @@
           <div class="lineText">
             <span class="label">商户简称</span>
             <span class="value">银泰</span>
-            <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM"></i>
+            <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM" @click="showEditStoreName=true"></i>
+            <el-dialog width="40%" title="编辑商户简称" :visible.sync="showEditStoreName">
+              <div class="element">
+                <p class="width100 textLeft inline">商户简称</p>
+                <div class="inline">
+                  <el-input size="medium" clearable placeholder="请输入商户简称" class="input"></el-input>
+                </div>
+              </div>
+              <div slot="footer" class="dialog-footer">
+                <el-button size="medium" type="primary" @click="showEditStoreName = false">修 改</el-button>
+              </div>
+            </el-dialog>
           </div>
           <div class="lineText">
             <span class="label">商户类型</span>
@@ -50,22 +61,66 @@
           <div class="lineText">
             <span class="label">客服电话</span>
             <span class="value">0571-88888888</span>
-            <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM"></i>
+            <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM" @click="showEditServicePhone=true"></i>
+            <el-dialog width="40%" title="编辑商客服电话" :visible.sync="showEditServicePhone">
+              <div class="element">
+                <p class="width100 textLeft inline">客服电话</p>
+                <div class="inline">
+                  <el-input size="medium" clearable placeholder="请输入客服电话" class="input"></el-input>
+                </div>
+              </div>
+              <div slot="footer" class="dialog-footer">
+                <el-button size="medium" type="primary" @click="showEditServicePhone = false">修 改</el-button>
+              </div>
+            </el-dialog>
           </div>
           <div class="lineText">
             <span class="label">经营类型</span>
             <span class="value">实体兼网络渠道</span>
-            <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM"></i>
+            <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM" @click="showEditManageType=true"></i>
+            <el-dialog width="40%" title="编辑经营类型" :visible.sync="showEditManageType">
+              <div class="element">
+                <p class="width100 textLeft inline">经营类型</p>
+                <div class="inline">
+                  <el-input size="medium" clearable placeholder="请输入经营类型" class="input"></el-input>
+                </div>
+              </div>
+              <div slot="footer" class="dialog-footer">
+                <el-button size="medium" type="primary" @click="showEditManageType = false">修 改</el-button>
+              </div>
+            </el-dialog>
           </div>
           <div class="lineText">
             <span class="label">经营类目</span>
             <span class="value">超市便利店</span>
-            <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM"></i>
+            <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM" @click="showEditManageClass=true"></i>
+            <el-dialog width="40%" title="编辑经营类目" :visible.sync="showEditManageClass">
+              <div class="element">
+                <p class="width100 textLeft inline">经营类目</p>
+                <div class="inline">
+                  <el-input size="medium" clearable placeholder="请输入经营类目" class="input"></el-input>
+                </div>
+              </div>
+              <div slot="footer" class="dialog-footer">
+                <el-button size="medium" type="primary" @click="showEditManageClass = false">修 改</el-button>
+              </div>
+            </el-dialog>
           </div>
           <div class="lineText">
             <span class="label">店铺地址</span>
             <span class="value">浙江省杭州市西湖区郡原公元里13幢5楼</span>
-            <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM"></i>
+            <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM" @click="showEditStoreAddress=true"></i>
+            <el-dialog width="40%" title="编辑店铺地址" :visible.sync="showEditStoreAddress">
+              <div class="element">
+                <p class="width100 textLeft inline">店铺地址</p>
+                <div class="inline">
+                  <el-input size="medium" clearable placeholder="请输入店铺地址" class="input"></el-input>
+                </div>
+              </div>
+              <div slot="footer" class="dialog-footer">
+                <el-button size="medium" type="primary" @click="showEditStoreAddress = false">修 改</el-button>
+              </div>
+            </el-dialog>
           </div>
         </div>
       </div>
@@ -79,7 +134,7 @@
           <div class="lineText">
             <span class="label">手机号码</span>
             <span class="value">13958776325</span>
-            <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM"></i>
+            <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM" @click="showEditMobile=true"></i>
           </div>
           <div class="lineText">
             <span class="label">身份证号</span>
@@ -89,16 +144,16 @@
           <div class="lineText">
             <span class="label">身份证正面</span>
             <span class="value" @click="previewImg(0)">
-              <img src="../../../common/images/identity.png" ref="img0">
+              <img src="../../../common/images/identity.png" ref="img0" class="img">
             </span>
-            <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM"></i>
+            <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM editImg"><input type="file" class="changeIdentityFront editImgInput" @change="changeIdentityFrontEvent($event)"/></i>
           </div>
           <div class="lineText">
             <span class="label">身份证反面</span>
             <span class="value" @click="previewImg(1)">
-              <img src="../../../common/images/identity.png" ref="img1">
+              <img src="../../../common/images/identity.png" ref="img1" class="img">
             </span>
-            <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM"></i>
+            <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM editImg"><input type="file" class="changeIdentityFront editImgInput" @change="changeIdentityBackEvent($event)"/></i>
           </div>
         </div>
       </div>
@@ -109,23 +164,23 @@
           <div class="lineText">
             <span class="label">营业执照</span>
             <span class="value" @click="previewImgPicData(0)">
-              <img src="../../../common/images/identity.png" ref="imgPicData0">
+              <img src="../../../common/images/identity.png" ref="imgPicData0" class="img">
             </span>
-            <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM"></i>
+            <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM editImg"><input type="file" class="changeIdentityFront editImgInput" @change="changeManageLicenseEvent($event)"/></i>
           </div>
           <div class="lineText">
             <span class="label">门头照</span>
             <span class="value" @click="previewImgPicData(1)">
-              <img src="../../../common/images/identity.png" ref="imgPicData1">
+              <img src="../../../common/images/identity.png" ref="imgPicData1" class="img">
             </span>
-            <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM"></i>
+            <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM editImg"><input type="file" class="changeIdentityFront editImgInput" @change="changeDoorHeadPicEvent($event)"/></i>
           </div>
           <div class="lineText">
             <span class="label">开户许可证</span>
             <span class="value" @click="previewImgPicData(2)">
-              <img src="../../../common/images/identity.png" ref="imgPicData2">
+              <img src="../../../common/images/identity.png" ref="imgPicData2" class="img">
             </span>
-            <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM"></i>
+            <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM editImg"><input type="file" class="changeIdentityFront editImgInput" @change="changeOpenAccPermissionEvent($event)"/></i>
           </div>
         </div>
       </div>
@@ -134,7 +189,7 @@
           提现银行卡
           <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM colorGray" @click="editBankCard"></i>
         </div>
-        <el-dialog width="40%" title="编辑手机号码" :visible.sync="showEditBankEditInner">
+        <el-dialog width="40%" title="编辑手机号码" :visible.sync="showEditMobile">
           <div class="element">
             <p class="width100 textLeft inline">原手机号</p>
             <div class="inline">13355718375</div>
@@ -160,7 +215,7 @@
             <el-button size="medium" type="primary">获取验证码</el-button>
           </div>
           <div slot="footer" class="dialog-footer">
-            <el-button size="medium" type="primary" @click="showEditBankEdit = false">确 定</el-button>
+            <el-button size="medium" type="primary" @click="showEditMobile = false">确 定</el-button>
           </div>
         </el-dialog>
         <el-dialog title="编辑提现银行卡" :visible.sync="showEditBankEdit" width="40%">
@@ -198,7 +253,7 @@
               <div class="inline">
                 13958776325
               </div>
-              <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM" @click="showEditBankEditInner=true"></i>
+              <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM" @click="showEditMobile=true"></i>
             </div>
           </div>
           <div slot="footer" class="dialog-footer">
@@ -246,6 +301,7 @@
           <div class="lineText">
             <span class="label">结算方式</span>
             <span class="value">结算到余利宝</span>
+            <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM"></i>
           </div>
           <div class="lineText">
             <span class="label">T+0到账</span>
@@ -262,10 +318,45 @@
           <div class="lineText">
             <span class="label">交易类型</span>
             <span class="value">正扫交易、反扫交易、退款交易</span>
+            <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM" @click="showEditDealTypeEvent=true"></i>
+            <el-dialog width="40%" title="编辑交易类型" :visible.sync="showEditDealTypeEvent">
+              <div class="contentTextForRow">
+                <el-row :gutter="20">
+                  <el-col :span="5"><div class="">交易类型</div></el-col>
+                  <el-col :span="10">
+                    <div class="grid-content bg-purple"><el-checkbox label="正扫交易"></el-checkbox></div>
+                    <div class="grid-content bg-purple"><el-checkbox label="反扫交易"></el-checkbox></div>
+                    <div class="grid-content bg-purple"><el-checkbox label="退款交易"></el-checkbox></div>
+                  </el-col>
+                </el-row>
+              </div>
+              <div slot="footer" class="dialog-footer">
+                <el-button size="medium" type="primary" @click="showEditDealTypeEvent = false">确 定</el-button>
+              </div>
+            </el-dialog>
           </div>
           <div class="lineText">
             <span class="label">禁用支付方式</span>
             <span class="value">信用卡（除微信支付刷卡支付（被扫）模式）</span>
+            <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM" @click="showEditForbiddenMethodEvent=true"></i>
+            <el-dialog width="50%" title="编辑禁用支付方式" :visible.sync="showEditForbiddenMethodEvent">
+              <div class="element">
+                <p class="width100 textLeft inline">禁用支付方式</p>
+                <div class="inline">
+                  <el-checkbox v-model="zhifubao" label="花呗（支付宝）"></el-checkbox>
+                  <el-checkbox v-show="!zhifubao" v-model="unbuyer" label="买家不可使用（花呗分期）"></el-checkbox>
+                </div>
+              </div>
+              <div class="element">
+                <p class="width100 textLeft inline"></p>
+                <div class="inline">
+                  <el-checkbox v-model="creditCard" class="lines" label="信用卡（微信支付刷卡支付（被扫）模式无法禁用信用卡支付）"></el-checkbox>
+                </div>
+              </div>
+              <div slot="footer" class="dialog-footer">
+                <el-button size="medium" type="primary" @click="showEditForbiddenMethodEvent = false">确 定</el-button>
+              </div>
+            </el-dialog>
           </div>
           <div class="lineText">
             <span class="label">花呗分期</span>
@@ -338,7 +429,7 @@
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
 // import { mapGetters } from 'vuex'
 import { getCurrentRow } from 'common/js/cache'
 export default {
@@ -386,7 +477,17 @@ export default {
       status: 2, // 1：待审核、驳回 2：正常情况
       statusNormal: 2,
       showEditBankEdit: false,
-      showEditBankEditInner: false
+      showEditMobile: false,
+      showEditStoreName: false,
+      showEditServicePhone: false,
+      showEditManageType: false,
+      showEditManageClass: false,
+      showEditStoreAddress: false,
+      showEditForbiddenMethodEvent: false,
+      showEditDealTypeEvent: false,
+      zhifubao: false,
+      unbuyer: false,
+      creditCard: false
     }
   },
   filters: {
@@ -408,6 +509,41 @@ export default {
     console.log(this.row)
   },
   methods: {
+    changeIdentityFrontEvent(e) {
+      // ...
+      let image = event.target.parentNode.parentNode.getElementsByClassName('img')[0]
+      console.log(e.target.files[0])
+      console.log(image)
+      // image.src = e.target.files[0].value
+    },
+    changeIdentityBackEvent(e) {
+      // ...
+      let image = event.target.parentNode.parentNode.getElementsByClassName('img')[0]
+      console.log(e.target.files[0])
+      console.log(image)
+      // image.src = e.target.files[0].value
+    },
+    changeManageLicenseEvent(e) {
+      // ...
+      let image = event.target.parentNode.parentNode.getElementsByClassName('img')[0]
+      console.log(e.target.files[0])
+      console.log(image)
+      // image.src = e.target.files[0].value
+    },
+    changeDoorHeadPicEvent(e) {
+      // ...
+      let image = event.target.parentNode.parentNode.getElementsByClassName('img')[0]
+      console.log(e.target.files[0])
+      console.log(image)
+      // image.src = e.target.files[0].value
+    },
+    changeOpenAccPermissionEvent(e) {
+      // ...
+      let image = event.target.parentNode.parentNode.getElementsByClassName('img')[0]
+      console.log(e.target.files[0])
+      console.log(image)
+      // image.src = e.target.files[0].value
+    },
     editBankCard() {
       this.showEditBankEdit = true
     },
@@ -448,5 +584,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import './detail'
+@import './detail.scss'
 </style>

@@ -145,7 +145,7 @@
         </table>
       </div>
       <div class="tableWrapper" v-if="tableSwitch2">
-        <el-table :data="tableData" stripe style="min-width:1060px;max-width:1620px;width: 100%;">
+        <el-table :data="tableData" stripe style="min-width:880px;max-width:1620px;width: 100%;">
           <el-table-column fixed prop="date" label="申请时间" width="180"></el-table-column>
           <el-table-column prop="name" label="商户名称" width="120"></el-table-column>
           <el-table-column prop="name" label="商户类型" width="120"></el-table-column>
