@@ -104,7 +104,7 @@
         </transition>
       </div>
       <div class="tableWrapper">
-        <el-table :data="tableData" stripe height="400" style="min-width:880px;max-width:1660px;width: 100%;">
+        <el-table :data="tableData" stripe style="min-width:880px;max-width:1660px;width: 100%;">
           <el-table-column fixed="left" prop="date" label="申请时间" width="170"></el-table-column>
           <el-table-column prop="name" label="商户名称"></el-table-column>
           <el-table-column prop="name" label="商户类型"></el-table-column>
