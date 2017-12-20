@@ -103,62 +103,28 @@
           </div>
         </transition>
       </div>
-      <div class="tableWrapper" v-if="tableSwitch1" style="overflow: auto;">
-        <table class="tableList" style="min-width:1060px;width:100%;">
-          <thead>
-            <tr>
-              <th class="width180">申请时间</th>
-              <th class="width60">商户名称</th>
-              <th class="width100">商户类型</th>
-              <th class="width100">经营类型</th>
-              <th class="width240">店铺地址</th>
-              <th class="width90">负责人</th>
-              <th class="width70">性别</th>
-              <th class="width100">手机号码</th>
-              <th class="width100">状态</th>
-              <th class="width50">代理商</th>
-              <th class="width160">操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(item, index) in tableData" :key="item.value" v-show="tableData.length > 0">
-              <td class="width180">{{item.date}}</td>
-              <td class="width60">{{item.name}}</td>
-              <td class="width100">{{item.name}}</td>
-              <td class="width100">{{item.name}}</td>
-              <td class="width240">{{item.name}}</td>
-              <td class="width90">{{item.name}}</td>
-              <td class="width70">{{item.name}}</td>
-              <td class="width100">{{item.name}}</td>
-              <td class="width100">{{item.name}}</td>
-              <td class="width50">{{item.name}}</td>
-              <td class="width160">
-                <el-button @click="detail(item)" type="text" size="small">详情</el-button>
-                <el-button type="text" size="small" @click="open(item.isopen)">{{item.isopen|openClose}}</el-button>
-                <el-button type="text" size="small">门店</el-button>
-              </td>
-            </tr>
-            <tr v-show="tableData.length === 0">
-              <td class="noData" colspan="13">暂无数据</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="tableWrapper" v-if="tableSwitch2">
-        <el-table :data="tableData" stripe style="min-width:880px;max-width:1620px;width: 100%;">
-          <el-table-column fixed prop="date" label="申请时间" width="180"></el-table-column>
-          <el-table-column prop="name" label="商户名称" width="120"></el-table-column>
-          <el-table-column prop="name" label="商户类型" width="120"></el-table-column>
-          <el-table-column prop="name" label="经营类型" width="120"></el-table-column>
-          <el-table-column prop="address" label="店铺地址" width="300"></el-table-column>
-          <el-table-column prop="name" label="负责人" width="120"></el-table-column>
-          <el-table-column prop="name" label="性别" width="120"></el-table-column>
-          <el-table-column prop="name" label="手机号码" width="120"></el-table-column>
-          <el-table-column prop="name" label="状态" width="120"></el-table-column>
-          <el-table-column prop="name" label="代理商" width="120"></el-table-column>
-          <el-table-column fixed="right" label="操作" width="130">
+      <div class="tableWrapper">
+        <el-table :data="tableData" stripe height="400" style="min-width:880px;max-width:1660px;width: 100%;">
+          <el-table-column fixed="left" prop="date" label="申请时间" width="170"></el-table-column>
+          <el-table-column prop="name" label="商户名称"></el-table-column>
+          <el-table-column prop="name" label="商户类型"></el-table-column>
+          <el-table-column prop="name" label="经营类型"></el-table-column>
+          <el-table-column label="店铺地址" width="120">
+            <template slot-scope="scope">
+              <el-tooltip :content="scope.row.address" placement="top" effect="light">
+                <el-button type="text" size="small" class="width120 ellipsis">{{scope.row.address}}</el-button>
+              </el-tooltip>
+            </template>
+          </el-table-column>
+          <el-table-column prop="name" label="负责人"></el-table-column>
+          <el-table-column prop="name" label="性别"></el-table-column>
+          <el-table-column prop="name" label="手机号码"></el-table-column>
+          <el-table-column prop="name" label="状态"></el-table-column>
+          <el-table-column prop="name" label="代理商"></el-table-column>
+          <el-table-column label="操作" width="170" fixed="right">
             <template slot-scope="scope">
               <el-button type="text" size="small" @click="detail(scope.row)">详情</el-button>
+              <el-button type="text" size="small" @click="detail(scope.row)">审核</el-button>
               <el-button type="text" size="small" @click="openOrClose(scope.row)">{{scope.row.isopen|openClose}}</el-button>
               <el-button type="text" size="small" @click="toStoreManage(scope.row)">门店</el-button>
             </template>
@@ -166,34 +132,27 @@
         </el-table>
       </div>
       <div class="tableBottom">
-        <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex" :page-size="pageSize" :page-sizes="[10,12,14,16]" layout="total, sizes, prev, pager, next, jumper" :total="total">
+        <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex" :page-size="pageSize" :page-sizes="[8,10,12,14,16]" layout="total, sizes, prev, pager, next, jumper" :total="total">
         </el-pagination>
-        <el-radio-group v-model="tableSwitch" class="tableSwitch" size="mini" @change="tableSwitchChange">
-          <el-radio-button label="1">大屏</el-radio-button>
-          <el-radio-button label="2">中屏</el-radio-button>
-        </el-radio-group>
       </div>
     </div>
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
 import { mtypeList, runTYpeList, statusList, tableData } from 'common/js/config'
 import { saveCurrentRow } from 'common/js/cache'
 // import { mapMutations } from 'vuex'
 export default {
   data() {
     return {
-      tableSwitch: 2, // 1：大屏幕，2：小屏幕
-      tableSwitch1: false,
-      tableSwitch2: true,
       maxLengthMobile: 11,
       maxLengthIdentity: 18,
       isShowMore: false,
       showCheckbox: false,
       searchCell: false,
       pageIndex: 1,
-      pageSize: 12,
+      pageSize: 10,
       total: 1,
       showSizeChanger: true,
       pageSizeOption: [10, 15, 20, 25, 30],
