@@ -261,3 +261,16 @@ export const operatorData = [
     store: '上海市普陀区金沙江路 ',
     merchant: 200333
   }]
+
+export const payList = [
+  {
+    value: '',
+    label: '全部'
+  }, {
+    value: '1',
+    label: '支付宝'
+  }, {
+    value: '2',
+    label: '微信支付'
+  }
+]

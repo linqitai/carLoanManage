@@ -63,7 +63,7 @@ export default new Router({
         {
           path: '/QRcode',
           component: resolve => require(['../pages/zsy/merchantManage/QRcode'], resolve)
-        }
+        },
         // {
         //   path: '/detail',
         //   component: resolve => require(['../pages/zsy/merchantManage/detail'], resolve)
@@ -88,10 +88,10 @@ export default new Router({
         //   path: '/agent',
         //   component: resolve => require(['../pages/zsy/agentManage/agent'], resolve)
         // },
-        // {
-        //   path: '/bill',
-        //   component: resolve => require(['../pages/zsy/financeManage/bill'], resolve)
-        // }
+        {
+          path: '/bill',
+          component: resolve => require(['../pages/zsy/financialManagement/billingArrangement.vue'], resolve)
+        }
       ]
     },
     {
