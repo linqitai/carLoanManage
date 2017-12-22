@@ -163,6 +163,60 @@ export const tableData = [
     address: '上海市普陀区金沙江路 1518 弄',
     zip: 200333,
     isopen: 1
+  }, {
+    id: 5,
+    date: '2016-05-04',
+    name: '王小虎',
+    province: '上海',
+    city: '普陀区',
+    address: '上海市普陀区金沙江路 1518 弄',
+    zip: 200333,
+    isopen: 0
+  }, {
+    id: 6,
+    date: '2016-05-04',
+    name: '王小虎',
+    province: '上海',
+    city: '普陀区',
+    address: '上海市普陀区金沙江路 1518 弄',
+    zip: 200333,
+    isopen: 0
+  }, {
+    id: 7,
+    date: '2016-05-04',
+    name: '王小虎',
+    province: '上海',
+    city: '普陀区',
+    address: '上海市普陀区金沙江路 1518 弄',
+    zip: 200333,
+    isopen: 0
+  }, {
+    id: 8,
+    date: '2016-05-04',
+    name: '王小虎',
+    province: '上海',
+    city: '普陀区',
+    address: '上海市普陀区金沙江路 1518 弄',
+    zip: 200333,
+    isopen: 0
+  }, {
+    id: 9,
+    date: '2016-05-04',
+    name: '王小虎',
+    province: '上海',
+    city: '普陀区',
+    address: '上海市普陀区金沙江路 1518 弄',
+    zip: 200333,
+    isopen: 0
+  }, {
+    id: 10,
+    date: '2016-05-04',
+    name: '王小虎',
+    province: '上海',
+    city: '普陀区',
+    address: '上海市普陀区金沙江路 1518 弄',
+    zip: 200333,
+    isopen: 0
   }]
 
 export const operatorData = [
@@ -207,3 +261,71 @@ export const operatorData = [
     store: '上海市普陀区金沙江路 ',
     merchant: 200333
   }]
+
+export const payList = [
+  {
+    value: '',
+    label: '全部'
+  }, {
+    value: '1',
+    label: '支付宝'
+  }, {
+    value: '2',
+    label: '微信支付'
+  }
+]
+
+export const collectionList = [
+  {
+    value: '',
+    label: '全部'
+  }, {
+    value: '1',
+    label: '动态正扫'
+  }, {
+    value: '2',
+    label: '动态反扫'
+  }, {
+    value: '3',
+    label: '静态二维码'
+  }
+]
+
+export const statesList = [
+  {
+    value: '',
+    label: '全部'
+  }, {
+    value: '1',
+    label: '提现中'
+  }, {
+    value: '2',
+    label: '已到账'
+  }
+]
+
+export const moneyList = [
+  {
+    value: '',
+    label: '无'
+  }, {
+    value: '1',
+    label: '从高到低'
+  }, {
+    value: '2',
+    label: '从低到高'
+  }
+]
+
+export const IncomeList = [
+  {
+    value: '',
+    label: '无'
+  }, {
+    value: '1',
+    label: '从高到低'
+  }, {
+    value: '2',
+    label: '从低到高'
+  }
+]

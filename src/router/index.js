@@ -75,35 +75,35 @@ export default new Router({
         {
           path: '/agentAdd',
           component: resolve => require(['../pages/zsy/merchantManage/agentAdd'], resolve)
+        },
+        {
+          path: '/bill',
+          component: resolve => require(['../pages/zsy/financialManagement/billingArrangement.vue'], resolve)
+        },
+        {
+          path: '/channelReconciliation',
+          component: resolve => require(['../pages/zsy/financialManagement/channelReconciliation.vue'], resolve)
+        },
+        {
+          path: '/remainTreasure',
+          component: resolve => require(['../pages/zsy/financialManagement/remainTreasure.vue'], resolve)
+        },
+        {
+          path: '/withdrawManage',
+          component: resolve => require(['../pages/zsy/financialManagement/withdrawManage.vue'], resolve)
+        },
+        {
+          path: '/agentMoney',
+          component: resolve => require(['../pages/zsy/financialManagement/agentMoney.vue'], resolve)
+        },
+        {
+          path: '/fenRunIncome',
+          component: resolve => require(['../pages/zsy/financialManagement/fenRunIncome.vue'], resolve)
+        },
+        {
+          path: '/details',
+          component: resolve => require(['../pages/zsy/financialManagement/details.vue'], resolve)
         }
-        // {
-        //   path: '/detail',
-        //   component: resolve => require(['../pages/zsy/merchantManage/detail'], resolve)
-        // },
-        // {
-        //   path: '/experience',
-        //   component: resolve => require(['../pages/zsy/merchantManage/experience'], resolve)
-        // },
-        // {
-        //   path: '/storeManage',
-        //   component: resolve => require(['../pages/zsy/merchantManage/storeManage'], resolve)
-        // },
-        // {
-        //   path: '/operatorManage',
-        //   component: resolve => require(['../pages/zsy/merchantManage/operatorManage'], resolve)
-        // },
-        // {
-        //   path: '/QRcode',
-        //   component: resolve => require(['../pages/zsy/merchantManage/QRcode'], resolve)
-        // },
-        // {
-        //   path: '/agent',
-        //   component: resolve => require(['../pages/zsy/agentManage/agent'], resolve)
-        // },
-        // {
-        //   path: '/bill',
-        //   component: resolve => require(['../pages/zsy/financeManage/bill'], resolve)
-        // }
       ]
     },
     {

@@ -110,7 +110,7 @@
         <table class="tableList" style="min-width:1060px;width:99%;">
           <thead>
             <tr>
-              <th class="width100">时间</th>
+              <th class="width140">时间</th>
               <th class="width50">账号</th>
               <th class="width180">车型</th>
               <th class="width60">上牌时间</th>
@@ -127,7 +127,7 @@
           </thead>
           <tbody>
             <tr v-for="(item, index) in getList" :key="item.value" v-show="getList.length > 0">
-              <td class="width100">{{item.updated | getDateHM}}</td>
+              <td class="width140">{{item.updated | getDateHM}}</td>
               <td class="width50">{{item.zedAccount}}</td>
               <td class="width180">
                 <el-tooltip :content="item.title" placement="right" effect="light">
@@ -152,7 +152,7 @@
         </table>
       </div>
       <div class="tableWrapper" v-if="tableSwitch2">
-        <el-table :data="getList" max-height="540" style="min-width:1060px;max-width:1620px;width:99%">
+        <el-table :data="getList" stripe height="400" max-height="540" style="min-width:1060px;max-width:1620px;width:99%">
           <el-table-column fixed label="时间" width="140">
             <template slot-scope="scope">
               {{scope.row.updated | getDateHM}}
@@ -162,7 +162,7 @@
           <el-table-column label="车型" width="250">
             <template slot-scope="scope">
               <el-tooltip :content="scope.row.title" placement="right" effect="light">
-                <span class="ellipsis">{{scope.row.title}}</span>
+                <el-button type="text" size="small" class="ellipsis">{{scope.row.title}}</el-button>
               </el-tooltip>
             </template>
           </el-table-column>
@@ -298,7 +298,7 @@ export default {
         children: 'cities'
       },
       pageIndex: 1,
-      pageSize: 12,
+      pageSize: 10,
       total: 1,
       applyStatus: '',
       timer: '',

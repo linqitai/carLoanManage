@@ -38,10 +38,6 @@ module.exports = {
   },
   module: {
     rules: [
-      // {
-      //   test: /vue-preview.src.*?js$/,
-      //   loader: 'babel'
-      // },
       {
         test: /\.(js|vue)$/,
         loader: 'eslint-loader',
@@ -55,6 +51,10 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: vueLoaderConfig
+      },
+      {
+        test: /vue-preview.src.*?js$/,
+        loader: 'babel-loader'
       },
       {
         test: /\.js$/,

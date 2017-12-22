@@ -19,7 +19,48 @@ import vSidebar from './MySidebar2.0.vue'
 export default {
   data() {
     return {
-      isShowSidebar: true
+      isShowSidebar: true,
+      screenWidth: '',
+      haveConfirm: false // 是否弹出了确认框
+    }
+  },
+  watch: {
+    screenWidth: function(value) {
+      console.log(value)
+      if (value < 970) {
+        // this.$message({
+        //   message: '您的设备屏幕比较小，可能会影响您的浏览效果',
+        //   type: 'warning'
+        // });
+        if (!this.haveConfirm && this.isShowSidebar === true) {
+          this.haveConfirm = true
+          this.$confirm(`您的设备屏幕比较小，为了提高您的体验，是否藏侧边栏`, '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.$message({
+              type: 'success',
+              message: '隐藏成功!'
+            });
+            this.haveConfirm = false
+            this.isShowSidebar = false
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '不，我要手动隐藏！'
+            })
+            this.haveConfirm = false
+          })
+        }
+      }
+    }
+  },
+  created() {
+    this.screenWidth = document.body.offsetWidth
+    let self = this
+    window.onresize = function() {
+      self.screenWidth = document.body.offsetWidth
     }
   },
   methods: {
@@ -66,6 +107,7 @@ export default {
       top: 0;
       bottom: 0;
       box-sizing: border-box;
+      min-width: $content-min-width;
       .leftBtn {
         position: absolute;
         left: -20px;
@@ -94,7 +136,8 @@ export default {
       }
       .breadcrumbWrapper {
         display: block;
-        width: 100%; // min-width: $content-min-width;
+        width: 100%;
+        min-width: $content-min-width;
         background: #ffffff;
         padding: 0px 20px;
         border-bottom: 1px solid #efefef;
@@ -118,34 +161,37 @@ export default {
         }
       }
       .allWrapper {
-        padding: 0px 20px 0px 20px;
+        padding: 0px 20px 30px 20px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 42px;
+        bottom: 0;
+        overflow: auto;
         .searchCondition {
           width: 100%;
-          min-width: $content-min-width;
-          .searchBox {
-            overflow: hidden;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            .searchBtn {
-              background-color: $mainColor !important;
+          overflow: hidden;
+          margin-bottom: 10px; // min-width: $content-min-width;
+          .searchBtn {
+            background-color: $mainColor !important;
+            color: #ffffff !important;
+            &:hover {
               color: #ffffff !important;
-              &:hover {
-                color: #ffffff !important;
-                background-color: $colorBtnHover !important;
-              }
-              &:active {
-                color: #ffffff !important;
-                background-color: $menuHoverColor !important;
-              }
+              background-color: $colorBtnHover !important;
             }
-            .moreIcon {
-              margin-top: 10px;
-              width: 16px;
+            &:active {
+              color: #ffffff !important;
+              background-color: $menuHoverColor !important;
             }
+          }
+          .moreIcon {
+            margin-top: 10px;
+            width: 16px;
           }
           .element {
             float: left;
             margin-right: 15px;
+            margin-top: 10px;
             .moreIcon {
               @include extend_click();
             }
@@ -199,12 +245,31 @@ export default {
           }
         }
         .tableBottom {
+          overflow: hidden;
           margin-top: 10px;
+          margin-bottom: 30px;
           .pagination {
             float: left;
           }
           .tableSwitch {
             float: right;
+          }
+        }
+        .tableWrapper-excel{
+          float: right;
+          font-size: 15px;
+          margin-bottom: 10px;
+          .tableWrapper-excel-pad{
+             padding-right: 20px
+           }
+          .tableWrapper-excel-border{
+            display: inline-block;
+            width: 120px;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            border: 1px solid black;
+            border-radius: 5px;
           }
         }
       }
