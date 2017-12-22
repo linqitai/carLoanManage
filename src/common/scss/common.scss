@@ -129,7 +129,7 @@
 // padding上
 .pdt42{
   padding-bottom: 42px;
-} 
+}
 $tableLineColor: #efefef;
 $tableTextColor: #5a5e66;
 $tableTheadColor: #029E8A;
@@ -330,4 +330,22 @@ table .el-button {
 
 .el-dialog__footer {
   text-align: center;
+}
+
+.el-dialog--center .el-dialog__header{
+  padding-top: 15px;
+}
+
+.el-dialog--center .el-dialog__body{
+  padding: 15px 20px;
+}
+
+.el-dialog--center .el-dialog__footer{
+  padding-bottom: 15px;
+}
+.el-message-box{
+  width: 300px;
+}
+.el-input__inner{
+  height: 35px;
 }
