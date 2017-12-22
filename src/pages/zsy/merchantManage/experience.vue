@@ -77,13 +77,13 @@
         </transition>
       </div>
       <div class="tableWrapper">
-        <el-table :data="tableData" stripe style="min-width:800px;width: 940px;">
+        <el-table :data="tableData" stripe>
           <el-table-column prop="date" label="时间" width="200"></el-table-column>
-          <el-table-column prop="name" label="姓名" width="150"></el-table-column>
-          <el-table-column prop="name" label="账号" width="140"></el-table-column>
-          <el-table-column prop="name" label="角色" width="100"></el-table-column>
-          <el-table-column prop="name" label="商户" width="200"></el-table-column>
-          <el-table-column prop="name" label="动作" width="140"></el-table-column>
+          <el-table-column prop="name" label="姓名"></el-table-column>
+          <el-table-column prop="name" label="账号"></el-table-column>
+          <el-table-column prop="name" label="角色"></el-table-column>
+          <el-table-column prop="name" label="商户"></el-table-column>
+          <el-table-column prop="name" label="动作"></el-table-column>
         </el-table>
         <!-- <el-table :data="tableData" stripe style="min-width:1060px;max-width:1620px;width: 1150px;"></el-table> -->
         <el-dialog class="qrDialog" title="名称" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
