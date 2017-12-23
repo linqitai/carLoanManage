@@ -66,7 +66,15 @@ export default new Router({
         },
         {
           path: '/bill',
-          component: resolve => require(['../pages/zsy/financialManagement/billingArrangement.vue'], resolve)
+          component: resolve => require(['../pages/zsy/financialManagement/billingArrangement.vue'], resolve),
+          children: [
+            {
+              path: 'details',
+              name: '详情',
+              meta: {path: '/bill'},
+              component: resolve => require(['../pages/zsy/financialManagement/details.vue'], resolve)
+            }
+          ]
         },
         {
           path: '/channelReconciliation',
@@ -87,10 +95,6 @@ export default new Router({
         {
           path: '/fenRunIncome',
           component: resolve => require(['../pages/zsy/financialManagement/fenRunIncome.vue'], resolve)
-        },
-        {
-          path: '/details',
-          component: resolve => require(['../pages/zsy/financialManagement/details.vue'], resolve)
         }
       ]
     },
