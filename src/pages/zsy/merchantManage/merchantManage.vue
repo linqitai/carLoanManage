@@ -1,97 +1,132 @@
 <template>
   <div class="merchantManage">
-    <div class="breadcrumbWrapper" ref="breadcrumbWrapper">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item>
-          <img class="hoemIcon" src="../../../common/images/homeIconGray.png" alt="">
-          <span class="text">当前位置</span>
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>
-          <span class="text">臻收银管理</span>
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>
-          <span class="text">商户管理</span>
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>
-          <span class="mainColor">商户管理</span>
-        </el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
-    <div class="allWrapper">
-      <div class="searchCondition">
-        <div class="element">
-          <p class="inline">时间</p>
-          <div class="inline">
-            <el-date-picker size="medium" class="inline" style="width:134px;" v-model="searchs.startTime" type="date" placeholder="开始时间" @change="startTimeChange">
-            </el-date-picker>
-            <span class="inline">至</span>
-            <el-date-picker size="medium" class="inline" style="width:134px;" v-model="searchs.endTime" type="date" placeholder="结束时间" @change="endTimeChange">
-            </el-date-picker>
+    <div class="merchantManageWrapper">
+      <div class="breadcrumbWrapper" ref="breadcrumbWrapper">
+        <el-breadcrumb separator="/">
+          <el-breadcrumb-item>
+            <img class="hoemIcon" src="../../../common/images/homeIconGray.png" alt="">
+            <span class="text">当前位置</span>
+          </el-breadcrumb-item>
+          <el-breadcrumb-item>
+            <span class="text">臻收银管理</span>
+          </el-breadcrumb-item>
+          <el-breadcrumb-item>
+            <span class="text">商户管理</span>
+          </el-breadcrumb-item>
+          <el-breadcrumb-item>
+            <span class="mainColor">商户管理</span>
+          </el-breadcrumb-item>
+        </el-breadcrumb>
+      </div>
+      <div class="allWrapper">
+        <div class="searchCondition">
+          <div class="element">
+            <p class="inline">时间</p>
+            <div class="inline">
+              <el-date-picker size="medium" class="inline" style="width:134px;" v-model="searchs.startTime" type="date" placeholder="开始时间" @change="startTimeChange">
+              </el-date-picker>
+              <span class="inline">至</span>
+              <el-date-picker size="medium" class="inline" style="width:134px;" v-model="searchs.endTime" type="date" placeholder="结束时间" @change="endTimeChange">
+              </el-date-picker>
+            </div>
+          </div>
+          <div class="element">
+            <p class="inline">商户名称</p>
+            <div class="width140 inline">
+              <el-input size="medium" clearable placeholder="商户名称查询" class="input" v-model="searchs.mName" @keyup.enter.native="search"></el-input>
+            </div>
+          </div>
+          <div class="element">
+            <p class="inline">商户类型</p>
+            <div class="width120 inline">
+              <el-select size="medium" v-model="searchs.mtype" placeholder="请选择" @change="search">
+                <el-option v-for="item in mtypeList" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+          </div>
+          <div class="element">
+            <p class="inline">经营类目</p>
+            <div class="width140 inline">
+              <el-select size="medium" v-model="searchs.runTYpe" placeholder="请选择" @change="search">
+                <el-option v-for="item in runTYpeList" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+          </div>
+          <div class="element">
+            <p class="inline">负责人</p>
+            <div class="width120 inline">
+              <el-input size="medium" clearable v-model="searchs.fzMan" placeholder="负责人查询" class="input" @keyup.enter.native="search"></el-input>
+            </div>
+          </div>
+          <div class="element">
+            <p class="inline">手机号码</p>
+            <div class="width130 inline">
+              <el-input size="medium" clearable v-model="searchs.mobile" placeholder="手机号码查询" :maxlength="maxLengthMobile" class="input" @keyup.enter.native="search"></el-input>
+            </div>
+          </div>
+          <div class="element">
+            <p class="inline">状态</p>
+            <div class="width120 inline">
+              <el-select size="medium" v-model="searchs.status" placeholder="请选择" @change="search">
+                <el-option v-for="item in statusList" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+          </div>
+          <div class="element">
+            <p class="inline">代理商</p>
+            <div class="width120 inline">
+              <el-input size="medium" clearable v-model="searchs.agent" placeholder="代理商查询" class="input" @keyup.enter.native="search"></el-input>
+            </div>
+          </div>
+          <div class="element">
+            <p class="inline">店铺地址</p>
+            <div class="width140 inline">
+              <el-select size="medium" v-model="searchs.runTYpe" placeholder="请选择" @change="search">
+                <el-option v-for="item in runTYpeList" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+          </div>
+          <div class="element">
+            <el-button size="medium" class="searchBtn" @click.native="search">查询</el-button>
           </div>
         </div>
-        <div class="element">
-          <p class="inline">商户名称</p>
-          <div class="width140 inline">
-            <el-input size="medium" clearable placeholder="商户名称查询" class="input" v-model="searchs.mName" @keyup.enter.native="search"></el-input>
-          </div>
+        <div class="tableWrapper">
+          <el-table :data="tableData" stripe>
+            <el-table-column fixed="left" prop="date" label="申请时间" width="170"></el-table-column>
+            <el-table-column prop="name" label="商户名称"></el-table-column>
+            <el-table-column prop="name" label="商户类型"></el-table-column>
+            <el-table-column prop="name" label="经营类型"></el-table-column>
+            <el-table-column label="店铺地址" width="120">
+              <template slot-scope="scope">
+                <el-tooltip :content="scope.row.address" placement="top" effect="light">
+                  <el-button type="text" size="small" class="width120 ellipsis">{{scope.row.address}}</el-button>
+                </el-tooltip>
+              </template>
+            </el-table-column>
+            <el-table-column prop="name" label="负责人"></el-table-column>
+            <el-table-column prop="name" label="性别"></el-table-column>
+            <el-table-column prop="name" label="手机号码"></el-table-column>
+            <el-table-column prop="name" label="状态"></el-table-column>
+            <el-table-column prop="name" label="代理商"></el-table-column>
+            <el-table-column label="操作" width="170" fixed="right">
+              <template slot-scope="scope">
+                <el-button type="text" size="small" @click="detail(scope.row)">详情</el-button>
+                <el-button type="text" size="small" @click="detail(scope.row)">审核</el-button>
+                <el-button type="text" size="small" @click="openOrClose(scope.row)">{{scope.row.isopen|openClose}}</el-button>
+                <el-button type="text" size="small" @click="toStoreManage(scope.row)">门店</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
         </div>
-        <div class="element">
-          <p class="inline">商户类型</p>
-          <div class="width120 inline">
-            <el-select size="medium" v-model="searchs.mtype" placeholder="请选择" @change="search">
-              <el-option v-for="item in mtypeList" :key="item.value" :label="item.label" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
+        <div class="tableBottom">
+          <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex" :page-size="pageSize" :page-sizes="[8,10,12,14,16]" layout="total, sizes, prev, pager, next, jumper" :total="total">
+          </el-pagination>
         </div>
-        <div class="element">
-          <p class="inline">经营类目</p>
-          <div class="width140 inline">
-            <el-select size="medium" v-model="searchs.runTYpe" placeholder="请选择" @change="search">
-              <el-option v-for="item in runTYpeList" :key="item.value" :label="item.label" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-        </div>
-        <div class="element">
-          <p class="inline">负责人</p>
-          <div class="width120 inline">
-            <el-input size="medium" clearable v-model="searchs.fzMan" placeholder="负责人查询" class="input" @keyup.enter.native="search"></el-input>
-          </div>
-        </div>
-        <div class="element">
-          <p class="inline">手机号码</p>
-          <div class="width130 inline">
-            <el-input size="medium" clearable v-model="searchs.mobile" placeholder="手机号码查询" :maxlength="maxLengthMobile" class="input" @keyup.enter.native="search"></el-input>
-          </div>
-        </div>
-        <div class="element">
-          <p class="inline">状态</p>
-          <div class="width120 inline">
-            <el-select size="medium" v-model="searchs.status" placeholder="请选择" @change="search">
-              <el-option v-for="item in statusList" :key="item.value" :label="item.label" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-        </div>
-        <div class="element">
-          <p class="inline">代理商</p>
-          <div class="width120 inline">
-            <el-input size="medium" clearable v-model="searchs.agent" placeholder="代理商查询" class="input" @keyup.enter.native="search"></el-input>
-          </div>
-        </div>
-        <div class="element">
-          <p class="inline">店铺地址</p>
-          <div class="width140 inline">
-            <el-select size="medium" v-model="searchs.runTYpe" placeholder="请选择" @change="search">
-              <el-option v-for="item in runTYpeList" :key="item.value" :label="item.label" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-        </div>
-        <div class="element">
-          <el-button size="medium" class="searchBtn" @click.native="search">查询</el-button>
-        </div>
+<<<<<<< HEAD
       </div>
       <div class="tableWrapper">
         <el-table :data="tableData" stripe>
@@ -124,14 +159,18 @@
       <div class="tableBottom">
         <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total">
         </el-pagination>
+=======
+>>>>>>> b0dae344045cabe03d52eee4a6b15f961762515b
       </div>
     </div>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import { mtypeList, runTYpeList, statusList, tableData } from 'common/js/config'
 import { saveCurrentRow } from 'common/js/cache'
+import { merchantList } from '@/api/index'
 // import { mapMutations } from 'vuex'
 export default {
   data() {
@@ -176,7 +215,15 @@ export default {
       return value === 1 ? '禁用' : value === 0 ? '启用' : '---'
     }
   },
+  created() {
+    this.getMerchantList()
+  },
   methods: {
+    getMerchantList() {
+      merchantList().then(res => {
+        console.log(res)
+      })
+    },
     tableSwitchChange(val) {
       console.log(val)
       if (parseInt(val) === 1) {
@@ -238,7 +285,7 @@ export default {
       // this.setStatus(status)
       console.log(item);
       saveCurrentRow(item)
-      this.$router.push('/merchantManageDetail')
+      this.$router.push('/merchantManage/detail')
     },
     search() {
       // ...
@@ -273,5 +320,11 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
+  .merchantManageWrapper {
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    bottom: 0px;
+  }
 }
 </style>

@@ -129,7 +129,7 @@
 // padding上
 .pdt42{
   padding-bottom: 42px;
-} 
+}
 $tableLineColor: #efefef;
 $tableTextColor: #5a5e66;
 $tableTheadColor: #029E8A;
@@ -225,6 +225,10 @@ $breadcrumbHeight: 40px;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active in below version 2.1.8 */ {
     opacity: 0
+}
+// 覆盖弹窗层级样式
+.el-dialog{
+  z-index: 2002
 }
 // 修改页面elementUI样式
 .el-breadcrumb {
@@ -330,4 +334,22 @@ table .el-button {
 
 .el-dialog__footer {
   text-align: center;
+}
+
+.el-dialog--center .el-dialog__header{
+  padding-top: 15px;
+}
+
+.el-dialog--center .el-dialog__body{
+  padding: 15px 20px;
+}
+
+.el-dialog--center .el-dialog__footer{
+  padding-bottom: 15px;
+}
+.el-message-box{
+  width: 300px;
+}
+.el-input__inner{
+  height: 35px;
 }

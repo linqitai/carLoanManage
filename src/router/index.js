@@ -46,11 +46,13 @@ export default new Router({
         },
         {
           path: '/merchantManage',
-          component: resolve => require(['../pages/zsy/merchantManage/merchantManage'], resolve)
-        },
-        {
-          path: '/merchantManageDetail',
-          component: resolve => require(['../pages/zsy/merchantManage/detail'], resolve)
+          component: resolve => require(['../pages/zsy/merchantManage/merchantManage'], resolve),
+          children: [
+            {
+              path: '/merchantManage/detail',
+              component: resolve => require(['../pages/zsy/merchantManage/detail'], resolve)
+            }
+          ]
         },
         {
           path: '/storeManage',
@@ -65,8 +67,28 @@ export default new Router({
           component: resolve => require(['../pages/zsy/merchantManage/QRcode'], resolve)
         },
         {
+          path: '/zsyMileage6',
+          component: resolve => require(['../pages/zsy/merchantManage/zsyMileage6'], resolve)
+        },
+        {
+          path: '/agent',
+          component: resolve => require(['../pages/zsy/merchantManage/agent'], resolve)
+        },
+        {
+          path: '/agentAdd',
+          component: resolve => require(['../pages/zsy/merchantManage/agentAdd'], resolve)
+        },
+        {
           path: '/bill',
-          component: resolve => require(['../pages/zsy/financialManagement/billingArrangement.vue'], resolve)
+          component: resolve => require(['../pages/zsy/financialManagement/billingArrangement.vue'], resolve),
+          children: [
+            {
+              path: 'details',
+              name: '详情',
+              meta: {path: '/bill'},
+              component: resolve => require(['../pages/zsy/financialManagement/details.vue'], resolve)
+            }
+          ]
         },
         {
           path: '/channelReconciliation',
@@ -87,10 +109,6 @@ export default new Router({
         {
           path: '/fenRunIncome',
           component: resolve => require(['../pages/zsy/financialManagement/fenRunIncome.vue'], resolve)
-        },
-        {
-          path: '/details',
-          component: resolve => require(['../pages/zsy/financialManagement/details.vue'], resolve)
         }
       ]
     },
