@@ -46,11 +46,13 @@ export default new Router({
         },
         {
           path: '/merchantManage',
-          component: resolve => require(['../pages/zsy/merchantManage/merchantManage'], resolve)
-        },
-        {
-          path: '/merchantManageDetail',
-          component: resolve => require(['../pages/zsy/merchantManage/detail'], resolve)
+          component: resolve => require(['../pages/zsy/merchantManage/merchantManage'], resolve),
+          children: [
+            {
+              path: '/merchantManage/detail',
+              component: resolve => require(['../pages/zsy/merchantManage/detail'], resolve)
+            }
+          ]
         },
         {
           path: '/storeManage',
@@ -63,6 +65,18 @@ export default new Router({
         {
           path: '/QRcode',
           component: resolve => require(['../pages/zsy/merchantManage/QRcode'], resolve)
+        },
+        {
+          path: '/zsyMileage6',
+          component: resolve => require(['../pages/zsy/merchantManage/zsyMileage6'], resolve)
+        },
+        {
+          path: '/agent',
+          component: resolve => require(['../pages/zsy/merchantManage/agent'], resolve)
+        },
+        {
+          path: '/agentAdd',
+          component: resolve => require(['../pages/zsy/merchantManage/agentAdd'], resolve)
         },
         {
           path: '/bill',
