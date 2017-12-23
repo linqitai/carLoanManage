@@ -127,38 +127,6 @@
           </el-pagination>
         </div>
       </div>
-      <div class="tableWrapper">
-        <el-table :data="tableData" stripe>
-          <el-table-column fixed="left" prop="date" label="申请时间" width="170"></el-table-column>
-          <el-table-column prop="name" label="商户名称"></el-table-column>
-          <el-table-column prop="name" label="商户类型"></el-table-column>
-          <el-table-column prop="name" label="经营类型"></el-table-column>
-          <el-table-column label="店铺地址" width="120">
-            <template slot-scope="scope">
-              <el-tooltip :content="scope.row.address" placement="top" effect="light">
-                <el-button type="text" size="small" class="width120 ellipsis">{{scope.row.address}}</el-button>
-              </el-tooltip>
-            </template>
-          </el-table-column>
-          <el-table-column prop="name" label="负责人"></el-table-column>
-          <el-table-column prop="name" label="性别"></el-table-column>
-          <el-table-column prop="name" label="手机号码"></el-table-column>
-          <el-table-column prop="name" label="状态"></el-table-column>
-          <el-table-column prop="name" label="代理商"></el-table-column>
-          <el-table-column label="操作" width="170" fixed="right">
-            <template slot-scope="scope">
-              <el-button type="text" size="small" @click="detail(scope.row)">详情</el-button>
-              <el-button type="text" size="small" @click="detail(scope.row)">审核</el-button>
-              <el-button type="text" size="small" @click="openOrClose(scope.row)">{{scope.row.isopen|openClose}}</el-button>
-              <el-button type="text" size="small" @click="toStoreManage(scope.row)">门店</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-      </div>
-      <div class="tableBottom">
-        <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total">
-        </el-pagination>
-      </div>
     </div>
     <router-view></router-view>
   </div>
