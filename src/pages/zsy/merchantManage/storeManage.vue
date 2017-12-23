@@ -77,7 +77,7 @@
             <template slot-scope="scope">
               <el-button type="text" size="small" @click="toRouter('/operatorManage')">操作员</el-button>
               <el-button type="text" size="small" @click="toRouter('/QRcode')">收款码</el-button>
-              <el-button type="text" size="small">账单</el-button>
+              <el-button type="text" size="small" @click="toRouter('/bill')">账单</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -92,6 +92,7 @@
 
 <script type="text/ecmascript-6">
 import { mtypeList, runTYpeList, statusList, tableData } from 'common/js/config'
+import {zsyStore} from '@/api/index.js'
 export default {
   data() {
     return {
@@ -129,6 +130,12 @@ export default {
     openClose(value) {
       return value === 1 ? '禁用' : value === 0 ? '启用' : '---'
     }
+  },
+  created() {
+    zsyStore()
+    .then(res => {
+      console.log(res)
+    })
   },
   methods: {
     toRouter(index) {
