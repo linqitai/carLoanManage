@@ -23,25 +23,25 @@
           <div class="element">
             <p class="inline">店铺名称</p>
             <div class="width140 inline">
-              <el-input size="medium" clearable placeholder="店铺名称查询" class="input" v-model="searchs.mName" @keyup.enter.native="search"></el-input>
+              <el-input size="medium" clearable placeholder="店铺名称查询" class="input" v-model="searchs.shopname" @keyup.enter.native="search"></el-input>
             </div>
           </div>
           <div class="element">
             <p class="inline">商户名称</p>
             <div class="width140 inline">
-              <el-input size="medium" clearable placeholder="商户名称查询" class="input" v-model="searchs.mName" @keyup.enter.native="search"></el-input>
+              <el-input size="medium" clearable placeholder="商户名称查询" class="input" v-model="searchs.merchantname" @keyup.enter.native="search"></el-input>
             </div>
           </div>
           <div class="element">
             <p class="inline">负责人</p>
             <div class="width140 inline">
-              <el-input size="medium" clearable placeholder="负责人查询" class="input" v-model="searchs.mName" @keyup.enter.native="search"></el-input>
+              <el-input size="medium" clearable placeholder="负责人查询" class="input" v-model="searchs.responsiblename" @keyup.enter.native="search"></el-input>
             </div>
           </div>
           <div class="element">
             <p class="inline">手机号码</p>
             <div class="width140 inline">
-              <el-input size="medium" clearable placeholder="手机号码查询" :maxlength="maxLengthMobile" class="input" v-model="searchs.mobile" @keyup.enter.native="search"></el-input>
+              <el-input size="medium" clearable placeholder="手机号码查询" :maxlength="maxLengthMobile" class="input" v-model="searchs.phone" @keyup.enter.native="search"></el-input>
             </div>
           </div>
           <div class="element" @click="search">
@@ -67,12 +67,12 @@
         </transition>
       </div>
       <div class="tableWrapper">
-        <el-table :data="tableData" stripe style="min-width:1060px;max-width:1620px;width: 1150px;">
-          <el-table-column prop="name" label="店铺名称" width="120"></el-table-column>
-          <el-table-column prop="name" label="所属商户" width="180"></el-table-column>
-          <el-table-column prop="name" label="负责人" width="120"></el-table-column>
-          <el-table-column prop="name" label="手机号码" width="150"></el-table-column>
-          <el-table-column prop="address" label="店铺地址" width="400"></el-table-column>
+        <el-table :data="tableData" stripe>
+          <el-table-column prop="shopname" label="店铺名称"></el-table-column>
+          <el-table-column prop="merchantname" label="所属商户"></el-table-column>
+          <el-table-column prop="responsiblename" label="负责人"></el-table-column>
+          <el-table-column prop="phone" label="手机号码"></el-table-column>
+          <el-table-column prop="address" label="店铺地址"></el-table-column>
           <el-table-column fixed="right" label="操作" width="180">
             <template slot-scope="scope">
               <el-button type="text" size="small" @click="toRouter('/operatorManage')">操作员</el-button>
@@ -83,7 +83,7 @@
         </el-table>
       </div>
       <div class="tableBottom">
-        <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex" :page-size="pageSize" :page-sizes="[10,12,14,16]" layout="total, sizes, prev, pager, next, jumper" :total="total">
+        <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" layout="total, sizes, prev, pager, next, jumper" :total="total">
         </el-pagination>
       </div>
     </div>
@@ -91,7 +91,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { mtypeList, runTYpeList, statusList, tableData } from 'common/js/config'
+// import { mtypeList, runTYpeList, statusList, tableData } from 'common/js/config'
 import {zsyStore} from '@/api/index.js'
 export default {
   data() {
@@ -101,29 +101,22 @@ export default {
       isShowMore: false,
       showCheckbox: false,
       searchCell: false,
-      pageIndex: 1,
-      pageSize: 12,
-      total: 1,
       showSizeChanger: true,
       pageSizeOption: [10, 15, 20, 25, 30],
-      mtypeList: mtypeList,
-      runTYpeList: runTYpeList,
-      statusList: statusList,
       provinceList: '',
       cityList: '',
       areaList: '',
+      total: '',
+      tableData: [],
       searchs: {
-        sName: '',
-        mName: '',
-        fzMan: '',
-        mobile: '',
-        address: {
-          province: '',
-          city: '',
-          area: ''
-        }
-      },
-      tableData: tableData
+        shopname: '',
+        merchantname: '',
+        responsiblename: '',
+        phone: '',
+        province: '',
+        pageSize: 10,
+        pageIndex: 1
+      }
     }
   },
   filters: {
@@ -132,12 +125,15 @@ export default {
     }
   },
   created() {
-    zsyStore()
-    .then(res => {
-      console.log(res)
-    })
+    this.searchData()
   },
   methods: {
+    searchData() {
+      zsyStore(this.searchs).then(res => {
+        this.tableData = res.result;
+        this.total = res.count;
+      })
+    },
     toRouter(index) {
       this.$router.push(index)
     },
@@ -200,10 +196,12 @@ export default {
     //   console.log('page size change event', newIndex)
     // },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      this.searchs.pageSize = val;
+      this.searchData();
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      this.searchs.pageIndex = val;
+      this.searchData();
     }
   },
   components: {

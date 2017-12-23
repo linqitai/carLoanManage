@@ -34,3 +34,15 @@ export const zsy = '/zsy'
 export const merchantList = (params) => {
   return http.fetchPost(zsy + '/zcash/customer/list.do', params)
 }
+// 门店管理
+export const zsyStore = (params) => {
+  return http.fetchPost(zsy + "/zcash/shop/list.do", params)
+}
+// 收款码管理
+export const zsyQRcode = (params) => {
+  return http.fetchPost(zsy + '/zcash/collectionCode/list.do', params)
+}
+// 操作员管理
+export const zsyOper = (params) => {
+  return http.fetchPost(zsy + '/zcash/userShop/list.do', params)
+}

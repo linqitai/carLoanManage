@@ -126,7 +126,6 @@
           <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex" :page-size="pageSize" :page-sizes="[8,10,12,14,16]" layout="total, sizes, prev, pager, next, jumper" :total="total">
           </el-pagination>
         </div>
-<<<<<<< HEAD
       </div>
       <div class="tableWrapper">
         <el-table :data="tableData" stripe>
@@ -159,8 +158,6 @@
       <div class="tableBottom">
         <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total">
         </el-pagination>
-=======
->>>>>>> b0dae344045cabe03d52eee4a6b15f961762515b
       </div>
     </div>
     <router-view></router-view>
