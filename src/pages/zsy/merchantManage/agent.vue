@@ -98,8 +98,9 @@
           <el-table-column prop="province" label="处理结果"></el-table-column>
           <el-table-column prop="name" label="操作">
             <template slot-scope="scope">
-              <el-button @click="handleClick1(scope.row)" type="text" size="small">查看</el-button>
-              <el-button @click="handleClick2(scope.row)" type="text" size="small">编辑</el-button>
+              <el-button @click="handleClick1(scope.row)" type="text" size="small">详情</el-button>
+              <el-button @click="handleClick2(scope.row)" type="text" size="small">禁用</el-button>
+              <el-button @click="handleClick3(scope.row)" type="text" size="small">商户</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -249,11 +250,14 @@ export default {
     },
     handleClick1: function(row) {
       console.log(row, 1);
-      this.dialogVisible1 = true;
+      this.$router.push('agentDetail');
     },
     handleClick2: function(row) {
       console.log(row, 2);
-      this.dialogVisible2 = true;
+    },
+    handleClick3: function(row) {
+      console.log(row, 3);
+      this.$router.push('experience');
     },
     handleSizeChange: function() {
       console.log(123);
