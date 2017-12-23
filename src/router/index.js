@@ -77,6 +77,10 @@ export default new Router({
           component: resolve => require(['../pages/zsy/merchantManage/agentAdd'], resolve)
         },
         {
+          path: '/agentDetail',
+          component: resolve => require(['../pages/zsy/merchantManage/agentDetail'], resolve)
+        },
+        {
           path: '/bill',
           component: resolve => require(['../pages/zsy/financialManagement/billingArrangement.vue'], resolve)
         },
