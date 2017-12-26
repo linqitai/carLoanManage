@@ -103,7 +103,7 @@
             <el-table-column label="店铺地址" width="120">
               <template slot-scope="scope">
                 <el-tooltip :content="scope.row.address" placement="top" effect="light">
-                  <el-button type="text" size="small" class="width120 ellipsis">{{scope.row.address}}</el-button>
+                  <span type="text" size="small" class="width120 ellipsis">{{scope.row.address}}</span>
                 </el-tooltip>
               </template>
             </el-table-column>
