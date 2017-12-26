@@ -18,15 +18,13 @@
       <div class="searchCondition">
         <div class="searchBox">
           <div class="element">
-            <div class="element">
-              <p class="inline">时间</p>
-              <div class="inline">
-                <el-date-picker size="medium" class="inline" style="width:140px;" v-model="sdate" type="date" placeholder="开始时间" @change="startTimeChange">
-                </el-date-picker>
-                <span class="inline">至</span>
-                <el-date-picker size="medium" class="inline" style="width:140px;" v-model="edate" type="date" placeholder="结束时间" @change="endTimeChange">
-                </el-date-picker>
-              </div>
+            <p class="inline">时间</p>
+            <div class="inline">
+              <el-date-picker size="medium" class="inline" style="width:140px;" v-model="sdate" type="date" placeholder="开始时间" @change="startTimeChange">
+              </el-date-picker>
+              <span class="inline">至</span>
+              <el-date-picker size="medium" class="inline" style="width:140px;" v-model="edate" type="date" placeholder="结束时间" @change="endTimeChange">
+              </el-date-picker>
             </div>
           </div>
           <div class="element">
@@ -47,7 +45,7 @@
               <el-input size="medium" type="number" v-model="mobile" placeholder="请输入手机号" class="input" :maxlength="maxlengthMobole" @keyup.enter.native="search"></el-input>
             </div>
           </div>
-          <div class="element">
+          <div class="element" v-if="searchCell">
             <p class="inline">动作</p>
             <div class="width120 inline">
               <el-select size="medium" v-model="state" placeholder="" @change="search">
@@ -56,121 +54,118 @@
               </el-select>
             </div>
           </div>
-          <div class="element" @click="search()">
-            <el-button size="medium" type="primary" class="searchBtn">查询</el-button>
-          </div>
-          <div class="element" @click="moreBtn">
-            <img class="moreIcon" src="../../../common/images/arrow_down.png" width="32" v-if="!searchCell">
-            <img class="moreIcon iconTransform" src="../../../common/images/arrow_down.png" width="32" v-if="searchCell">
-          </div>
-        </div>
-        <!--第二行-->
-        <div v-if="searchCell">
-          <div class=" searchBox clear">
-            <div class="element ">
-              <p class="inline ">婚姻状态</p>
-              <div class="width120 inline ">
-                <el-select size="medium" v-model="marriage " placeholder=" " @change="search ">
-                  <el-option v-for="item in marriageStates " :key="item.value " :label="item.label " :value="item.value ">
-                  </el-option>
-                </el-select>
-              </div>
-            </div>
-            <div class="element ">
-              <p class="inline ">家庭收支</p>
-              <div class="width120 inline ">
-                <el-input size="medium" type="number " v-model="savingMin " placeholder="元 " class="input "></el-input>
-              </div>
-              <p class="inline ">至</p>
-              <div class="width120 inline ">
-                <el-input size="medium" type="number " v-model="savingMax " placeholder="元 " class="input "></el-input>
-              </div>
-            </div>
-            <div class="element ">
-              <p class="inline ">自评分值</p>
-              <div class="width120 inline ">
-                <el-input size="medium" type="number " v-model="scoreMin " placeholder="分 " class="input "></el-input>
-              </div>
-              <p class="inline ">至</p>
-              <div class="width120 inline ">
-                <el-input size="medium" type="number " v-model="scoreMax " placeholder="分 " class="input "></el-input>
-              </div>
-            </div>
-            <div class="element ">
-              <p class="inline ">自评额度</p>
-              <div class="width120 inline ">
-                <el-input size="medium" type="number " v-model="quotaMin " placeholder="元 " class="input "></el-input>
-              </div>
-              <p class="inline ">至</p>
-              <div class="width120 inline ">
-                <el-input size="medium" type="number " v-model="quotaMax " placeholder="元 " class="input "></el-input>
-              </div>
+          <div class="element" v-if="searchCell">
+            <p class="inline">婚姻状态</p>
+            <div class="width120 inline">
+              <el-select size="medium" v-model="marriage" placeholder="" @change="search">
+                <el-option v-for="item in marriageStates" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
             </div>
           </div>
-          <!--第三行-->
-          <div class="searchBox clear ">
-            <div class="element">
-              <p class="inline">配偶职业</p>
-              <div class="width120 inline">
-                <el-select size="medium" v-model="spouseOCP" placeholder="" @change="search">
-                  <el-option v-for="item in supStates" :key=" item.value" :label="item.label" :value="item.value">
-                  </el-option>
-                </el-select>
-              </div>
+          <div class="element" v-if="searchCell">
+            <p class="inline">家庭收支</p>
+            <div class="width120 inline">
+              <el-input size="medium" type="number" v-model="savingMin" placeholder="元 " class="input"></el-input>
             </div>
-            <div class="element">
-              <p class="inline">子女职业</p>
-              <div class="width120 inline">
-                <el-select size="medium" v-model="childOCP" placeholder="" @change="search">
-                  <el-option v-for="item in childStates" :key="item.value" :label="item.label" :value="item.value">
-                  </el-option>
-                </el-select>
-              </div>
+            <p class="inline">至</p>
+            <div class="width120 inline">
+              <el-input size="medium" type="number" v-model="savingMax" placeholder="元" class="input"></el-input>
+            </div>
+          </div>
+          <div class="element" v-if="searchCell">
+            <p class="inline">自评分值</p>
+            <div class="width120 inline">
+              <el-input size="medium" type="number" v-model="scoreMin" placeholder="分" class="input"></el-input>
+            </div>
+            <p class="inline">至</p>
+            <div class="width120 inline">
+              <el-input size="medium" type="number" v-model="scoreMax" placeholder="分" class="input"></el-input>
+            </div>
+          </div>
+          <div class="element" v-if="searchCell">
+            <p class="inline">自评额度</p>
+            <div class="width120 inline ">
+              <el-input size="medium" type="number" v-model="quotaMin" placeholder="元" class="input"></el-input>
+            </div>
+            <p class="inline">至</p>
+            <div class="width120 inline">
+              <el-input size="medium" type="number" v-model="quotaMax" placeholder="元" class="input"></el-input>
+            </div>
+          </div>
+          <div class="element" v-if="searchCell">
+            <p class="inline">配偶职业</p>
+            <div class="width120 inline">
+              <el-select size="medium" v-model="spouseOCP" placeholder="" @change="search">
+                <el-option v-for="item in supStates" :key=" item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+          </div>
+          <div class="element" v-if="searchCell">
+            <p class="inline">子女职业</p>
+            <div class="width120 inline">
+              <el-select size="medium" v-model="childOCP" placeholder="" @change="search">
+                <el-option v-for="item in childStates" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+          </div>
+          <div class="element">
+            <el-button size="medium" type="primary" class="searchBtn left" @click.native="search()">查询</el-button>
+            <div class="ml10 right">
+              <img class="moreIcon" src="../../../common/images/arrow_down.png" width="32" v-if="!searchCell" @click="moreBtn">
+              <img class="moreIcon iconTransform" src="../../../common/images/arrow_down.png" width="32" v-if="searchCell" @click="moreBtn">
             </div>
           </div>
         </div>
-        </transition>
       </div>
       <!--表格-->
-      <div class="tableWrapper" style="overflow: auto;">
-        <table class="tableList" style="min-width:1060px;width:99%;">
-          <thead>
-            <tr>
-              <th class="width80">时间</th>
-              <th class="width60">手机号</th>
-              <th class="width50">姓名</th>
-              <th class="width50">身份证号</th>
-              <th class="width50">婚姻状态</th>
-              <th class="width70">配偶职业</th>
-              <th class="width70">子女职业</th>
-              <th class="width50">家庭收支(元)</th>
-              <th class="width50">自评分值(分)</th>
-              <th class="width50">自评额度(元)</th>
-              <th class="width50">动作</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(item, index) in getList" :key="item.value" v-show="getList.length > 0">
-              <td class="width80">{{item.date | getDateHM}}</td>
-              <td class="width60">{{item.mobile}}</td>
-              <td class="width50">{{item.name}}</td>
-              <td class="width50">{{item.identityNo}}</td>
-              <td class="width50">{{item.marriage | getmarryStatus}}</td>
-              <td class="width70">{{item.spouseOCP | getsupStatus}}</td>
-              <td class="width70">{{item.childOCP | getsupStatus}}</td>
-              <td class="width50">{{item.fmSaving}}</td>
-              <td class="width50">{{item.score | getInt}}</td>
-              <td class="width50">{{item.quota}}</td>
-              <td class="width50">{{item.action | getStatus}}</td>
-            </tr>
-            <tr v-show="getList.length === 0">
-              <td class="noData" colspan="12">暂无数据</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="tableWrapper">
+        <el-table :data="getList" stripe>
+          <el-table-column fixed="left" label="时间" min-width="150">
+            <template slot-scope="scope">
+              {{scope.row.date | getDateHM}}
+            </template>
+          </el-table-column>
+          <el-table-column prop="mobile" label="手机号" min-width="120"></el-table-column>
+          <el-table-column prop="name" label="姓名"></el-table-column>
+          <el-table-column prop="identityNo" label="身份证号" width="170"></el-table-column>
+          <el-table-column prop="" label="婚姻状态">
+            <template slot-scope="scope">
+              {{scope.row.marriage | getmarryStatus}}
+            </template>
+          </el-table-column>
+          <el-table-column prop="" label="配偶职业">
+            <template slot-scope="scope">
+              {{scope.row.spouseOCP | getsupStatus}}
+            </template>
+          </el-table-column>
+          <el-table-column prop="" label="子女职业">
+            <template slot-scope="scope">
+              {{scope.row.childOCP | getsupStatus}}
+            </template>
+          </el-table-column>
+          <el-table-column prop="fmSaving" label="家庭收支(元)" min-width="100"></el-table-column>
+          <el-table-column prop="score" label="自评分值(分)" min-width="100">
+            <template slot-scope="scope">
+              {{scope.row.score | getInt}}
+            </template>
+          </el-table-column>
+          <el-table-column prop="quota" label="自评额度(元)" min-width="100"></el-table-column>
+          <el-table-column fixed="right" label="动作">
+            <template slot-scope="scope">
+              {{scope.row.action | getStatus}}
+            </template>
+          </el-table-column>
+        </el-table>
       </div>
-      <div class="block" style="margin-top:10px" v-show="showPageTag">
-        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex" :page-size="pageSize" layout="total, prev, pager, next, jumper" :total="total">
+      <!-- <div class="block" style="margin-top:10px" v-show="showPageTag">
+                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex" :page-size="pageSize" :page-sizes="[8,10,12,14,16]" layout="total, sizes, prev, pager, next, jumper" :total="total">
+                </el-pagination>
+              </div> -->
+      <div class="tableBottom" v-show="showPageTag">
+        <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex" :page-size="pageSize" :page-sizes="[8,10,12,14,16]" layout="total, sizes, prev, pager, next, jumper" :total="total">
         </el-pagination>
       </div>
     </div>
@@ -189,7 +184,7 @@ export default {
       maxlengthid: 18,
       searchCell: false,
       pageIndex: 1,
-      pageSize: 16,
+      pageSize: 10,
       name: '',
       mobile: '',
       identityNo: '',  // 身份证号
@@ -377,6 +372,8 @@ export default {
     },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`)
+      this.pageSize = val
+      this.zsfQuery()
     },
     handleCurrentChange(val) {
       console.log(val)
