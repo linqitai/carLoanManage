@@ -46,3 +46,15 @@ export const zsyQRcode = (params) => {
 export const zsyOper = (params) => {
   return http.fetchPost(zsy + '/zcash/userShop/list.do', params)
 }
+// 账单管理
+export const billManage = (params) => {
+  return http.fetchPost(zsy + "/zcash/financeManager/listPayOrder.do", params)
+}
+// 账单详情
+export const billDetails = (params) => {
+  return http.fetchPost(zsy + "/zcash/financeManager/getOrderDetail.do", params)
+}
+// 账单导出excel
+export const billTableExport = () => {
+  return zsy + "/zcash/financeManager/exportPayOrder.do"
+}
