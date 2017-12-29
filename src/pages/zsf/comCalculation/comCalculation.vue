@@ -49,18 +49,7 @@
               <el-input type="number" v-model='quotaMax' placeholder="元 " class="input "></el-input>
             </div>
           </div>
-          <div class="element" @click="search()">
-            <el-button type="primary" class="searchBtn">查询</el-button>
-          </div>
-          <!--<div class="message" v-show>111</div>-->
-          <div class="element" @click="moreBtn">
-            <img class="moreIcon" src="../../../common/images/arrow_down.png" v-if="!searchCell">
-            <img class="moreIcon iconTransform" src="../../../common/images/arrow_down.png" v-if="searchCell">
-          </div>
-        </div>
-        <!--第二行-->
-        <div class=" searchBox clear" v-if="searchCell">
-          <div class="element">
+          <div class="element" v-if="searchCell">
             <p class="inline">房产价值</p>
             <div class="width120 inline">
               <el-select v-model="house" placeholder="" @change="searchByHouseValue">
@@ -69,7 +58,7 @@
               </el-select>
             </div>
           </div>
-          <div class="element">
+          <div class="element" v-if="searchCell">
             <p class="inline">车辆价值</p>
             <div class="width120 inline">
               <el-select v-model="car" placeholder="" @change="searchByCarValue">
@@ -78,7 +67,7 @@
               </el-select>
             </div>
           </div>
-          <div class="element">
+          <div class="element" v-if="searchCell">
             <p class="inline">是否店铺所有者</p>
             <div class="width120 inline">
               <el-select v-model="shopOwner" placeholder="" @change="search">
@@ -87,7 +76,7 @@
               </el-select>
             </div>
           </div>
-          <div class="element">
+          <div class="element" v-if="searchCell">
             <p class="inline">安保服务</p>
             <div class="width120 inline">
               <el-select v-model="openDoor" placeholder="" @change="searchByOpenDoor">
@@ -96,7 +85,7 @@
               </el-select>
             </div>
           </div>
-          <div class="element">
+          <div class="element" v-if="searchCell">
             <p class="inline">臻收银</p>
             <div class="width120 inline">
               <el-select v-model="collectMoney" placeholder="" @change="search">
@@ -105,10 +94,7 @@
               </el-select>
             </div>
           </div>
-        </div>
-        <!--第三行-->
-        <div class=" searchBox clear" v-if="searchCell">
-          <div class="element">
+          <div class="element" v-if="searchCell">
             <p class="inline">客流统计</p>
             <div class="width120 inline">
               <el-select v-model="people" placeholder="" @change="search">
@@ -117,7 +103,7 @@
               </el-select>
             </div>
           </div>
-          <div class="element">
+          <div class="element" v-if="searchCell">
             <p class="inline">银行流水</p>
             <div class="width120 inline">
               <el-select v-model="bank" placeholder="" @change="search">
@@ -126,13 +112,20 @@
               </el-select>
             </div>
           </div>
-          <div class="element">
+          <div class="element" v-if="searchCell">
             <p class="inline">征信报告</p>
             <div class="width120 inline">
               <el-select v-model="report" placeholder="" @change="search">
                 <el-option v-for="item in reportState" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
+            </div>
+          </div>
+          <div class="element">
+            <el-button size="medium" type="primary" class="searchBtn left" @click.native="search()">查询</el-button>
+            <div class="ml10 right">
+              <img class="moreIcon" src="../../../common/images/arrow_down.png" width="32" v-if="!searchCell" @click="moreBtn">
+              <img class="moreIcon iconTransform" src="../../../common/images/arrow_down.png" width="32" v-if="searchCell" @click="moreBtn">
             </div>
           </div>
         </div>
@@ -257,7 +250,7 @@ export default {
       report: '',
       getList: '',
       pageIndex: 1,
-      pageSize: 16,
+      pageSize: 10,
       showPageTag: false,
       quotaMin: '',
       quotaMax: '',

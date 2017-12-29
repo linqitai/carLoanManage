@@ -40,3 +40,4 @@ module.exports = {
     'comma-dangle': 0
   }
 }
+
