@@ -23,29 +23,29 @@
           <div class="element">
             <p class="inline">店铺名称</p>
             <div class="width140 inline">
-              <el-input size="medium" clearable placeholder="店铺名称查询" class="input" v-model="searchs.shopname" @keyup.enter.native="search"></el-input>
+              <el-input size="medium" clearable placeholder="店铺名称查询" class="input" v-model="searchs.shopname" @keyup.enter.native="searchData"></el-input>
             </div>
           </div>
           <div class="element">
             <p class="inline">商户名称</p>
             <div class="width140 inline">
-              <el-input size="medium" clearable placeholder="商户名称查询" class="input" v-model="searchs.merchantname" @keyup.enter.native="search"></el-input>
+              <el-input size="medium" clearable placeholder="商户名称查询" class="input" v-model="searchs.merchantname" @keyup.enter.native="searchData"></el-input>
             </div>
           </div>
           <div class="element">
             <p class="inline">负责人</p>
             <div class="width140 inline">
-              <el-input size="medium" clearable placeholder="负责人查询" class="input" v-model="searchs.responsiblename" @keyup.enter.native="search"></el-input>
+              <el-input size="medium" clearable placeholder="负责人查询" class="input" v-model="searchs.responsiblename" @keyup.enter.native="searchData"></el-input>
             </div>
           </div>
           <div class="element">
             <p class="inline">手机号码</p>
             <div class="width140 inline">
-              <el-input size="medium" clearable placeholder="手机号码查询" :maxlength="maxLengthMobile" class="input" v-model="searchs.phone" @keyup.enter.native="search"></el-input>
+              <el-input size="medium" clearable placeholder="手机号码查询" :maxlength="maxLengthMobile" class="input" v-model="searchs.phone" @keyup.enter.native="searchData"></el-input>
             </div>
           </div>
-          <div class="element" @click="search">
-            <el-button size="medium" class="searchBtn">查询</el-button>
+          <div class="element" >
+            <el-button size="medium" class="searchBtn" @click="searchData">查询</el-button>
           </div>
           <div class="element" @click="moreBtn">
             <img class="moreIcon" src="../../../common/images/arrow_down.png" v-if="!searchCell">
@@ -56,11 +56,11 @@
           <div class="searchBox clear" v-if="searchCell">
             <div class="element">
               <p class="inline">店铺地址</p>
-              <div class="width140 inline">
-                <el-select size="medium" v-model="searchs.runTYpe" placeholder="请选择" @change="search">
-                  <el-option v-for="item in runTYpeList" :key="item.value" :label="item.label" :value="item.value">
-                  </el-option>
-                </el-select>
+            <div class="width140 inline">
+              <el-select size="medium" v-model="searchs.runTYpe" placeholder="请选择" @change="search">
+                <el-option v-for="item in runTYpeList" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
               </div>
             </div>
           </div>
@@ -72,7 +72,7 @@
           <el-table-column prop="merchantname" label="所属商户"></el-table-column>
           <el-table-column prop="responsiblename" label="负责人"></el-table-column>
           <el-table-column prop="phone" label="手机号码"></el-table-column>
-          <el-table-column prop="address" label="店铺地址"></el-table-column>
+          <el-table-column prop="province" label="店铺地址"></el-table-column>
           <el-table-column fixed="right" label="操作" width="180">
             <template slot-scope="scope">
               <el-button type="text" size="small" @click="toRouter('/operatorManage')">操作员</el-button>
@@ -91,8 +91,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-// import { mtypeList, runTYpeList, statusList, tableData } from 'common/js/config'
-import {zsyStore} from '@/api/index.js'
+import { mtypeList, runTYpeList, statusList } from "common/js/config";
+import { zsyStore } from "@/api/index.js";
 export default {
   data() {
     return {
@@ -103,97 +103,100 @@ export default {
       searchCell: false,
       showSizeChanger: true,
       pageSizeOption: [10, 15, 20, 25, 30],
-      provinceList: '',
-      cityList: '',
-      areaList: '',
-      total: '',
+      provinceList: "",
+      cityList: "",
+      areaList: "",
+      total: "",
       tableData: [],
       searchs: {
-        shopname: '',
-        merchantname: '',
-        responsiblename: '',
-        phone: '',
-        province: '',
+        shopname: "",
+        merchantname: "",
+        responsiblename: "",
+        phone: "",
+        province: "",
         pageSize: 10,
         pageIndex: 1
       }
-    }
+    };
   },
   filters: {
     openClose(value) {
-      return value === 1 ? '禁用' : value === 0 ? '启用' : '---'
+      return value === 1 ? "禁用" : value === 0 ? "启用" : "---";
     }
   },
   created() {
-    this.searchData()
+    this.searchData();
+    // this.searchTable();
   },
   methods: {
     searchData() {
       zsyStore(this.searchs).then(res => {
         this.tableData = res.result;
         this.total = res.count;
-      })
+      });
     },
     toRouter(index) {
-      this.$router.push(index)
+      this.$router.push(index);
     },
     moreBtn() {
-      console.log('click')
-      this.searchCell = !this.searchCell
+      console.log("click");
+      this.searchCell = !this.searchCell;
     },
     openOrClose(row) {
-      let cancalMsg = '操作已取消'
+      let cancalMsg = "操作已取消";
       if (row.isopen === 1) {
-        this.$prompt(`请输入禁用商户[${row.name}]的原因`, '禁用商户', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消'
-        }).then(({ value }) => {
-          this.$message({
-            type: 'success',
-            message: `你禁用商户[${row.name}]的原因是: ` + value
-          });
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: cancalMsg
-          });
-        });
-      } else {
-        this.$confirm(`此操作将启用商户[${row.name}], 是否继续?`, '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.$message({
-            type: 'success',
-            message: '启用成功!'
-          });
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: cancalMsg
-          })
+        this.$prompt(`请输入禁用商户[${row.name}]的原因`, "禁用商户", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消"
         })
+          .then(({ value }) => {
+            this.$message({
+              type: "success",
+              message: `你禁用商户[${row.name}]的原因是: ` + value
+            });
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: cancalMsg
+            });
+          });
+      } else {
+        this.$confirm(`此操作将启用商户[${row.name}], 是否继续?`, "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+          .then(() => {
+            this.$message({
+              type: "success",
+              message: "启用成功!"
+            });
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: cancalMsg
+            });
+          });
       }
     },
     detail(item) {
       console.log(item);
-      this.$router.push('/merchantManageDetail')
-    },
-    search() {
-      // ...
+      this.$router.push("/merchantManageDetail");
     },
     searchEvent() {
-      console.log('searchEvent')
+      console.log("searchEvent");
     },
     startTimeChange(val) {
-      console.log('change：' + val)
+      console.log("change：" + val);
     },
     endTimeChange(val) {
-      console.log('change：' + val)
+      console.log("change：" + val);
     },
-    // pageSizeChange(newIndex) {
-    //   console.log('page size change event', newIndex)
+    // searchData(val) {
+    //   this.searchs.pageIndex = val;
+    //   this.searchTable();
     // },
     handleSizeChange(val) {
       this.searchs.pageSize = val;
@@ -204,9 +207,8 @@ export default {
       this.searchData();
     }
   },
-  components: {
-  }
-}
+  components: {}
+};
 </script>
 
 <style lang="scss">
