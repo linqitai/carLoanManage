@@ -55,7 +55,17 @@ export const zsyQRcode = (params) => {
 
 // 操作员管理
 export const zsyOper = (params) => {
-    return http.fetchPost(zsy + '/zcash/userShop/list.do', params)
+  return http.fetchPost(zsy + '/zcash/userShop/list.do', params)
+}
+// 臻e贷管理 
+export const zed = "/zed"
+//信用卡申请
+export const zedCredit = (params) => {
+	return http.fetchPost(zed + '/trade/creditAction/list.do',params)
+}
+//查询地区
+export const zedArea = (params) => {
+	return http.fetchPost(zed + '/common/district/list.do',params)
 }
 
 // 历程列表

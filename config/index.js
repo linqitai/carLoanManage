@@ -71,7 +71,14 @@ module.exports = {
                 pathRewrite: {
                     '^/zsy': ''
                 }
-            }
+            },
+             '/zed':{
+      	      target:'http://192.168.20.214:8080',
+      	      changeOrigin: true,
+      	      pathRewrite: {
+      		        '^/zed':''
+               	}
+              }
         }
     }
 }
