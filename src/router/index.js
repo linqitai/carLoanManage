@@ -223,6 +223,10 @@ export default new Router({
         {
           path: '/businessApply',
           component: resolve => require(['pages/dsj/businessApply/businessApply'], resolve)
+        },
+        {
+          path: '/creditCard',
+          component: resolve => require(['pages/zed/Mileage/creditCard'], resolve)
         }
       ]
     }

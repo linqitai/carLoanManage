@@ -70,6 +70,13 @@ module.exports = {
         pathRewrite: {
           '^/zsy': ''
         }
+      },
+      '/zed':{
+      	target:'http://192.168.20.214:8080',
+      	changeOrigin: true,
+      	pathRewrite: {
+      		'^/zed':''
+      	}
       }
     },
     // 114.55.32.138:80 http://fq.51puhui.cn/zyd/m/zzg/home.json

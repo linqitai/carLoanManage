@@ -28,6 +28,15 @@ module.exports = {
     'semi': [0],
     'no-constant-condition': 0,
     'no-unused-vars': 0,
-    'quotes': 0
+    'quotes': 0,
+    'indent': 0,
+    'no-tabs': 0,
+    'no-undef': 0,
+    'no-mixed-spaces-and-tabs': 0,
+    'no-trailing-spaces': 0,
+    'spaced-comment': 0,
+    'comma-spacing': 0,
+    'no-duplicate-imports': 0,
+    'comma-dangle': 0
   }
 }
