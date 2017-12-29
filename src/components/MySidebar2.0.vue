@@ -101,10 +101,6 @@ export default {
                   title: '账单管理'
                 },
                 {
-                  index: '/details', // 路由名
-                  title: '详情'
-                },
-                {
                   index: '/channelReconciliation',
                   title: '通道对账'
                 },

@@ -84,7 +84,15 @@ export const zsyRedeemList = (params) => {
     return http.fetchPost(zsy + '/zcash/financeManager/listRedeemRecord.do', params)
 }
 
-// 通道对账
-export const zsyCheckList = (params) => {
-    return http.fetchPost(zsy + '/zcash/financeManager/listBill.do', params)
+// 账单管理
+export const billManage = (params) => {
+        return http.fetchPost(zsy + "/zcash/financeManager/listPayOrder.do", params)
+    }
+    // 账单详情
+export const billDetails = (params) => {
+        return http.fetchPost(zsy + "/zcash/financeManager/getOrderDetail.do", params)
+    }
+    // 账单导出excel
+export const billTableExport = () => {
+    return zsy + "/zcash/financeManager/exportPayOrder.do"
 }
