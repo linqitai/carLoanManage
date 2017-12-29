@@ -23,13 +23,13 @@
           <div class="element">
             <p class="inline">姓名</p>
             <div class="width140 inline">
-              <el-input size="medium" clearable placeholder="姓名查询" class="input" v-model="searchs.username" @keyup.enter.native="search"></el-input>
+              <el-input size="medium" clearable placeholder="姓名查询" class="input" v-model="searchs.username" @keyup.enter.native="searchData"></el-input>
             </div>
           </div>
           <div class="element">
             <p class="inline">性别</p>
             <div class="width120 inline">
-              <el-select size="medium" v-model="searchs.sex" placeholder="请选择" @change="search">
+              <el-select size="medium" v-model="searchs.sex" placeholder="请选择" @change="searchData">
                 <el-option v-for="item in sexList" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
@@ -38,8 +38,8 @@
           <div class="element">
             <p class="inline">角色</p>
             <div class="width120 inline">
-              <el-select size="medium" v-model="searchs.type" placeholder="请选择" @change="search">
-                <el-option v-for="item in typeList" :key="item.value" :label="item.label" :value="item.value">
+              <el-select size="medium" v-model="searchs.type" placeholder="请选择" @change="searchData" >
+                <el-option v-for="item in typeList" :key="item.value" :label="item.label" :value="item.value" >
                 </el-option>
               </el-select>
             </div>
@@ -105,7 +105,7 @@ export default {
       searchCell: false,
       pageIndex: 1,
       pageSize: 12,
-      total: 1,
+      total: null,
       showSizeChanger: true,
       pageSizeOption: [10, 15, 20, 25, 30],
       sexList: SexList,

@@ -23,19 +23,19 @@
           <div class="element">
             <p class="inline">名称</p>
             <div class="width140 inline">
-              <el-input size="medium" clearable placeholder="名称查询" class="input" v-model="searchs.codename" @keyup.enter.native="search"></el-input>
+              <el-input size="medium" clearable placeholder="名称查询" class="input" v-model="searchs.codename" @keyup.enter.native="searchData"></el-input>
             </div>
           </div>
           <div class="element">
             <p class="inline">所属门店</p>
             <div class="width140 inline">
-              <el-input size="medium" clearable placeholder="所属门店查询" class="input" v-model="searchs.shopname" @keyup.enter.native="search"></el-input>
+              <el-input size="medium" clearable placeholder="所属门店查询" class="input" v-model="searchs.shopname" @keyup.enter.native="searchData"></el-input>
             </div>
           </div>
           <div class="element">
             <p class="inline">所属商户</p>
             <div class="width140 inline">
-              <el-input size="medium" clearable placeholder="所属商户查询" class="input" v-model="searchs.merchantname" @keyup.enter.native="search"></el-input>
+              <el-input size="medium" clearable placeholder="所属商户查询" class="input" v-model="searchs.merchantname" @keyup.enter.native="searchData"></el-input>
             </div>
           </div>
           <div class="element" >
@@ -93,7 +93,7 @@ export default {
       provinceList: "",
       cityList: "",
       areaList: "",
-      total: "",
+      total: null,
       tableData: [],
       shopname: "",
       searchs: {

@@ -23,19 +23,19 @@
           <div class="element">
             <p class="inline">代理商:</p>
             <div class="width140 inline">
-              <el-input size="medium" clearable placeholder="" class="input" @keyup.enter.native="search" v-model="searchs.agentName"></el-input>
+              <el-input size="medium" clearable placeholder="" class="input" @keyup.enter.native="searchData" v-model="searchs.agentName"></el-input>
             </div>
           </div>
           <div class="element">
             <p class="inline">服务码:</p>
             <div class="width140 inline">
-              <el-input size="medium" clearable placeholder="" class="input" @keyup.enter.native="search" v-model="searchs.code"></el-input>
+              <el-input size="medium" clearable placeholder="" class="input" @keyup.enter.native="searchData" v-model="searchs.code"></el-input>
             </div>
           </div>
           <div class="element">
             <p class="inline">分润排序:</p>
             <div class="width120 inline">
-              <el-select size="medium" placeholder="请选择" @change="search" v-model="searchs.orderType">
+              <el-select size="medium" placeholder="请选择" @change="searchData" v-model="searchs.orderType">
                 <el-option v-for="item in moneyList" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>

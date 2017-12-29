@@ -23,19 +23,19 @@
         <div class="element">
           <p class="inline">商户:</p>
           <div class="width140 inline">
-            <el-input size="medium" clearable placeholder="" class="input" @keyup.enter.native="search" v-model="searchs.merchantName"></el-input>
+            <el-input size="medium" clearable placeholder="" class="input" @keyup.enter.native="searchData" v-model="searchs.merchantName"></el-input>
           </div>
         </div>
         <div class="element">
           <p class="inline">商户手机:</p>
           <div class="width140 inline">
-            <el-input size="medium" clearable placeholder="" class="input" @keyup.enter.native="search" v-model="searchs.phone"></el-input>
+            <el-input size="medium" clearable placeholder="" class="input" @keyup.enter.native="searchData" v-model="searchs.phone"></el-input>
           </div>
         </div>
         <div class="element">
           <p class="inline">状态:</p>
           <div class="width120 inline">
-            <el-select size="medium" placeholder="请选择" @change="search" v-model="searchs.tradeStatus">
+            <el-select size="medium" placeholder="请选择" @change="searchData" v-model="searchs.tradeStatus" >
               <el-option v-for="item in statesList" :key="item.value" :label="item.label" :value="item.value" >
               </el-option>
             </el-select>

@@ -57,7 +57,7 @@
             <div class="element">
               <p class="inline">店铺地址</p>
             <div class="width140 inline">
-              <el-select size="medium" v-model="searchs.runTYpe" placeholder="请选择" @change="search">
+              <el-select size="medium" v-model="searchs.runTYpe" placeholder="请选择" @change="searchData">
                 <el-option v-for="item in runTYpeList" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
@@ -106,7 +106,7 @@ export default {
       provinceList: "",
       cityList: "",
       areaList: "",
-      total: "",
+      total: null,
       tableData: [],
       searchs: {
         shopname: "",

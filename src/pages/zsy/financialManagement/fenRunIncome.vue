@@ -23,7 +23,7 @@
         <div class="element">
           <p class="inline">分润收入排序:</p>
           <div class="width120 inline">
-            <el-select size="medium" placeholder="请选择" @change="search" v-model="searchs.orderType">
+            <el-select size="medium" placeholder="请选择" @change="searchData" v-model="searchs.orderType">
               <el-option v-for="item in IncomeList" :key="item.value" :label="item.label" :value="item.value" >
               </el-option>
             </el-select>
