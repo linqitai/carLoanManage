@@ -59,11 +59,11 @@ export const zsyOper = (params) => {
 }
 // 臻e贷管理 
 export const zed = "/zed"
-//信用卡申请
+// 信用卡申请
 export const zedCredit = (params) => {
 	return http.fetchPost(zed + '/trade/creditAction/list.do',params)
 }
-//查询地区
+// 查询地区
 export const zedArea = (params) => {
 	return http.fetchPost(zed + '/common/district/list.do',params)
 }
@@ -113,28 +113,29 @@ export const channelReconciliation = (params) => {
     // 通道账单导出excel
 export const channelbillTableExport = () => {
     return zsy + "/zcash/financeManager/exportBill.do"
+}
 // ===代理商管理模块接口===
 // 代理商列表
 export const agentlist = (params) => {
-  return http.fetchPost(zsy + '/zcash/agents/list.do', params)
+    return http.fetchPost(zsy + '/zcash/agents/list.do', params)
 }
 // 代理商是否启用接口
 export const updateUsing = (params) => {
-  return http.fetchPost(zsy + '/zcash/agents/updateUsing.do', params)
+    return http.fetchPost(zsy + '/zcash/agents/updateUsing.do', params)
 }
 // 代理商详情
 export const viewAgents = (params) => {
-  return http.fetchPost(zsy + '/zcash/agents/viewAgents.do', params)
+    return http.fetchPost(zsy + '/zcash/agents/viewAgents.do', params)
 }
 // ===意见反馈模块接口===
 // 意见反馈列表
 export const mileageList = (params) => {
-  return http.fetchPost(zsy + '/zcash/opinion/list.do', params)
+    return http.fetchPost(zsy + '/zcash/opinion/list.do', params)
 }
 
 // 处理意见接口
 export const handleMileage = (params) => {
-  return http.fetchPost(zsy + '/zcash/opinion/handle.do', params)
+    return http.fetchPost(zsy + '/zcash/opinion/handle.do', params)
 }
 
 // 查看处理详情接口
@@ -144,12 +145,12 @@ export const handleDetail = (params) => {
 
 // 添加代理商接口
 export const addAgents = (params) => {
-  return http.fetchPost(zsy + '/zcash/agents/addAgents.do', params)
+    return http.fetchPost(zsy + '/zcash/agents/addAgents.do', params)
 }
 
 // 编辑代理商接口
 export const updateAgents = (params) => {
-  return http.fetchPost(zsy + '/zcash/agents/updateAgents.do', params)
+    return http.fetchPost(zsy + '/zcash/agents/updateAgents.do', params)
 }
 
 // 七牛模块获取token值
