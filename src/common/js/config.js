@@ -375,3 +375,45 @@ export const TypeList = [{
     value: '3',
     label: '收银员'
 }]
+
+export const isUsingList = [
+  {
+    value: '',
+    label: '全部'
+  }, {
+    value: '0',
+    label: '否'
+  }, {
+    value: '1',
+    label: '是'
+  }
+]
+
+export const dealResultList = [
+  {
+    value: '',
+    label: '全部'
+  }, {
+    value: '0',
+    label: '未处理'
+  }, {
+    value: '1',
+    label: '不处理'
+  }, {
+    value: '2',
+    label: '已处理'
+  }
+]
+
+export const resultList = [
+  {
+    value: '0',
+    label: '未处理'
+  }, {
+    value: '1',
+    label: '不处理'
+  }, {
+    value: '2',
+    label: '已处理'
+  }
+]
