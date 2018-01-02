@@ -61,9 +61,10 @@ export const zsyOper = (params) => {
 export const zed = "/zed"
     //信用卡申请
 export const zedCredit = (params) => {
-        return http.fetchPost(zed + '/trade/creditAction/list.do', params)
-    }
-    //查询地区
+    return http.fetchPost(zed + '/trade/creditAction/list.do', params)
+}
+
+// 查询地区
 export const zedArea = (params) => {
     return http.fetchPost(zed + '/common/district/list.do', params)
 }
