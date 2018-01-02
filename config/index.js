@@ -61,7 +61,8 @@ module.exports = {
         }
       },
       '/zsy':{
-        target:'http://192.168.20.214:8080',
+        // target:'http://192.168.20.47:80',
+         target:'http://192.168.20.214:8080',
         // target:'http://192.168.18.178:3000',
         changeOrigin: true,
         pathRewrite: {
