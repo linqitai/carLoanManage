@@ -54,105 +54,52 @@
               </el-select>
             </div>
           </div>
+          <div class="element">
+            <p class="inline">所在省市</p>
+            <div class="width140 inline">
+              <el-input size="medium" clearable placeholder="请输入所在省市" class="input" v-model="cityOrProvince" @keyup.enter.native="search"></el-input>
+            </div>
+          </div>
+          <div class="element">
+            <p class="inline">姓名</p>
+            <div class="width120 inline">
+              <el-input size="medium" clearable v-model="name" placeholder="请输入姓名" class="input" @keyup.enter.native="search"></el-input>
+            </div>
+          </div>
+          <div class="element">
+            <p class="inline">账号</p>
+            <div class="width140 inline">
+              <el-input size="medium" clearable v-model="zend" placeholder="请输入账号" class="input" @keyup.enter.native="search"></el-input>
+            </div>
+          </div>
+          <div class="element">
+            <p class="inline">身份证号</p>
+            <div class="width180 inline">
+              <el-input size="medium" :maxlength="maxLengthIdentity" clearable placeholder="请输入身份证号" class="input" v-model="carNum" @keyup.enter.native="search"></el-input>
+            </div>
+          </div>
+          <div class="element">
+            <p class="inline">手机号</p>
+            <div class="width140 inline">
+              <el-input size="medium" :maxlength="maxLengthMobile" clearable type="text" v-model="mobile" placeholder="请输入手机号码" class="input" @keyup.enter.native="search"></el-input>
+            </div>
+          </div>
+          <div class="element">
+            <p class="inline">车辆估价</p>
+            <div class="width120 inline priceBox">
+              <el-select size="medium" v-model="highPrice" placeholder="请选择" @change="searchByPrice">
+                <el-option v-for="item in highPrices" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+          </div>
           <div class="element" @click="search">
             <el-button size="medium" type="" class="searchBtn">查询</el-button>
           </div>
-          <div class="element" @click="moreBtn">
-            <img class="moreIcon" src="../../../common/images/arrow_down.png" v-if="!searchCell">
-            <img class="moreIcon iconTransform" src="../../../common/images/arrow_down.png" v-if="searchCell">
-          </div>
         </div>
-        <transition name="">
-          <div class="searchBox clear" v-if="searchCell">
-            <div class="element">
-              <p class="inline">所在省市</p>
-              <div class="width140 inline">
-                <el-input size="medium" clearable placeholder="请输入所在省市" class="input" v-model="cityOrProvince" @keyup.enter.native="search"></el-input>
-              </div>
-            </div>
-            <div class="element">
-              <p class="inline">姓名</p>
-              <div class="width120 inline">
-                <el-input size="medium" clearable v-model="name" placeholder="请输入姓名" class="input" @keyup.enter.native="search"></el-input>
-              </div>
-            </div>
-            <div class="element">
-              <p class="inline">账号</p>
-              <div class="width140 inline">
-                <el-input size="medium" clearable v-model="zend" placeholder="请输入账号" class="input" @keyup.enter.native="search"></el-input>
-              </div>
-            </div>
-            <div class="element">
-              <p class="inline">身份证号</p>
-              <div class="width180 inline">
-                <el-input size="medium" :maxlength="maxLengthIdentity" clearable placeholder="请输入身份证号" class="input" v-model="carNum" @keyup.enter.native="search"></el-input>
-              </div>
-            </div>
-            <div class="element">
-              <p class="inline">手机号</p>
-              <div class="width140 inline">
-                <el-input size="medium" :maxlength="maxLengthMobile" clearable type="text" v-model="mobile" placeholder="请输入手机号码" class="input" @keyup.enter.native="search"></el-input>
-              </div>
-            </div>
-            <div class="element">
-              <p class="inline">车辆估价</p>
-              <div class="width120 inline priceBox">
-                <el-select size="medium" v-model="highPrice" placeholder="请选择" @change="searchByPrice">
-                  <el-option v-for="item in highPrices" :key="item.value" :label="item.label" :value="item.value">
-                  </el-option>
-                </el-select>
-              </div>
-            </div>
-          </div>
-        </transition>
       </div>
-      <div class="tableWrapper" v-if="tableSwitch1" style="overflow: auto;">
-        <table class="tableList" style="min-width:1060px;width:99%;">
-          <thead>
-            <tr>
-              <th class="width140">时间</th>
-              <th class="width50">账号</th>
-              <th class="width180">车型</th>
-              <th class="width60">上牌时间</th>
-              <th class="width80">所在城市</th>
-              <th class="width90">行驶里程/公里</th>
-              <th class="width70">车辆估价/万</th>
-              <th class="width50">姓名</th>
-              <th class="width100">身份证号</th>
-              <th class="width50">手机号</th>
-              <th class="width50">平台选择</th>
-              <th class="width50">状态</th>
-              <th class="width50">提交状态</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(item, index) in getList" :key="item.value" v-show="getList.length > 0">
-              <td class="width140">{{item.updated | getDateHM}}</td>
-              <td class="width50">{{item.zedAccount}}</td>
-              <td class="width180">
-                <el-tooltip :content="item.title" placement="right" effect="light">
-                  <el-button size="mini" class="width180 ellipsis">{{item.title}}</el-button>
-                </el-tooltip>
-              </td>
-              <td class="width60">{{item.regDate}}</td>
-              <td class="width80">{{item.province}}{{item.city}}</td>
-              <td class="width90">{{item.inMile}}</td>
-              <td class="width70">{{item.highPrice}}</td>
-              <td class="width50">{{item.name}}</td>
-              <td class="width100">{{item.carNum}}</td>
-              <td class="width50">{{item.mobile}}</td>
-              <td class="width50">{{item.pushPlatformType | getFormtype}}</td>
-              <td class="width50">{{item.applyStatus | getStatus}}</td>
-              <td class="width50">{{item.submitStatus | getSubmitState}}</td>
-            </tr>
-            <tr v-show="getList.length === 0">
-              <td class="noData" colspan="13">暂无数据</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="tableWrapper" v-if="tableSwitch2">
-        <el-table :data="getList" stripe height="400" max-height="540" style="min-width:1060px;max-width:1620px;width:99%">
+      <div class="tableWrapper">
+        <el-table :data="getList" stripe>
           <el-table-column fixed label="时间" width="140">
             <template slot-scope="scope">
               {{scope.row.updated | getDateHM}}
@@ -162,7 +109,7 @@
           <el-table-column label="车型" width="250">
             <template slot-scope="scope">
               <el-tooltip :content="scope.row.title" placement="right" effect="light">
-                <el-button type="text" size="small" class="ellipsis">{{scope.row.title}}</el-button>
+                <span type="text" size="small" class="ellipsis">{{scope.row.title}}</span>
               </el-tooltip>
             </template>
           </el-table-column>
@@ -201,10 +148,6 @@
       <div class="tableBottom" v-show="showPageTag">
         <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex" :page-size="pageSize" :page-sizes="[10,12,14,16]" layout="total, sizes, prev, pager, next, jumper" :total="total">
         </el-pagination>
-        <el-radio-group v-model="tableSwitch" class="tableSwitch" size="mini" @change="tableSwitchChange">
-          <el-radio-button label="1">大屏</el-radio-button>
-          <el-radio-button label="2">中屏</el-radio-button>
-        </el-radio-group>
       </div>
     </div>
   </div>
@@ -217,11 +160,6 @@ import { cheCredit } from '@/api/index'
 export default {
   data() {
     return {
-      // selectedValue: '',
-      // tableSwitchSelect: [{ label: '大屏幕', value: 0 }, { label: '中等屏幕', value: 1 }, { label: '小屏幕', value: 2 }],
-      tableSwitch: 2, // 1：大屏幕，2：小屏幕
-      tableSwitch1: false,
-      tableSwitch2: true,
       maxLengthMobile: 11,
       maxLengthIdentity: 18,
       searchCell: false,
@@ -333,16 +271,6 @@ export default {
     }
   },
   methods: {
-    tableSwitchChange(val) {
-      console.log(val)
-      if (parseInt(val) === 1) {
-        this.tableSwitch1 = true;
-        this.tableSwitch2 = false;
-      } else if (parseInt(val) === 2) {
-        this.tableSwitch1 = false;
-        this.tableSwitch2 = true;
-      }
-    },
     startTimeChange() {
       if (this.endTime) {
         this.getval()
