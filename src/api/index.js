@@ -106,3 +106,11 @@ export const billDetails = (params) => {
 export const billTableExport = () => {
     return zsy + "/zcash/financeManager/exportPayOrder.do"
 }
+    // 通道对账
+export const channelReconciliation = (params) => {
+    return http.fetchPost(zsy + "/zcash/financeManager/listBill.do", params)
+}
+    // 通道账单导出excel
+export const channelbillTableExport = () => {
+    return zsy + "/zcash/financeManager/exportBill.do"
+}
