@@ -13,46 +13,46 @@
           <span class="text">代理商管理</span>
         </el-breadcrumb-item>
         <el-breadcrumb-item>
-          <span class="mainColor">新增</span>
+          <span class="mainColor">详情</span>
         </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="allWrapper">
       <div class="searchCondition">
         <el-form ref="form" class="formClass" :model="form" label-width="100px">
-          <el-form-item label="拓展人">123</el-form-item>
-          <el-form-item label="代理人">456</el-form-item>
-          <el-form-item label="添加人">456</el-form-item>
-          <el-form-item label="性别">123</el-form-item>
-          <el-form-item label="身份证号">456</el-form-item>
-          <el-form-item label="手机号">15515268707</el-form-item>
+          <el-form-item label="拓展人">{{form.developPerson}}</el-form-item>
+          <el-form-item label="代理人">{{form.agentName}}</el-form-item>
+          <el-form-item label="添加人">{{form.creater}}</el-form-item>
+          <el-form-item label="性别">{{form.sex === 1 ? "男":"女"}}</el-form-item>
+          <el-form-item label="身份证号">{{form.idCardNo}}</el-form-item>
+          <el-form-item label="手机号">{{form.mobilePhone}}</el-form-item>
           <el-form-item label="所在地">
-            123456789
+            {{form.detailAdress}}
           </el-form-item>
           <el-form-item label="分润率">
-            123456
+            {{form.shearRate * 100 + "%"}}
           </el-form-item>
-          <el-form-item label="服务码">15515268707</el-form-item>
-          <el-form-item label="状态">15515268707</el-form-item>
-          <el-form-item label="加入时间">15515268707</el-form-item>
+          <el-form-item label="服务码">{{form.code}}</el-form-item>
+          <el-form-item label="状态">{{form.isUsing === 1 ? '正常使用':'禁用中'}}</el-form-item>
+          <el-form-item label="加入时间">{{form.joinTime}}</el-form-item>
           <el-form-item label="账户类型">
-            123
+            {{form.accountType === 1 ? '对私':''}}
           </el-form-item>
           <el-form-item label="开户人">
-            123
+            {{form.developPerson}}
           </el-form-item>
           <el-form-item label="开户行">
-            123456
+            {{form.bank}}
           </el-form-item>
           <el-form-item label="银行卡号">
-            123456
+            {{form.bankCard}}
           </el-form-item>
           <el-form-item class="isEdit">
             <el-button type="primary" @click="edit">编辑</el-button>
           </el-form-item>
         </el-form>
       </div>
-      <div class="bottomTable">
+      <div class="bottomTable" v-if="false">
         <h2>业务员</h2>
         <div class="tableClass">
           <el-table
@@ -81,6 +81,8 @@
 
 <script type="text/ecmascript-6">
 import { experienceRoleList, tableData } from 'common/js/config'
+import { viewAgents } from "@/api/index"
+import { getDateTime } from "common/js/times"
 export default {
   data() {
     return {
@@ -95,29 +97,26 @@ export default {
   filters: {
 
   },
-  methods: {
-    onSubmit: function() {
-      console.log(123);
-    },
-    handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
-    },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === 'image/jpeg';
-      const isLt2M = file.size / 1024 / 1024 < 2;
-      if (!isJPG) {
-        this.$message.error('上传头像图片只能是 JPG 格式!');
+  mounted: function() {
+    let agentid = parseInt(this.$route.query.agentid);
+    if (agentid) {
+      let params = {
+        agentid: agentid
       }
-      if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!');
-      }
-      return isJPG && isLt2M;
-    },
-    edit: function() {
-      this.$router.push('agentAdd');
+      viewAgents(params).then(res => {
+        if (res.code === 200) {
+          this.form = res.result;
+          this.form.joinTime = getDateTime(res.result.created);
+          this.form.detailAdress = res.result.provinceName + res.result.cityName + res.result.areaName + res.result.address
+        }
+      })
     }
   },
-  components: {
+  methods: {
+    edit: function() {
+      let agentid = parseInt(this.$route.query.agentid);
+      this.$router.push('agentAdd?agentid=' + agentid);
+    }
   }
 }
 </script>

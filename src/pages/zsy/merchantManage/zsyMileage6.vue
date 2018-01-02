@@ -24,9 +24,9 @@
             <div class="element fl">
               <p class="inline">处理结果</p>
               <div class="width120 inline">
-                <el-select size="medium" v-model="form.region" placeholder="请选择">
-                  <!-- <el-option v-for="item in mtypeList" :key="item.value" :label="item.label" :value="item.value">
-                  </el-option> -->
+                <el-select size="medium" v-model="form.dealResult" placeholder="请选择">
+                  <el-option v-for="item in form.mtypeList" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
                 </el-select>
               </div>
             </div>
@@ -37,17 +37,17 @@
         </div>
       </div>
       <div class="tableWrapper">
-        <el-table :data="tableData" stripe fit style="width: 100%">
-          <el-table-column prop="date" label="昵称"></el-table-column>
-          <el-table-column prop="name" label="账号"></el-table-column>
-          <el-table-column prop="address" label="内容" show-overflow-tooltip></el-table-column>
-          <el-table-column prop="name" label="提交时间"></el-table-column>
-          <el-table-column prop="name" label="手机号码"></el-table-column>
-          <el-table-column prop="province" label="处理结果"></el-table-column>
-          <el-table-column prop="name" label="操作">
+        <el-table :data="tableData" stripe fit style="width: 100%" v-loading="loading">
+          <el-table-column prop="operatorname" label="昵称"></el-table-column>
+          <el-table-column prop="userName" label="账号"></el-table-column>
+          <el-table-column prop="context" label="内容" show-overflow-tooltip></el-table-column>
+          <el-table-column prop="submitTime" label="提交时间"></el-table-column>
+          <el-table-column prop="mobile" label="手机号码"></el-table-column>
+          <el-table-column prop="handleResult" label="处理结果"></el-table-column>
+          <el-table-column prop="" label="操作">
             <template slot-scope="scope">
-              <el-button @click="handleClick1(scope.row)" type="text" size="small">查看</el-button>
-              <el-button @click="handleClick2(scope.row)" type="text" size="small">编辑</el-button>
+              <el-button v-if="scope.row.status <= 0" @click="handleClick1(scope.row)" type="text" size="small">处理</el-button>
+              <el-button v-if="scope.row.status > 0" @click="handleClick2(scope.row)" type="text" size="small">处理结果</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -57,8 +57,8 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="currentPage"
-          :page-sizes="[100, 200, 300, 400]"
-          :page-size="100"
+          :page-sizes="[10, 20, 30, 40]"
+          :page-size="10"
           layout="total, sizes, prev, pager, next, jumper"
           :total="totalNum">
         </el-pagination>
@@ -74,22 +74,22 @@
         <div class="element resultSelect">
           <p class="inline">结果</p>
           <div class="width120 inline">
-            <el-select size="medium" v-model="dealForm.region" placeholder="请选择">
-              <!-- <el-option v-for="item in mtypeList" :key="item.value" :label="item.label" :value="item.value">
-              </el-option> -->
+            <el-select size="medium" v-model="dealForm.result" placeholder="请选择">
+              <el-option v-for="item in dealForm.resultList" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
             </el-select>
           </div>
         </div>
         <div class="element textInput">
           <p class="inline fl">备注</p>
           <div class="width240 inline fl">
-            <el-input type="textarea" :autosize="{ minRows: 6, maxRows: 8}" v-model="dealForm.desc"></el-input>
+            <el-input type="textarea" :autosize="{ minRows: 6, maxRows: 8}" v-model="dealForm.remark"></el-input>
           </div>
         </div>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible1 = false">取 消</el-button>
-        <el-button type="primary" @click="tijiao">提 交</el-button>
+        <el-button @click="handleClose()">取 消</el-button>
+        <el-button type="primary" @click="submitDeal">提 交</el-button>
       </span>
     </el-dialog>
     <el-dialog
@@ -98,9 +98,9 @@
       width="30%"
       :center="true"
       :before-close="handleClose">
-      <div class="deal">处理人：周润发/15968598574</div>
-      <div class="deal">结果：已处理</div>
-      <div class="deal">备注：已联系上用户，并且已反馈给产品研发部门</div>
+      <div class="deal">处理人：{{resultDetail.hanlderName + '/' + resultDetail.hanlderPhone}}</div>
+      <div class="deal">结果：{{resultDetail.handleStatus}}</div>
+      <div class="deal">备注：{{resultDetail.remark}}</div>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="tijiao2">确 定</el-button>
       </span>
@@ -109,145 +109,138 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { mtypeList, runTYpeList, statusList, tableData } from 'common/js/config'
+import { mtypeList, runTYpeList, statusList, dealResultList, resultList } from 'common/js/config'
+import { mileageList, handleMileage, handleDetail } from "@/api/index"
+import { getDateTime } from "common/js/times"
 export default {
   data() {
     return {
       form: {
-        region: []
+        mtypeList: dealResultList,
+        dealResult: '',
+        pageSize: 10,
+        pageIndex: 1
       },
+      opinionId: null,
       dealForm: {
-        region: [],
-        desc: null
+        opinionId: null,
+        result: '',
+        resultList: resultList,
+        remark: null
       },
+      handleStatus: null,
+      resultDetail: {},
       mtypeList: [],
-      tableData: [
-        {
-          id: 1,
-          date: '2016-05-03 23:12:08',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333,
-          isopen: 1
-        }, {
-          id: 2,
-          date: '2016-05-02',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333,
-          isopen: 0
-        }, {
-          id: 3,
-          date: '2016-05-04',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333,
-          isopen: 0
-        }, {
-          id: 4,
-          date: '2016-05-01',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333,
-          isopen: 1
-        }, {
-          id: 5,
-          date: '2016-05-01',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333,
-          isopen: 1
-        }, {
-          id: 6,
-          date: '2016-05-01',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333,
-          isopen: 1
-        }, {
-          id: 7,
-          date: '2016-05-01',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333,
-          isopen: 1
-        }, {
-          id: 8,
-          date: '2016-05-01',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333,
-          isopen: 1
-        }, {
-          id: 9,
-          date: '2016-05-01',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333,
-          isopen: 1
-        }, {
-          id: 10,
-          date: '2016-05-01',
-          name: '王小虎',
-          province: '上海',
-          city: '普陀区',
-          address: '上海市普陀区金沙江路 1518 弄',
-          zip: 200333,
-          isopen: 1
-        }],
+      tableData: [],
       currentPage: 1,
-      totalNum: 400,
+      totalNum: 0,
       dialogVisible1: false,
-      dialogVisible2: false
+      dialogVisible2: false,
+      loading: false
     }
   },
   filters: {
 
   },
+  created: function() {
+    this.searchTable();
+  },
   methods: {
     searchTable: function() {
-      console.log(123);
+      this.loading = true;
+      let params = {
+        status: this.form.dealResult,
+        pageSize: this.form.pageSize,
+        pageIndex: this.form.pageIndex
+      }
+      mileageList(params).then(res => {
+        if (res.code === 200) {
+          this.loading = false;
+          this.tableData = res.result;
+          this.totalNum = res.count;
+          for (let i = 0; i < this.tableData.length; i++) {
+            this.tableData[i].submitTime = getDateTime(this.tableData[i].created);
+            if (this.tableData[i].status === 0) {
+              this.tableData[i].handleResult = "未处理";
+            } else if (this.tableData[i].status === 1) {
+              this.tableData[i].handleResult = "不处理";
+            } else {
+              this.tableData[i].handleResult = "已处理";
+            }
+          }
+        }
+      })
     },
     handleClick1: function(row) {
-      console.log(row, 1);
+      this.dealForm.opinionId = row.opinionId;
       this.dialogVisible1 = true;
     },
     handleClick2: function(row) {
-      console.log(row, 2);
+      this.opinionId = row.opinionId;
       this.dialogVisible2 = true;
+      let params = {
+        opinionId: this.opinionId
+      }
+      handleDetail(params).then(res => {
+        if (res.code === 200) {
+          this.resultDetail = res.result;
+          if (this.resultDetail.status === 0) {
+            this.resultDetail.handleStatus = "未处理";
+          } else if (this.resultDetail.status === 1) {
+            this.resultDetail.handleStatus = "不处理";
+          } else {
+            this.resultDetail.handleStatus = "已处理";
+          }
+        }
+      })
     },
-    handleSizeChange: function() {
-      console.log(123);
+    handleSizeChange: function(size) {
+      this.form.pageSize = size;
+      this.searchTable();
     },
-    handleCurrentChange: function() {
-      console.log(456);
+    handleCurrentChange: function(currentPage) {
+      this.form.pageIndex = currentPage;
+      this.searchTable();
     },
     handleClose: function() {
       this.dialogVisible1 = false;
+      this.dealForm.remark = '';
+      this.dealForm.result = '';
+      this.dealForm.opinionId = null;
       this.dialogVisible2 = false;
     },
-    tijiao: function() {
+    submitDeal: function() {
       this.$confirm('确认提交？')
           .then(_ => {
-            this.dialogVisible1 = false;
+            if (!this.dealForm.opinionId) {
+              this.$message({
+                type: 'error',
+                message: '缺少参数！'
+              });
+              this.dialogVisible1 = false;
+              this.dealForm.remark = '';
+              this.dealForm.result = '';
+              this.dealForm.opinionId = null;
+              return;
+            }
+            let params = {
+              opinionId: this.dealForm.opinionId,
+              remark: this.dealForm.remark,
+              status: this.dealForm.result
+            }
+            handleMileage(params).then(res => {
+              if (res.code === 200) {
+                this.$message({
+                  type: 'success',
+                  message: '处理完成！'
+                });
+                this.dialogVisible1 = false;
+                this.dealForm.remark = '';
+                this.dealForm.result = '';
+                this.dealForm.opinionId = null;
+                this.searchTable();
+              }
+            })
           }).catch(_ => {});
     },
     tijiao2: function() {
