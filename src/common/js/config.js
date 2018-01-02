@@ -43,7 +43,7 @@ export const sexTwoList = [
     value: '1',
     label: '男'
   }, {
-    value: '2'
+    value: '2',
     label: '女'
 }]
 export const mtypeList = [{
