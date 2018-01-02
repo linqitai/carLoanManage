@@ -6,7 +6,7 @@ export const config = {
 }
 
 // 登录接口
-export const cdd = '/rz'
+export const cdd = '/rz_manage'
 export const userLogin = (params) => {
     return http.fetchPost(cdd + '/login.json', params)
 }
@@ -27,7 +27,7 @@ export const cheCredit = (params) => {
 }
 
 // 臻商分自评后台
-export const zsf = '/zsf'
+export const zsf = '/zsf_manage'
 
 // 自评记录查询接口
 export const zsfQuery = (params) => {
@@ -35,7 +35,7 @@ export const zsfQuery = (params) => {
 }
 
 // 【臻收银模块】
-export const zsy = '/zsy'
+export const zsy = '/zsy_manage'
 
 // ===商户管理模块接口===
 // 用户列表(商户列表)
@@ -58,7 +58,7 @@ export const zsyOper = (params) => {
         return http.fetchPost(zsy + '/zcash/userShop/list.do', params)
     }
     // 臻e贷管理 
-export const zed = "/zed"
+export const zed = "/zed_manage"
     //信用卡申请
 export const zedCredit = (params) => {
     return http.fetchPost(zed + '/trade/creditAction/list.do', params)

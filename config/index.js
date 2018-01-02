@@ -28,7 +28,7 @@ module.exports = {
         assetsSubDirectory: 'static',
         assetsPublicPath: '/',
         proxyTable: {
-            '/rz': {
+            '/rz_manage': {
                 // target:'http://192.168.18.220:8061', // 修庆
                 // target:'http://192.168.18.218:8061',
                 // target:'http://192.168.18.177:8030', // 子涵
@@ -36,20 +36,20 @@ module.exports = {
                 // target:'http://192.168.18.178:3000',
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/rz': ''
+                    '^/rz_manage': ''
                 }
             },
-            '/zsf': {
+            '/zsf_manage': {
                 // target:'http://192.168.18.227:8090',
                 // target:'http://114.55.86.215:8090', // 线上
                 //  target:'http://192.168.18.10:8090', // 石智颖
                 target: 'http://121.199.33.100:8090', // 线上正式环境
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/zsf': ''
+                    '^/zsf_manage': ''
                 }
             },
-            '/zyd': {
+            '/zyd_manage': {
                 // target:'http://192.168.18.220:8061', // 修庆
                 // target:'http://192.168.18.218:8061',
                 // target:'http://192.168.18.227:8090',
@@ -57,10 +57,10 @@ module.exports = {
                 // target:'http://192.168.18.178:3000',
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/zyd': ''
+                    '^/zyd_manage': ''
                 }
             },
-            '/zsy': {
+            '/zsy_manage': {
                 // target:'http://192.168.18.220:8061', // 修庆
                 // target:'http://192.168.18.218:8061',
                 // target:'http://192.168.18.227:8090',
@@ -69,14 +69,14 @@ module.exports = {
                 // target: 'http://192.168.20.47', //张尊
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/zsy': ''
+                    '^/zsy_manage': ''
                 }
             },
-            '/zed': {
+            '/zed_manage': {
                 target: 'http://192.168.20.214:8080',
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/zed': ''
+                    '^/zed_manage': ''
                 }
             }
         }
