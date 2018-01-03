@@ -7,9 +7,6 @@
           <span class="text">当前位置</span>
         </el-breadcrumb-item>
         <el-breadcrumb-item>
-          <span class="text">臻e贷管理</span>
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>
           <span class="text">信用卡申请</span>
         </el-breadcrumb-item>
         <el-breadcrumb-item>历程</el-breadcrumb-item>
@@ -204,6 +201,7 @@ export default {
     },
     //点击查询按钮
     search() {
+    	this.form.pageIndex = 1
     	this.searchData()
     },
     handleSizeChange(val) {

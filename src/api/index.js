@@ -57,16 +57,14 @@ export const zsyQRcode = (params) => {
 export const zsyOper = (params) => {
         return http.fetchPost(zsy + '/zcash/userShop/list.do', params)
     }
-    // 臻e贷管理 
-export const zed = "/zed_manage"
-    //信用卡申请
+//信用卡申请 
+export const xyk = "/xyk_manage"
 export const zedCredit = (params) => {
-    return http.fetchPost(zed + '/trade/creditAction/list.do', params)
+    return http.fetchPost(xyk + '/trade/creditAction/list.do', params)
 }
-
-// 查询地区
+//信用卡申请  查询地区
 export const zedArea = (params) => {
-    return http.fetchPost(zed + '/common/district/list.do', params)
+    return http.fetchPost(xyk + '/common/district/list.do', params)
 }
 
 // 历程列表

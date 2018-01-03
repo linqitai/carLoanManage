@@ -177,15 +177,7 @@ export default {
 			icon: 'icon-eIcon',
 			index: '/zedMileage',
 		    title: '臻e贷管理',
-			subs: [{
-				icon: 'icon-flag',
-				index: '/creditCard',
-				title: '信用卡申请',
-				subs: [{
-					index: '/creditCard',
-					title: '历程'
-						}]
-			},
+			subs: [
 			{
 				index: '/zedMileage',
 				title: '历程'
@@ -200,6 +192,17 @@ export default {
 			}
 			]
 		},
+		{
+          icon: 'icon-shuju',
+          index: '/creditCard',
+          title: '信用卡申请',
+          subs: [
+            {
+              index: '/creditCard',
+              title: '历程'
+            }
+          ]
+        },
         {
           icon: 'icon-shuju1',
           index: '/bdBig',

@@ -226,7 +226,7 @@ export default new Router({
         },
         {
           path: '/creditCard',
-          component: resolve => require(['pages/zed/Mileage/creditCard'], resolve)
+          component: resolve => require(['pages/xyk/Mileage/creditCard'], resolve)
         }
       ]
     }
