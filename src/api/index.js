@@ -58,13 +58,13 @@ export const zsyOper = (params) => {
         return http.fetchPost(zsy + '/zcash/userShop/list.do', params)
     }
 //信用卡申请 
-export const xyk = "/xyk_manage"
+export const zed = "/zed_manage"
 export const zedCredit = (params) => {
-    return http.fetchPost(xyk + '/trade/creditAction/list.do', params)
+    return http.fetchPost(zed + '/trade/creditAction/list.do', params)
 }
 //信用卡申请  查询地区
 export const zedArea = (params) => {
-    return http.fetchPost(xyk + '/common/district/list.do', params)
+    return http.fetchPost(zed + '/common/district/list.do', params)
 }
 
 // 历程列表

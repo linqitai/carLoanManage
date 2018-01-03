@@ -72,11 +72,11 @@ module.exports = {
                     '^/zsy_manage': ''
                 }
             },
-            '/xyk_manage': {
+            '/zed_manage': {
                 target: 'http://192.168.20.214:8080',
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/xyk_manage': ''
+                    '^/zed_manage': ''
                 }
             }
         }
