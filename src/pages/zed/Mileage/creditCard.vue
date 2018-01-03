@@ -85,7 +85,7 @@
   </div>
 </template>
 <script>
-import { format, getTime, getDateHM } from '../../../common/js/times'
+import { format, getTime, getDateHM, getDate } from '../../../common/js/times'
 import { zedCredit } from '@/api/index'
 import { zedArea } from '@/api/index'
 
@@ -157,10 +157,10 @@ export default {
         return;
       }
       if (this.form.sdate) {
-        this.form.sdate = getDateHM(this.form.sdate);
+        this.form.sdate = getDate(this.form.sdate) + ' ' + '00:00:00';
       }
       if (this.form.edate) {
-        this.form.edate = getDateHM(this.form.edate);
+        this.form.edate = getDate(this.form.edate) + ' ' + '23:59:59';
       }
     	let params = {
     		nickName: this.form.nickName,
