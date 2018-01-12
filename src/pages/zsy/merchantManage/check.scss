@@ -1,11 +1,11 @@
 @import '~common/scss/common';
 @import '~common/scss/mixin';
-.detail {
+.check{
   position: relative;
   width: 100%;
   height: 100%;
   background-color: white;
-  // z-index: 4;
+  //z-index: 1001;
   .allWrapper{
     overflow-y: auto;
     position: absolute;
@@ -13,7 +13,7 @@
     right: 0;
     top: $breadcrumbHeight;
     bottom: 40px;
-    .infoBox{
+    .infoBox {
       border-bottom: 1px solid $tableLineColor;
       padding-bottom: 6px;
       .title{
@@ -27,16 +27,8 @@
       }
       .contentTextForRow{
         padding: 12px 0;
-        .contentTextL{
-          display: inline-block;
-          vertical-align: top;
-        }
-        .contentTextR{
-          padding-left: 50px;
-          display: inline-block;
-        }
       }
-      .contentText{
+      .contentText {
         padding: 12px 20px 12px 10px;
         overflow: hidden;
         .lineText{
@@ -46,7 +38,7 @@
           padding: 8px 0;
           .inforeditor {
             position: absolute;
-            left: 600px;
+            left: 200px;
             top: 8px;
           }
           .label{
@@ -57,7 +49,19 @@
           .value{
             float: left;
             color: $tableTextColor;
-            margin-left: 10px;
+            margin-left: 40px;
+            .t0money{
+              margin-left: 20px;
+              input{
+                width: 60px
+              }
+            }
+            .t1money{
+              margin-left: 40px;
+              input{
+                width: 60px
+              }
+            }
           }
           a{
             color: blue;
@@ -67,48 +71,16 @@
       }
     }
   }
-  .element {
-    text-align: left;
-    padding-top: 10px;
-    &:last-child {
-      padding-bottom: 10px;
-    }
-  }
-  .imggroup {
-    img {
-      width: 120px;
-      height: auto;
-    }
-  }
-  .dialogFooter{
-    overflow: hidden;
-    text-align: center;
-    border-bottom: 1px solid $tableLineColor;
-  }
 }
-.fl{
-  float: left;
-}
-.audit{
-  width: 200px;
-  height: 20px;
-  box-sizing: border-box;
-  margin-left: 15px;
-}
-.audit .el-input__inner{
-  height: 30px;
+.inline{
+  padding-top: 20px
 }
 .inline-textarea{
-  padding-top: 20px;
+  padding-top: 0px;
   height: 100px;
   width: 210px;
   resize: none
 }
-.el-checkbox, .el-checkbox__input{
-  white-space: inherit;
-}
-.editDialog{
-}
-.moneyInput{
-  width: 100px
+.values{
+  margin-left: 150px;
 }

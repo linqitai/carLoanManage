@@ -51,6 +51,11 @@ export default new Router({
             {
               path: '/merchantManage/detail',
               component: resolve => require(['../pages/zsy/merchantManage/detail'], resolve)
+            },
+            {
+              path: '/merchantManage/check',
+              name: '二级审核',
+              component: resolve => require(['../pages/zsy/merchantManage/check'], resolve)
             }
           ]
         },

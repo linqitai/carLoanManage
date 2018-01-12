@@ -48,21 +48,18 @@ export const mtypeList = [
     value: '',
     label: '全部'
   }, {
-    value: '1',
+    value: '2',
     label: '自然人'
   }, {
-    value: '2',
+    value: '3',
     label: '企业商户'
   }, {
-    value: '3',
+    value: '1',
     label: '个体工商户'
   }
 ]
 export const runTYpeList = [
   {
-    value: '',
-    label: '全部'
-  }, {
     value: '1',
     label: '美食'
   }, {
@@ -109,19 +106,19 @@ export const statusList = [
     value: '2',
     label: '待审核'
   }, {
-    value: '3',
+    value: '4',
     label: '审核驳回'
   }, {
-    value: '4',
+    value: '7',
     label: '网商审核中'
   }, {
-    value: '5',
+    value: '6',
     label: '网商驳回'
   }, {
-    value: '6',
+    value: '5',
     label: '正常使用'
   }, {
-    value: '7',
+    value: '8',
     label: '禁用中'
   }
 ]
@@ -363,5 +360,31 @@ export const IncomeList = [
   }, {
     value: '2',
     label: '从低到高'
+  }
+]
+
+export const manageTypeList = [
+  {
+    value: '1',
+    label: '仅有实体店'
+  }, {
+    value: '2',
+    label: '仅有网络渠道'
+  }, {
+    value: '3',
+    label: '实体网络渠道'
+  }
+]
+
+export const memoList = [
+  {
+    value: '1',
+    label: '已联系上'
+  }, {
+    value: '2',
+    label: '未联系上'
+  }, {
+    value: '3',
+    label: '黑名单'
   }
 ]
