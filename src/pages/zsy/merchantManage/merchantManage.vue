@@ -53,7 +53,7 @@
             <p class="inline">经营类目</p>
             <div class="width140 inline">
               <el-select size="medium" v-model="searchs.runTYpe" placeholder="请选择" @change="search">
-                <el-option v-for="item in runTYpeList" :key="item.value" :label="item.label" :value="item.value">
+                <el-option v-for="item in runTYpeList1" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
             </div>
@@ -92,7 +92,7 @@
             <p class="inline">店铺地址</p>
             <div class="width140 inline">
               <!--<el-select size="medium" placeholder="请选择" @change="search">-->
-                <!--&lt;!&ndash;<el-option v-for="item in runTYpeList" :key="item.value" :label="item.label" :value="item.value">&ndash;&gt;-->
+                <!--&lt;!&ndash;<el-option v-for="item in runTYpeList1" :key="item.value" :label="item.label" :value="item.value">&ndash;&gt;-->
                 <!--&lt;!&ndash;</el-option>&ndash;&gt;-->
               <!--</el-select>-->
             </div>
@@ -152,7 +152,7 @@
 </template>
 
 <script>
-  import {mtypeList, runTYpeList, statusList} from 'common/js/config'
+  import {mtypeList, runTYpeList1, statusList} from 'common/js/config'
   import {saveCurrentRow} from 'common/js/cache'
   import {getDateHM, getDate} from 'common/js/times'
   import {merchantList, auditEnabel, testC} from '@/api/index'
@@ -169,7 +169,7 @@
         showSizeChanger: true,
         pageSizeOption: [10, 15, 20, 25, 30],
         mtypeList: mtypeList,
-        runTYpeList: runTYpeList,
+        runTYpeList1: runTYpeList1,
         statusList: statusList,
         provinceList: '',
         cityList: '',

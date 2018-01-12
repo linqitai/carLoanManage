@@ -23,19 +23,19 @@
           <div class="element">
             <p class="inline">代理商:</p>
             <div class="width140 inline">
-              <el-input size="medium" clearable placeholder="" class="input" @keyup.enter.native="search"></el-input>
+              <el-input size="medium" clearable placeholder="" class="input" @keyup.enter.native="searchData" v-model="searchs.agentName"></el-input>
             </div>
           </div>
           <div class="element">
             <p class="inline">服务码:</p>
             <div class="width140 inline">
-              <el-input size="medium" clearable placeholder="" class="input" @keyup.enter.native="search"></el-input>
+              <el-input size="medium" clearable placeholder="" class="input" @keyup.enter.native="searchData" v-model="searchs.code"></el-input>
             </div>
           </div>
           <div class="element">
             <p class="inline">分润排序:</p>
             <div class="width120 inline">
-              <el-select size="medium" placeholder="请选择" @change="search">
+              <el-select size="medium" placeholder="请选择" @change="searchData" v-model="searchs.orderType">
                 <el-option v-for="item in moneyList" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
@@ -44,29 +44,33 @@
           <div class="element">
             <p class="inline">时间</p>
             <div class="inline">
-              <el-date-picker size="medium" class="inline" style="width:134px;" type="date" placeholder="开始时间" @change="startTimeChange">
+              <el-date-picker size="medium" class="inline" style="width:134px;" type="date" placeholder="开始时间" value-format="yyyy-MM-dd" @change="startTimeChange" v-model="searchs.sdate">
               </el-date-picker>
               <span class="inline">至</span>
-              <el-date-picker size="medium" class="inline" style="width:134px;" type="date" placeholder="结束时间" @change="endTimeChange">
+              <el-date-picker size="medium" class="inline" style="width:134px;" type="date" placeholder="结束时间" value-format="yyyy-MM-dd" @change="endTimeChange" v-model="searchs.edate">
               </el-date-picker>
             </div>
           </div>
           <div class="element" @click="search">
-            <el-button size="medium" class="searchBtn">查询</el-button>
+            <el-button size="medium" class="searchBtn" @click="searchData">查询</el-button>
           </div>
         </div>
       </div>
       <div class="tableWrapper">
-        <div class="tableWrapper-excel"><span class="tableWrapper-excel-pad">分润总和:3123123213</span><span class="tableWrapper-excel-border" @click="downloadExl()">导出成excel</span></div>
+        <div class="tableWrapper-excel"><span class="tableWrapper-excel-pad">分润总和:{{agentIncomeSum}}</span><span class="tableWrapper-excel-border" @click="downloadExl" style="cursor:pointer">导出成excel</span></div>
         <el-table :data="tableData" stripe>
-          <el-table-column prop="date" label="时间" width="200"></el-table-column>
-          <el-table-column prop="name" label="代理商"></el-table-column>
-          <el-table-column prop="name" label="服务码"></el-table-column>
-          <el-table-column prop="name" label="分润金额(元)" width="100"></el-table-column>
-          <el-table-column prop="name" label="商户收款总额(元)"></el-table-column>
+          <el-table-column prop="transDate" label="时间" width="200"></el-table-column>
+          <el-table-column prop="agentName" label="代理商"></el-table-column>
+          <el-table-column prop="code" label="服务码"></el-table-column>
+          <el-table-column prop="agentIncome" label="分润金额(元)" width="100"></el-table-column>
+          <el-table-column label="商户收款总额(元)">
+            <template slot-scope="scope">
+            {{agentIncomeSum}}
+          </template>
+          </el-table-column>
         </el-table>
         <div class="tableBottom">
-          <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex" :page-size="pageSize" :page-sizes="[10,12,14,16]" layout="total, sizes, prev, pager, next, jumper" :total="total">
+          <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" layout="total, sizes, prev, pager, next, jumper" :total="total">
           </el-pagination>
         </div>
       </div>
@@ -75,35 +79,83 @@
 </template>
 
 <script>
-  import { moneyList, tableData } from 'common/js/config'
-
-  export default {
-    data() {
-      return {
-        moneyList: moneyList,
-        tableData: tableData
+import { moneyList } from "common/js/config";
+import { zsyAgentIncomeList, zsyRedListExcel } from "@/api/index.js";
+import qs from 'qs'
+export default {
+  data() {
+    return {
+      moneyList: moneyList,
+      tableData: [],
+      total: null,
+      agentIncomeSum: null,
+      searchs: {
+        transDate: "",
+        agentName: "",
+        code: "",
+        agentIncome: "",
+        orderType: "",
+        pageIndex: 1,
+        pageSize: 10
+      }
+    };
+  },
+  created() {
+    this.searchData();
+  },
+  methods: {
+    searchData() {
+      if (
+        (this.searchs.sdate && !this.searchs.edate) ||
+        (!this.searchs.sdate && this.searchs.edate)
+      ) {
+        this.$alert("请输入完整的起止时间", "提示", {
+          confirmButtonText: "确定"
+        });
+      } else if (
+        this.searchs.sdate !== "" &&
+        this.searchs.edate !== "" &&
+        new Date(this.searchs.sdate) - new Date(this.searchs.edate) > 0
+      ) {
+        this.$alert("请输入正确的起止时间，结束时间不能小于等于开始时间", "提示", {
+          confirmButtonText: "确定"
+        });
+      } else {
+        zsyAgentIncomeList(this.searchs).then(res => {
+          this.tableData = res.result;
+          this.total = res.count;
+          this.agentIncomeSum = res.agentIncomeSum;
+        });
       }
     },
-    methods: {
-      search() {
-      },
-      startTimeChange(val) {
-        console.log('change：' + val)
-      },
-      endTimeChange(val) {
-        console.log('change：' + val)
-      },
-      handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
-      },
-      handleCurrentChange(val) {
-        console.log(`当前页: ${val}`);
-      }
+    downloadExl() {
+      console.log(111);
+      let _q = { ...this.searchs };
+      delete _q["pageIndex"];
+      delete _q["pageSize"];
+      let query = qs.stringify(_q);
+      window.open(zsyRedListExcel() + "?" + query);
+    },
+    search() {},
+    startTimeChange(val) {
+      console.log("change：" + val);
+    },
+    endTimeChange(val) {
+      console.log("change：" + val);
+    },
+    handleSizeChange(val) {
+      this.searchs.pageSize = val;
+      this.searchData();
+    },
+    handleCurrentChange(val) {
+      this.searchs.pageIndex = val;
+      this.searchData();
     }
   }
+};
 </script>
 
 <style scoped lang="scss">
-  @import '~common/scss/common.scss';
-  @import './agentMoney.scss'
+@import "~common/scss/common.scss";
+@import "./agentMoney.scss";
 </style>

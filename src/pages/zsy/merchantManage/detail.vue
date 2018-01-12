@@ -165,7 +165,7 @@
                   <p class="inline">经营类目</p>
                   <div class="width140 inline">
                     <el-select size="medium" placeholder="请选择" v-model="operatecategory">
-                      <el-option v-for="item in runTYpeList" :key="item.value" :label="item.label" :value="item.value">
+                      <el-option v-for="item in runTYpeList1" :key="item.value" :label="item.label" :value="item.value">
                       </el-option>
                     </el-select>
                   </div>
@@ -777,7 +777,7 @@
 
 <script>
   // import { mapGetters } from 'vuex'
-  import {manageTypeList, runTYpeList, memoList} from 'common/js/config'
+  import {manageTypeList, runTYpeList1, memoList} from 'common/js/config'
   import {getCurrentRow} from 'common/js/cache'
   import {
     shopEdit,
@@ -882,7 +882,7 @@
         },
         customerid: null,
         manageTypeList: manageTypeList,
-        runTYpeList: runTYpeList,
+        runTYpeList1: runTYpeList1,
         abbreviation: '',
         operatetype: '',
         operatecategory: '',
