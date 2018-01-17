@@ -44,24 +44,36 @@
         </div>
       </div>
       <div class="tableWrapper">
-        <el-table :data="tableData" stripe style="min-width:860px;width: 930px;">
-          <el-table-column fixed prop="codename" label="名称" width="120"></el-table-column>
-          <el-table-column prop="shopid" label="编号" width="150"></el-table-column>
-          <el-table-column prop="shopname" label="所属门店" width="200"></el-table-column>
-          <el-table-column prop="merchantname" label="所属商户" width="200"></el-table-column>
-          <el-table-column prop="created" label="添加时间" width="180"></el-table-column>
-          <el-table-column prop="imageurl" fixed="right" label="图片" width="80">
+        <el-table :data="tableData" stripe>
+          <el-table-column fixed prop="codename" label="名称"></el-table-column>
+          <el-table-column prop="shopid" label="编号"></el-table-column>
+          <el-table-column prop="shopname" label="所属门店"></el-table-column>
+          <el-table-column prop="merchantname" label="所属商户"></el-table-column>
+          <el-table-column prop="created" label="添加时间"></el-table-column>
+          <el-table-column prop="imageurl" fixed="right" label="图片">
             <template slot-scope="scope">
               <el-button @click="imgDetail(scope.$index,tableData)" type="text" size="small">查看</el-button>
             </template>
           </el-table-column>
         </el-table>
         <!-- <el-table :data="tableData" stripe style="min-width:1060px;max-width:1620px;width: 1150px;"></el-table> -->
-        <el-dialog class="qrDialog" prop="shopname" :title='activeShop + "收银二维码"' :data="tableData" :visible.sync="dialogVisible" width="500" :before-close="handleClose">
+        <el-dialog class="qrDialog" prop="showData" :title='showData.codename' :data="tableData" :visible.sync="dialogVisible" width="500" :before-close="handleClose">
           <div class="storeText">
-            <span>所属门店:{{shopname}}</span>
+            <span>所属门店:{{showData.shopname}}</span>
           </div>
-          <img :src="clickshowimg" />
+          <div id="zsycode">
+            <div class="code-head">
+              <img class="logoIcon" src="../../../common/images/logo.png" alt="">
+              <span class="head-title">臻收银</span>
+            </div>
+            <div class="code-content">
+              <div class="pay">扫一扫，向我付钱</div>
+              <div class="qrcode">
+                <img :src="showData.imageurl" />
+              </div>
+              <div class="paymode"></div>
+            </div>
+          </div>
         </el-dialog>
       </div>
       <div class="tableBottom">
@@ -78,7 +90,8 @@ import { zsyQRcode } from "@/api/index.js";
 export default {
   data() {
     return {
-      activeShop: '',
+      // activeShop: '',
+      showData: {},
       dialogVisible: false,
       maxLengthMobile: 11,
       maxLengthIdentity: 18,
@@ -95,10 +108,10 @@ export default {
       areaList: "",
       total: null,
       tableData: [],
-      shopname: "",
+      // shopname: "",
       searchs: {
         codename: "",
-        shopname: "",
+        shopname: this.$route.query.shopname,
         merchantname: "",
         pageIndex: 1,
         pageSize: 10
@@ -143,9 +156,10 @@ export default {
     imgDetail(index, rows) {
       this.rowIndex = index;
       this.dialogVisible = true;
-      this.activeShop = rows[index].shopname;
-      this.clickshowimg = rows[index].imageurl;
-      this.shopname = rows[index].shopname;
+      this.showData = rows[index]
+      // this.activeShop = rows[index].shopname;
+      // this.clickshowimg = rows[index].imageurl;
+      // this.shopname = rows[index].shopname;
     },
     searchData() {
       zsyQRcode(this.searchs).then(res => {
@@ -165,6 +179,46 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
+  #zsycode {
+    margin: 0 auto;
+    border: 1px solid #eee;
+    border-radius: 20px;
+    width: 310px;
+    height: 350px;
+    .code-head {
+      height: 65px;
+      font-size: 18px;
+      color: #00917e;
+      line-height: 50px;
+      .logoIcon {
+        vertical-align: middle;
+      }
+      .head-title {
+        vertical-align: -webkit-baseline-middle;
+      }
+    }
+    .code-content {
+      background: #00917e;
+      height: 285px;
+      .pay {
+        height: 46px;
+        line-height: 46px;
+        color: #fff;
+        font-size: 20px;
+      }
+      .qrcode {
+        padding: 10px;
+        background: #fff;
+        width: 160px;
+        margin: 0 auto;
+        height: 160px;
+      }
+      img {
+        width: 160px;
+        height: 160px;
+      }
+    }
+  }
   .qrDialog {
     .el-dialog__title {
       display: block;

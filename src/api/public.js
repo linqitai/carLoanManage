@@ -20,7 +20,7 @@ axios.defaults.timeout = 5000
 // 添加一个响应拦截器
 axios.interceptors.response.use(function (res) {
   // 在这里对返回的数据进行处理
-  console.log(res)
+  // console.log(res)
   if (res.status === 200) {
     if (res.data.code === 1001) {
       router.replace({

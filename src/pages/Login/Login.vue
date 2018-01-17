@@ -59,8 +59,8 @@ export default {
   created() {
     var inputs = document.getElementsByTagName('input')
     // inputs[0].focus()
-    console.log(inputs[0])
-    console.log('focus')
+    // console.log(inputs[0])
+    // console.log('focus')
   },
   methods: {
     hover() {
@@ -76,8 +76,8 @@ export default {
         if (valid) {
           let params = this.ruleForm
           userLogin(params).then((res) => {
-            console.log(params)
-            console.log(res)
+            // console.log(params)
+            // console.log(res)
             if (res.code === 0) {
               this.$router.push('/firstPage')
             } else {
@@ -85,7 +85,7 @@ export default {
             }
           })
         } else {
-          console.log('error submit!!')
+          // console.log('error submit!!')
           return false
         }
       })

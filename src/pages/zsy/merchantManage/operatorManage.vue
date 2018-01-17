@@ -22,7 +22,7 @@
         <div class="searchBox">
           <div class="element">
             <p class="inline">姓名</p>
-            <div class="width140 inline">
+            <div class="width100 inline">
               <el-input size="medium" clearable placeholder="姓名查询" class="input" v-model="searchs.username" @keyup.enter.native="searchData"></el-input>
             </div>
           </div>
@@ -52,13 +52,13 @@
           </div>
           <div class="element">
             <p class="inline">所在店铺</p>
-            <div class="width140 inline">
+            <div class="width200 inline">
               <el-input size="medium" clearable placeholder="所在店铺查询" class="input" v-model="searchs.shopname" @keyup.enter.native="searchData"></el-input>
             </div>
           </div>
           <div class="element">
             <p class="inline">所属商户</p>
-            <div class="width140 inline">
+            <div class="width160 inline">
               <el-input size="medium" clearable placeholder="所属商户查询" class="input" v-model="searchs.merchantname" @keyup.enter.native="searchData"></el-input>
             </div>
           </div>
@@ -71,11 +71,11 @@
         <el-table :data="tableData" stripe>
           <el-table-column prop="createtime" label="添加时间" width="180"></el-table-column>
           <el-table-column prop="username" label="姓名"></el-table-column>
-          <el-table-column prop="sex" label="性别"></el-table-column>
-          <el-table-column prop="type" label="角色"></el-table-column>
+          <el-table-column prop="sex" label="性别" :formatter="sexFilter"></el-table-column>
+          <el-table-column prop="type" label="角色" :formatter="roleFilter"></el-table-column>
           <el-table-column prop="mobile" label="手机号码"></el-table-column>
           <el-table-column prop="idcard" label="身份证号" width="180"></el-table-column>
-          <el-table-column prop="shopname" label="所在店铺"></el-table-column>
+          <el-table-column prop="shopname" label="所在店铺" show-overflow-tooltip></el-table-column>
           <el-table-column prop="merchantname" label="所属商户">
           </el-table-column>
         </el-table>
@@ -90,6 +90,7 @@
 
 <script type="text/ecmascript-6">
 import { SexList, TypeList } from "common/js/config";
+import { sexFilter, roleFilter } from 'common/js/utils'
 import { zsyOper } from "@/api/index.js";
 export default {
   data() {
@@ -116,7 +117,7 @@ export default {
         operatorname: "",
         mobile: "",
         idcard: "",
-        shopname: "",
+        shopname: this.$route.query.shopname,
         merchantname: "",
         createtime: "",
         pageSize: 10,
@@ -133,6 +134,12 @@ export default {
     this.searchData();
   },
   methods: {
+    roleFilter(row) {
+      return roleFilter(row);
+    },
+    sexFilter(row) {
+      return sexFilter(row);
+    },
     searchData() {
       zsyOper(this.searchs).then(res => {
         this.tableData = res.result;

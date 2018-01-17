@@ -286,7 +286,9 @@ thead tr {
   padding: 4px 0;
   text-align: center;
 }
-
+.el-table th>.cell{
+  text-align: center !important;
+}
 .el-pager {
   li {
     &.active {

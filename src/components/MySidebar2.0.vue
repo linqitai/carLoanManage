@@ -1,44 +1,44 @@
 <template>
-	<div class="sidebar" @changeActiveIndex="changeActiveIndex">
-		<el-menu unique-opened router class="el-menu-vertical-demo menu" :default-active="activeIndex" text-color="#ffffff" active-text-color="#ffff8d" :collapse="isCollapse">
-			<template v-for="item in items">
-				<el-submenu :index="item.index" :key="item.index" class="borderTopParent">
-					<template slot="title">
-						<i class="iconfont" :class="item.icon"></i>
-						<span slot="title">{{item.title}}</span>
-					</template>
-					<template v-if="item.subs">
-						<!-- 二级目录 -->
-						<template v-for="item2 in item.subs">
-							<template v-if="item2.subs">
-								<el-submenu :index="item2.index" :key="item2.index" class="borderTopParent">
-									<template slot="title">
-										<template v-if="item2.icon">
-											<i class="iconfont ml20 mr3 fontSizeS" :class="item2.icon"></i>
-										</template>
-										<span slot="title">{{item2.title}}</span>
-									</template>
-									<template v-if="item2.subs">
-										<!-- 三级目录 -->
-										<template v-for="item3 in item2.subs">
-											<el-menu-item class="child3" :index="item3.index" :key="item3.index">{{item3.title}}</el-menu-item>
-										</template>
-									</template>
-									<!-- <el-menu-item index="1-1-1">选项1</el-menu-item>
-                            <el-menu-item index="1-1-2">选项2</el-menu-item> -->
-								</el-submenu>
-							</template>
-							<template v-else>
-								<el-menu-item class="child" :index="item2.index" :title="item2.title" :key="item2.index">
-									{{ item2.title }}
-								</el-menu-item>
-							</template>
-						</template>
-					</template>
-				</el-submenu>
-			</template>
-		</el-menu>
-	</div>
+  <div class="sidebar" @changeActiveIndex="changeActiveIndex">
+    <el-menu unique-opened router class="el-menu-vertical-demo menu" :default-active="activeIndex" text-color="#ffffff" active-text-color="#ffff8d" :collapse="isCollapse">
+      <template v-for="item in items">
+        <el-submenu :index="item.index" :key="item.index" class="borderTopParent">
+          <template slot="title">
+            <i class="iconfont" :class="item.icon"></i>
+            <span slot="title">{{item.title}}</span>
+          </template>
+          <template v-if="item.subs">
+            <!-- 二级目录 -->
+            <template v-for="item2 in item.subs">
+              <template v-if="item2.subs">
+                <el-submenu :index="item2.index" :key="item2.index" class="borderTopParent">
+                  <template slot="title">
+                    <template v-if="item2.icon">
+                      <i class="iconfont ml20 mr3 fontSizeS" :class="item2.icon"></i>
+                    </template>
+                    <span slot="title">{{item2.title}}</span>
+                  </template>
+                  <template v-if="item2.subs">
+                    <!-- 三级目录 -->
+                    <template v-for="item3 in item2.subs">
+                      <el-menu-item class="child3" :index="item3.index" :key="item3.index">{{item3.title}}</el-menu-item>
+                    </template>
+                  </template>
+                  <!-- <el-menu-item index="1-1-1">选项1</el-menu-item>
+                              <el-menu-item index="1-1-2">选项2</el-menu-item> -->
+                </el-submenu>
+              </template>
+              <template v-else>
+                <el-menu-item class="child" :index="item2.index" :title="item2.title" :key="item2.index">
+                  {{ item2.title }}
+                </el-menu-item>
+              </template>
+            </template>
+          </template>
+        </el-submenu>
+      </template>
+    </el-menu>
+  </div>
 </template>
 
 <script>
@@ -60,7 +60,7 @@ export default {
               subs: [
                 {
                   index: '/experience', // 路由名
-                  title: '历程'
+                  title: '历程(暂无功能)'
                 },
                 {
                   index: '/merchantManage',
@@ -174,26 +174,26 @@ export default {
           ]
         },
         {
-			icon: 'icon-eIcon',
-			index: '/zedMileage',
-		    title: '臻e贷管理',
-			subs: [
-			{
-				index: '/zedMileage',
-				title: '历程'
-			},
-			{
-				index: '/zedSysAnalysis',
-				title: '统计分析'
-			},
-			{
-				index: '/zedComCalculation',
-				title: '佣金计算'
-			}
-			]
-		},
-		{
-          icon: 'icon-shuju',
+          icon: 'icon-eIcon',
+          index: '/zedMileage',
+          title: '臻e贷管理',
+          subs: [
+            {
+              index: '/zedMileage',
+              title: '历程'
+            },
+            {
+              index: '/zedSysAnalysis',
+              title: '统计分析'
+            },
+            {
+              index: '/zedComCalculation',
+              title: '佣金计算'
+            }
+          ]
+        },
+        {
+          icon: 'icon-card',
           index: '/creditCard',
           title: '信用卡申请',
           subs: [
@@ -262,76 +262,76 @@ export default {
 }
 </script>
 <style lang="scss">
-	@import '../common/scss/common.scss';
-	@import '../common/scss/mixin.scss';
-	.sidebar {
-		display: block;
-		position: absolute;
-		width: $sidebarWidth;
-		left: 0;
-		top: 0;
-		bottom: 0;
-		background-color: $mainColor;
-		overflow: hidden;
-		z-index: 100;
-		.el-submenu__title i {
-			color: #ffffff
-		}
-		.el-submenu [class^=el-icon-] {
-			margin-right: 0px;
-		}
-		.el-menu {
-			border-right: none;
-			background-color: $mainColor;
-			.borderTopParent {
-				.item2 {
-					padding-left: 28px;
-				}
-				.el-submenu__title {
-					padding-left: 28px !important;
-					height: 42px;
-					line-height: 46px;
-					@include border_bottom($borderLineColor);
-					&:hover {
-						background-color: $menuHoverColor;
-					}
-					.titleIcon {
-						margin-bottom: 1px;
-					}
-					.titleText {
-						padding-left: 0px;
-						font-size: 13px;
-					}
-					.el-submenu__icon-arrow {
-						font-size: 8px;
-						margin-top: -2px;
-					}
-				}
-			}
-			.child {
-				padding-left: 60px !important;
-				font-size: 12px;
-				height: 30px;
-				line-height: 30px;
-				color: $menuColor;
-				background-color: $mainColor;
-				@include border_bottom($borderLineColor);
-				&:hover {
-					background-color: $menuHoverColor;
-				}
-			}
-			.child3 {
-				padding-left: 80px !important;
-				font-size: 12px;
-				height: 30px;
-				line-height: 30px;
-				color: $menuColor;
-				background-color: $mainColor;
-				@include border_bottom($borderLineColor);
-				&:hover {
-					background-color: $menuHoverColor;
-				}
-			}
-		}
-	}
+@import '../common/scss/common.scss';
+@import '../common/scss/mixin.scss';
+.sidebar {
+  display: block;
+  position: absolute;
+  width: $sidebarWidth;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background-color: $mainColor;
+  overflow: hidden;
+  z-index: 100;
+  .el-submenu__title i {
+    color: #ffffff
+  }
+  .el-submenu [class^=el-icon-] {
+    margin-right: 0px;
+  }
+  .el-menu {
+    border-right: none;
+    background-color: $mainColor;
+    .borderTopParent {
+      .item2 {
+        padding-left: 28px;
+      }
+      .el-submenu__title {
+        padding-left: 28px !important;
+        height: 42px;
+        line-height: 46px;
+        @include border_bottom($borderLineColor);
+        &:hover {
+          background-color: $menuHoverColor;
+        }
+        .titleIcon {
+          margin-bottom: 1px;
+        }
+        .titleText {
+          padding-left: 0px;
+          font-size: 13px;
+        }
+        .el-submenu__icon-arrow {
+          font-size: 8px;
+          margin-top: -2px;
+        }
+      }
+    }
+    .child {
+      padding-left: 60px !important;
+      font-size: 12px;
+      height: 30px;
+      line-height: 30px;
+      color: $menuColor;
+      background-color: $mainColor;
+      @include border_bottom($borderLineColor);
+      &:hover {
+        background-color: $menuHoverColor;
+      }
+    }
+    .child3 {
+      padding-left: 80px !important;
+      font-size: 12px;
+      height: 30px;
+      line-height: 30px;
+      color: $menuColor;
+      background-color: $mainColor;
+      @include border_bottom($borderLineColor);
+      &:hover {
+        background-color: $menuHoverColor;
+      }
+    }
+  }
+}
 </style>
