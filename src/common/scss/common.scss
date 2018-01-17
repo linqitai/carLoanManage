@@ -278,9 +278,12 @@ thead tr {
 .el-table{
   font-family: '微软雅黑';
 }
-.el-table th, .el-table td {
-  padding: 0 0 !important;
-  height: 36px;
+.el-table th {
+  padding: 8px 0;
+  text-align: center;
+}
+.el-table td{
+  padding: 4px 0;
   text-align: center;
 }
 
