@@ -124,7 +124,7 @@
             </template>
          </el-table-column>
        </el-table>
-       <div class="tableBottom">
+       <div v-if="total>searchs.pageSize" class="tableBottom">
          <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex" :page-size="pageSize" :page-sizes="[10,12,14,16]" layout="total, sizes, prev, pager, next, jumper" :total="total">
          </el-pagination>
        </div>

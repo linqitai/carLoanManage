@@ -209,7 +209,7 @@ export default {
     }
   },
   created() {
-    // this.getval();
+    this.getval();
     // testKY();
   },
   filters: {
@@ -273,19 +273,19 @@ export default {
     },
     // 查询
     search() {
-      // this.getval()
+      this.getval()
     },
     searchByDrawMoney() {
       let m = this.drawMoney
       this.minPrice = m.split('-')[0]
       this.maxPrice = m.split('-')[1]
-      // this.getval()
+      this.getval()
     },
     searchByGiveMoney() {
       let m = this.drawMoney
       this.minPrice = m.split('-')[0]
       this.maxPrice = m.split('-')[1]
-      // this.getval()
+      this.getval()
     },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`)

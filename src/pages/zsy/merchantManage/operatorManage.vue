@@ -68,21 +68,17 @@
         </div>
       </div>
       <div class="tableWrapper">
-        <el-table :data="tableData" stripe style="width: 1270px;">
-          <el-table-column prop="username" label="姓名" width="120"></el-table-column>
-          <el-table-column prop="sex" label="性别" width="120"></el-table-column>
-          <el-table-column prop="type" label="角色" width="120"></el-table-column>
-          <el-table-column prop="mobile" label="手机号码" width="150"></el-table-column>
-          <el-table-column prop="idcard" label="身份证号" width="180"></el-table-column>
-          <el-table-column prop="shopname" label="所在店铺" width="200"></el-table-column>
-          <el-table-column prop="merchantname" label="所属商户" width="200">
-            <!-- <template slot-scope="scope">
-              <el-button type="text" size="small">{{scope.row.merchantname}}</el-button>
-            </template> -->
-          </el-table-column>
+        <el-table :data="tableData" stripe>
           <el-table-column prop="createtime" label="添加时间" width="180"></el-table-column>
+          <el-table-column prop="username" label="姓名"></el-table-column>
+          <el-table-column prop="sex" label="性别"></el-table-column>
+          <el-table-column prop="type" label="角色"></el-table-column>
+          <el-table-column prop="mobile" label="手机号码"></el-table-column>
+          <el-table-column prop="idcard" label="身份证号" width="180"></el-table-column>
+          <el-table-column prop="shopname" label="所在店铺"></el-table-column>
+          <el-table-column prop="merchantname" label="所属商户">
+          </el-table-column>
         </el-table>
-        <!-- <el-table :data="tableData" stripe style="min-width:1060px;max-width:1620px;width: 1150px;"></el-table> -->
       </div>
       <div class="tableBottom">
         <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" layout="total, sizes, prev, pager, next, jumper" :total="total">

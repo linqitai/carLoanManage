@@ -40,6 +40,21 @@ export const sexList = [{
 ]
 export const sexTwoList = [
   {
+    value: '',
+    label: '全部'
+  }, {
+    value: '2',
+    label: '自然人'
+  }, {
+    value: '3',
+    label: '企业商户'
+  }, {
+    value: '1',
+    label: '个体工商户'
+  }
+]
+export const runTYpeList = [
+  {
     value: '1',
     label: '男'
   }, {
@@ -59,7 +74,7 @@ export const mtypeList = [{
     value: '3',
     label: '个体工商户'
 }]
-export const runTYpeList = [{
+export const runTYpeList1 = [{
         value: '',
         label: '全部'
     }, {
@@ -96,7 +111,6 @@ export const runTYpeList = [{
         value: '11',
         label: '政府/社会组织'
     }]
-    // statusList: ['全部', '待提交', '待审核', '审核驳回', '网商审核中', '网商驳回', '正常使用', '禁用中'],
 export const statusList = [{
     value: '',
     label: '全部'
@@ -106,6 +120,20 @@ export const statusList = [{
 }, {
     value: '2',
     label: '待审核'
+  }, {
+    value: '4',
+    label: '审核驳回'
+  }, {
+    value: '7',
+    label: '网商审核中'
+  }, {
+    value: '6',
+    label: '网商驳回'
+  }, {
+    value: '5',
+    label: '正常使用'
+  }, {
+    value: '8',
 }, {
     value: '3',
     label: '审核驳回'
@@ -415,5 +443,31 @@ export const resultList = [
   }, {
     value: '2',
     label: '已处理'
+  }
+]
+
+export const manageTypeList = [
+  {
+    value: '1',
+    label: '仅有实体店'
+  }, {
+    value: '2',
+    label: '仅有网络渠道'
+  }, {
+    value: '3',
+    label: '实体网络渠道'
+  }
+]
+
+export const memoList = [
+  {
+    value: '1',
+    label: '已联系上'
+  }, {
+    value: '2',
+    label: '未联系上'
+  }, {
+    value: '3',
+    label: '黑名单'
   }
 ]
