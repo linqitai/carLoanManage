@@ -26,7 +26,7 @@ export default {
   },
   watch: {
     screenWidth: function(value) {
-      console.log(value)
+      // console.log(value)
       if (value < 970) {
         // this.$message({
         //   message: '您的设备屏幕比较小，可能会影响您的浏览效果',
@@ -65,13 +65,13 @@ export default {
   },
   methods: {
     clickLeftBtn() {
-      // console.log('you click me')
+      // // console.log('you click me')
       this.isShowSidebar = !this.isShowSidebar
     },
     changeActiveIndex(index) {
-      console.log('index:' + index)
+      // console.log('index:' + index)
       this.activeIndex = index
-      console.log(this.activeIndex)
+      // console.log(this.activeIndex)
     }
   },
   components: {
@@ -168,10 +168,13 @@ export default {
         bottom: 0;
         overflow: auto;
         .searchCondition {
+          position: relative;
           width: 100%;
+          // height: 52px;
           overflow: hidden;
           margin-bottom: 10px; // min-width: $content-min-width;
           .searchBtn {
+            height: 36px;
             background-color: $mainColor !important;
             color: #ffffff !important;
             &:hover {
@@ -182,6 +185,12 @@ export default {
               color: #ffffff !important;
               background-color: $menuHoverColor !important;
             }
+          }
+          &:after{
+            content: '';
+            position: absolute;
+            left: 48%;
+            bottom: 0;
           }
           .moreIcon {
             margin-top: 10px;

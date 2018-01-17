@@ -28,7 +28,7 @@
           </div>
           <div class="element">
             <p class="inline">商户名称</p>
-            <div class="width140 inline">
+            <div class="width200 inline">
               <el-input size="medium" clearable placeholder="商户名称查询" class="input" v-model="searchs.merchantname" @keyup.enter.native="searchData"></el-input>
             </div>
           </div>
@@ -72,14 +72,14 @@
           <el-table-column prop="merchantname" label="所属商户"></el-table-column>
           <el-table-column prop="responsiblename" label="负责人"></el-table-column>
           <el-table-column prop="phone" label="手机号码"></el-table-column>
-          <el-table-column prop="province" label="店铺地址">
+          <el-table-column prop="province" label="店铺地址" show-overflow-tooltip width="300">
              <template slot-scope="scope">{{scope.row.province}}{{scope.row.city}}{{scope.row.area}}{{scope.row.address}}</template>
           </el-table-column>
           <el-table-column fixed="right" label="操作" width="180">
             <template slot-scope="scope">
-              <el-button type="text" size="small" @click="toRouter('/operatorManage')">操作员</el-button>
-              <el-button type="text" size="small" @click="toRouter('/QRcode')">收款码</el-button>
-              <el-button type="text" size="small" @click="toRouter('/bill')">账单</el-button>
+              <el-button type="text" size="small" @click="toRouter('/operatorManage?shopname=' + scope.row.shopname)">操作员</el-button>
+              <el-button type="text" size="small" @click="toRouter('/QRcode?shopname=' + scope.row.shopname)">收款码</el-button>
+              <el-button type="text" size="small" @click="toRouter('/bill?shopname=' + scope.row.shopname)">账单</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -112,7 +112,7 @@ export default {
       tableData: [],
       searchs: {
         shopname: "",
-        merchantname: "",
+        merchantname: this.$route.query.merchantname,
         responsiblename: "",
         phone: "",
         province: "",

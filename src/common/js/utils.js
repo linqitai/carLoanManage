@@ -11,7 +11,46 @@ export function getLimiteText(value) {
     return value
   }
 }
-
+export function sexFilter(row) {
+  let sex = '';
+  switch (row.sex) {
+    case 1:
+      sex = '男';
+      break;
+    case 2:
+      sex = '女';
+      break;
+  }
+  return sex;
+}
+// export const TypeList = [{
+//   value: '',
+//   label: '无'
+// }, {
+//   value: '1',
+//   label: '店老板'
+// }, {
+//   value: '2',
+//   label: '管理员'
+// }, {
+//   value: '3',
+//   label: '收银员'
+// }]
+export function roleFilter(row) {
+  let type = '';
+  switch (row.type) {
+    case 1:
+      type = '店老板';
+      break;
+    case 2:
+      type = '管理员';
+      break;
+    case 3:
+      type = '收银员';
+      break;
+  }
+  return type;
+}
 export const currency = (v) => {
   var regStrs = [
     ['^0(\\d+)$', '$1'], // 禁止录入整数部分两位以上，但首位为0

@@ -1,6 +1,6 @@
 export const ERR_OK = 0
-    // mtypeList: ['全部', '自然人', '企业商户', '个体工商户'], runTYpeList: ['全部', '美食', '超市便利店',
-    // '休闲娱乐', '购物', '爱车', '生活服务', '教育培训', '医疗健康', '航旅', '专业销售/批发', '政府/社会组织'],
+// mtypeList: ['全部', '自然人', '企业商户', '个体工商户'], runTYpeList: ['全部', '美食', '超市便利店',
+// '休闲娱乐', '购物', '爱车', '生活服务', '教育培训', '医疗健康', '航旅', '专业销售/批发', '政府/社会组织'],
 export const experienceRoleList = [{
     value: '',
     label: '全部'
@@ -33,34 +33,34 @@ export const sexList = [{
 }, {
     value: '1',
     label: '男'
-  }, {
+}, {
     value: '2',
     label: '女'
-  }
+}
 ]
 export const sexTwoList = [
-  {
-    value: '',
-    label: '全部'
-  }, {
-    value: '2',
-    label: '自然人'
-  }, {
-    value: '3',
-    label: '企业商户'
-  }, {
-    value: '1',
-    label: '个体工商户'
-  }
+    {
+        value: '',
+        label: '全部'
+    }, {
+        value: '2',
+        label: '自然人'
+    }, {
+        value: '3',
+        label: '企业商户'
+    }, {
+        value: '1',
+        label: '个体工商户'
+    }
 ]
 export const runTYpeList = [
-  {
-    value: '1',
-    label: '男'
-  }, {
-    value: '2',
-    label: '女'
-}]
+    {
+        value: '1',
+        label: '男'
+    }, {
+        value: '2',
+        label: '女'
+    }]
 export const mtypeList = [{
     value: '',
     label: '全部'
@@ -75,42 +75,42 @@ export const mtypeList = [{
     label: '个体工商户'
 }]
 export const runTYpeList1 = [{
-        value: '',
-        label: '全部'
-    }, {
-        value: '1',
-        label: '美食'
-    }, {
-        value: '2',
-        label: '超市便利店'
-    }, {
-        value: '3',
-        label: '休闲娱乐'
-    }, {
-        value: '4',
-        label: '购物'
-    }, {
-        value: '5',
-        label: '爱车'
-    }, {
-        value: '6',
-        label: '生活服务'
-    }, {
-        value: '7',
-        label: '教育培训'
-    }, {
-        value: '8',
-        label: '医疗健康'
-    }, {
-        value: '9',
-        label: '航旅'
-    }, {
-        value: '10',
-        label: '专业销售/批发'
-    }, {
-        value: '11',
-        label: '政府/社会组织'
-    }]
+    value: '',
+    label: '全部'
+}, {
+    value: '1',
+    label: '美食'
+}, {
+    value: '2',
+    label: '超市便利店'
+}, {
+    value: '3',
+    label: '休闲娱乐'
+}, {
+    value: '4',
+    label: '购物'
+}, {
+    value: '5',
+    label: '爱车'
+}, {
+    value: '6',
+    label: '生活服务'
+}, {
+    value: '7',
+    label: '教育培训'
+}, {
+    value: '8',
+    label: '医疗健康'
+}, {
+    value: '9',
+    label: '航旅'
+}, {
+    value: '10',
+    label: '专业销售/批发'
+}, {
+    value: '11',
+    label: '政府/社会组织'
+}]
 export const statusList = [{
     value: '',
     label: '全部'
@@ -120,34 +120,20 @@ export const statusList = [{
 }, {
     value: '2',
     label: '待审核'
-  }, {
+}, {
     value: '4',
     label: '审核驳回'
-  }, {
+}, {
     value: '7',
     label: '网商审核中'
-  }, {
+}, {
     value: '6',
     label: '网商驳回'
-  }, {
+}, {
     value: '5',
     label: '正常使用'
-  }, {
+}, {
     value: '8',
-}, {
-    value: '3',
-    label: '审核驳回'
-}, {
-    value: '4',
-    label: '网商审核中'
-}, {
-    value: '5',
-    label: '网商驳回'
-}, {
-    value: '6',
-    label: '正常使用'
-}, {
-    value: '7',
     label: '禁用中'
 }]
 
@@ -405,69 +391,69 @@ export const TypeList = [{
 }]
 
 export const isUsingList = [
-  {
-    value: '',
-    label: '全部'
-  }, {
-    value: '0',
-    label: '否'
-  }, {
-    value: '1',
-    label: '是'
-  }
+    {
+        value: '',
+        label: '全部'
+    }, {
+        value: '0',
+        label: '否'
+    }, {
+        value: '1',
+        label: '是'
+    }
 ]
 
 export const dealResultList = [
-  {
-    value: '',
-    label: '全部'
-  }, {
-    value: '0',
-    label: '未处理'
-  }, {
-    value: '1',
-    label: '不处理'
-  }, {
-    value: '2',
-    label: '已处理'
-  }
+    {
+        value: '',
+        label: '全部'
+    }, {
+        value: '0',
+        label: '未处理'
+    }, {
+        value: '1',
+        label: '不处理'
+    }, {
+        value: '2',
+        label: '已处理'
+    }
 ]
 
 export const resultList = [
-  {
-    value: '0',
-    label: '未处理'
-  }, {
-    value: '1',
-    label: '不处理'
-  }, {
-    value: '2',
-    label: '已处理'
-  }
+    {
+        value: '0',
+        label: '未处理'
+    }, {
+        value: '1',
+        label: '不处理'
+    }, {
+        value: '2',
+        label: '已处理'
+    }
 ]
 
 export const manageTypeList = [
-  {
-    value: '1',
-    label: '仅有实体店'
-  }, {
-    value: '2',
-    label: '仅有网络渠道'
-  }, {
-    value: '3',
-    label: '实体网络渠道'
-  }
+    {
+        value: '1',
+        label: '仅有实体店'
+    }, {
+        value: '2',
+        label: '仅有网络渠道'
+    }, {
+        value: '3',
+        label: '实体网络渠道'
+    }
 ]
 
 export const memoList = [
-  {
-    value: '1',
-    label: '已联系上'
-  }, {
-    value: '2',
-    label: '未联系上'
-  }, {
-    value: '3',
-    label: '黑名单'
-  }
+    {
+        value: '1',
+        label: '已联系上'
+    }, {
+        value: '2',
+        label: '未联系上'
+    }, {
+        value: '3',
+        label: '黑名单'
+    }
 ]
