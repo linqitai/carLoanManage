@@ -7,11 +7,8 @@
     <div class="mr40 right">
       <el-dropdown trigger="click" @command="handleCommand">
         <span class="headerUserInfo">
-          <!-- <img class="userIcon left" src="../common/images/userIcon.png" alt="">
-                <div class="ml5 right">{{username}}</div> -->
-          <!-- <i class="fa fa-user-circle-o left" aria-hidden="true"></i> -->
-          <!-- <div class="userInfo">{{username}}</div> -->
-          <div class="userInfo">{{username}}</div>
+          <div class="userInfo left">{{username}}</div>
+          <div class="ml10 left">{{role}}</div>
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="loginout">退出</el-dropdown-item>
@@ -22,6 +19,7 @@
 </template>
 <script>
 import { userLoginOut, userInfo } from '../api/index'
+import { saveUserId } from 'common/js/cache'
 export default {
   data() {
     return {
@@ -40,7 +38,9 @@ export default {
           this.$router.push('/login')
         } else if (res.code === 0) {
           this.username = res.obj.username
-          // console.log('username:' + this.username)
+          this.role = res.obj.roleName
+          saveUserId(res.obj.userId)
+          // console.log('role:' + this.role)
         }
       })
     },
