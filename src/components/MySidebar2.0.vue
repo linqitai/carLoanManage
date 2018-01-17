@@ -1,6 +1,6 @@
 <template>
-	<div class="sidebar" @changeActiveIndex="changeActiveIndex">
-		<el-menu unique-opened router class="el-menu-vertical-demo menu" :default-active="activeIndex" text-color="#ffffff" active-text-color="#ffff8d" :collapse="isCollapse">
+	<div class="sidebar">
+		<el-menu unique-opened router class="el-menu-vertical-demo menu" :default-active="$route.path" text-color="#ffffff" active-text-color="#ffff8d" :collapse="isCollapse">
 			<template v-for="item in items">
 				<el-submenu :index="item.index" :key="item.index" class="borderTopParent">
 					<template slot="title">
@@ -251,9 +251,9 @@ export default {
   computed: {
   },
   methods: {
-    changeActiveIndex(index) {
-      this.activeIndex = index
-    }
+    // changeActiveIndex(index) {
+    //   this.activeIndex = index
+    // }
   },
   mounted() {
     // this.role = sessionStorage.getItem('role')
