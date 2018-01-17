@@ -71,9 +71,13 @@
               <div class="qrcode">
                 <img :src="showData.imageurl" />
               </div>
-              <div class="paymode"></div>
+              <div class="paymode">
+                <img class="logoIcon" src="../../../common/images/alipay.png" alt="">
+                <img class="logoIcon" src="../../../common/images/wxpay.png" alt="">
+              </div>
             </div>
           </div>
+          <el-button @click="download" class="down">下载</el-button>
         </el-dialog>
       </div>
       <div class="tableBottom">
@@ -135,6 +139,21 @@ export default {
     toRouter(index) {
       this.$router.push(index);
     },
+    download() {
+      html2canvas(document.getElementById('zsycode'), {
+        useCORS: true
+      })
+      .then(function(canvas) {
+        var imgUri = canvas.toDataURL("image/png")
+        var createAndDownloadFile = function(fileName, content) {
+            var aTag = document.createElement('a');
+            aTag.download = fileName;
+            aTag.href = content;
+            aTag.click();
+        }
+        createAndDownloadFile('qrcode.png', imgUri)
+      })
+    },
     search() {
       // ...
     },
@@ -190,6 +209,9 @@ export default {
       font-size: 18px;
       color: #00917e;
       line-height: 50px;
+      background-color: #fff;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
       .logoIcon {
         vertical-align: middle;
       }
@@ -198,8 +220,10 @@ export default {
       }
     }
     .code-content {
-      background: #00917e;
-      height: 285px;
+        background: #00917e;
+        height: 285px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
       .pay {
         height: 46px;
         line-height: 46px;
@@ -212,12 +236,22 @@ export default {
         width: 160px;
         margin: 0 auto;
         height: 160px;
+        img {
+          width: 160px;
+          height: 160px;
+        }
       }
-      img {
-        width: 160px;
-        height: 160px;
+      .paymode {
+        img {
+          width: 30px;
+          height: 30px;
+          margin: 10px 15px;
+        }
       }
     }
+  }
+  .down {
+    margin-top: 10px;
   }
   .qrDialog {
     .el-dialog__title {
