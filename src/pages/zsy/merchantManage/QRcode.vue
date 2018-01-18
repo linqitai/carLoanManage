@@ -49,7 +49,11 @@
           <el-table-column prop="shopid" label="编号"></el-table-column>
           <el-table-column prop="shopname" label="所属门店"></el-table-column>
           <el-table-column prop="merchantname" label="所属商户"></el-table-column>
-          <el-table-column prop="created" label="添加时间"></el-table-column>
+          <el-table-column prop="created" label="添加时间">
+            <template slot-scope="scope">
+              {{scope.row.created | time}}
+            </template>
+          </el-table-column>
           <el-table-column prop="imageurl" fixed="right" label="图片">
             <template slot-scope="scope">
               <el-button @click="imgDetail(scope.$index,tableData)" type="text" size="small">查看</el-button>
@@ -91,6 +95,7 @@
 <script type="text/ecmascript-6">
 import { mtypeList, runTYpeList, statusList } from "common/js/config";
 import { zsyQRcode } from "@/api/index.js";
+import { getDateHM, getDate } from 'common/js/times'
 export default {
   data() {
     return {
@@ -126,6 +131,9 @@ export default {
   filters: {
     openClose(value) {
       return value === 1 ? "禁用" : value === 0 ? "启用" : "---";
+    },
+    time(value) {
+      return getDateHM(value)
     }
   },
   created() {
