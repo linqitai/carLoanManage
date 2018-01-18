@@ -49,7 +49,11 @@
           <el-table-column prop="shopid" label="编号"></el-table-column>
           <el-table-column prop="shopname" label="所属门店"></el-table-column>
           <el-table-column prop="merchantname" label="所属商户"></el-table-column>
-          <el-table-column prop="created" label="添加时间"></el-table-column>
+          <el-table-column prop="created" label="添加时间">
+            <template slot-scope="scope">
+              {{scope.row.created | time}}
+            </template>
+          </el-table-column>
           <el-table-column prop="imageurl" fixed="right" label="图片">
             <template slot-scope="scope">
               <el-button @click="imgDetail(scope.$index,tableData)" type="text" size="small">查看</el-button>
@@ -71,9 +75,13 @@
               <div class="qrcode">
                 <img :src="showData.imageurl" />
               </div>
-              <div class="paymode"></div>
+              <div class="paymode">
+                <img class="logoIcon" src="../../../common/images/alipay.png" alt="">
+                <img class="logoIcon" src="../../../common/images/wxpay.png" alt="">
+              </div>
             </div>
           </div>
+          <el-button @click="download" class="down">下载</el-button>
         </el-dialog>
       </div>
       <div class="tableBottom">
@@ -87,6 +95,7 @@
 <script type="text/ecmascript-6">
 import { mtypeList, runTYpeList, statusList } from "common/js/config";
 import { zsyQRcode } from "@/api/index.js";
+import { getDateHM, getDate } from 'common/js/times'
 export default {
   data() {
     return {
@@ -122,6 +131,9 @@ export default {
   filters: {
     openClose(value) {
       return value === 1 ? "禁用" : value === 0 ? "启用" : "---";
+    },
+    time(value) {
+      return getDateHM(value)
     }
   },
   created() {
@@ -134,6 +146,21 @@ export default {
     },
     toRouter(index) {
       this.$router.push(index);
+    },
+    download() {
+      html2canvas(document.getElementById('zsycode'), {
+        useCORS: true
+      })
+      .then(function(canvas) {
+        var imgUri = canvas.toDataURL("image/png")
+        var createAndDownloadFile = function(fileName, content) {
+            var aTag = document.createElement('a');
+            aTag.download = fileName;
+            aTag.href = content;
+            aTag.click();
+        }
+        createAndDownloadFile('qrcode.png', imgUri)
+      })
     },
     search() {
       // ...
@@ -190,6 +217,9 @@ export default {
       font-size: 18px;
       color: #00917e;
       line-height: 50px;
+      background-color: #fff;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
       .logoIcon {
         vertical-align: middle;
       }
@@ -198,8 +228,10 @@ export default {
       }
     }
     .code-content {
-      background: #00917e;
-      height: 285px;
+        background: #00917e;
+        height: 285px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
       .pay {
         height: 46px;
         line-height: 46px;
@@ -212,12 +244,22 @@ export default {
         width: 160px;
         margin: 0 auto;
         height: 160px;
+        img {
+          width: 160px;
+          height: 160px;
+        }
       }
-      img {
-        width: 160px;
-        height: 160px;
+      .paymode {
+        img {
+          width: 30px;
+          height: 30px;
+          margin: 10px 15px;
+        }
       }
     }
+  }
+  .down {
+    margin-top: 10px;
   }
   .qrDialog {
     .el-dialog__title {

@@ -80,10 +80,6 @@
           </div>
           <div class="element" @click="search">
             <el-button size="medium" class="searchBtn">查询</el-button>
-            <div class="right ml10" @click="moreBtn">
-              <img class="moreIcon" src="../../../common/images/arrow_down.png" v-if="!searchCell">
-              <img class="moreIcon iconTransform" src="../../../common/images/arrow_down.png" v-if="searchCell">
-            </div>
           </div>
         </div>
       </div>
@@ -240,9 +236,6 @@ export default {
         return
       }
       this.searchData()
-    },
-    moreBtn() {
-      this.searchCell = !this.searchCell
     },
     handleSizeChange(val) {
       this.searchs.pageSize = val;
