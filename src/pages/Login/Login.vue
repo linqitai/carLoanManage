@@ -13,7 +13,7 @@
           <el-input type="password" placeholder="密码" auto-complete="true" v-model="ruleForm.password" @keyup.enter.native="tonext(2)"></el-input>
         </el-form-item>
         <el-form-item prop="">
-          <el-input type="text" placeholder="验证码" v-model="ruleForm.inputCode" style="width:220px;" @keyup.enter.native="submitForm('ruleForm')"></el-input>
+          <!-- <el-input type="text" placeholder="验证码" v-model="ruleForm.inputCode" style="width:220px;" @keyup.enter.native="submitForm('ruleForm')"></el-input> -->
           <img class="inputCodeImg" :src="imgUrl" alt="" @click="img">
         </el-form-item>
         <div class="loginBtn">

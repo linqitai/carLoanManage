@@ -257,3 +257,8 @@ export const zsPToken = (params) => {
 export const cityList = (params) => {
     return http.fetchPost(zsy + '/common/district/list.do', params)
 }
+
+// 获取拓展人列表
+export const developPersonList = (params) => {
+    return http.fetchPost(zsy + '/zcash/user/list.do', params)
+}
