@@ -97,15 +97,15 @@
         <div class="tableWrapper">
           <el-table :data="tableData" stripe>
             <el-table-column fixed="left" prop="applyTime" label="申请时间" width="150"></el-table-column>
-            <el-table-column prop="merchantname" label="商户名称" show-overflow-tooltip width="200"></el-table-column>
+            <el-table-column prop="merchantname" label="商户名称" show-overflow-tooltip show-overflow-tooltip></el-table-column>
             <el-table-column prop="merchanttype" label="商户类型" :formatter="shopType" width="120"></el-table-column>
             <el-table-column prop="operatetype" label="经营类目" :formatter="manageType" width="120"></el-table-column>
-            <el-table-column prop="address" label="店铺地址" width="150" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="address" label="店铺地址" show-overflow-tooltip></el-table-column>
             <el-table-column prop="responsiblename" label="负责人" width="100"></el-table-column>
             <el-table-column prop="sex" label="性别" :formatter="sexFilter" width="50"></el-table-column>
             <el-table-column prop="phone" label="手机号码" width="120"></el-table-column>
-            <el-table-column prop="isaudit" label="状态" :formatter="stateType" width="150"></el-table-column>
             <el-table-column prop="agentName" label="代理商" width="70"></el-table-column>
+            <el-table-column prop="isaudit" label="状态" :formatter="stateType" width="150" fixed="right"></el-table-column>
             <el-table-column label="操作" width="150" fixed="right">
               <template slot-scope="scope">
                 <el-button type="text" size="small" v-if="scope.row.isaudit !== 2 && scope.row.isaudit !== 6" @click="detail(scope.row, false)">详情

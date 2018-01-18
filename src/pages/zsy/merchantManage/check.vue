@@ -30,7 +30,7 @@
               <el-checkbox @change="T0Click1" class="fl" :checked="clearmode" :disabled="!clearmode">支持</el-checkbox>
             </span>
           </div>
-          <!-- <div class="lineText">
+          <div class="lineText">
             <span class="label">渠道类型</span>
             <span class="value">
               <span class="width80 left">
@@ -49,8 +49,8 @@
                 <span class="t1money" v-if="isDisabledHB4">T+0费率&#x3000;<input type="text" placeholder="0.38" v-model="wechatratesT0"> %</span>
               </span>
             </span>
-          </div> -->
-          <!-- <div class="lineText">
+          </div>
+          <div class="lineText">
             <span class="label">交易类型</span>
             <el-checkbox-group v-model="tradetypes">
               <el-checkbox label="01">正扫交易</el-checkbox>
@@ -58,8 +58,8 @@
               <el-checkbox label="06">退款交易</el-checkbox>
               <el-checkbox label="08">动态订单扫码</el-checkbox>
             </el-checkbox-group>
-          </div> -->
-          <!-- <div class="lineText">
+          </div>
+          <div class="lineText">
             <span class="label">禁用支付方式</span>
             <el-checkbox-group v-model="deniedpays" @change="handleCheckedCitiesChange2">
               <span class="value">
@@ -73,7 +73,7 @@
           </div>
           <div class="values" v-if="isDisabledHB">
             <el-checkbox class="fl" label="03" key="3">买家不可使用(花呗分期)</el-checkbox>
-          </div> -->
+          </div>
         </div>
       </div>
       <div class="infoBox">
@@ -89,7 +89,7 @@
             </span>
           </div>
           <div class="lineText">
-            <span class="label">APPid</span>
+            <span class="label">APPID</span>
             <span class="value"><input type="text" v-if="radio == '2'" v-model="appId"></span>
           </div>
         </div>
@@ -99,21 +99,21 @@
         <div class="contentText">
           <div class="lineText">
             <span class="label">申请时间</span>
-            <span class="value">123</span>
+            <span class="value">{{applyTime | format}}</span>
           </div>
         </div>
       </div>
       <div class="infoBox">
         <div class="title">备忘信息</div>
         <div class="contentText">
-          <div class="lineText">
-            <span class="label">公众号类型</span>
-            <span class="value">123</span>
-          </div>
+          <!-- <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 4 && infor.isaudit !== 7 && infor.isaudit !== 2 && infor.isaudit !== 6">
+                <span class="label">公众号类型</span>
+                <span class="value">{{publicNumType | publicNumTypeState}}</span>
+              </div> -->
           <el-table stripe>
-            <el-table-column fixed prop="date" label="时间" width="180"></el-table-column>
+            <el-table-column fixed prop="created" label="时间" width="180"></el-table-column>
             <el-table-column prop="name" label="负责人" width="120"></el-table-column>
-            <el-table-column prop="word" label="备忘信息" width="400"></el-table-column>
+            <el-table-column prop="memoContent" label="备忘信息" width="400" show-overflow-tooltip=""></el-table-column>
           </el-table>
           <el-button size="medium" class="btn mt10" @click="memoDialog">备忘</el-button>
           <el-dialog width="40%" title="备忘" :visible.sync="showMemoType">
@@ -168,6 +168,8 @@
 
 <script type="text/ecmascript-6">
 import { memoList } from 'common/js/config'
+import { getDetailInfo } from 'common/js/cache'
+import { format } from 'common/js/times'
 import { auditMybank, updateLocalClearmode, sendMsgCode, save } from '@/api/index'
 
 export default {
@@ -198,23 +200,31 @@ export default {
       isDisabledHB3: 1,
       isDisabledHB4: true,
       memoStatus: '',
-      memoContent: ''
+      memoContent: '',
+      supportT0: ''
+    }
+  },
+  filters: {
+    format(value) {
+      return format(value)
+    },
+    publicNumTypeState(value) {
+      return value === 1 ? '合作机构公众号（捷信安保公众号）' : value === 2 ? '商户自有公众号' : value === 3 ? '其他商户公众号' : '---'
     }
   },
   created() {
-    console.log(this.$route.params);
-    this.customerid = this.$route.params.customerid;
-    this.autidId = this.$route.params.autidId;
-    this.phone = this.$route.params.phone;
-    this.supportT0 = this.$route.params.supportT0;
-    this.clearmode = this.$route.params.clearmode === 2 ? 1 : 0;
-    console.log('this.$route.params.clearmode:' + this.$route.params.clearmode)
-    console.log('this.clearmode:' + this.clearmode)
-    console.log('this.supportT0' + this.supportT0)
-    this.publicNumType = this.$route.params.publicNumType
-    console.log('this.publicNumType' + this.publicNumType)
-    this.radio = JSON.stringify(this.$route.params.publicNumType)
-    console.log('this.radio' + this.radio)
+    let detailInfo = getDetailInfo()
+    console.log(`detailInfo:`)
+    console.log(detailInfo)
+    this.clearmode = detailInfo.clearmode === 2 ? true : false
+    this.customerid = detailInfo.customerid;
+    this.autidId = detailInfo.autidId;
+    this.phone = detailInfo.phone;
+    this.supportT0 = detailInfo.supportT0;
+    // this.clearmode = this.$route.params.clearmode === 2 ? 1 : 0;
+    this.publicNumType = detailInfo.publicNumType
+    this.radio = JSON.stringify(detailInfo.publicNumType)
+    this.applyTime = detailInfo.applyTime
   },
   methods: {
     changeHB(val) {
@@ -280,74 +290,14 @@ export default {
     },
     radioClick(val) {
       console.log(val)
-      if (this.radio === '1') {
-      } else {
-      }
-      console.log(this.radio)
     },
     memoDialog() {
       this.showMemoType = true
     },
     sendToBankBtn() {
+      this.sendBank()
       this.sureToBankDialogVisible = true
     },
-    // sendBank() {
-    //   if (this.clearmode === 1) {
-    //     this.clearmode = '2'
-    //     this.supportT0 = '1'
-    //   } else {
-    //     this.clearmode = '1'
-    //     this.supportT0 = '2'
-    //   }
-    //   if (this.radio === undefined) {
-    //     this.$message({
-    //       message: `请选择关注的公众号`
-    //     })
-    //     return
-    //   }
-    //   let params = {
-    //     customerid: parseInt(this.customerid),
-    //     clearmode: parseInt(this.clearmode),
-    //     supportT0: parseInt(this.supportT0),
-    //     supportAli: parseInt(this.supportAliValue),
-    //     supportWechat: parseInt(this.supportWechatValue),
-    //     aliratesT0: this.aliratesT0.length !== 0 ? this.aliratesT0 / 100 : '',
-    //     aliratesT1: this.aliratesT1.length !== 0 ? this.aliratesT1 / 100 : '',
-    //     wechatratesT0: this.wechatratesT0.length !== 0 ? this.wechatratesT0 / 100 : '',
-    //     wechatratesT1: this.wechatratesT1.length !== 0 ? this.wechatratesT1 / 100 : '',
-    //     tradetypes: this.tradetypes.toString(),
-    //     deniedpays: this.deniedpays.toString(),
-    //     publicNumType: this.radio,
-    //     appId: this.appId,
-    //     supportStage: this.supportStageValue
-    //   }
-    //   updateLocalClearmode(params).then(res => {
-    //     if (res.code === 200) {
-    //       this.$message({
-    //         type: 'success',
-    //         message: `您已成功保存信息`
-    //       })
-    //       if (this.clearmode === '1') {
-    //         this.sureToBankDialogVisible = true
-    //         this.showEditMobile = false
-    //       } else {
-    //         this.sureToBankDialogVisible = false
-    //         this.showEditMobile = true
-    //       }
-    //     }
-    //     if (res.code === 400) {
-    //       this.$message({
-    //         message: `请修改已入驻未审核的商户(该用户审核未通过网商)`
-    //       })
-    //       this.sureToBankDialogVisible = false
-    //     }
-    //   }).catch(res => {
-    //     this.$message({
-    //       type: 'fail',
-    //       message: `保存信息失败`
-    //     })
-    //   })
-    // },
     sendBankYes() {
       let params = {
         customerid: this.customerid,
@@ -422,6 +372,72 @@ export default {
       console.log(this.tradetypes.toString());
     },
     handleCheckedCitiesChange2(val) {
+    },
+    sendBank() {
+      // if (this.clearmode === 1) {
+      //   this.clearmode = '2'
+      //   this.supportT0 = '1'
+      // } else {
+      //   this.clearmode = '1'
+      //   this.supportT0 = '2'
+      // }
+      if (this.radio === undefined) {
+        this.$message({
+          message: `请选择关注的公众号`
+        })
+        return
+      }
+      console.log('this.clearmode:' + this.clearmode)
+      console.log('this.radio:' + this.radio)
+      let params = {
+        customerid: parseInt(this.customerid),
+        clearmode: this.clearmode ? 2 : 1, // 1:结算到银行卡  2：结算到余利宝
+        supportT0: this.supportT0 ? this.supportT0 : '',
+        supportAli: parseInt(this.supportAliValue),
+        supportWechat: parseInt(this.supportWechatValue),
+        aliratesT0: this.aliratesT0.length !== 0 ? this.aliratesT0 / 100 : '',
+        aliratesT1: this.aliratesT1.length !== 0 ? this.aliratesT1 / 100 : '',
+        wechatratesT0: this.wechatratesT0.length !== 0 ? this.wechatratesT0 / 100 : '',
+        wechatratesT1: this.wechatratesT1.length !== 0 ? this.wechatratesT1 / 100 : '',
+        tradetypes: this.tradetypes.toString(),
+        deniedpays: this.deniedpays.toString(),
+        publicNumType: (this.radio === 'null' || this.radio === null) ? '' : this.radio,
+        appId: this.appId,
+        supportStage: this.supportStageValue
+      }
+      console.log('===============')
+      console.log('radio:' + this.radio)
+      console.log('appId:' + this.appId)
+      console.log('params:')
+      console.log(params)
+      updateLocalClearmode(params).then(res => {
+        console.log('res：')
+        console.log(res)
+        if (res.code === 200) {
+          this.$message({
+            type: 'success',
+            message: `您已成功保存信息`
+          })
+          if (this.clearmode === '1') {
+            this.sureToBankDialogVisible = true
+            this.showEditMobile = false
+          } else {
+            this.sureToBankDialogVisible = false
+            this.showEditMobile = true
+          }
+        }
+        if (res.code === 400) {
+          this.$message({
+            message: `请修改已入驻未审核的商户(该用户审核未通过网商)`
+          })
+          this.sureToBankDialogVisible = false
+        }
+      }).catch(res => {
+        this.$message({
+          type: 'fail',
+          message: `保存信息失败`
+        })
+      })
     }
   }
 }

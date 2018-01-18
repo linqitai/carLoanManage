@@ -21,6 +21,7 @@
     <el-checkbox-group v-model="checks" @change="checksEvent">
       <div class="allWrapper">
         <div class="infoBox">
+          <div class="title" style="color:red" v-show="infor.isaudit === 6">审核失败原因：{{infor.failReason}}</div>
           <div class="title">店铺信息</div>
           <div class="contentText">
             <div class="lineText">
@@ -34,7 +35,7 @@
                 <input type="text" v-if="newObj.merchantname.check" v-model="newObj.merchantname.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
               </div>
             </div>
-            <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 4 && infor.isaudit !== 7">
+            <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 4 && infor.isaudit !== 6 && infor.isaudit !== 7">
               <span class="label">商户简称</span>
               <span class="value">{{infor.abbreviation}}</span>
               <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
@@ -66,7 +67,7 @@
                 <input type="text" v-if="newObj.merchanttype.check" v-model="newObj.merchanttype.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
               </div>
             </div>
-            <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 4 && infor.isaudit !== 7">
+            <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 4 && infor.isaudit !== 6 && infor.isaudit !== 7">
               <span class="label">商户号</span>
               <span class="value">
                 <span v-if="infor.merchantid">{{infor.merchantid}}</span>
@@ -78,7 +79,7 @@
                 <input type="text" v-if="newObj.merchantid.check" v-model="newObj.merchantid.errorText" class="audit fl" placeholder="最多输入15个字">
               </div>
             </div>
-            <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 4 && infor.isaudit !== 7">
+            <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 4 && infor.isaudit !== 6 && infor.isaudit !== 7">
               <span class="label">登录账号</span>
               <span class="value">{{infor.userid}}</span>
               <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
@@ -171,7 +172,7 @@
             </div>
             <div class="lineText">
               <span class="label">店铺地址</span>
-              <span class="value">浙江省杭州市西湖区郡原公元里13幢5楼</span>
+              <span class="value">{{infor.province+infor.city+infor.area+infor.address}}</span>
               <i v-if="status===statusNormal && infor.isaudit === 5" class="iconfont icon-bianji-copy ml10 fontSizeM" @click="showEditStoreAddress=true"></i>
               <el-dialog width="40%" title="编辑店铺地址" :visible.sync="showEditStoreAddress">
                 <div class="element">
@@ -416,7 +417,7 @@
             </div>
             <div class="lineText" v-if="infor.merchanttype === 3">
               <span class="label">账户名称</span>
-              <span class="value">{{infor.openaccount}}</span>
+              <span class="value">{{infor.merchantname}}</span>
               <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
                 <el-checkbox :label="Object.assign(newObj.openaccount, {'journeys': 4,'errorFlags': 1})" class="fl">
                   未通过
@@ -436,7 +437,7 @@
             </div>
             <div class="lineText" v-if="infor.merchanttype === 3">
               <span class="label">对公账号</span>
-              <span class="value">{{infor.userid}}</span>
+              <span class="value">{{infor.banknumbe}}</span>
               <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
                 <el-checkbox :label="Object.assign(newObj.userid, {'journeys': 4,'errorFlags': 1})" class="fl">未通过
                 </el-checkbox>
@@ -445,7 +446,7 @@
             </div>
             <div class="lineText">
               <span class="label">开户行</span>
-              <span class="value">{{infor.bank | bankState}}</span>
+              <span class="value">{{infor.bankname}}</span>
               <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
                 <el-checkbox :label="Object.assign(newObj.bank, {'journeys': 4,'errorFlags': 1})" class="fl">未通过
                 </el-checkbox>
@@ -636,20 +637,16 @@
               <span class="label">审核人</span>
               <span class="value">{{infor.operatorname}}</span>
             </div>
-            <div class="lineText" v-if="infor.isaudit === 6">
-              <span class="label">审核失败原因</span>
-              <span class="value">{{infor.failReason}}</span>
-            </div>
           </div>
         </div>
         <div class="infoBox mb20">
           <div class="title">备忘信息</div>
           <div class="contentText mtb10">
             <el-table :data="tableData" stripe>
-              <el-table-column prop="created" label="时间" width="180"></el-table-column>
+              <el-table-column prop="created" label="时间" width="180" :formatter="formatTable"></el-table-column>
               <el-table-column prop="name" label="负责人" width="120"></el-table-column>
               <el-table-column prop="memoStatus" label="状态" width="100" :formatter="memoStatusType"></el-table-column>
-              <el-table-column prop="memoContent" label="备忘信息" width="200"></el-table-column>
+              <el-table-column prop="memoContent" label="备忘信息" width="200" show-overflow-tooltip=""></el-table-column>
             </el-table>
             <el-button size="medium" class="btn mt10" @click="memoDialog">备忘</el-button>
             <el-dialog width="40%" title="备忘" :visible.sync="showMemoType">
@@ -692,7 +689,7 @@
 // import { mapGetters } from 'vuex'
 import { manageTypeList, runTYpeList1, memoList } from 'common/js/config'
 import { format } from 'common/js/times'
-import { getCurrentRow, getUserId } from 'common/js/cache'
+import { getCurrentRow, getUserId, saveDetailInfo } from 'common/js/cache'
 import { Loading } from 'element-ui'
 import {
   shopEdit,
@@ -920,6 +917,9 @@ export default {
     // this.row = getCurrentRow()
   },
   methods: {
+    formatTable(row, col, val) {
+      return format(row.created)
+    },
     previewIndentity(index) {
       this.$preview.open(index, this.listIndentity)
     },
@@ -1015,32 +1015,45 @@ export default {
       this.infor = (await customerDetails(params)).result
       console.log('intoSearch===1')
       if (this.infor.images.length > 0) {
-        console.log('intoSearch===2')
         // this.imgs = [...this.infor.images]
         this.imgs = this.infor.images
         console.log(`imgs>0=${this.imgs.length}:`)
         console.log(this.imgs)
-        if (this.infor.images[0]) {
-          this.listIndentity[0].src = this.infor.images[0].path
+        // imageType 2:身份证正面 3:身份证反面
+        for (let i = 0; i < this.imgs.length; i++) {
+          if ((this.imgs[i].path !== null || this.imgs[i].path !== 'null') && this.imgs[i].imageType === 2) {
+            this.listIndentity[0].src = this.imgs[i].path
+          } else if ((this.imgs[i].path !== null || this.imgs[i].path !== 'null') && this.imgs[i].imageType === 3) {
+            this.listIndentity[1].src = this.imgs[i].path
+          } else if ((this.imgs[i].path !== null || this.imgs[i].path !== 'null') && this.imgs[i].imageType === 4) {
+            this.listIndentity[2].src = this.imgs[i].path
+          } else if ((this.imgs[i].path !== null || this.imgs[i].path !== 'null') && this.imgs[i].imageType === 1) {
+            this.listIndentity[3].src = this.imgs[i].path
+          } else if ((this.imgs[i].path !== null || this.imgs[i].path !== 'null') && this.imgs[i].imageType === 6) {
+            this.listIndentity[4].src = this.imgs[i].path
+          }
         }
-        if (this.infor.images[1]) {
-          this.listIndentity[1].src = this.infor.images[1].path
-        }
-        if (this.infor.images[2]) {
-          this.listIndentity[2].src = this.infor.images[2].path
-        }
-        if (this.infor.images[3]) {
-          this.listIndentity[3].src = this.infor.images[3].path
-        }
-        if (this.infor.images[4]) {
-          this.listIndentity[4].src = this.infor.images[4].path
-        }
+        // if (this.infor.images[0]) {
+        //   this.listIndentity[0].src = this.infor.images[0].path
+        // }
+        // if (this.infor.images[1]) {
+        //   this.listIndentity[1].src = this.infor.images[1].path
+        // }
+        // if (this.infor.images[2]) {
+        //   this.listIndentity[2].src = this.infor.images[2].path
+        // }
+        // if (this.infor.images[3]) {
+        //   this.listIndentity[3].src = this.infor.images[3].path
+        // }
+        // if (this.infor.images[4]) {
+        //   this.listIndentity[4].src = this.infor.images[4].path
+        // }
         console.log('listIndentitySetEnd：images==>')
         console.log(this.listIndentity)
       }
 
       this.phone = this.infor.phone;
-      this.supportT0 = this.infor.supportT0;
+      this.supportT0 = this.infor.supportT0 ? this.infor.supportT0 : 2;
       this.clearmode = this.infor.clearmode === 2 ? 1 : 0;
       this.publicNumType = this.infor.publicNumType
       this.infor.tradetypes ? this.tradetypes = this.infor.tradetypes.split(',') : this.tradetypes = []
@@ -1481,17 +1494,18 @@ export default {
       }
       // // console.log(this.errorMsgs, this.errorFlags, this.errorKeys, this.journeys);
       if (!initState) {
-        this.$router.push({
-          name: '二级审核',
-          params: {
-            supportT0: this.supportT0,
-            customerid: this.customerid,
-            autidId: this.autidId,
-            phone: this.phone,
-            clearmode: this.clearmode,
-            publicNumType: this.publicNumType
-          }
-        })
+        let params = {
+          supportT0: this.supportT0,
+          customerid: this.customerid,
+          autidId: this.autidId,
+          phone: this.phone,
+          clearmode: this.clearmode,
+          publicNumType: this.publicNumType,
+          applyTime: this.infor.created,
+          isaudit: this.infor.isaudit
+        }
+        saveDetailInfo(params)
+        this.$router.push('/merchantManage/check')
       }
     },
     // 备忘状态过滤
