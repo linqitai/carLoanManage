@@ -141,7 +141,7 @@ export default {
 .isEdit{
   position: absolute;
   top: 10px;
-  right: 20px;
+  right: 110px;
 }
 .bottomTable{
   border-top: 1px solid #efefef;

@@ -38,6 +38,15 @@ export const sexList = [{
     label: '女'
 }
 ]
+export const sexAddList = [
+  {
+      value: '1',
+      label: '男'
+  }, {
+      value: '2',
+      label: '女'
+  }
+]
 export const sexTwoList = [
     {
         value: '',

@@ -49,7 +49,11 @@
           <el-table-column prop="shopid" label="编号"></el-table-column>
           <el-table-column prop="shopname" label="所属门店"></el-table-column>
           <el-table-column prop="merchantname" label="所属商户"></el-table-column>
-          <el-table-column prop="created" label="添加时间"></el-table-column>
+          <el-table-column prop="created" label="添加时间">
+            <template slot-scope="scope">
+              {{scope.row.created | time}}
+            </template>
+          </el-table-column>
           <el-table-column prop="imageurl" fixed="right" label="图片">
             <template slot-scope="scope">
               <el-button @click="imgDetail(scope.$index,tableData)" type="text" size="small">查看</el-button>
@@ -57,11 +61,27 @@
           </el-table-column>
         </el-table>
         <!-- <el-table :data="tableData" stripe style="min-width:1060px;max-width:1620px;width: 1150px;"></el-table> -->
-        <el-dialog class="qrDialog" prop="shopname" :title='activeShop + "收银二维码"' :data="tableData" :visible.sync="dialogVisible" width="500" :before-close="handleClose">
+        <el-dialog class="qrDialog" prop="showData" :title='showData.codename' :data="tableData" :visible.sync="dialogVisible" width="500" :before-close="handleClose">
           <div class="storeText">
-            <span>所属门店:{{shopname}}</span>
+            <span>所属门店:{{showData.shopname}}</span>
           </div>
-          <img :src="clickshowimg" />
+          <div id="zsycode">
+            <div class="code-head">
+              <img class="logoIcon" src="../../../common/images/logo.png" alt="">
+              <span class="head-title">臻收银</span>
+            </div>
+            <div class="code-content">
+              <div class="pay">扫一扫，向我付钱</div>
+              <div class="qrcode">
+                <img :src="showData.imageurl" />
+              </div>
+              <div class="paymode">
+                <img class="logoIcon" src="../../../common/images/alipay.png" alt="">
+                <img class="logoIcon" src="../../../common/images/wxpay.png" alt="">
+              </div>
+            </div>
+          </div>
+          <el-button @click="download" class="down">下载</el-button>
         </el-dialog>
       </div>
       <div class="tableBottom">
@@ -75,10 +95,12 @@
 <script type="text/ecmascript-6">
 import { mtypeList, runTYpeList, statusList } from "common/js/config";
 import { zsyQRcode } from "@/api/index.js";
+import { getDateHM, getDate } from 'common/js/times'
 export default {
   data() {
     return {
-      activeShop: '',
+      // activeShop: '',
+      showData: {},
       dialogVisible: false,
       maxLengthMobile: 11,
       maxLengthIdentity: 18,
@@ -95,7 +117,7 @@ export default {
       areaList: "",
       total: null,
       tableData: [],
-      shopname: "",
+      // shopname: "",
       searchs: {
         codename: "",
         shopname: this.$route.query.shopname,
@@ -109,6 +131,9 @@ export default {
   filters: {
     openClose(value) {
       return value === 1 ? "禁用" : value === 0 ? "启用" : "---";
+    },
+    time(value) {
+      return getDateHM(value)
     }
   },
   created() {
@@ -121,6 +146,21 @@ export default {
     },
     toRouter(index) {
       this.$router.push(index);
+    },
+    download() {
+      html2canvas(document.getElementById('zsycode'), {
+        useCORS: true
+      })
+      .then(function(canvas) {
+        var imgUri = canvas.toDataURL("image/png")
+        var createAndDownloadFile = function(fileName, content) {
+            var aTag = document.createElement('a');
+            aTag.download = fileName;
+            aTag.href = content;
+            aTag.click();
+        }
+        createAndDownloadFile('qrcode.png', imgUri)
+      })
     },
     search() {
       // ...
@@ -143,9 +183,10 @@ export default {
     imgDetail(index, rows) {
       this.rowIndex = index;
       this.dialogVisible = true;
-      this.activeShop = rows[index].shopname;
-      this.clickshowimg = rows[index].imageurl;
-      this.shopname = rows[index].shopname;
+      this.showData = rows[index]
+      // this.activeShop = rows[index].shopname;
+      // this.clickshowimg = rows[index].imageurl;
+      // this.shopname = rows[index].shopname;
     },
     searchData() {
       zsyQRcode(this.searchs).then(res => {
@@ -165,6 +206,61 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
+  #zsycode {
+    margin: 0 auto;
+    border: 1px solid #eee;
+    border-radius: 20px;
+    width: 310px;
+    height: 350px;
+    .code-head {
+      height: 65px;
+      font-size: 18px;
+      color: #00917e;
+      line-height: 50px;
+      background-color: #fff;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      .logoIcon {
+        vertical-align: middle;
+      }
+      .head-title {
+        vertical-align: -webkit-baseline-middle;
+      }
+    }
+    .code-content {
+        background: #00917e;
+        height: 285px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+      .pay {
+        height: 46px;
+        line-height: 46px;
+        color: #fff;
+        font-size: 20px;
+      }
+      .qrcode {
+        padding: 10px;
+        background: #fff;
+        width: 160px;
+        margin: 0 auto;
+        height: 160px;
+        img {
+          width: 160px;
+          height: 160px;
+        }
+      }
+      .paymode {
+        img {
+          width: 30px;
+          height: 30px;
+          margin: 10px 15px;
+        }
+      }
+    }
+  }
+  .down {
+    margin-top: 10px;
+  }
   .qrDialog {
     .el-dialog__title {
       display: block;

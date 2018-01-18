@@ -21,7 +21,13 @@
       <div class="searchCondition">
         <el-form ref="form" :model="form" label-width="100px">
           <el-form-item label="拓展人">
-            <el-input class="width200" v-model.trim="form.developPerson" placeholder="请输入拓展人" v-if="!readonly"></el-input>
+            <el-autocomplete
+              v-model="form.developPerson"
+              :fetch-suggestions="developPersonClick"
+              placeholder="请输入内容"
+              @select="handleSelect"
+              v-if="!readonly"
+            ></el-autocomplete>
             <span v-if="readonly">{{form.developPerson}}</span>
           </el-form-item>
           <el-form-item label="代理人">
@@ -117,8 +123,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { experienceRoleList, tableData, sexTwoList } from 'common/js/config'
-import { zsPToken, addAgents, viewAgents, cityList, updateAgents } from '@/api/index'
+import { experienceRoleList, tableData, sexAddList } from 'common/js/config'
+import { zsPToken, addAgents, viewAgents, cityList, updateAgents, developPersonList } from '@/api/index'
 export default {
   data() {
     return {
@@ -126,7 +132,7 @@ export default {
       form: {
         developPerson: null,
         agentName: null,
-        sexSelect: sexTwoList,
+        sexSelect: sexAddList,
         sex: null,
         idCardNo: null,
         mobilePhone: null,
@@ -154,7 +160,9 @@ export default {
       tableData: tableData,
       editPage: true,
       imageUrl1: null,
-      imageUrl2: null
+      imageUrl2: null,
+      developPersonList: [],
+      loading: false
     }
   },
   filters: {
@@ -212,6 +220,10 @@ export default {
     })
   },
   methods: {
+    handleSelect(item) {
+      console.log(item);
+      this.form.developPerson = item.operatorname;
+    },
     selectProvince() {
       let params = {
         level: "province",
@@ -442,11 +454,15 @@ export default {
     },
     handleAvatarSuccess1(res, file) {
       this.imageUrl1 = URL.createObjectURL(file.raw);
-      this.form.imageUrl1 = 'http://p0fhlnidz.bkt.clouddn.com/' + this.form.imgForm1.key;
+      console.log(this.form.imgForm1.key);
+      this.form.imageUrl1 = 'http://qiniujiexino2opublic.51icare.cn/' + this.form.imgForm1.key;
+      console.log(this.form.imageUrl1);
     },
     handleAvatarSuccess2(res, file) {
       this.imageUrl2 = URL.createObjectURL(file.raw);
-      this.form.imageUrl2 = 'http://p0fhlnidz.bkt.clouddn.com/' + this.form.imgForm2.key;
+      console.log(this.form.imgForm2.key);
+      this.form.imageUrl2 = 'http://qiniujiexino2opublic.51icare.cn/' + this.form.imgForm2.key;
+      console.log(this.form.imageUrl2);
     },
     beforeAvatarUpload1(file) {
       let key = file.name;
@@ -468,6 +484,29 @@ export default {
     },
     cancleSubmit() {
       this.$router.push('agent');
+    },
+    developPersonClick(value, cb) {
+      this.form.developPerson = value;
+      if (value === '') {
+        this.developPersonList = [];
+        cb(this.developPersonList);
+        return
+      }
+      let params = {
+        operatorname: value,
+        pageSize: 10,
+        pageIndex: 1
+      }
+      developPersonList(params).then(res => {
+        if (res.code === 200) {
+          this.developPersonList = res.result;
+          this.developPersonList.map(v => {
+            v.value = v.operatorname + "/" + v.mobile
+          })
+          cb(this.developPersonList)
+          console.log(this.developPersonList);
+        }
+      })
     }
   },
   components: {
