@@ -222,7 +222,7 @@ export default {
   methods: {
     handleSelect(item) {
       console.log(item);
-      this.form.developPerson = item.operatorname;
+      this.form.developPerson = item.realName;
     },
     selectProvince() {
       let params = {
@@ -493,7 +493,7 @@ export default {
         return
       }
       let params = {
-        operatorname: value,
+        realName: value,
         pageSize: 10,
         pageIndex: 1
       }
@@ -501,7 +501,7 @@ export default {
         if (res.code === 200) {
           this.developPersonList = res.result;
           this.developPersonList.map(v => {
-            v.value = v.operatorname + "/" + v.mobile
+            v.value = v.realName + "/" + v.mobile
           })
           cb(this.developPersonList)
           console.log(this.developPersonList);
