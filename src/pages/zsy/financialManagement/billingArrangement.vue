@@ -157,14 +157,6 @@ export default {
           label: '反扫'
         },
         {
-          value: 3,
-          label: '赎回'
-        },
-        {
-          value: 4,
-          label: '申购'
-        },
-        {
           value: 5,
           label: '静态二维码'
         }
