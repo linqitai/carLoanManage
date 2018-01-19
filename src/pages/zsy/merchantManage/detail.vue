@@ -446,7 +446,10 @@
             </div>
             <div class="lineText">
               <span class="label">开户行</span>
-              <span class="value">{{infor.bankname}}</span>
+              <span class="value">
+                <span v-if="infor.accounttype===2">{{infor.pbankname}}</span>
+                <span v-else>{{infor.bankname}}</span>
+              </span>
               <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
                 <el-checkbox :label="Object.assign(newObj.bank, {'journeys': 4,'errorFlags': 1})" class="fl">未通过
                 </el-checkbox>
@@ -666,7 +669,7 @@
                 </div>
               </div>
               <div slot="footer" class="dialog-footer">
-                <el-button size="medium" type="primary" @click="showMemoTypeYes">确定</el-button>
+                <el-button size="medium" type="primary" @click="sureAddMemo">确定</el-button>
               </div>
             </el-dialog>
             <el-button size="medium" class="btn mt10" @click="intoCheck" v-if="(checks.length === 0 && type) ? true : false">下一步</el-button>
@@ -1400,7 +1403,7 @@ export default {
     memoDialog() {
       this.showMemoType = true
     },
-    showMemoTypeYes() {
+    sureAddMemo() {
       if (this.memoStatus === '') {
         this.$message({
           message: `请选择状态`
@@ -1421,6 +1424,9 @@ export default {
       save(params).then(res => {
         this.callFun(res)
         this.showMemoType = false
+        if (res.code === 200) {
+          this.listByMemo()
+        }
       }).catch(res => {
         this.callFun(res)
       })
@@ -1432,7 +1438,6 @@ export default {
       }
       listByCustomerId(params).then(res => {
         this.tableData = res.result
-      }).catch(res => {
       })
     },
     // 审核驳回
