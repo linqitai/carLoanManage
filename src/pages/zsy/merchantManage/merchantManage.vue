@@ -211,28 +211,28 @@ export default {
       let type = '---';
       switch (row.isaudit) { // 三种情况
         case 1:
-          type = '未入驻';
+          type = '待提交';
           break;
         case 2:
-          type = '已入驻未审核';
+          type = '待审核';
           break;
         case 3:
-          type = '审核通过(后台)';
+          type = '网商审核中';
           break;
         case 4:
-          type = '审核未通过(后台)';
+          type = '审核驳回';
           break;
         case 5:
-          type = '审核通过(网商)';
+          type = '正常使用';
           break;
         case 6:
-          type = '审核未通过(网商)';
+          type = '网商驳回';
           break;
         case 7:
-          type = '处理中';
+          type = '网商审核中';
           break;
         case 8:
-          type = '禁用';
+          type = '禁用中';
           break;
       }
       return type;

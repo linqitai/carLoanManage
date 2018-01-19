@@ -38,7 +38,8 @@ module.exports = {
     'comma-spacing': 0,
     'no-duplicate-imports': 0,
     'comma-dangle': 0,
-    'no-unneeded-ternary': 0
+    'no-unneeded-ternary': 0,
+    'eqeqeq': 0
   }
 }
 

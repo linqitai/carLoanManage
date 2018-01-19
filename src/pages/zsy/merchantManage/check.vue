@@ -107,13 +107,13 @@
         <div class="title">备忘信息</div>
         <div class="contentText">
           <!-- <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 4 && infor.isaudit !== 7 && infor.isaudit !== 2 && infor.isaudit !== 6">
-                <span class="label">公众号类型</span>
-                <span class="value">{{publicNumType | publicNumTypeState}}</span>
-              </div> -->
-          <el-table stripe>
-            <el-table-column fixed prop="created" label="时间" width="180"></el-table-column>
+                        <span class="label">公众号类型</span>
+                        <span class="value">{{publicNumType | publicNumTypeState}}</span>
+                      </div> -->
+          <el-table stripe :data="tableData">
+            <el-table-column prop="created" label="时间" width="180" :formatter="formatTable"></el-table-column>
             <el-table-column prop="name" label="负责人" width="120"></el-table-column>
-            <el-table-column prop="memoContent" label="备忘信息" width="400" show-overflow-tooltip=""></el-table-column>
+            <el-table-column prop="memoContent" label="备忘信息" width="400" show-overflow-tooltip></el-table-column>
           </el-table>
           <el-button size="medium" class="btn mt10" @click="memoDialog">备忘</el-button>
           <el-dialog width="40%" title="备忘" :visible.sync="showMemoType">
@@ -121,7 +121,7 @@
               <p class="width100 textLeft inline">状态：</p>
               <div class="inline">
                 <el-select size="medium" placeholder="请选择" v-model="memoStatus">
-                  <el-option v-for="item in memoList" :key="item.value" :label="item.label" :value="item.value">
+                  <el-option v-for="(item, index) in memoList" :key="index" :label="item.label" :value="item.value">
                   </el-option>
                 </el-select>
               </div>
@@ -133,7 +133,7 @@
               </div>
             </div>
             <div slot="footer" class="dialog-footer">
-              <el-button size="medium" type="primary">确定</el-button>
+              <el-button size="medium" type="primary" @click="sureAddMemo">确定</el-button>
             </div>
           </el-dialog>
           <el-button size="medium" class="btn mt10" @click="sendToBankBtn">提交至网商</el-button>
@@ -154,7 +154,7 @@
               <div class="width140 inline">
                 <el-input size="medium" clearable placeholder="请输入验证码" class="input"></el-input>
               </div>
-              <el-button size="medium" type="primary" @click="codeClick">获取验证码</el-button>
+              <el-button v-model="msgCode" size="medium" type="primary" @click="codeClick">获取验证码</el-button>
             </div>
             <div slot="footer" class="dialog-footer">
               <el-button size="medium" type="primary" @click="codeYesClick">确 定</el-button>
@@ -170,7 +170,7 @@
 import { memoList } from 'common/js/config'
 import { getDetailInfo } from 'common/js/cache'
 import { format } from 'common/js/times'
-import { auditMybank, updateLocalClearmode, sendMsgCode, save } from '@/api/index'
+import { auditMybank, updateLocalClearmode, sendMsgCode, save, listByCustomerId } from '@/api/index'
 
 export default {
   data() {
@@ -201,7 +201,9 @@ export default {
       isDisabledHB4: true,
       memoStatus: '',
       memoContent: '',
-      supportT0: ''
+      supportT0: '',
+      tableData: [],
+      msgCode: ''
     }
   },
   filters: {
@@ -225,8 +227,57 @@ export default {
     this.publicNumType = detailInfo.publicNumType
     this.radio = JSON.stringify(detailInfo.publicNumType)
     this.applyTime = detailInfo.applyTime
+    this.listByMemo()
   },
   methods: {
+    sureAddMemo() {
+      if (this.memoStatus === '') {
+        this.$message({
+          message: `请选择状态`
+        })
+        return
+      }
+      if (this.memoContent === '') {
+        this.$message({
+          message: `请输入备忘内容`
+        })
+        return
+      }
+      let params = {
+        customerid: this.customerid,
+        memoStatus: this.memoStatus,
+        memoContent: this.memoContent
+      }
+      save(params).then(res => {
+        this.showMemoType = false
+        if (res.code === 200) {
+          this.$message({
+            type: 'success',
+            message: `修改成功`
+          })
+          this.listByMemo()
+        } else {
+          this.$message({
+            type: 'fail',
+            message: `修改失败`
+          })
+        }
+      })
+    },
+    formatTable(row, col, val) {
+      return format(row.created)
+    },
+    // 备忘列表
+    listByMemo() {
+      let params = {
+        customerid: this.customerid
+      }
+      listByCustomerId(params).then(res => {
+        // console.log('备忘信息:')
+        // console.log(res)
+        this.tableData = res.result
+      })
+    },
     changeHB(val) {
       console.log('val:')
       console.log(val)
@@ -296,7 +347,6 @@ export default {
     },
     sendToBankBtn() {
       this.sendBank()
-      this.sureToBankDialogVisible = true
     },
     sendBankYes() {
       let params = {
@@ -353,6 +403,8 @@ export default {
         msgCode: this.msgCode
       }
       auditMybank(params).then(res => {
+        console.log('auditMybank params:')
+        console.log(params)
         if (res.code === 200) {
           this.$message({
             type: 'success',
@@ -389,6 +441,14 @@ export default {
       }
       console.log('this.clearmode:' + this.clearmode)
       console.log('this.radio:' + this.radio)
+      console.log('this.appId:' + this.appId)
+      if (this.radio == 2 && (this.appId == '' || this.appId == null)) {
+        this.$message({
+          message: `请填写商户自有公众号的APPID`
+        })
+        return
+      }
+      // this.sureToBankDialogVisible = true
       let params = {
         customerid: parseInt(this.customerid),
         clearmode: this.clearmode ? 2 : 1, // 1:结算到银行卡  2：结算到余利宝
@@ -414,16 +474,15 @@ export default {
         console.log('res：')
         console.log(res)
         if (res.code === 200) {
-          this.$message({
-            type: 'success',
-            message: `您已成功保存信息`
-          })
-          if (this.clearmode === '1') {
-            this.sureToBankDialogVisible = true
-            this.showEditMobile = false
-          } else {
+          console.log('=====clearmode=======:' + this.clearmode)
+          this.sureToBankDialogVisible = true
+          if (this.clearmode == false) {
+            // 调用的入驻接口不开通网商银行
+            this.showEditMobile = false  // 展示手机号码校验框
+          } else if (this.clearmode == true) {
+            // 调用的入驻接口开通网商银行
             this.sureToBankDialogVisible = false
-            this.showEditMobile = true
+            this.showEditMobile = true // 展示手机号码校验框
           }
         }
         if (res.code === 400) {
