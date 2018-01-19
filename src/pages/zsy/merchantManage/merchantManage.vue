@@ -82,14 +82,14 @@
             </div>
           </div>
           <!-- <div class="element">
-                <p class="inline">店铺地址</p>
-                <div class="width140 inline">
-                  <el-select size="medium" placeholder="请选择" @change="search">
-                    <el-option v-for="item in runTYpeList1" :key="item.value" :label="item.label" :value="item.value">
-                    </el-option>
-                  </el-select>
-                </div>
-              </div> -->
+                    <p class="inline">店铺地址</p>
+                    <div class="width140 inline">
+                      <el-select size="medium" placeholder="请选择" @change="search">
+                        <el-option v-for="item in runTYpeList1" :key="item.value" :label="item.label" :value="item.value">
+                        </el-option>
+                      </el-select>
+                    </div>
+                  </div> -->
           <div class="element">
             <el-button size="medium" class="searchBtn" @click.native="search">查询</el-button>
           </div>
@@ -104,7 +104,7 @@
             <el-table-column prop="responsiblename" label="负责人" width="100"></el-table-column>
             <el-table-column prop="sex" label="性别" :formatter="sexFilter" width="50"></el-table-column>
             <el-table-column prop="phone" label="手机号码" width="120"></el-table-column>
-            <el-table-column prop="agentName" label="代理商" width="70"></el-table-column>
+            <el-table-column prop="agentName" label="代理商" width="70" :formatter="agentNameFormat"></el-table-column>
             <el-table-column prop="isaudit" label="状态" :formatter="stateType" width="150" fixed="right"></el-table-column>
             <el-table-column label="操作" width="150" fixed="right">
               <template slot-scope="scope">
@@ -187,6 +187,16 @@ export default {
     this.search()
   },
   methods: {
+    agentNameFormat(row) {
+      if (row.agentName === '' || row.agentName === null) {
+        return '无'
+      } else {
+        return row.agentName
+      }
+    },
+    testMTYPE() {
+      console.log(this.searchs.mtype)
+    },
     sexFilter(row) {
       return sexFilter(row);
     },
@@ -298,6 +308,8 @@ export default {
         pageIndex: this.searchs.pageIndex,
         isaudit: this.searchs.status
       }
+      console.log('merchantList params:')
+      console.log(params)
       merchantList(params).then(res => {
         this.tableData = res.result;
         this.total = res.count;

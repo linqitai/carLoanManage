@@ -81,11 +81,11 @@
             </div>
             <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 4 && infor.isaudit !== 6 && infor.isaudit !== 7">
               <span class="label">登录账号</span>
-              <span class="value">{{infor.userid}}</span>
+              <span class="value">{{infor.username}}</span>
               <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
-                <el-checkbox :label="Object.assign(newObj.userid, {'journeys': 1,'errorFlags': 1})" class="fl">未通过
+                <el-checkbox :label="Object.assign(newObj.username, {'journeys': 1,'errorFlags': 1})" class="fl">未通过
                 </el-checkbox>
-                <input type="text" v-if="newObj.userid.check" v-model="newObj.userid.errorText" class="audit fl" placeholder="最多输入15个字">
+                <input type="text" v-if="newObj.username.check" v-model="newObj.username.errorText" class="audit fl" placeholder="最多输入15个字">
               </div>
             </div>
             <div class="lineText" v-if="infor.merchanttype !== 2">
@@ -305,6 +305,87 @@
             提现银行卡
             <i v-if="status===statusNormal && infor.isaudit === 5" class="iconfont icon-bianji-copy ml10 fontSizeM colorGray" @click="editBankCard"></i>
           </div>
+          <div class="contentText">
+            <div class="lineText" v-if="infor.isaudit !== 5 && infor.isaudit !== 8">
+              <span class="label">结算方式</span>
+              <span class="value">{{infor.clearmode | clearmodeState}}</span>
+              <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
+                <el-checkbox :label="Object.assign(newObj.clearmode, {'journeys': 4,'errorFlags': 1})" class="fl">未通过
+                </el-checkbox>
+                <input type="text" v-if="newObj.clearmode.check" v-model="newObj.clearmode.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
+              </div>
+            </div>
+            <div class="lineText">
+              <span class="label">账户类型</span>
+              <span class="value">{{infor.accounttype | accounttypeState}}</span>
+              <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
+                <el-checkbox :label="Object.assign(newObj.accounttype, {'journeys': 4,'errorFlags': 1})" class="fl">
+                  未通过
+                </el-checkbox>
+                <input type="text" v-if="newObj.accounttype.check" v-model="newObj.accounttype.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
+              </div>
+            </div>
+            <div class="lineText" v-if="infor.merchanttype === 3">
+              <span class="label">账户名称</span>
+              <span class="value">{{infor.merchantname}}</span>
+              <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
+                <el-checkbox :label="Object.assign(newObj.openaccount, {'journeys': 4,'errorFlags': 1})" class="fl">
+                  未通过
+                </el-checkbox>
+                <input type="text" v-if="newObj.openaccount.check" v-model="newObj.openaccount.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
+              </div>
+            </div>
+            <div class="lineText" v-if="infor.merchanttype !== 3">
+              <span class="label">开户人</span>
+              <span class="value">{{infor.openaccount|nullToLine }}</span>
+              <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
+                <el-checkbox :label="Object.assign(newObj.openaccount, {'journeys': 4,'errorFlags': 1})" class="fl">
+                  未通过
+                </el-checkbox>
+                <input type="text" v-model="newObj.openaccount.errorText" v-if="newObj.openaccount.check" class="audit fl" placeholder="最多输入15个字" maxlength="15">
+              </div>
+            </div>
+            <div class="lineText" v-if="infor.merchanttype === 3">
+              <span class="label">对公账号</span>
+              <span class="value">{{infor.banknumbe}}</span>
+              <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
+                <el-checkbox :label="Object.assign(newObj.userid, {'journeys': 4,'errorFlags': 1})" class="fl">未通过
+                </el-checkbox>
+                <input type="text" v-if="newObj.userid.check" v-model="newObj.userid.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
+              </div>
+            </div>
+            <div class="lineText">
+              <span class="label">开户行</span>
+              <span class="value">
+                <!-- accounttype 1：对公 2：对私有 -->
+                <span v-if="infor.accounttype===2">{{infor.pbankname}}</span>
+                <span v-else>{{infor.bankname}}</span>
+              </span>
+              <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
+                <el-checkbox :label="Object.assign(newObj.bank, {'journeys': 4,'errorFlags': 1})" class="fl">未通过
+                </el-checkbox>
+                <input type="text" v-if="newObj.bank.check" v-model="newObj.bank.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
+              </div>
+            </div>
+            <div class="lineText" v-if="infor.merchanttype !== 3">
+              <span class="label">银行卡号</span>
+              <span class="value">{{infor.banknumbe|nullToLine}}</span>
+              <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
+                <el-checkbox :label="Object.assign(newObj.banknumbe, {'journeys': 4,'errorFlags': 1})" class="fl">未通过
+                </el-checkbox>
+                <input type="text" v-if="newObj.banknumbe.check" v-model="newObj.banknumbe.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
+              </div>
+            </div>
+            <div class="lineText" v-if="infor.merchanttype !== 3">
+              <span class="label">银行预留手机</span>
+              <span class="value">{{infor.phone|nullToLine}}</span>
+              <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
+                <el-checkbox :label="Object.assign(newObj.phone, {'journeys': 4,'errorFlags': 1})" class="fl">未通过
+                </el-checkbox>
+                <input type="text" v-if="newObj.phone.check" v-model="newObj.phone.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
+              </div>
+            </div>
+          </div>
           <el-dialog width="40%" title="编辑手机号码" :visible.sync="showEditMobile">
             <div class="element">
               <p class="width100 textLeft inline">原手机号</p>
@@ -395,86 +476,6 @@
               <el-button size="medium" type="primary" @click="bankCardEdit">确 定</el-button>
             </div>
           </el-dialog>
-          <div class="contentText">
-            <div class="lineText" v-if="infor.isaudit !== 5 && infor.isaudit !== 8">
-              <span class="label">结算方式</span>
-              <span class="value">{{infor.clearmode | clearmodeState}}</span>
-              <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
-                <el-checkbox :label="Object.assign(newObj.clearmode, {'journeys': 4,'errorFlags': 1})" class="fl">未通过
-                </el-checkbox>
-                <input type="text" v-if="newObj.clearmode.check" v-model="newObj.clearmode.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
-              </div>
-            </div>
-            <div class="lineText">
-              <span class="label">账户类型</span>
-              <span class="value">{{infor.accounttype | accounttypeState}}</span>
-              <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
-                <el-checkbox :label="Object.assign(newObj.accounttype, {'journeys': 4,'errorFlags': 1})" class="fl">
-                  未通过
-                </el-checkbox>
-                <input type="text" v-if="newObj.accounttype.check" v-model="newObj.accounttype.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
-              </div>
-            </div>
-            <div class="lineText" v-if="infor.merchanttype === 3">
-              <span class="label">账户名称</span>
-              <span class="value">{{infor.merchantname}}</span>
-              <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
-                <el-checkbox :label="Object.assign(newObj.openaccount, {'journeys': 4,'errorFlags': 1})" class="fl">
-                  未通过
-                </el-checkbox>
-                <input type="text" v-if="newObj.openaccount.check" v-model="newObj.openaccount.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
-              </div>
-            </div>
-            <div class="lineText" v-if="infor.merchanttype !== 3">
-              <span class="label">开户人</span>
-              <span class="value">{{infor.openaccount|nullToLine }}</span>
-              <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
-                <el-checkbox :label="Object.assign(newObj.openaccount, {'journeys': 4,'errorFlags': 1})" class="fl">
-                  未通过
-                </el-checkbox>
-                <input type="text" v-model="newObj.openaccount.errorText" v-if="newObj.openaccount.check" class="audit fl" placeholder="最多输入15个字" maxlength="15">
-              </div>
-            </div>
-            <div class="lineText" v-if="infor.merchanttype === 3">
-              <span class="label">对公账号</span>
-              <span class="value">{{infor.banknumbe}}</span>
-              <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
-                <el-checkbox :label="Object.assign(newObj.userid, {'journeys': 4,'errorFlags': 1})" class="fl">未通过
-                </el-checkbox>
-                <input type="text" v-if="newObj.userid.check" v-model="newObj.userid.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
-              </div>
-            </div>
-            <div class="lineText">
-              <span class="label">开户行</span>
-              <span class="value">
-                <span v-if="infor.accounttype===2">{{infor.pbankname}}</span>
-                <span v-else>{{infor.bankname}}</span>
-              </span>
-              <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
-                <el-checkbox :label="Object.assign(newObj.bank, {'journeys': 4,'errorFlags': 1})" class="fl">未通过
-                </el-checkbox>
-                <input type="text" v-if="newObj.bank.check" v-model="newObj.bank.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
-              </div>
-            </div>
-            <div class="lineText" v-if="infor.merchanttype !== 3">
-              <span class="label">银行卡号</span>
-              <span class="value">{{infor.banknumbe|nullToLine}}</span>
-              <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
-                <el-checkbox :label="Object.assign(newObj.banknumbe, {'journeys': 4,'errorFlags': 1})" class="fl">未通过
-                </el-checkbox>
-                <input type="text" v-if="newObj.banknumbe.check" v-model="newObj.banknumbe.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
-              </div>
-            </div>
-            <div class="lineText" v-if="infor.merchanttype !== 3">
-              <span class="label">银行预留手机</span>
-              <span class="value">{{infor.phone|nullToLine}}</span>
-              <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
-                <el-checkbox :label="Object.assign(newObj.phone, {'journeys': 4,'errorFlags': 1})" class="fl">未通过
-                </el-checkbox>
-                <input type="text" v-if="newObj.phone.check" v-model="newObj.phone.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
-              </div>
-            </div>
-          </div>
         </div>
         <div class="infoBox" v-if="infor.isaudit !== 1 && infor.isaudit !== 4 && infor.isaudit !== 7 && infor.isaudit !== 2 && infor.isaudit !== 6">
           <div class="title">清算信息</div>
