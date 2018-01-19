@@ -260,5 +260,10 @@ export const cityList = (params) => {
 
 // 获取拓展人列表
 export const developPersonList = (params) => {
-    return http.fetchPost(zsy + '/zcash/user/list.do', params)
+    return http.fetchPost(zsy + '/zcar/user/list.do', params)
+}
+
+// 余利宝页面表格接口
+export const listYuLiBao = (params) => {
+    return http.fetchPost(zsy + '/zcash/financeManager/listYuLiBao.do', params)
 }
