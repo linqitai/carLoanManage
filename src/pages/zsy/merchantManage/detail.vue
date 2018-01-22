@@ -648,7 +648,7 @@
           <div class="contentText mtb10">
             <el-table :data="tableData" stripe>
               <el-table-column prop="created" label="时间" width="180" :formatter="formatTable"></el-table-column>
-              <el-table-column prop="name" label="负责人" width="120"></el-table-column>
+              <el-table-column prop="operatorname" label="负责人" width="120"></el-table-column>
               <el-table-column prop="memoStatus" label="状态" width="100" :formatter="memoStatusType"></el-table-column>
               <el-table-column prop="memoContent" label="备忘信息" width="200" show-overflow-tooltip=""></el-table-column>
             </el-table>
