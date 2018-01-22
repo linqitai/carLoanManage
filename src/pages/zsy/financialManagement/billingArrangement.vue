@@ -23,7 +23,7 @@
           <div class="element">
             <p class="inline">店铺:</p>
             <div class="width140 inline">
-              <el-input size="medium" clearable placeholder="店铺查询" class="input" v-model="searchs.shopname" @keyup.enter.native="searchData"></el-input>
+              <el-input size="medium" clearable placeholder="店铺查询" class="input" v-model="searchs.shopName" @keyup.enter.native="searchData"></el-input>
             </div>
           </div>
           <div class="element">
@@ -166,8 +166,8 @@ export default {
       total: '',
       tableData: [],
       searchs: {
-        shopname: this.$route.query.shopname,
-        merchantname: '',
+        shopName: this.$route.query.shopname,
+        merchantName: '',
         channelType: '',
         paymode: '',
         merchantOrderNo: '',
@@ -181,7 +181,7 @@ export default {
     }
   },
   created() {
-    console.log(this.searchs.shopname)
+    console.log(this.searchs.shopName)
     this.searchData()
   },
   filters: {
