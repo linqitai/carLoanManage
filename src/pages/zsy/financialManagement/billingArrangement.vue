@@ -94,7 +94,7 @@
               {{scope.row.created | dateFormat}}
             </template>
           </el-table-column>
-          <el-table-column prop="shopname" label="店铺" width="240" show-overflow-tooltip></el-table-column>
+          <el-table-column prop="shopName" label="店铺" width="240" show-overflow-tooltip></el-table-column>
           <el-table-column prop="merchantName" label="商户" width="240" show-overflow-tooltip></el-table-column>
           <el-table-column prop="buyerPayAmount" label="实收金额(元)" width="100"></el-table-column>
           <el-table-column label="支付来源">
