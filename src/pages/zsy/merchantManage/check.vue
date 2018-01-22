@@ -112,7 +112,7 @@
                       </div> -->
           <el-table stripe :data="tableData">
             <el-table-column prop="created" label="时间" width="180" :formatter="formatTable"></el-table-column>
-            <el-table-column prop="name" label="负责人" width="120"></el-table-column>
+            <el-table-column prop="operatorname" label="负责人" width="120"></el-table-column>
             <el-table-column prop="memoContent" label="备忘信息" width="400" show-overflow-tooltip></el-table-column>
           </el-table>
           <el-button size="medium" class="btn mt10" @click="memoDialog">备忘</el-button>

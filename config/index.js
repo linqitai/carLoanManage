@@ -32,7 +32,7 @@ module.exports = {
         // target:'http://192.168.18.220:8061', // 修庆
         // target:'http://192.168.18.218:8061',
         // target:'http://192.168.18.177:8030', // 子涵
-        target: 'http://121.199.33.100:8030', // 线上正式
+        target: 'http://47.96.251.43:8030', // 测试环境新
         // target:'http://192.168.18.178:3000',
         changeOrigin: true,
         pathRewrite: {
@@ -43,7 +43,7 @@ module.exports = {
         // target:'http://192.168.18.227:8090',
         // target:'http://114.55.86.215:8090', // 线上
         //  target:'http://192.168.18.10:8090', // 石智颖
-        target: 'http://121.199.33.100:8090', // 线上正式环境
+        target: 'http://47.96.251.43:8090', // 测试环境新
         changeOrigin: true,
         pathRewrite: {
           '^/zsf_manage': ''
@@ -53,7 +53,7 @@ module.exports = {
         // target:'http://192.168.18.220:8061', // 修庆
         // target:'http://192.168.18.218:8061',
         // target:'http://192.168.18.227:8090',
-        target: 'http://101.37.255.101:8061', // 线上
+        target: 'http://47.96.251.43:8061', // 测试环境新
         // target:'http://192.168.18.178:3000',
         changeOrigin: true,
         pathRewrite: {
@@ -64,7 +64,7 @@ module.exports = {
         // target:'http://192.168.18.220:8061', // 修庆
         // target:'http://192.168.18.218:8061',
         // target:'http://192.168.18.227:8090',
-         target: 'http://47.96.251.43:8084/zsmanage',
+         target: 'http://47.96.251.43:8084/zsmanage',// 测试环境新
         // target: 'http://192.168.20.214:8080', // 测试环境
         // target:'http://192.168.18.178:3000',
         // target: 'http://192.168.20.47', //张尊
