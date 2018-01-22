@@ -150,11 +150,11 @@ export default {
       collectionList: [
         {
           value: 1,
-          label: '正扫'
+          label: '动态正扫'
         },
         {
           value: 2,
-          label: '反扫'
+          label: '动态反扫'
         },
         {
           value: 5,
