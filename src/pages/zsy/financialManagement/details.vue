@@ -59,13 +59,17 @@
                     {{scope.row.created | dateFormat}}
                   </template>
                 </el-table-column>
-                <el-table-column width="100" prop="refundAmount" label="退款金额"></el-table-column>
+                <el-table-column width="90" prop="refundAmount" label="退款金额"></el-table-column>
                 <el-table-column width="200" label="退款人">
                     <template slot-scope="scope">
                       {{scope.row.refundUser}}/{{scope.row.refundPhone}}
                     </template>
                 </el-table-column>
-                <el-table-column width="100" prop="refundReason" label="退款原因"></el-table-column>
+                <el-table-column width="110" label="退款原因">
+                  <template slot-scope="scope">
+                    {{scope.row.refundReason | refundReasonType}}
+                  </template>
+                </el-table-column>
             </el-table>
             </el-popover>
             <span class="label">退款金额</span>
@@ -124,7 +128,17 @@ export default {
   filters: {
     dateFormat(value) {
       return format(value);
-    }
+    },
+    refundReasonType(value) {
+      switch (value) {
+        case "1":
+          return '收错金额';
+        case "2":
+          return '用户输错金额';
+        case "3":
+          return '其他';  
+      }
+    },
   },
   created() {
     const orderid = this.$route.query.orderid;

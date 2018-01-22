@@ -49,7 +49,7 @@
     </div>
     <div class="tableWrapper">
       <el-table :data="tableList" stripe>
-        <el-table-column prop="date" label="时间" width="200"></el-table-column>
+        <el-table-column prop="dateTime" label="时间" width="200"></el-table-column>
         <el-table-column prop="merchantname" label="商户" show-overflow-tooltip></el-table-column>
         <el-table-column prop="phone" label="手机号" min-width="120px"></el-table-column>
         <el-table-column prop="dayProfitYuan" label="收益(元)" width="100"></el-table-column>

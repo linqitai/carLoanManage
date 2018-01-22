@@ -23,7 +23,7 @@
           <div class="element">
             <p class="inline">店铺:</p>
             <div class="width140 inline">
-              <el-input size="medium" clearable placeholder="店铺查询" class="input" v-model="searchs.shopname" @keyup.enter.native="searchData"></el-input>
+              <el-input size="medium" clearable placeholder="店铺查询" class="input" v-model="searchs.shopName" @keyup.enter.native="searchData"></el-input>
             </div>
           </div>
           <div class="element">
@@ -94,7 +94,7 @@
               {{scope.row.created | dateFormat}}
             </template>
           </el-table-column>
-          <el-table-column prop="shopname" label="店铺" width="240" show-overflow-tooltip></el-table-column>
+          <el-table-column prop="shopName" label="店铺" width="240" show-overflow-tooltip></el-table-column>
           <el-table-column prop="merchantName" label="商户" width="240" show-overflow-tooltip></el-table-column>
           <el-table-column prop="buyerPayAmount" label="实收金额(元)" width="100"></el-table-column>
           <el-table-column label="支付来源">
@@ -166,8 +166,8 @@ export default {
       total: '',
       tableData: [],
       searchs: {
-        shopname: this.$route.query.shopname,
-        merchantname: '',
+        shopName: this.$route.query.shopname,
+        merchantName: '',
         channelType: '',
         paymode: '',
         merchantOrderNo: '',
@@ -181,7 +181,7 @@ export default {
     }
   },
   created() {
-    console.log(this.searchs.shopname)
+    console.log(this.searchs.shopName)
     this.searchData()
   },
   filters: {
