@@ -69,8 +69,12 @@
       </div>
       <div class="tableWrapper">
         <el-table :data="tableData" stripe>
-          <el-table-column prop="createtime" label="添加时间" width="180"></el-table-column>
-          <el-table-column prop="username" label="姓名"></el-table-column>
+          <el-table-column prop="createtime" label="添加时间" width="180">
+            <template slot-scope="scope">
+              {{scope.row.createtime | time}}
+            </template>
+          </el-table-column>
+          <el-table-column prop="operatorname" label="姓名"></el-table-column>
           <el-table-column prop="sex" label="性别" :formatter="sexFilter"></el-table-column>
           <el-table-column prop="type" label="角色" :formatter="roleFilter"></el-table-column>
           <el-table-column prop="mobile" label="手机号码"></el-table-column>
@@ -92,6 +96,7 @@
 import { SexList, TypeList } from "common/js/config";
 import { sexFilter, roleFilter } from 'common/js/utils'
 import { zsyOper } from "@/api/index.js";
+import { getDateHM } from 'common/js/times'
 export default {
   data() {
     return {
@@ -128,6 +133,9 @@ export default {
   filters: {
     openClose(value) {
       return value === 1 ? "禁用" : value === 0 ? "启用" : "---";
+    },
+    time(value) {
+      return getDateHM(value)
     }
   },
   created() {
