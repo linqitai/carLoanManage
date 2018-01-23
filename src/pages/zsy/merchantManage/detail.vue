@@ -102,7 +102,7 @@
               <span class="label">客服电话</span>
               <span class="value">{{infor.servicephone}}</span>
               <i v-if="status===statusNormal && infor.isaudit === 5" class="iconfont icon-bianji-copy ml10 fontSizeM" @click="showEditServicePhone=true"></i>
-              <el-dialog width="40%" style="z-index:3000" title="编辑商客服电话" :visible.sync="showEditServicePhone">
+              <el-dialog width="40%" style="z-index:3000" title="编辑客服电话" :visible.sync="showEditServicePhone">
                 <div class="element">
                   <p class="width100 textLeft inline">客服电话</p>
                   <div class="inline">
@@ -765,10 +765,10 @@ export default {
       }],
       bank: '',
       payType: {
-        '01': '正扫交易',
-        '02': '反扫交易',
+        '01': '收款码收款',
+        '02': '扫码收款',
         '06': '退款交易',
-        '08': '动态订单交易'
+        '08': '动态二维码收款'
       },
       banksList: [
         {
