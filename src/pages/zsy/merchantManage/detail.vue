@@ -35,7 +35,7 @@
                 <input type="text" v-if="newObj.merchantname.check" v-model="newObj.merchantname.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
               </div>
             </div>
-            <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 4 && infor.isaudit !== 6 && infor.isaudit !== 7">
+            <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 2 && infor.isaudit !== 4 && infor.isaudit !== 6 && infor.isaudit !== 7">
               <span class="label">商户简称</span>
               <span class="value">{{infor.abbreviation}}</span>
               <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
@@ -67,7 +67,7 @@
                 <input type="text" v-if="newObj.merchanttype.check" v-model="newObj.merchanttype.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
               </div>
             </div>
-            <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 4 && infor.isaudit !== 6 && infor.isaudit !== 7">
+            <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 2 && infor.isaudit !== 4 && infor.isaudit !== 6 && infor.isaudit !== 7">
               <span class="label">商户号</span>
               <span class="value">
                 <span v-if="infor.merchantid">{{infor.merchantid}}</span>
@@ -79,7 +79,7 @@
                 <input type="text" v-if="newObj.merchantid.check" v-model="newObj.merchantid.errorText" class="audit fl" placeholder="最多输入15个字">
               </div>
             </div>
-            <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 4 && infor.isaudit !== 6 && infor.isaudit !== 7">
+            <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 2 && infor.isaudit !== 4 && infor.isaudit !== 6 && infor.isaudit !== 7">
               <span class="label">登录账号</span>
               <span class="value">{{infor.username}}</span>
               <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
@@ -229,7 +229,7 @@
 
               </i>
               <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
-                <el-checkbox :label="Object.assign(newObj.images2, {'journeys': 2,'errorFlags': 0})" class="fl">未通过
+                <el-checkbox :label="Object.assign(newObj.images2, {'journeys': 2,'errorFlags': 0, 'imgTypes': 2})" class="fl">未通过
                 </el-checkbox>
                 <input type="text" v-if="newObj.images2.check" v-model="newObj.images2.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
               </div>
@@ -251,7 +251,7 @@
               </span>
               <i v-if="status===statusNormal && infor.isaudit === 5" class="iconfont icon-bianji-copy ml10 fontSizeM editImg" @click="openImgdialog({type: 3})"></i>
               <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
-                <el-checkbox :label="Object.assign(newObj.images3, {'journeys': 2,'errorFlags': 0})" class="fl">未通过
+                <el-checkbox :label="Object.assign(newObj.images3, {'journeys': 2,'errorFlags': 0, 'imgTypes': 3})" class="fl">未通过
                 </el-checkbox>
                 <input type="text" v-if="newObj.images3.check" v-model="newObj.images3.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
               </div>
@@ -264,38 +264,38 @@
             <div class="lineText" v-if="infor.merchanttype !== 2">
               <span class="label">营业执照</span>
               <span class="value">
-                <img :src="listIndentity[3].src" ref="imgPicData0" class="img">
+                <img :src="listIndentity[2].src" ref="imgPicData0" class="img">
               </span>
               <!-- <img class="preview-img" v-for="(item, index) in listIndentity" :key="index" :src="item.src" height="100" @click="$preview.open(1, listIndentity)" v-show="false"> -->
               <i v-if="status===statusNormal && infor.isaudit === 5" class="iconfont icon-bianji-copy ml10 fontSizeM editImg" @click="openImgdialog({type: 1})"></i>
               <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
-                <el-checkbox :label="Object.assign(newObj.images1, {'journeys': 3,'errorFlags': 0})" class="fl">未通过
+                <el-checkbox :label="Object.assign(newObj.images1, {'journeys': 3,'errorFlags': 0, 'imgTypes': 1})" class="fl">未通过
                 </el-checkbox>
                 <input type="text" v-if="newObj.images1.check" v-model="newObj.images1.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
-              </div>
-            </div>
-            <div class="lineText">
-              <span class="label">门头照</span>
-              <span class="value">
-                <img :src="listIndentity[2].src" ref="imgPicData1" class="img">
-              </span>
-              <i v-if="status===statusNormal && infor.isaudit === 5" class="iconfont icon-bianji-copy ml10 fontSizeM editImg" @click="openImgdialog({type: 4})"></i>
-              <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
-                <el-checkbox :label="Object.assign(newObj.images4, {'journeys': 3,'errorFlags': 0})" class="fl">未通过
-                </el-checkbox>
-                <input type="text" v-if="newObj.images4.check" v-model="newObj.images4.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
               </div>
             </div>
             <div class="lineText" v-if="infor.merchanttype === 3">
               <span class="label">开户许可证</span>
               <span class="value">
-                <img :src="listIndentity[4].src" ref="imgPicData2" class="img">
+                <img :src="listIndentity[3].src" ref="imgPicData2" class="img">
               </span>
               <i v-if="status===statusNormal && infor.isaudit === 5" class="iconfont icon-bianji-copy ml10 fontSizeM editImg" @click="openImgdialog({type: 6})"></i>
               <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
-                <el-checkbox :label="Object.assign(newObj.images6, {'journeys': 3,'errorFlags': 0})" class="fl">未通过
+                <el-checkbox :label="Object.assign(newObj.images6, {'journeys': 3,'errorFlags': 0, 'imgTypes': 6})" class="fl">未通过
                 </el-checkbox>
                 <input type="text" v-if="newObj.images6.check" v-model="newObj.images6.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
+              </div>
+            </div>
+            <div class="lineText">
+              <span class="label">门头照</span>
+              <span class="value">
+                <img :src="listIndentity[4].src" ref="imgPicData1" class="img">
+              </span>
+              <i v-if="status===statusNormal && infor.isaudit === 5" class="iconfont icon-bianji-copy ml10 fontSizeM editImg" @click="openImgdialog({type: 4})"></i>
+              <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
+                <el-checkbox :label="Object.assign(newObj.images4, {'journeys': 3,'errorFlags': 0, 'imgTypes': 4})" class="fl">未通过
+                </el-checkbox>
+                <input type="text" v-if="newObj.images4.check" v-model="newObj.images4.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
               </div>
             </div>
           </div>
@@ -1023,37 +1023,25 @@ export default {
         this.imgs = this.infor.images
         console.log(`imgs>0=${this.imgs.length}:`)
         console.log(this.imgs)
-        // imageType 2:身份证正面 3:身份证反面
+        // imageType 图片类型(1：营业执照 2：身份证正面 3：身份证反面 4：门头照 5：组织机构代码证 6：开户许可证)
         for (let i = 0; i < this.imgs.length; i++) {
           if ((this.imgs[i].path !== null || this.imgs[i].path !== 'null') && this.imgs[i].imageType === 2) {
-            this.listIndentity[0].src = this.imgs[i].path
+            this.listIndentity[0].src = this.imgs[i].path// 身份证正面
+            this.listIndentity[0].imageType = this.imgs[i].imageType
           } else if ((this.imgs[i].path !== null || this.imgs[i].path !== 'null') && this.imgs[i].imageType === 3) {
-            this.listIndentity[1].src = this.imgs[i].path
-          } else if ((this.imgs[i].path !== null || this.imgs[i].path !== 'null') && this.imgs[i].imageType === 4) {
-            this.listIndentity[2].src = this.imgs[i].path
+            this.listIndentity[1].src = this.imgs[i].path// 身份证反面
+            this.listIndentity[1].imageType = this.imgs[i].imageType
           } else if ((this.imgs[i].path !== null || this.imgs[i].path !== 'null') && this.imgs[i].imageType === 1) {
-            this.listIndentity[3].src = this.imgs[i].path
+            this.listIndentity[2].src = this.imgs[i].path// 营业执照
+            this.listIndentity[2].imageType = this.imgs[i].imageType
           } else if ((this.imgs[i].path !== null || this.imgs[i].path !== 'null') && this.imgs[i].imageType === 6) {
-            this.listIndentity[4].src = this.imgs[i].path
+            this.listIndentity[3].src = this.imgs[i].path// 开户许可证
+            this.listIndentity[3].imageType = this.imgs[i].imageType
+          } else if ((this.imgs[i].path !== null || this.imgs[i].path !== 'null') && this.imgs[i].imageType === 4) {
+            this.listIndentity[4].src = this.imgs[i].path// 门头照
+            this.listIndentity[4].imageType = this.imgs[i].imageType
           }
         }
-        // if (this.infor.images[0]) {
-        //   this.listIndentity[0].src = this.infor.images[0].path
-        // }
-        // if (this.infor.images[1]) {
-        //   this.listIndentity[1].src = this.infor.images[1].path
-        // }
-        // if (this.infor.images[2]) {
-        //   this.listIndentity[2].src = this.infor.images[2].path
-        // }
-        // if (this.infor.images[3]) {
-        //   this.listIndentity[3].src = this.infor.images[3].path
-        // }
-        // if (this.infor.images[4]) {
-        //   this.listIndentity[4].src = this.infor.images[4].path
-        // }
-        console.log('listIndentitySetEnd：images==>')
-        console.log(this.listIndentity)
       }
 
       this.phone = this.infor.phone;
@@ -1130,6 +1118,7 @@ export default {
       updateAbbreviation(params).then(res => {
         this.callFun(res)
         this.showEditStoreName = false
+        this.search(this.customerid)
       }).catch(res => {
         this.callFun(res)
       })
@@ -1403,6 +1392,8 @@ export default {
     // 备忘
     memoDialog() {
       this.showMemoType = true
+      this.memoStatus = ''
+      this.memoContent = ''
     },
     sureAddMemo() {
       if (this.memoStatus === '') {
@@ -1423,10 +1414,18 @@ export default {
         memoContent: this.memoContent
       }
       save(params).then(res => {
-        this.callFun(res)
         this.showMemoType = false
         if (res.code === 200) {
+          this.$message({
+            type: 'success',
+            message: `备忘成功`
+          })
           this.listByMemo()
+        } else {
+          this.$message({
+            type: 'fail',
+            message: `系统出错：${res.msg}`
+          })
         }
       }).catch(res => {
         this.callFun(res)
@@ -1447,12 +1446,14 @@ export default {
       this.errorFlags = [];
       this.errorKeys = [];
       this.journeys = [];
+      this.imgTypes = [];
       // // console.log(this.checks);
       for (let i = 0; i < this.checks.length; i++) {
         if (this.checks[i].check) {
           this.journeys.push(this.checks[i].journeys);
           this.errorMsgs.push(this.checks[i].errorText);
           this.errorFlags.push(this.checks[i].errorFlags);
+          this.imgTypes.push(this.checks[i].imgTypes);
           if (this.checks[i].imageId) {
             this.errorKeys.push(this.checks[i].imageId);
           } else {
@@ -1466,12 +1467,25 @@ export default {
         autidId: this.autidId,
         journeys: JSON.stringify(this.journeys),
         errorMsgs: JSON.stringify(this.errorMsgs),
-        errorFlags: JSON.stringify(this.errorFlags),
+        errorFlags: JSON.stringify(this.errorFlags),// 0:图片 1:文字
+        imgTypes: JSON.stringify(this.errorFlags === 1 ? 0 : this.imgTypes),// 审核出错图片类型集合（图片为图片类型，文字为0）
         errorKeys: JSON.stringify(this.errorKeys),
         phone: this.phone
       }
       auditFail(params).then(res => {
-        this.centerDialogVisible = false
+        console.log(params)
+        if (res.code === 200) {
+          this.centerDialogVisible = false
+          this.$message({
+            type: 'success',
+            message: `操作成功！`
+          })
+        } else {
+          this.$message({
+            type: 'fail',
+            message: `系统出错：${res.msg}`
+          })
+        }
       })
     },
     intoCheck() {
@@ -1506,7 +1520,7 @@ export default {
           autidId: this.autidId,
           phone: this.phone,
           clearmode: this.clearmode,
-          publicNumType: this.publicNumType,
+          publicNumType: this.publicNumType,// 公众号类型
           applyTime: this.infor.created,
           isaudit: this.infor.isaudit
         }

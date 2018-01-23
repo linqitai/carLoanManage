@@ -27,6 +27,7 @@
           <div class="lineText">
             <span class="label">T+0到账</span>
             <span class="value">
+              <!-- <el-checkbox @change="T0Click1" class="fl" :checked="clearmode">支持</el-checkbox> -->
               <el-checkbox @change="T0Click1" class="fl" :checked="clearmode" :disabled="!clearmode">支持</el-checkbox>
             </span>
           </div>
@@ -107,13 +108,14 @@
         <div class="title">备忘信息</div>
         <div class="contentText">
           <!-- <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 4 && infor.isaudit !== 7 && infor.isaudit !== 2 && infor.isaudit !== 6">
-                        <span class="label">公众号类型</span>
-                        <span class="value">{{publicNumType | publicNumTypeState}}</span>
-                      </div> -->
+                          <span class="label">公众号类型</span>
+                          <span class="value">{{publicNumType | publicNumTypeState}}</span>
+                        </div> -->
           <el-table stripe :data="tableData">
             <el-table-column prop="created" label="时间" width="180" :formatter="formatTable"></el-table-column>
             <el-table-column prop="operatorname" label="负责人" width="120"></el-table-column>
-            <el-table-column prop="memoContent" label="备忘信息" width="400" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="memoStatus" label="状态" width="100" :formatter="memoStatusType"></el-table-column>
+            <el-table-column prop="memoContent" label="备忘信息" width="200" show-overflow-tooltip></el-table-column>
           </el-table>
           <el-button size="medium" class="btn mt10" @click="memoDialog">备忘</el-button>
           <el-dialog width="40%" title="备忘" :visible.sync="showMemoType">
@@ -178,7 +180,7 @@ export default {
       showMemoType: false,
       sureToBankDialogVisible: false,
       showEditMobile: false,
-      radio: '',
+      radio: '1',
       isDisabledHB: true,
       supportAli: false,
       supportWechat: false,
@@ -219,13 +221,18 @@ export default {
     console.log(`detailInfo:`)
     console.log(detailInfo)
     this.clearmode = detailInfo.clearmode === 2 ? true : false
+    if (this.clearmode) {
+      this.isDisabledHB4 = true
+    } else {
+      this.isDisabledHB4 = false
+    }
     this.customerid = detailInfo.customerid;
     this.autidId = detailInfo.autidId;
     this.phone = detailInfo.phone;
     this.supportT0 = detailInfo.supportT0;
     // this.clearmode = this.$route.params.clearmode === 2 ? 1 : 0;
     this.publicNumType = detailInfo.publicNumType
-    this.radio = JSON.stringify(detailInfo.publicNumType)
+    // this.radio = JSON.stringify(detailInfo.publicNumType)// 公众号类型
     this.applyTime = detailInfo.applyTime
     this.listByMemo()
   },
@@ -253,16 +260,32 @@ export default {
         if (res.code === 200) {
           this.$message({
             type: 'success',
-            message: `修改成功`
+            message: `备忘成功`
           })
           this.listByMemo()
         } else {
           this.$message({
             type: 'fail',
-            message: `修改失败`
+            message: `系统出错：${res.msg}`
           })
         }
       })
+    },
+    // 备忘状态过滤
+    memoStatusType: function(row, column) {
+      let type = '---';
+      switch (row.memoStatus) { // 三种情况
+        case 1:
+          type = '已联系上';
+          break;
+        case 2:
+          type = '未联系上';
+          break;
+        case 3:
+          type = '黑名单';
+          break;
+      }
+      return type;
     },
     formatTable(row, col, val) {
       return format(row.created)
@@ -344,6 +367,9 @@ export default {
     },
     memoDialog() {
       this.showMemoType = true
+      this.showMemoType = true
+      this.memoStatus = ''
+      this.memoContent = ''
     },
     sendToBankBtn() {
       this.sendBank()
@@ -360,6 +386,7 @@ export default {
             message: `提交网商成功`
           })
           this.sureToBankDialogVisible = false
+          this.$router.push('/merchantManage')
         } else if (res.code === 400) {
           this.$message({
             type: 'fail',
