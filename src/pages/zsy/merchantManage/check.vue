@@ -54,10 +54,10 @@
           <div class="lineText">
             <span class="label">交易类型</span>
             <el-checkbox-group v-model="tradetypes">
-              <el-checkbox label="01">正扫交易</el-checkbox>
-              <el-checkbox label="02">反扫交易</el-checkbox>
+              <el-checkbox label="01">收款码收款</el-checkbox>
+              <el-checkbox label="02">扫码收款</el-checkbox>
               <el-checkbox label="06">退款交易</el-checkbox>
-              <el-checkbox label="08">动态订单扫码</el-checkbox>
+              <el-checkbox label="08">动态二维码收款</el-checkbox>
             </el-checkbox-group>
           </div>
           <div class="lineText">

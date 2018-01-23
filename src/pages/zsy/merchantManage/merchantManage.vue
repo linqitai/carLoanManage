@@ -296,7 +296,7 @@ export default {
         return
       }
       let params = {
-        sdate: this.searchs.startTime ? getDate(this.searchs.startTime) : '',
+        sdate: this.searchs.startTime ? getDate(this.searchs.startTime) : '',//时间问题+时分秒
         edate: this.searchs.endTime ? getDate(this.searchs.endTime) : '',
         merchantname: this.searchs.mName,
         merchanttype: this.searchs.mtype,
