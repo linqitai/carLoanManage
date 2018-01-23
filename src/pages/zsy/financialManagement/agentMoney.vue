@@ -63,11 +63,7 @@
           <el-table-column prop="agentName" label="代理商"></el-table-column>
           <el-table-column prop="code" label="服务码"></el-table-column>
           <el-table-column prop="agentIncome" label="分润金额(元)" width="100"></el-table-column>
-          <el-table-column label="商户收款总额(元)">
-            <template slot-scope="scope">
-            {{agentIncomeSum}}
-          </template>
-          </el-table-column>
+          <el-table-column prop="buyerPayAmount" label="商户收款总额(元)"></el-table-column>
         </el-table>
         <div class="tableBottom">
           <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" layout="total, sizes, prev, pager, next, jumper" :total="total">
