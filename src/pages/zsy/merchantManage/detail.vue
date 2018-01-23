@@ -618,7 +618,7 @@
             </div>
           </div>
         </div>
-        <div class="infoBox">
+        <div class="infoBox" v-if="infor.isaudit !== 1">
           <div class="title">签署的协议</div>
           <div class="contentText">
             <div class="lineText">
