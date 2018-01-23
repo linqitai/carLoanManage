@@ -377,13 +377,24 @@ export const IncomeList = [{
 
 export const SexList = [{
   value: '',
-  label: '无'
+  label: '全部'
 }, {
   value: '1',
   label: '男'
 }, {
   value: '2',
   label: '女'
+}]
+
+export const TypeListNoBoss = [{
+  value: '',
+  label: '全部'
+}, {
+  value: '2',
+  label: '管理员'
+}, {
+  value: '3',
+  label: '收银员'
 }]
 
 export const TypeList = [{

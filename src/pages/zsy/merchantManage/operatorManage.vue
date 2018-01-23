@@ -93,7 +93,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { SexList, TypeList } from "common/js/config";
+import { SexList, TypeListNoBoss } from "common/js/config";
 import { sexFilter, roleFilter } from 'common/js/utils'
 import { zsyOper } from "@/api/index.js";
 import { getDateHM } from 'common/js/times'
@@ -111,7 +111,7 @@ export default {
       showSizeChanger: true,
       pageSizeOption: [10, 15, 20, 25, 30],
       sexList: SexList,
-      typeList: TypeList,
+      typeList: TypeListNoBoss,
       provinceList: "",
       cityList: "",
       areaList: "",

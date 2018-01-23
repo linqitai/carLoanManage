@@ -306,7 +306,8 @@ export default {
         agentName: this.searchs.agent,
         pageSize: this.searchs.pageSize,
         pageIndex: this.searchs.pageIndex,
-        isaudit: this.searchs.status
+        isaudit: this.searchs.status,
+        agentscode: this.$route.query.code
       }
       console.log('merchantList params:')
       console.log(params)
