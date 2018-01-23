@@ -108,7 +108,11 @@
             </template>
           </el-table-column>
           <el-table-column prop="merchantOrderNo" label="订单号" width="240" show-overflow-tooltip></el-table-column>
-          <el-table-column prop="agentName" label="代理商"></el-table-column>
+          <el-table-column label="代理商">
+            <template slot-scope="scope">
+              {{scope.row.agentName | agentNameValue}}
+            </template>
+          </el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
               <el-button type="text" size="small" @click="detail(scope.row.orderid)">详情</el-button>
@@ -208,6 +212,13 @@ export default {
           return '申购';
         case 5:
           return '静态二维码';
+      }
+    },
+    agentNameValue(value) {
+      if (value == null) {
+        return "无";
+      } else {
+        return value;
       }
     }
   },
