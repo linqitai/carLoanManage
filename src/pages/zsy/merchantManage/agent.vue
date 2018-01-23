@@ -95,7 +95,7 @@
           <el-table-column prop="idCardNo" label="身份证号" show-overflow-tooltip></el-table-column>
           <el-table-column prop="mobilePhone" label="手机号" min-width="125px"></el-table-column>
           <el-table-column prop="code" label="服务码"></el-table-column>
-          <el-table-column prop="address" label="所在地" show-overflow-tooltip></el-table-column>
+          <el-table-column prop="detailAddress" label="所在地" show-overflow-tooltip min-width="150px"></el-table-column>
           <el-table-column prop="shearRatePresent" label="分润率（%）" min-width="115px"></el-table-column>
           <el-table-column prop="states" label="状态" min-width="110px"></el-table-column>
           <el-table-column prop="developPerson" label="拓展人"></el-table-column>
@@ -265,6 +265,7 @@ export default {
             }
             this.tableList[i].shearRatePresent = this.tableList[i].shearRate * 100;
             this.tableList[i].joinTime = getDateTime(this.tableList[i].created);
+            this.tableList[i].detailAddress = this.tableList[i].provinceName + this.tableList[i].cityName + this.tableList[i].areaName + this.tableList[i].address;
           }
         };
       })
@@ -291,7 +292,8 @@ export default {
       })
     },
     handleClick3: function(row) {
-      this.$router.push('merchantManage');
+      console.log(row.code);
+      this.$router.push('merchantManage?code=' + row.code);
     },
     handleSizeChange: function(size) {
       this.form.pageSize = size;
