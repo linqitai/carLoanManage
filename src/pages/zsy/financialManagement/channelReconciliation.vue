@@ -74,7 +74,7 @@
           <el-table-column prop="type" label="分账类型"></el-table-column>
           <el-table-column prop="merchantId" label="商户号" show-overflow-tooltip></el-table-column>
           <el-table-column prop="orderNo" label="银行订单号" show-overflow-tooltip></el-table-column>
-          <el-table-column prop="orgOrderNo" label="合作机构订单号" show-overflow-tooltip></el-table-column>
+          <el-table-column prop="orgOrderNo" width="120" label="合作机构订单号" show-overflow-tooltip></el-table-column>
           <el-table-column prop="oldOrderNo" label="原银行订单号" show-overflow-tooltip></el-table-column>
           <el-table-column prop="remark" label="备注"></el-table-column>
         </el-table>
