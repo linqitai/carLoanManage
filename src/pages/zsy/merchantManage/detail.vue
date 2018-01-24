@@ -535,10 +535,10 @@
               <!--infor.paychannels-->
               <span class="value">
                 <div v-if="infor.paychannels==='01' || infor.paychannels==='01,02'">
-                  <span class="width80 left">支付宝</span>T+1费率：{{infor.signup.aliratesT1}}&#x3000;<span v-if="infor.supportT0!==2">T+0费率：{{infor.signup.aliratesT0}}</span> </div>
+                  <span class="width80 left">支付宝</span>T+1费率：{{infor.signup.aliratesT1*100}}% &#x3000;<span v-if="infor.supportT0!==2">T+0费率：{{infor.signup.aliratesT0*100}}%</span> </div>
                 <br/>
                 <div v-if="infor.paychannels==='02' || infor.paychannels==='01,02'">
-                  <span class="width80 left">微信支付</span>T+1费率：{{infor.signup.wechatratesT1}}&#x3000;<span v-if="infor.supportT0!==2">T+0费率：{{infor.signup.wechatratesT0}}</span> </div>
+                  <span class="width80 left">微信支付</span>T+1费率：{{infor.signup.wechatratesT1*100}}%&#x3000;<span v-if="infor.supportT0!==2">T+0费率：{{infor.signup.wechatratesT0*100}}%</span> </div>
               </span>
             </div>
             <div class="lineText">

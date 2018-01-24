@@ -23,10 +23,10 @@
           <div class="element">
             <p class="inline">时间</p>
             <div class="inline">
-              <el-date-picker size="medium" class="inline" style="width:134px;" v-model="searchs.startTime" type="date" placeholder="开始时间" value-format="yyyy-MM-dd" @change="startTimeChange">
+              <el-date-picker size="medium" class="inline" style="width:138px;" v-model="searchs.startTime" type="date" placeholder="开始时间" value-format="yyyy-MM-dd" @change="startTimeChange">
               </el-date-picker>
               <span class="inline">至</span>
-              <el-date-picker size="medium" class="inline" value-format="yyyy-MM-dd" style="width:134px;" v-model="searchs.endTime" type="date" placeholder="结束时间" @change="endTimeChange">
+              <el-date-picker size="medium" class="inline" value-format="yyyy-MM-dd" style="width:138px;" v-model="searchs.endTime" type="date" placeholder="结束时间" @change="endTimeChange">
               </el-date-picker>
             </div>
           </div>
@@ -403,8 +403,12 @@ export default {
     searchEvent() {
     },
     startTimeChange(val) {
+      this.searchs.startTime = val + ' 00:00:01'
+      console.log(this.searchs.startTime)
     },
     endTimeChange(val) {
+       this.searchs.endTime = val + ' 23:59:59'
+      console.log(this.searchs.endTime)
     },
     // pageSizeChange(newIndex) {
     //   console.log('page size change event', newIndex)

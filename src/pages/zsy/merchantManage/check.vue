@@ -108,9 +108,9 @@
         <div class="title">备忘信息</div>
         <div class="contentText">
           <!-- <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 4 && infor.isaudit !== 7 && infor.isaudit !== 2 && infor.isaudit !== 6">
-                          <span class="label">公众号类型</span>
-                          <span class="value">{{publicNumType | publicNumTypeState}}</span>
-                        </div> -->
+                            <span class="label">公众号类型</span>
+                            <span class="value">{{publicNumType | publicNumTypeState}}</span>
+                          </div> -->
           <el-table stripe :data="tableData">
             <el-table-column prop="created" label="时间" width="180" :formatter="formatTable"></el-table-column>
             <el-table-column prop="operatorname" label="负责人" width="120"></el-table-column>
@@ -438,6 +438,7 @@ export default {
             message: `提交网商成功`
           })
           this.showEditMobile = false
+          this.$router.push('/merchantManage')
         }
       }).catch(res => {
         this.$message({
@@ -453,13 +454,6 @@ export default {
     handleCheckedCitiesChange2(val) {
     },
     sendBank() {
-      // if (this.clearmode === 1) {
-      //   this.clearmode = '2'
-      //   this.supportT0 = '1'
-      // } else {
-      //   this.clearmode = '1'
-      //   this.supportT0 = '2'
-      // }
       if (this.radio === undefined) {
         this.$message({
           message: `请选择关注的公众号`
@@ -502,10 +496,10 @@ export default {
         console.log(res)
         if (res.code === 200) {
           console.log('=====clearmode=======:' + this.clearmode)
-          this.sureToBankDialogVisible = true
           if (this.clearmode == false) {
             // 调用的入驻接口不开通网商银行
-            this.showEditMobile = false  // 展示手机号码校验框
+            this.sureToBankDialogVisible = true
+            this.showEditMobile = false  // 关闭手机号码校验框
           } else if (this.clearmode == true) {
             // 调用的入驻接口开通网商银行
             this.sureToBankDialogVisible = false
