@@ -63,9 +63,9 @@
             </div>
           </div>
           <div class="element">
-            <p class="inline">服务密码:</p>
+            <p class="inline">服务码:</p>
             <div class="width140 inline">
-              <el-input size="medium" clearable placeholder="服务密码查询" class="input" v-model="searchs.agentServiceCode" @keyup.enter.native="searchData"></el-input>
+              <el-input size="medium" clearable placeholder="服务码查询" class="input" v-model="searchs.agentServiceCode" @keyup.enter.native="searchData"></el-input>
             </div>
           </div>
           <div class="element">
@@ -108,9 +108,9 @@
             </template>
           </el-table-column>
           <el-table-column prop="merchantOrderNo" label="订单号" width="240" show-overflow-tooltip></el-table-column>
-          <el-table-column label="代理商">
+          <el-table-column label="代理商名字/服务码">
             <template slot-scope="scope">
-              {{scope.row.agentName | agentNameValue}}
+              {{scope.row.agentName | agentNameValue}}{{scope.row.agentServiceCode}}
             </template>
           </el-table-column>
           <el-table-column label="操作">
@@ -218,7 +218,7 @@ export default {
       if (value == null) {
         return "无";
       } else {
-        return value;
+        return value + "/";
       }
     }
   },
