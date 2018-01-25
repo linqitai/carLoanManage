@@ -41,7 +41,7 @@
           </div>
           <div class="lineText">
             <span class="label">实收金额</span>
-            <span class="value">{{orderDetails.buyerPayAmount}}</span>
+            <span class="value">{{orderDetails.totalamount - orderDetails.refundamount}}</span>
           </div>
           <div class="lineText">
             <span class="label">订单金额</span>
