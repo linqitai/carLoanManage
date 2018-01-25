@@ -61,7 +61,7 @@
           </el-table-column>
         </el-table>
         <!-- <el-table :data="tableData" stripe style="min-width:1060px;max-width:1620px;width: 1150px;"></el-table> -->
-        <el-dialog class="qrDialog" prop="showData" :title='showData.codename' :data="tableData" :visible.sync="dialogVisible" width="500" :before-close="handleClose">
+        <el-dialog class="qrDialog" prop="showData" :title='showData.codename' :data="tableData" :visible.sync="dialogVisible" width="500px" :before-close="handleClose">
           <div class="storeText">
             <span>所属门店:{{showData.shopname}}</span>
           </div>
@@ -76,8 +76,8 @@
                 <img :src="showData.imageurl" />
               </div>
               <div class="paymode">
-                <img class="logoIcon" src="../../../common/images/alipay.png" alt="">
-                <img class="logoIcon" src="../../../common/images/wxpay.png" alt="">
+                <img class="logoIcon" src="../../../common/images/my_logo_zfb@2x.png" alt="">
+                <img class="logoIcon" src="../../../common/images/my_logo_wx@2x.png" alt="">
               </div>
             </div>
           </div>
@@ -272,9 +272,13 @@ export default {
       padding: 0px 0px 20px 0;
     }
     .storeText {
-      padding-bottom: 3px;
-      font-size: $font-size-s;
+      padding-bottom: 10px;
+      padding-top: 10px;
+      font-size: 16px;
     }
   }
+}
+.qrDialog .el-dialog__body{
+  background-color: #eee;
 }
 </style>
