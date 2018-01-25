@@ -176,13 +176,34 @@
               <i v-if="status===statusNormal && infor.isaudit === 5" class="iconfont icon-bianji-copy ml10 fontSizeM" @click="showEditStoreAddress=true"></i>
               <el-dialog width="40%" title="编辑店铺地址" :visible.sync="showEditStoreAddress">
                 <div class="element">
-                  <p class="width100 textLeft inline">店铺地址</p>
-                  <div class="inline">
-                    <el-input size="medium" clearable placeholder="请输入店铺地址" class="input"></el-input>
+                  <p class="inline">店铺地址:</p>
+                  <div class="width120 inline">
+                    <el-select size="medium" v-model="infor.province" placeholder="请选择" @change="provinceChange">
+                      <el-option v-for="item in searchs.provinceList" :key="item.adcode" :label="item.name" :value="item.adcode">
+                      </el-option>
+                    </el-select>
+                  </div>
+                  <div class="width120 inline">
+                    <el-select size="medium" v-model="infor.city" placeholder="请选择" @change="cityChange">
+                      <el-option v-for="item in searchs.cityList" :key="item.adcode" :label="item.name" :value="item.adcode">
+                      </el-option>
+                    </el-select>
+                  </div>
+                  <div class="width120 inline">
+                    <el-select size="medium" v-model="infor.area" placeholder="请选择" @change="countyChange">
+                      <el-option v-for="item in searchs.countyList" :key="item.adcode" :label="item.name" :value="item.adcode">
+                      </el-option>
+                    </el-select>
+                  </div>
+                </div>
+                <div class="element" >
+                  <p class="inline">详细地址:</p>
+                  <div class="width300 inline">
+                    <el-input size="medium" clearable placeholder="详细地址" class="input" v-model="infor.address"></el-input>
                   </div>
                 </div>
                 <div slot="footer" class="dialog-footer">
-                  <el-button size="medium" type="primary" @click="showEditStoreAddress = false">修 改</el-button>
+                  <el-button size="medium" type="primary" @click="updateAddress">修 改</el-button>
                 </div>
               </el-dialog>
               <!--<div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">-->
@@ -329,10 +350,10 @@
               <span class="label">账户名称</span>
               <span class="value">{{infor.merchantname}}</span>
               <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
-                <el-checkbox :label="Object.assign(newObj.openaccount, {'journeys': 4,'errorFlags': 1})" class="fl">
+                <el-checkbox :label="Object.assign(newObj.merchantname, {'journeys': 4,'errorFlags': 1})" class="fl">
                   未通过
                 </el-checkbox>
-                <input type="text" v-if="newObj.openaccount.check" v-model="newObj.openaccount.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
+                <input type="text" v-if="newObj.merchantname.check" v-model="newObj.merchantname.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
               </div>
             </div>
             <div class="lineText" v-if="infor.merchanttype !== 3">
@@ -349,9 +370,9 @@
               <span class="label">对公账号</span>
               <span class="value">{{infor.banknumbe}}</span>
               <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
-                <el-checkbox :label="Object.assign(newObj.userid, {'journeys': 4,'errorFlags': 1})" class="fl">未通过
+                <el-checkbox :label="Object.assign(newObj.banknumbe, {'journeys': 4,'errorFlags': 1})" class="fl">未通过
                 </el-checkbox>
-                <input type="text" v-if="newObj.userid.check" v-model="newObj.userid.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
+                <input type="text" v-if="newObj.banknumbe.check" v-model="newObj.banknumbe.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
               </div>
             </div>
             <div class="lineText">
@@ -362,9 +383,9 @@
                 <span v-else>{{infor.bankname}}</span>
               </span>
               <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
-                <el-checkbox :label="Object.assign(newObj.bank, {'journeys': 4,'errorFlags': 1})" class="fl">未通过
+                <el-checkbox :label="Object.assign(newObj.bankname, {'journeys': 4,'errorFlags': 1})" class="fl">未通过
                 </el-checkbox>
-                <input type="text" v-if="newObj.bank.check" v-model="newObj.bank.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
+                <input type="text" v-if="newObj.bankname.check" v-model="newObj.bankname.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
               </div>
             </div>
             <div class="lineText" v-if="infor.merchanttype !== 3">
@@ -535,10 +556,14 @@
               <!--infor.paychannels-->
               <span class="value">
                 <div v-if="infor.paychannels==='01' || infor.paychannels==='01,02'">
-                  <span class="width80 left">支付宝</span>T+1费率：{{infor.signup.aliratesT1*100}}% &#x3000;<span v-if="infor.supportT0!==2">T+0费率：{{infor.signup.aliratesT0*100}}%</span> </div>
+                  <span class="width80 left">支付宝</span>T+1费率：{{infor.signup.aliratesT1*100}}% &#x3000;
+                  <span v-if="infor.supportT0!==2">T+0费率：{{infor.signup.aliratesT0*100}}%</span>
+                </div>
                 <br/>
                 <div v-if="infor.paychannels==='02' || infor.paychannels==='01,02'">
-                  <span class="width80 left">微信支付</span>T+1费率：{{infor.signup.wechatratesT1*100}}%&#x3000;<span v-if="infor.supportT0!==2">T+0费率：{{infor.signup.wechatratesT0*100}}%</span> </div>
+                  <span class="width80 left">微信支付</span>T+1费率：{{infor.signup.wechatratesT1*100}}%&#x3000;
+                  <span v-if="infor.supportT0!==2">T+0费率：{{infor.signup.wechatratesT0*100}}%</span>
+                </div>
               </span>
             </div>
             <div class="lineText">
@@ -673,7 +698,7 @@
                 <el-button size="medium" type="primary" @click="sureAddMemo">确定</el-button>
               </div>
             </el-dialog>
-            <el-button size="medium" class="btn mt10" @click="intoCheck" v-if="(checks.length === 0 && type) ? true : false">下一步</el-button>
+            <el-button size="medium" class="btn mt10" @click="intoCheck" v-if="(checks.length === 0 && type)">下一步</el-button>
             <el-button size="medium" class="btn mt10" @click="centerDialogVisible = true" v-if="checks.length !== 0 ? true : false">审核驳回</el-button>
             <el-dialog title="提示" :visible.sync="centerDialogVisible" width="30%" center>
               <span>确认审核驳回?</span>
@@ -716,7 +741,9 @@ import {
   zsPToken,
   queryMybankAuditState,
   save,
-  listByCustomerId
+  listByCustomerId,
+  cityList,
+  updateAddress
 } from '@/api/index'
 
 export default {
@@ -742,27 +769,29 @@ export default {
           word: '这里是备忘信息2'
         }],
       infor: {},
-      listIndentity: [{
-        src: '',
-        w: 600,
-        h: 400
-      }, {
-        src: '',
-        w: 600,
-        h: 400
-      }, {
-        src: '',
-        w: 600,
-        h: 400
-      }, {
-        src: '',
-        w: 600,
-        h: 400
-      }, {
-        src: '',
-        w: 600,
-        h: 400
-      }],
+      listIndentity: [
+        {
+          src: '',
+          w: 600,
+          h: 400
+        }, {
+          src: '',
+          w: 600,
+          h: 400
+        }, {
+          src: '',
+          w: 600,
+          h: 400
+        }, {
+          src: '',
+          w: 600,
+          h: 400
+        }, {
+          src: '',
+          w: 600,
+          h: 400
+        }
+      ],
       bank: '',
       payType: {
         '01': '收款码收款',
@@ -853,7 +882,15 @@ export default {
       memoStatus: '',
       memoContent: '',
       tableData: [],
-      clearmode: ''
+      clearmode: '',
+      searchs: {
+        province: null,
+        provinceList: [],
+        city: null,
+        cityList: [],
+        county: null,
+        countyList: []
+      }
     }
   },
   filters: {
@@ -908,19 +945,78 @@ export default {
   },
   computed: {},
   created() {
+    this.selectProvince()
     console.log('this.autidId:')
     console.log(this.autidId)
     this.customerid = parseInt(this.$route.query.customerid);
     this.type = this.$route.query.type === 'true' ? 1 : 0
-    // // console.log(`this.type:${this.type}`)
+    console.log(`this.type:${this.type}`)
     if (this.customerid) {
       this.search(this.customerid)
       this.bankListT();
       this.listByMemo();
     }
-    // this.row = getCurrentRow()
   },
   methods: {
+    updateAddress() {
+      let params = {
+        customerid: this.customerid,
+        province: this.searchs.province,
+        city: this.searchs.city,
+        area: this.searchs.county,
+        address: this.infor.address
+      }
+      console.log(params)
+      updateAddress(params).then(res => {
+        console.log(res)
+        if (res.code === 200) {
+          this.showEditStoreAddress = false
+        }
+      })
+    },
+    selectProvince() {
+      let params = {
+        level: "province",
+        adcode: 100000
+      };
+      cityList(params).then(res => {
+        if (res.code === 200) {
+          this.searchs.provinceList = res.result;
+        }
+      })
+    },
+    provinceChange(val) {
+      this.searchs.province = val;
+      this.searchs.city = null;
+      this.searchs.county = null;
+      let params = {
+        level: "city",
+        adcode: val
+      }
+      cityList(params).then(res => {
+        if (res.code === 200) {
+          console.log(res);
+          this.searchs.cityList = res.result;
+        }
+      })
+    },
+    cityChange(val) {
+      this.searchs.city = val;
+      this.searchs.county = null;
+      let params = {
+        level: "district",
+        adcode: val
+      }
+      cityList(params).then(res => {
+        if (res.code === 200) {
+          console.log(res);
+          this.searchs.countyList = res.result;
+        }
+      })
+    },
+    countyChange(val) {
+      this.searchs.county = val;
+    },
     formatTable(row, col, val) {
       return format(row.created)
     },
@@ -1017,6 +1113,9 @@ export default {
       }
       console.log('intoSearch===0')
       this.infor = (await customerDetails(params)).result
+      this.searchs.province = this.infor.province
+      this.searchs.city = this.infor.city
+      this.searchs.county = this.infor.area
       console.log('intoSearch===1')
       if (this.infor.images.length > 0) {
         // this.imgs = [...this.infor.images]
@@ -1264,6 +1363,12 @@ export default {
     },
     // 交易类型编辑
     tradetypesEditClick() {
+      if (this.tradetypes.length <= 0) {
+        this.$message({
+          message: `请选择交易类型`
+        })
+        return
+      }
       let params = {
         customerid: this.customerid,
         tradetypes: this.tradetypes.length === 0 ? '' : this.tradetypes.toString()
@@ -1326,9 +1431,19 @@ export default {
         newMsgCode: this.newMsgCode
       }
       changePhone(params).then(res => {
-        this.callFun(res)
-        this.showEditManageClass = false
-        this.search(this.customerid)
+        if (res.code === 200) {
+          this.$message({
+            type: 'success',
+            message: `操作成功`
+          })
+          this.showEditMobile = false
+          this.search(this.customerid)
+        } else {
+          this.$message({
+            type: 'fail',
+            message: `系统出错：${res.msg}`
+          })
+        }
       }).catch(res => {
         this.callFun(res)
       })
@@ -1480,6 +1595,7 @@ export default {
             type: 'success',
             message: `操作成功！`
           })
+          this.$router.push('/merchantManage')
         } else {
           this.$message({
             type: 'fail',

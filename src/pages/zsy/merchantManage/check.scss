@@ -6,6 +6,11 @@
   height: 100%;
   background-color: white;
   //z-index: 1001;
+  .editMobileDialogBody{
+    display: block;
+    padding-bottom: 12px;
+    overflow: hidden;
+  }
   .allWrapper{
     overflow-y: auto;
     position: absolute;

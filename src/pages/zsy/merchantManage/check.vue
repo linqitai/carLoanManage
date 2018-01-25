@@ -89,9 +89,9 @@
               <el-radio @change="radioClick" v-model="radio" label='1' class="fl">捷信安保公众号</el-radio>
             </span>
           </div>
-          <div class="lineText">
+          <div class="lineText" v-if="radio == '2'">
             <span class="label">APPID</span>
-            <span class="value"><input type="text" v-if="radio == '2'" v-model="appId"></span>
+            <span class="value"><input type="text" v-model="appId"></span>
           </div>
         </div>
       </div>
@@ -108,9 +108,9 @@
         <div class="title">备忘信息</div>
         <div class="contentText">
           <!-- <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 4 && infor.isaudit !== 7 && infor.isaudit !== 2 && infor.isaudit !== 6">
-                            <span class="label">公众号类型</span>
-                            <span class="value">{{publicNumType | publicNumTypeState}}</span>
-                          </div> -->
+                                <span class="label">公众号类型</span>
+                                <span class="value">{{publicNumType | publicNumTypeState}}</span>
+                              </div> -->
           <el-table stripe :data="tableData">
             <el-table-column prop="created" label="时间" width="180" :formatter="formatTable"></el-table-column>
             <el-table-column prop="operatorname" label="负责人" width="120"></el-table-column>
@@ -147,17 +147,19 @@
             </span>
           </el-dialog>
           <el-dialog width="40%" title="短信验证码" :visible.sync="showEditMobile">
-            <div class="element">
-              <p class="width100 textLeft inline">手机号码</p>
-              <div class="inline">{{phone}}</div>
-            </div>
-            <div class="element">
-              <p class="width100 textLeft inline">验证码</p>
-              <div class="width140 inline">
-                <el-input size="medium" clearable placeholder="请输入验证码" class="input"></el-input>
+            <span class="editMobileDialogBody">
+              <div class="element">
+                <p class="width100 textLeft inline">手机号码</p>
+                <div class="inline">{{phone}}</div>
               </div>
-              <el-button v-model="msgCode" size="medium" type="primary" @click="codeClick">获取验证码</el-button>
-            </div>
+              <div class="element">
+                <p class="width100 textLeft inline">验证码</p>
+                <div class="width140 inline">
+                  <el-input size="medium" clearable placeholder="请输入验证码" class="input"></el-input>
+                </div>
+                <el-button v-model="msgCode" size="medium" type="primary" @click="codeClick">获取验证码</el-button>
+              </div>
+            </span>
             <div slot="footer" class="dialog-footer">
               <el-button size="medium" type="primary" @click="codeYesClick">确 定</el-button>
             </div>
@@ -180,7 +182,7 @@ export default {
       showMemoType: false,
       sureToBankDialogVisible: false,
       showEditMobile: false,
-      radio: '1',
+      radio: '2',
       isDisabledHB: true,
       supportAli: false,
       supportWechat: false,
@@ -466,6 +468,12 @@ export default {
       if (this.radio == 2 && (this.appId == '' || this.appId == null)) {
         this.$message({
           message: `请填写商户自有公众号的APPID`
+        })
+        return
+      }
+      if (this.tradetypes.length <= 0) {
+        this.$message({
+          message: `请选择交易类型`
         })
         return
       }
