@@ -67,7 +67,7 @@
 
 <script>
   import { listYuLiBao } from "@/api/index"
-  import { getDateTime } from "@/common/js/times"
+  import { getDateTime, getDate } from "@/common/js/times"
   export default {
     data() {
       return {
@@ -89,6 +89,8 @@
     },
     methods: {
       search() {
+        console.log(this.searchMenu.sdate);
+        console.log(this.searchMenu.edate);
         if (this.searchMenu.sdate && this.searchMenu.edate && new Date(this.searchMenu.sdate) - new Date(this.searchMenu.edate) > 0) {
           this.$message({
             type: 'error',
@@ -97,10 +99,10 @@
           return;
         }
         if (this.searchMenu.sdate) {
-          this.searchMenu.sdate = getDateTime(new Date(this.searchMenu.sdate));
+          this.searchMenu.sdate = getDate(new Date(this.searchMenu.sdate)) + " 00:00:00";
         }
         if (this.searchMenu.edate) {
-          this.searchMenu.edate = getDateTime(new Date(this.searchMenu.edate));
+          this.searchMenu.edate = getDate(new Date(this.searchMenu.edate)) + " 23:59:59";
         }
         this.loading = true;
         let params = {

@@ -127,7 +127,7 @@
 <script type="text/ecmascript-6">
 import { isUsingList, sexList, mtypeList, runTYpeList, statusList, tableData } from 'common/js/config'
 import { agentlist, updateUsing, cityList } from "@/api/index"
-import { getDateTime } from "@/common/js/times"
+import { getDateTime, getDate } from "@/common/js/times"
 export default {
   data() {
     return {
@@ -223,10 +223,10 @@ export default {
         return;
       }
       if (this.form.startDate) {
-        this.form.startDate = getDateTime(new Date(this.form.startDate));
+        this.form.startDate = getDate(new Date(this.form.startDate)) + " 00:00:00";
       }
       if (this.form.endDate) {
-        this.form.endDate = getDateTime(new Date(this.form.endDate));
+        this.form.endDate = getDate(new Date(this.form.endDate)) + " 23:59:59";
       }
       this.loading = true;
       let params = {
