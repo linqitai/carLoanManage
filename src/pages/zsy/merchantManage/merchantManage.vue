@@ -23,10 +23,10 @@
           <div class="element">
             <p class="inline">时间</p>
             <div class="inline">
-              <el-date-picker size="medium" class="inline" style="width:134px;" v-model="searchs.startTime" type="date" placeholder="开始时间" value-format="yyyy-MM-dd" @change="startTimeChange">
+              <el-date-picker size="medium" class="inline" style="width:138px;" v-model="searchs.startTime" type="date" placeholder="开始时间" value-format="yyyy-MM-dd" @change="startTimeChange">
               </el-date-picker>
               <span class="inline">至</span>
-              <el-date-picker size="medium" class="inline" value-format="yyyy-MM-dd" style="width:134px;" v-model="searchs.endTime" type="date" placeholder="结束时间" @change="endTimeChange">
+              <el-date-picker size="medium" class="inline" value-format="yyyy-MM-dd" style="width:138px;" v-model="searchs.endTime" type="date" placeholder="结束时间" @change="endTimeChange">
               </el-date-picker>
             </div>
           </div>
@@ -81,15 +81,27 @@
               <el-input size="medium" clearable v-model="searchs.agent" placeholder="代理商查询" class="input" @keyup.enter.native="search"></el-input>
             </div>
           </div>
-          <!-- <div class="element">
-                    <p class="inline">店铺地址</p>
-                    <div class="width140 inline">
-                      <el-select size="medium" placeholder="请选择" @change="search">
-                        <el-option v-for="item in runTYpeList1" :key="item.value" :label="item.label" :value="item.value">
-                        </el-option>
-                      </el-select>
-                    </div>
-                  </div> -->
+          <div class="element">
+            <p class="inline">店铺地址:</p>
+            <div class="width120 inline">
+              <el-select size="medium" v-model="searchs.province" placeholder="请选择" @change="provinceChange">
+                <el-option v-for="item in searchs.provinceList" :key="item.adcode" :label="item.name" :value="item.adcode">
+                </el-option>
+              </el-select>
+            </div>
+            <div class="width120 inline" v-if="searchs.province">
+              <el-select size="medium" v-model="searchs.city" placeholder="请选择" @change="cityChange">
+                <el-option v-for="item in searchs.cityList" :key="item.adcode" :label="item.name" :value="item.adcode">
+                </el-option>
+              </el-select>
+            </div>
+            <div class="width120 inline" v-if="searchs.city">
+              <el-select size="medium" v-model="searchs.county" placeholder="请选择" @change="countyChange">
+                <el-option v-for="item in searchs.countyList" :key="item.adcode" :label="item.name" :value="item.adcode">
+                </el-option>
+              </el-select>
+            </div>
+          </div>
           <div class="element">
             <el-button size="medium" class="searchBtn" @click.native="search">查询</el-button>
           </div>
@@ -100,12 +112,16 @@
             <el-table-column prop="merchantname" label="商户名称" show-overflow-tooltip show-overflow-tooltip></el-table-column>
             <el-table-column prop="merchanttype" label="商户类型" :formatter="shopType" width="120"></el-table-column>
             <el-table-column prop="operatetype" label="经营类目" :formatter="manageType" width="120"></el-table-column>
-            <el-table-column prop="address" label="店铺地址" show-overflow-tooltip></el-table-column>
+            <el-table-column label="店铺地址" show-overflow-tooltip>
+              <template slot-scope="scope">
+                {{scope.row.province + scope.row.city + scope.row.area + scope.row.address}}
+              </template>
+            </el-table-column>
             <el-table-column prop="responsiblename" label="负责人" width="100"></el-table-column>
             <el-table-column prop="sex" label="性别" :formatter="sexFilter" width="50"></el-table-column>
             <el-table-column prop="phone" label="手机号码" width="120"></el-table-column>
             <el-table-column prop="agentName" label="代理商" width="70" :formatter="agentNameFormat"></el-table-column>
-            <el-table-column prop="isaudit" label="状态" :formatter="stateType" width="150" fixed="right"></el-table-column>
+            <el-table-column prop="isaudit" label="状态" :formatter="stateType" width="100" fixed="right"></el-table-column>
             <el-table-column label="操作" width="150" fixed="right">
               <template slot-scope="scope">
                 <el-button type="text" size="small" v-if="scope.row.isaudit !== 2 && scope.row.isaudit !== 6" @click="detail(scope.row, false)">详情
@@ -135,8 +151,8 @@
 import { mtypeList, runTYpeList1, statusList } from 'common/js/config'
 import { sexFilter } from 'common/js/utils'
 import { saveCurrentRow } from 'common/js/cache'
-import { getDateHM, getDate } from 'common/js/times'
-import { merchantList, auditEnabel, testC } from '@/api/index'
+import { getDateHM, getDate, format } from 'common/js/times'
+import { merchantList, auditEnabel, testC, cityList } from '@/api/index'
 // import { mapMutations } from 'vuex'
 export default {
   data() {
@@ -153,7 +169,6 @@ export default {
       runTYpeList1: runTYpeList1,
       statusList: statusList,
       provinceList: '',
-      cityList: '',
       areaList: '',
       tableData: [],
       pageIndex: 1,
@@ -170,11 +185,12 @@ export default {
         mobile: '',
         status: '',
         agent: '',
-        address: {
-          province: '',
-          city: '',
-          area: ''
-        }
+        province: null,
+        provinceList: [],
+        city: null,
+        cityList: [],
+        county: null,
+        countyList: []
       }
     }
   },
@@ -185,6 +201,7 @@ export default {
   },
   created() {
     this.search()
+    this.selectProvince();
   },
   methods: {
     agentNameFormat(row) {
@@ -287,6 +304,49 @@ export default {
       }
       return type;
     },
+    selectProvince() {
+      let params = {
+        level: "province",
+        adcode: 100000
+      };
+      cityList(params).then(res => {
+        if (res.code === 200) {
+          this.searchs.provinceList = res.result;
+        }
+      })
+    },
+    provinceChange(val) {
+      this.searchs.province = val;
+      this.searchs.city = null;
+      this.searchs.county = null;
+      let params = {
+        level: "city",
+        adcode: val
+      }
+      cityList(params).then(res => {
+        if (res.code === 200) {
+          console.log(res);
+          this.searchs.cityList = res.result;
+        }
+      })
+    },
+    cityChange(val) {
+      this.searchs.city = val;
+      this.searchs.county = null;
+      let params = {
+        level: "district",
+        adcode: val
+      }
+      cityList(params).then(res => {
+        if (res.code === 200) {
+          console.log(res);
+          this.searchs.countyList = res.result;
+        }
+      })
+    },
+    countyChange(val) {
+      this.searchs.county = val;
+    },
     search() {
       if (this.searchs.startTime && this.searchs.endTime && new Date(this.searchs.startTime) - new Date(this.searchs.endTime) > 0) {
         this.$message({
@@ -296,8 +356,8 @@ export default {
         return
       }
       let params = {
-        sdate: this.searchs.startTime ? getDate(this.searchs.startTime) : '',//时间问题+时分秒
-        edate: this.searchs.endTime ? getDate(this.searchs.endTime) : '',
+        sdate: this.searchs.startTime,
+        edate: this.searchs.endTime,
         merchantname: this.searchs.mName,
         merchanttype: this.searchs.mtype,
         operatecategory: this.searchs.runTYpe,
@@ -307,7 +367,10 @@ export default {
         pageSize: this.searchs.pageSize,
         pageIndex: this.searchs.pageIndex,
         isaudit: this.searchs.status,
-        agentscode: this.$route.query.code
+        agentscode: this.$route.query.code,
+        province: this.searchs.province,
+        city: this.searchs.city,
+        area: this.searchs.county
       }
       console.log('merchantList params:')
       console.log(params)
@@ -403,8 +466,12 @@ export default {
     searchEvent() {
     },
     startTimeChange(val) {
+      this.searchs.startTime = val + ' 00:00:01'
+      console.log(this.searchs.startTime)
     },
     endTimeChange(val) {
+      this.searchs.endTime = val + ' 23:59:59'
+      console.log(this.searchs.endTime)
     },
     // pageSizeChange(newIndex) {
     //   console.log('page size change event', newIndex)
