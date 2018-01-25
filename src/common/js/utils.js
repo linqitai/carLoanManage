@@ -2,7 +2,7 @@
  *  插件文件：utils.js
  *  作者：林祺泰  QQ：514917919
  * */
-// 管理员状态( 0:禁用 1:启用),点击禁用,0,点击启用,1
+// 限制文本个数
 export function getLimiteText(value) {
   let len = 24
   if (value.length > len) {
