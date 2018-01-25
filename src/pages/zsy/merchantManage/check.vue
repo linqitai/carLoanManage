@@ -157,7 +157,7 @@
                 <div class="width140 inline">
                   <el-input size="medium" clearable placeholder="请输入验证码" class="input"></el-input>
                 </div>
-                <el-button v-model="msgCode" size="medium" type="primary" @click="codeClick">获取验证码</el-button>
+                <el-button v-model="msgCode" size="medium" :type="sendCodeType" @click="codeClick" :disabled="isSendCode">{{sendCodeValue}}</el-button>
               </div>
             </span>
             <div slot="footer" class="dialog-footer">
@@ -207,7 +207,10 @@ export default {
       memoContent: '',
       supportT0: '',
       tableData: [],
-      msgCode: ''
+      msgCode: '',
+      isSendCode: false,
+      sendCodeValue: "获取验证码",
+      sendCodeType: "primary"      
     }
   },
   filters: {
@@ -405,6 +408,20 @@ export default {
       })
     },
     codeClick() {
+      let self = this
+      var num = 60;
+      var timer = setInterval(function () {
+        num--;
+        self.sendCodeValue = num + '秒后重新获取'
+        self.isSendCode = true;
+        self.sendCodeType = "info";
+        if (num === 0) {
+          self.isSendCode = false;
+          self.sendCodeValue = '获取验证码';
+          self.sendCodeType = "primary";
+          clearInterval(timer)
+        }
+      }, 1000);
       let params = {
         customerid: this.customerid,
         sign: 'aXU5JSUzekV2b2U4UWF0R3UhV3haSmlHNDh4ZkZqNEt0SmtyMjJ0OUl5JU54V08wJUJ0VzliZFFVcFdjcXZZNDFEeHVQT2xIV15pVyVpKldoZG8wSSU2aUhG',
