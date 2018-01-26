@@ -174,6 +174,12 @@
               <span class="label">店铺地址</span>
               <span class="value">{{infor.province+infor.city+infor.area+infor.address}}</span>
               <i v-if="status===statusNormal && infor.isaudit === 5" class="iconfont icon-bianji-copy ml10 fontSizeM" @click="showEditStoreAddress=true"></i>
+              <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
+                <el-checkbox :label="Object.assign(newObj.province, {'journeys': 1,'errorFlags': 1})" class="fl">
+                  未通过
+                </el-checkbox>
+                <input type="text" v-if="newObj.province.check" v-model="newObj.province.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
+              </div>
               <el-dialog width="40%" title="编辑店铺地址" :visible.sync="showEditStoreAddress">
                 <div class="element">
                   <p class="inline">店铺地址:</p>
@@ -196,7 +202,7 @@
                     </el-select>
                   </div>
                 </div>
-                <div class="element" >
+                <div class="element">
                   <p class="inline">详细地址:</p>
                   <div class="width300 inline">
                     <el-input size="medium" clearable placeholder="详细地址" class="input" v-model="infor.address"></el-input>
@@ -226,7 +232,7 @@
                 <input type="text" v-if="newObj.responsiblename.check" v-model="newObj.responsiblename.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
               </div>
             </div>
-            <div class="lineText" v-if="infor.isaudit !== 1 && infor.merchanttype !==3 && infor.isaudit !== 4 && infor.isaudit !== 7">
+            <div class="lineText" v-if="(infor.isaudit !== 1 && infor.isaudit !== 2 && infor.isaudit !== 4 && infor.isaudit !== 6 && infor.isaudit !== 7) || infor.merchanttype === 3">
               <span class="label">手机号码</span>
               <span class="value">{{infor.phone}}</span>
               <i v-if="status===statusNormal && infor.isaudit === 5" class="iconfont icon-bianji-copy ml10 fontSizeM" @click="showEditMobile=true"></i>
@@ -239,6 +245,12 @@
             <div class="lineText">
               <span class="label">身份证号</span>
               <span class="value">{{infor.idcard}}</span>
+              <!-- <i v-if="status===statusNormal && infor.isaudit === 5" class="iconfont icon-bianji-copy ml10 fontSizeM" @click="showEditMobile=true"></i> -->
+              <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
+                <el-checkbox :label="Object.assign(newObj.idcard, {'journeys': 2,'errorFlags': 1})" class="fl">未通过
+                </el-checkbox>
+                <input type="text" v-if="newObj.idcard.check" v-model="newObj.idcard.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
+              </div>
             </div>
             <img class="preview-img" v-for="(item, index) in listIndentity" :key="index" :src="item.src" height="100" @click="$preview.open(0, listIndentity)" v-show="false">
             <div class="lineText">
@@ -330,11 +342,11 @@
             <div class="lineText" v-if="infor.isaudit !== 5 && infor.isaudit !== 8">
               <span class="label">结算方式</span>
               <span class="value">{{infor.clearmode | clearmodeState}}</span>
-              <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
-                <el-checkbox :label="Object.assign(newObj.clearmode, {'journeys': 4,'errorFlags': 1})" class="fl">未通过
-                </el-checkbox>
-                <input type="text" v-if="newObj.clearmode.check" v-model="newObj.clearmode.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
-              </div>
+              <!-- <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
+                  <el-checkbox :label="Object.assign(newObj.clearmode, {'journeys': 4,'errorFlags': 1})" class="fl">未通过
+                  </el-checkbox>
+                  <input type="text" v-if="newObj.clearmode.check" v-model="newObj.clearmode.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
+                </div> -->
             </div>
             <div class="lineText">
               <span class="label">账户类型</span>
@@ -348,12 +360,12 @@
             </div>
             <div class="lineText" v-if="infor.merchanttype === 3">
               <span class="label">账户名称</span>
-              <span class="value">{{infor.merchantname}}</span>
+              <span class="value">{{infor.openaccount}}</span>
               <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
-                <el-checkbox :label="Object.assign(newObj.merchantname, {'journeys': 4,'errorFlags': 1})" class="fl">
+                <el-checkbox :label="Object.assign(newObj.openaccount, {'journeys': 4,'errorFlags': 1})" class="fl">
                   未通过
                 </el-checkbox>
-                <input type="text" v-if="newObj.merchantname.check" v-model="newObj.merchantname.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
+                <input type="text" v-if="newObj.openaccount.check" v-model="newObj.openaccount.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
               </div>
             </div>
             <div class="lineText" v-if="infor.merchanttype !== 3">
@@ -485,7 +497,7 @@
                   <el-input size="medium" clearable placeholder="请输入银行卡号" v-model="newbanknumbe" class="input"></el-input>
                 </div>
               </div>
-              <div class="element" v-if="infor.accounttype == 2">
+              <div class="element" v-if="infor.accounttype == 2 || infor.merchanttype === 3">
                 <p class="width100 textLeft inline">银行预留手机号</p>
                 <div class="inline">
                   {{infor.phone|nullToLine}}
