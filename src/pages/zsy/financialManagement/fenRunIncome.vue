@@ -49,11 +49,8 @@
       <el-table :data="tableData" stripe>
         <el-table-column prop="transDate" label="时间"></el-table-column>
         <el-table-column prop="buyerPayAmount" label="商户收款总额(元)"></el-table-column>
-        <el-table-column prop="companyIncome" label="分润收入(元)"></el-table-column>
-        <el-table-column label="分润总金额(元)">
-          <template slot-scope="scope">
-            {{companyIncomeSum}}
-          </template>
+        <el-table-column prop="income" label="分润收入(元)"></el-table-column>
+        <el-table-column prop="companyIncome" label="分润总金额(元)">
         </el-table-column>
         <el-table-column prop="agentIncome" label="代理商分润(元)"></el-table-column>
       </el-table>
