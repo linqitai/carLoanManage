@@ -154,7 +154,7 @@ export const zsyOper = (params) => {
     return http.fetchPost(zsy + '/zcash/userShop/list.do', params)
 }
 //信用卡申请
-export const zed = "/zed_manage"
+export const zed = "/zsy_manage"
 export const zedCredit = (params) => {
     return http.fetchPost(zed + '/trade/creditAction/list.do', params)
 }
