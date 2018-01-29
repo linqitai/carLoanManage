@@ -343,10 +343,10 @@
               <span class="label">结算方式</span>
               <span class="value">{{infor.clearmode | clearmodeState}}</span>
               <!-- <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
-                  <el-checkbox :label="Object.assign(newObj.clearmode, {'journeys': 4,'errorFlags': 1})" class="fl">未通过
-                  </el-checkbox>
-                  <input type="text" v-if="newObj.clearmode.check" v-model="newObj.clearmode.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
-                </div> -->
+                        <el-checkbox :label="Object.assign(newObj.clearmode, {'journeys': 4,'errorFlags': 1})" class="fl">未通过
+                        </el-checkbox>
+                        <input type="text" v-if="newObj.clearmode.check" v-model="newObj.clearmode.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
+                      </div> -->
             </div>
             <div class="lineText">
               <span class="label">账户类型</span>
@@ -602,27 +602,7 @@
               <span class="label">禁用支付方式</span>
               <span class="value">{{infor.deniedpays | deniedpaysState}}</span>
               <i v-if="status===statusNormal && infor.isaudit === 5" class="iconfont icon-bianji-copy ml10 fontSizeM" @click="showEditForbiddenMethodEvent=true"></i>
-              <el-dialog style="editDialog" width="500px" title="编辑禁用支付方式" :visible.sync="showEditForbiddenMethodEvent">
-                <div>
-                  <span>禁用支付方式</span>
-                  <el-checkbox-group v-model="deniedpays">
-                    <span>
-                      <el-checkbox label="03" key="1" @change="change1">禁用花呗（支付宝）</el-checkbox>
-                    </span>
-                    <span>
-                      <el-checkbox label="02" key="2">禁用信用卡（微信支付刷卡支付（被扫）模式无法禁用信用卡支付）</el-checkbox>
-                    </span>
-                  </el-checkbox-group>
-                  <br>
-                </div>
-                <div v-if="isDisabledHB">
-                  <el-checkbox v-model="supportStage" @change="supportStageClick">买家不可使用(花呗分期)
-                  </el-checkbox>
-                </div>
-                <div slot="footer" class="dialog-footer">
-                  <el-button size="medium" type="primary" @click="deniedpaysEditClick">确 定</el-button>
-                </div>
-              </el-dialog>
+
             </div>
             <div class="lineText">
               <span class="label">花呗分期</span>
@@ -659,7 +639,8 @@
           <div class="title">签署的协议</div>
           <div class="contentText">
             <div class="lineText">
-              <a>《臻收银商户注册服务协议》、《臻收银服务隐私政策条款》、《移动支付收单服务协议》、《网商银行账户服务协议》、《余利宝服务协议》</a>
+              <a>《臻收银商户注册服务协议》、《臻收银服务隐私政策条款》、《移动支付收单服务协议》、《网商银行账户服务协议》</a>
+              <!-- 、《余利宝服务协议》 -->
             </div>
           </div>
         </div>
@@ -723,6 +704,26 @@
         </div>
       </div>
     </el-checkbox-group>
+    <el-dialog style="editDialog" width="500px" title="编辑禁用支付方式" :visible.sync="showEditForbiddenMethodEvent">
+      <div>
+        <!-- <span>禁用支付方式</span> -->
+        <el-checkbox-group v-model="deniedpays">
+          <span>
+            <el-checkbox label="03" key="1" @change="change1">禁用花呗（支付宝）</el-checkbox>
+          </span>
+          <span>
+            <el-checkbox label="02" key="2">禁用信用卡（微信支付刷卡支付（被扫）模式无法禁用信用卡支付）</el-checkbox>
+          </span>
+        </el-checkbox-group>
+        <div v-if="isDisabledHB">
+          <!-- <el-radio v-model="supportStage" @change="supportStageClick" label="1">买家不可使用(花呗分期)</el-radio> -->
+          <el-checkbox v-model="supportStage" @change="supportStageClick">买家不可使用(花呗分期) </el-checkbox>
+        </div>
+      </div>
+      <div slot="footer" class="dialog-footer">
+        <el-button size="medium" type="primary" @click="deniedpaysEditClick">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -902,7 +903,8 @@ export default {
         cityList: [],
         county: null,
         countyList: []
-      }
+      },
+      supportStage: false
     }
   },
   filters: {
@@ -934,7 +936,7 @@ export default {
       return value === 1 ? '支持' : value === 2 ? '不支持' : '---'
     },
     supportStageState(value) {
-      return value === '01' ? '支持' : value === '02' ? '不支持' : '---'
+      return value === '01' ? '支持' : value === '02' ? '不支持' : '不支持'
     },
     publicNumTypeState(value) {
       return value === 1 ? '合作机构公众号（捷信安保公众号）' : value === 2 ? '商户自有公众号' : value === 3 ? '其他商户公众号' : '---'
@@ -1279,6 +1281,8 @@ export default {
     },
     // 花呗框选择
     supportStageClick(val) {
+      console.log(val)
+      // 是否支持花呗分期（Y：支持；N：不支持）
       if (val) {
         this.supportStageValue = 'Y'
       } else {
