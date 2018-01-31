@@ -132,10 +132,12 @@ export default {
     refundReasonType(value) {
       switch (value) {
         case "1":
-          return '收错金额';
+          return '收银员收多了';
         case "2":
-          return '用户输错金额';
+          return '客户付多了';
         case "3":
+          return '客户要求退货';  
+        case "4":
           return '其他';  
       }
     },
