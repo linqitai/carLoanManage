@@ -19,7 +19,7 @@
         </el-breadcrumb>
       </div>
       <div class="allWrapper">
-        <div class="searchCondition">
+        <search-condition @clickSearchData="search">
           <div class="element">
             <p class="inline">时间</p>
             <div class="inline">
@@ -102,10 +102,7 @@
               </el-select>
             </div>
           </div>
-          <div class="element">
-            <el-button size="medium" class="searchBtn" @click.native="search">查询</el-button>
-          </div>
-        </div>
+        </search-condition>
         <div class="tableWrapper">
           <el-table :data="tableData" stripe>
             <el-table-column fixed="left" prop="applyTime" label="申请时间" width="150"></el-table-column>
@@ -153,15 +150,14 @@ import { sexFilter } from 'common/js/utils'
 import { saveCurrentRow } from 'common/js/cache'
 import { getDateHM, getDate, format } from 'common/js/times'
 import { merchantList, auditEnabel, testC, cityList } from '@/api/index'
+import searchCondition from 'components/searchCondition.vue'
 // import { mapMutations } from 'vuex'
 export default {
   data() {
     return {
       maxLengthMobile: 11,
       maxLengthIdentity: 18,
-      isShowMore: false,
       showCheckbox: false,
-      searchCell: false,
       total: 1,
       showSizeChanger: true,
       pageSizeOption: [10, 15, 20, 25, 30],
@@ -394,9 +390,6 @@ export default {
     toStoreManage(row) {
       this.$router.push('/storeManage?merchantname=' + row.merchantname)
     },
-    moreBtn() {
-      this.searchCell = !this.searchCell
-    },
     openOrClose(row) {
       let cancalMsg = '操作已取消'
       if (row.isaudit === 5) { // 启用的值
@@ -485,21 +478,12 @@ export default {
       this.search()
     }
   },
-  components: {}
+  components: {
+    searchCondition
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-.merchantManage {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  .merchantManageWrapper {
-    position: absolute;
-    width: 100%;
-    top: 0px;
-    bottom: 0px;
-    z-index: 0;
-  }
-}
+@import './merchantManage.scss'
 </style>

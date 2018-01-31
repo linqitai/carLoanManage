@@ -58,7 +58,7 @@ export default {
     }
   },
   created() {
-    // this.getUserInfo()
+    this.getUserInfo()
   }
 }
 </script>

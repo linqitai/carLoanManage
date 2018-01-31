@@ -36,7 +36,7 @@ export default {
     return {
       ishover: false,
       autofocus: true,
-      imgUrl: dir + '/checkCode.jpg' + '?' + Math.random(),
+      imgUrl: dir + '/getCheckCode.jpg' + '?' + Math.random(),
       ruleForm: {
         username: '',
         password: '',
@@ -91,7 +91,7 @@ export default {
       })
     },
     img() {
-      this.imgUrl = dir + '/checkCode.jpg' + '?' + Math.random()
+      this.imgUrl = dir + '/getCheckCode.jpg' + '?' + Math.random()
     }
   }
 }

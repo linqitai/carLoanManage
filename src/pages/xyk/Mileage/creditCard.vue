@@ -68,10 +68,10 @@
         </div>
       </div>
         <el-table :data="tableData" style="width: 100%">
-				<el-table-column prop="createDate" :formatter="formatterDate" label="时间" align="left"></el-table-column>
-				<el-table-column prop="nickName" :formatter="formatterName" label="姓名" align="left"></el-table-column>
-				<el-table-column prop="phone" :formatter="formatterPhone" label="账号" align="center"></el-table-column>
-				<el-table-column prop="area" :formatter="formatterArea" label="所在地区" align="center"></el-table-column>
+				<el-table-column prop="createDate" :formatter="formatterDate" label="时间"></el-table-column>
+				<el-table-column prop="nickName" :formatter="formatterName" label="姓名"></el-table-column>
+				<el-table-column prop="phone" :formatter="formatterPhone" label="账号"></el-table-column>
+				<el-table-column prop="area" :formatter="formatterArea" label="所在地区"></el-table-column>
 				<el-table-column prop="actionName" label="动作" align="center"></el-table-column>
 			</el-table>
       <div class="block" style="margin-top:30px" >

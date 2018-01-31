@@ -105,7 +105,7 @@
               {{scope.row.updated | getDateHM}}
             </template>
           </el-table-column>
-          <el-table-column prop="zedAccount" label="账号" width="110"></el-table-column>
+          <el-table-column prop="zedAccount" label="账号" width="140"></el-table-column>
           <el-table-column label="车型" width="250">
             <template slot-scope="scope">
               <el-tooltip :content="scope.row.title" placement="right" effect="light">

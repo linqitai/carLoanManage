@@ -5,9 +5,10 @@
       <v-sidebar v-if="isShowSidebar"></v-sidebar>
       <div class="content" :class="[isShowSidebar?'contentLeft':'contentLeft0']" ref="content">
         <div class="leftBtn" :class="[isShowSidebar?'imageArrowLeft':'imageArrowRight']" @click="clickLeftBtn"></div>
-        <transition name="move">
-          <router-view></router-view>
-        </transition>
+        <router-view></router-view>
+        <!-- <keep-alive>
+              <router-view></router-view>
+            </keep-alive> -->
       </div>
     </div>
   </div>
@@ -169,8 +170,7 @@ export default {
         overflow: auto;
         .searchCondition {
           position: relative;
-          width: 100%;
-          // height: 52px;
+          width: 100%; // height: 52px;
           overflow: hidden;
           margin-bottom: 10px; // min-width: $content-min-width;
           .searchBtn {
@@ -186,7 +186,7 @@ export default {
               background-color: $menuHoverColor !important;
             }
           }
-          &:after{
+          &:after {
             content: '';
             position: absolute;
             left: 48%;
@@ -209,13 +209,6 @@ export default {
             }
             &:last-child {
               margin-right: 0px;
-            }
-            .iconTransform {
-              transform: rotate(180deg);
-              -moz-transform: rotate(180deg);
-              -webkit-transform: rotate(180deg);
-              -o-transform: rotate(180deg);
-              -ms-transform: rotate(180deg);
             }
           }
         } // 表格样式
@@ -263,14 +256,14 @@ export default {
             float: right;
           }
         }
-        .tableWrapper-excel{
+        .tableWrapper-excel {
           float: right;
           font-size: 15px;
           margin-bottom: 10px;
-          .tableWrapper-excel-pad{
-             padding-right: 20px
-           }
-          .tableWrapper-excel-border{
+          .tableWrapper-excel-pad {
+            padding-right: 20px
+          }
+          .tableWrapper-excel-border {
             display: inline-block;
             width: 120px;
             height: 25px;

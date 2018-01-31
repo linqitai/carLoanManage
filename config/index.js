@@ -32,6 +32,8 @@ module.exports = {
         // target:'http://192.168.18.220:8061', // 修庆
         // target:'http://192.168.18.218:8061',
         // target:'http://192.168.18.177:8030', // 子涵
+        // target: 'http://192.168.20.175:8030', // 松林本地 192.168.20.175
+        // target: 'http://47.96.251.26:8030', // 正式环境新
         target: 'http://47.96.251.43:8030', // 测试环境新
         // target:'http://192.168.18.178:3000',
         changeOrigin: true,
@@ -64,7 +66,8 @@ module.exports = {
         // target:'http://192.168.18.220:8061', // 修庆
         // target:'http://192.168.18.218:8061',
         // target:'http://192.168.18.227:8090',
-         target: 'http://47.96.251.43:8084/zsmanage',// 测试环境新
+        // target: 'http://www.zsbiddata.com.cn/zsy', // 正式环境新
+        target: 'http://47.96.251.43:8084/zsmanage',// 测试环境新
         // target: 'http://192.168.20.214:8080', // 测试环境
         // target:'http://192.168.18.178:3000',
         // target: 'http://192.168.20.47', //张尊
@@ -72,7 +75,7 @@ module.exports = {
         pathRewrite: {
           '^/zsy_manage': ''
         }
-      },
+      }
 //    '/zed_manage': {
 //      target: 'http://192.168.20.214:8080',
 //      changeOrigin: true,

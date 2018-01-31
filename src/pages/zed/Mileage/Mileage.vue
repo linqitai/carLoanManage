@@ -89,7 +89,7 @@
           </div>
         </transition>
       </div>
-      <table class="tableList">
+      <table class="tableList" style="width:100%">
         <thead>
           <tr>
             <th class="width80">时间</th>
