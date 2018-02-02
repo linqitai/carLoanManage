@@ -273,20 +273,22 @@ $dialogPadding: 20px;
 .el-dialog__footer{
   border-top: 1px solid $tableLineColor;
 }
-
-thead tr {
+thead, thead tr {
   background-color: $tableTheadColor !important;
   color: #ffffff;
+  height: 38px !important;
 }
 .el-table{
   font-family: '微软雅黑';
 }
+.el-table tr {
+  height: 36px !important;
+}
 .el-table th {
-  padding: 8px 0;
   text-align: center;
 }
 .el-table td{
-  padding: 4px 0;
+  padding: 2px 0;
   text-align: center;
 }
 .el-table th>.cell{
@@ -363,4 +365,20 @@ table .el-button {
 }
 .searchCondition .formClass .el-form-item .el-form-item__content{
   line-height: 30px;
+}
+.searchCondition {
+  .scLeft {
+    width: 80%;
+    float: left;
+  }
+  .scRight {
+    float: right;
+  }
+}
+.iconTransform {
+  transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
 }

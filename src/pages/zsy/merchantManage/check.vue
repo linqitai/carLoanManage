@@ -62,9 +62,9 @@
           </div>
           <div class="lineText">
             <span class="label">禁用支付方式</span>
-            <el-checkbox-group v-model="deniedpays" @change="handleCheckedCitiesChange2">
+            <el-checkbox-group v-model="deniedpays" @change="changeDeniedpays">
               <span class="value">
-                <el-checkbox class="fl" label="01" key="1" @change="changeHB">禁用花呗（支付宝）</el-checkbox>
+                <el-checkbox class="fl" label="03" key="1" @change="changeHB">禁用花呗（支付宝）</el-checkbox>
               </span>
               <span class="value">
                 <el-checkbox class="fl" label="02" key="2">禁用信用卡（微信支付刷卡支付（被扫）模式无法禁用信用卡支付）</el-checkbox>
@@ -73,7 +73,7 @@
             <br>
           </div>
           <div class="values" v-if="isDisabledHB">
-            <el-checkbox class="fl" label="03" key="3">买家不可使用(花呗分期)</el-checkbox>
+            <el-checkbox class="fl" key="3" @change="changeYN">买家不可使用(花呗分期)</el-checkbox>
           </div>
         </div>
       </div>
@@ -108,9 +108,9 @@
         <div class="title">备忘信息</div>
         <div class="contentText">
           <!-- <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 4 && infor.isaudit !== 7 && infor.isaudit !== 2 && infor.isaudit !== 6">
-                                <span class="label">公众号类型</span>
-                                <span class="value">{{publicNumType | publicNumTypeState}}</span>
-                              </div> -->
+                                    <span class="label">公众号类型</span>
+                                    <span class="value">{{publicNumType | publicNumTypeState}}</span>
+                                  </div> -->
           <el-table stripe :data="tableData">
             <el-table-column prop="created" label="时间" width="180" :formatter="formatTable"></el-table-column>
             <el-table-column prop="operatorname" label="负责人" width="120"></el-table-column>
@@ -155,9 +155,9 @@
               <div class="element">
                 <p class="width100 textLeft inline">验证码</p>
                 <div class="width140 inline">
-                  <el-input size="medium" clearable placeholder="请输入验证码" class="input"></el-input>
+                  <el-input v-model="msgCode" size="medium" clearable placeholder="请输入验证码" class="input"></el-input>
                 </div>
-                <el-button v-model="msgCode" size="medium" :type="sendCodeType" @click="codeClick" :disabled="isSendCode">{{sendCodeValue}}</el-button>
+                <el-button size="medium" :type="sendCodeType" @click="codeClick" :disabled="isSendCode">{{sendCodeValue}}</el-button>
               </div>
             </span>
             <div slot="footer" class="dialog-footer">
@@ -198,7 +198,7 @@ export default {
       supportStage: false,
       supportAliValue: 1,
       supportWechatValue: 1,
-      supportStageValue: '02',
+      supportStageValue: 'N',
       memoList: memoList,
       isDisabledHB2: 1,
       isDisabledHB3: 1,
@@ -210,7 +210,8 @@ export default {
       msgCode: '',
       isSendCode: false,
       sendCodeValue: "获取验证码",
-      sendCodeType: "primary"      
+      sendCodeType: "primary",
+      autidId: 1
     }
   },
   filters: {
@@ -232,7 +233,7 @@ export default {
       this.isDisabledHB4 = false
     }
     this.customerid = detailInfo.customerid;
-    this.autidId = detailInfo.autidId;
+    this.autidId = 1;
     this.phone = detailInfo.phone;
     this.supportT0 = detailInfo.supportT0;
     // this.clearmode = this.$route.params.clearmode === 2 ? 1 : 0;
@@ -306,17 +307,21 @@ export default {
         this.tableData = res.result
       })
     },
+    changeYN(val) {
+      console.log('val:' + val)
+      if (val) {
+        this.supportStageValue = 'N' // 不支持花呗分期
+      } else {
+        this.supportStageValue = 'Y' // 支持花呗分期
+      }
+      console.log('this.supportStageValue:' + this.supportStageValue)
+    },
     changeHB(val) {
-      console.log('val:')
-      console.log(val)
+      console.log('val:' + val)
       if (val) {
         this.isDisabledHB = false
-        this.supportStage = false
-        this.supportStageValue = '02'
       } else {
         this.isDisabledHB = true
-        this.supportStage = true
-        this.supportStageValue = '01'
       }
     },
     supportAliClick1(val) {
@@ -349,9 +354,9 @@ export default {
     },
     supportStageClick(val) {
       if (val) {
-        this.supportStageValue = '01'
+        this.supportStageValue = 'Y'
       } else {
-        this.supportStageValue = '02'
+        this.supportStageValue = 'N'
       }
     },
     T0Click1(val) {
@@ -380,25 +385,33 @@ export default {
       this.sendBank()
     },
     sendBankYes() {
+      const loading = this.$loading({
+        lock: true,
+        text: 'Loading',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      });
       let params = {
         customerid: this.customerid,
-        autidId: 1
+        autidId: this.autidId
       }
+      console.log('params:')
+      console.log(params)
       auditMybank(params).then(res => {
         if (res.code === 200) {
           this.$message({
             type: 'success',
             message: `提交网商成功`
           })
-          this.sureToBankDialogVisible = false
           this.$router.push('/merchantManage')
         } else if (res.code === 400) {
           this.$message({
             type: 'fail',
             message: res.msg
           })
-          this.sureToBankDialogVisible = false
         }
+        this.sureToBankDialogVisible = false
+        loading.close();
       }).catch(res => {
         this.$message({
           type: 'fail',
@@ -410,7 +423,7 @@ export default {
     codeClick() {
       let self = this
       var num = 60;
-      var timer = setInterval(function () {
+      var timer = setInterval(function() {
         num--;
         self.sendCodeValue = num + '秒后重新获取'
         self.isSendCode = true;
@@ -443,11 +456,14 @@ export default {
       })
     },
     codeYesClick() {
+      console.log('this.autidId:' + this.autidId)
       let params = {
         customerid: this.customerid,
-        autidId: 1,
+        autidId: this.autidId,
         msgCode: this.msgCode
       }
+      console.log('params:')
+      console.log(params)
       auditMybank(params).then(res => {
         console.log('auditMybank params:')
         console.log(params)
@@ -470,7 +486,9 @@ export default {
     handleCheckedCitiesChange(val) {
       console.log(this.tradetypes.toString());
     },
-    handleCheckedCitiesChange2(val) {
+    changeDeniedpays(val) {
+      console.log('deniedpays:' + val)
+      this.deniedpays = val
     },
     sendBank() {
       if (this.radio === undefined) {
@@ -508,7 +526,7 @@ export default {
         tradetypes: this.tradetypes.toString(),
         deniedpays: this.deniedpays.toString(),
         publicNumType: (this.radio === 'null' || this.radio === null) ? '' : this.radio,
-        appId: this.appId,
+        subscribeAppId: this.appId,
         supportStage: this.supportStageValue
       }
       console.log('===============')
@@ -521,15 +539,7 @@ export default {
         console.log(res)
         if (res.code === 200) {
           console.log('=====clearmode=======:' + this.clearmode)
-          if (this.clearmode == false) {
-            // 调用的入驻接口不开通网商银行
-            this.sureToBankDialogVisible = true
-            this.showEditMobile = false  // 关闭手机号码校验框
-          } else if (this.clearmode == true) {
-            // 调用的入驻接口开通网商银行
-            this.sureToBankDialogVisible = false
-            this.showEditMobile = true // 展示手机号码校验框
-          }
+          this.sureToBankDialogVisible = true
         }
         if (res.code === 400) {
           this.$message({

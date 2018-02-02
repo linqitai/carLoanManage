@@ -709,15 +709,14 @@
         <!-- <span>禁用支付方式</span> -->
         <el-checkbox-group v-model="deniedpays">
           <span>
-            <el-checkbox label="03" key="1" @change="change1">禁用花呗（支付宝）</el-checkbox>
+            <el-checkbox label="03" key="1" @change="changeIsUseHB">禁用花呗（支付宝）</el-checkbox>
           </span>
           <span>
             <el-checkbox label="02" key="2">禁用信用卡（微信支付刷卡支付（被扫）模式无法禁用信用卡支付）</el-checkbox>
           </span>
         </el-checkbox-group>
         <div v-if="isDisabledHB">
-          <!-- <el-radio v-model="supportStage" @change="supportStageClick" label="1">买家不可使用(花呗分期)</el-radio> -->
-          <el-checkbox v-model="supportStage" @change="supportStageClick">买家不可使用(花呗分期) </el-checkbox>
+          <el-checkbox v-model="supportStage" @change="supportStageClick" key="3">买家不可使用(花呗分期) </el-checkbox>
         </div>
       </div>
       <div slot="footer" class="dialog-footer">
@@ -861,7 +860,7 @@ export default {
       journeys: [],
       publicNumType: '',
       deniedpays: ['03', '02'],
-      supportStageValue: '02',
+      supportStageValue: '',
       tradetypes: [],
       tradetypesStr: '',
       isDisabledHB: 0,
@@ -1090,16 +1089,14 @@ export default {
       console.log('this.uploadImg.token:')
       console.log(this.uploadImg.token)
     },
-    change1(val) {
+    changeIsUseHB(val) {
       if (val) {
         this.isDisabledHB = false
-        this.supportStage = false
-        this.supportStageValue = '02'
+        this.supportStageValue = 'N'
       } else {
         this.isDisabledHB = true
-        this.supportStage = true
-        this.supportStageValue = '01'
       }
+      this.supportStage = false
     },
     queryMybankState() {
       let params = {}
@@ -1284,9 +1281,9 @@ export default {
       console.log(val)
       // 是否支持花呗分期（Y：支持；N：不支持）
       if (val) {
-        this.supportStageValue = 'Y'
-      } else {
         this.supportStageValue = 'N'
+      } else {
+        this.supportStageValue = 'Y'
       }
     },
     // 禁用方式编辑
@@ -1296,6 +1293,8 @@ export default {
         deniedpays: this.deniedpays.toString(),
         supportStage: this.supportStageValue
       }
+      console.log('编辑禁用方式：')
+      console.log(params)
       updateDeniedpays(params).then(res => {
         this.showEditForbiddenMethodEvent = false
         this.search(this.customerid)

@@ -18,44 +18,55 @@
       </el-breadcrumb>
     </div>
     <div class="allWrapper">
-      <search-condition @clickSearchData="searchData">
-        <div class="element">
-          <p class="inline">店铺名称</p>
-          <div class="width140 inline">
-            <el-input size="medium" clearable placeholder="店铺名称查询" class="input" v-model="searchs.shopname" @keyup.enter.native="searchData"></el-input>
+      <div class="searchCondition" id="searchCondition">
+        <div class="scLeft">
+          <div class="element">
+            <p class="inline">店铺名称</p>
+            <div class="width140 inline">
+              <el-input size="medium" clearable placeholder="店铺名称查询" class="input" v-model="searchs.shopname" @keyup.enter.native="searchData"></el-input>
+            </div>
+          </div>
+          <div class="element">
+            <p class="inline">商户名称</p>
+            <div class="width200 inline">
+              <el-input size="medium" clearable placeholder="商户名称查询" class="input" v-model="searchs.merchantname" @keyup.enter.native="searchData"></el-input>
+            </div>
+          </div>
+          <div class="element">
+            <p class="inline">负责人</p>
+            <div class="width140 inline">
+              <el-input size="medium" clearable placeholder="负责人查询" class="input" v-model="searchs.responsiblename" @keyup.enter.native="searchData"></el-input>
+            </div>
+          </div>
+          <div class="element">
+            <p class="inline">手机号码</p>
+            <div class="width140 inline">
+              <el-input size="medium" clearable placeholder="手机号码查询" :maxlength="maxLengthMobile" class="input" v-model="searchs.phone" @keyup.enter.native="searchData"></el-input>
+            </div>
+          </div>
+          <!-- <div class="element">
+                                    <p class="inline">店铺地址</p>
+                                    <div class="width140 inline">
+                                      <el-select size="medium" v-model="searchs.runTYpe" placeholder="请选择" @change="searchData">
+                                        <el-option v-for="item in runTYpeList" :key="item.value" :label="item.label" :value="item.value">
+                                        </el-option>
+                                      </el-select>
+                                    </div>
+                                  </div> -->
+        </div>
+        <div class="scRight">
+          <div class="element">
+            <el-button size="medium" class="searchBtn" @click="searchData">查询</el-button>
+          </div>
+          <div class="element" @click="moreBtn" v-if="isShowMoreBtn">
+            <img class="moreIcon" src="../../../common/images/arrow_down.png" v-if="!searchCell">
+            <img class="moreIcon iconTransform" src="../../../common/images/arrow_down.png" v-if="searchCell">
           </div>
         </div>
-        <div class="element">
-          <p class="inline">商户名称</p>
-          <div class="width200 inline">
-            <el-input size="medium" clearable placeholder="商户名称查询" class="input" v-model="searchs.merchantname" @keyup.enter.native="searchData"></el-input>
-          </div>
-        </div>
-        <div class="element">
-          <p class="inline">负责人</p>
-          <div class="width140 inline">
-            <el-input size="medium" clearable placeholder="负责人查询" class="input" v-model="searchs.responsiblename" @keyup.enter.native="searchData"></el-input>
-          </div>
-        </div>
-        <div class="element">
-          <p class="inline">手机号码</p>
-          <div class="width140 inline">
-            <el-input size="medium" clearable placeholder="手机号码查询" :maxlength="maxLengthMobile" class="input" v-model="searchs.phone" @keyup.enter.native="searchData"></el-input>
-          </div>
-        </div>
-        <!-- <div class="element">
-              <p class="inline">店铺地址</p>
-              <div class="width140 inline">
-                <el-select size="medium" v-model="searchs.runTYpe" placeholder="请选择" @change="searchData">
-                  <el-option v-for="item in runTYpeList" :key="item.value" :label="item.label" :value="item.value">
-                  </el-option>
-                </el-select>
-              </div>
-            </div> -->
-      </search-condition>
+      </div>
       <div class="tableWrapper">
         <el-table :data="tableData" stripe>
-          <el-table-column prop="shopname" label="店铺名称" show-overflow-tooltip width="180"></el-table-column>
+          <el-table-column prop="shopname" label="店铺名称"></el-table-column>
           <el-table-column prop="merchantname" label="所属商户"></el-table-column>
           <el-table-column prop="responsiblename" label="负责人"></el-table-column>
           <el-table-column prop="phone" label="手机号码"></el-table-column>
@@ -82,10 +93,10 @@
 <script type="text/ecmascript-6">
 import { mtypeList, statusList } from "common/js/config";
 import { zsyStore } from "@/api/index.js";
-import searchCondition from 'components/searchCondition.vue'
 export default {
   data() {
     return {
+      isShowMoreBtn: true,
       maxLengthMobile: 11,
       maxLengthIdentity: 18,
       isShowMore: false,
@@ -116,6 +127,16 @@ export default {
   },
   created() {
     this.searchData();
+    setTimeout(() => {
+      let height = document.getElementById('searchCondition').offsetHeight
+      console.log('height:' + height)
+      if (height < 50) {
+        this.isShowMoreBtn = false
+      } else {
+        this.isShowMoreBtn = true
+        document.getElementById('searchCondition').style.height = '48px'
+      }
+    }, 20)
   },
   methods: {
     searchData() {
@@ -126,6 +147,16 @@ export default {
     },
     toRouter(index) {
       this.$router.push(index);
+    },
+    moreBtn() {
+      let height = document.getElementById('searchCondition').style.height
+      console.log('height:' + height)
+      this.searchCell = !this.searchCell
+      if (this.searchCell) {
+        document.getElementById('searchCondition').style.height = 'auto'
+      } else {
+        document.getElementById('searchCondition').style.height = '48px'
+      }
     },
     openOrClose(row) {
       let cancalMsg = "操作已取消";
@@ -192,9 +223,7 @@ export default {
       this.searchData();
     }
   },
-  components: {
-    searchCondition
-  }
+  components: {}
 };
 </script>
 
@@ -203,5 +232,14 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
+  .searchCondition {
+    .scLeft {
+      width: 80%;
+      float: left;
+    }
+    .scRight {
+      float: right;
+    }
+  }
 }
 </style>
