@@ -351,7 +351,15 @@ export default {
         });
         return
       }
+      if (this.searchs.startTime) {
+        this.searchs.startTime = getDate(new Date(this.searchs.startTime)) + " 00:00:00";
+      }
+      if (this.searchs.endTime) {
+        this.searchs.endTime = getDate(new Date(this.searchs.endTime)) + " 23:59:59";
+      }
       let params = {
+        // sdate: this.searchs.startTime.toString() + ' 00:00:01',
+        // edate: this.searchs.endTime.toString() + ' 23:59:59',
         sdate: this.searchs.startTime,
         edate: this.searchs.endTime,
         merchantname: this.searchs.mName,

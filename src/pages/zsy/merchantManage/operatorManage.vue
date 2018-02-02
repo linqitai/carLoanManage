@@ -18,69 +18,64 @@
       </el-breadcrumb>
     </div>
     <div class="allWrapper">
-      <div class="searchCondition">
-        <div class="searchBox">
-          <div class="element">
-            <p class="inline">姓名</p>
-            <div class="width100 inline">
-              <el-input size="medium" clearable placeholder="姓名查询" class="input" v-model="searchs.username" @keyup.enter.native="searchData"></el-input>
-            </div>
-          </div>
-          <div class="element">
-            <p class="inline">性别</p>
-            <div class="width120 inline">
-              <el-select size="medium" v-model="searchs.sex" placeholder="请选择" @change="searchData">
-                <el-option v-for="item in sexList" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-          </div>
-          <div class="element">
-            <p class="inline">角色</p>
-            <div class="width120 inline">
-              <el-select size="medium" v-model="searchs.type" placeholder="请选择" @change="searchData" >
-                <el-option v-for="item in typeList" :key="item.value" :label="item.label" :value="item.value" >
-                </el-option>
-              </el-select>
-            </div>
-          </div>
-          <div class="element">
-            <p class="inline">手机号码</p>
-            <div class="width130 inline">
-              <el-input size="medium" clearable placeholder="手机号码查询" :maxlength="maxLengthMobile" class="input" v-model="searchs.mobile" @keyup.enter.native="searchData"></el-input>
-            </div>
-          </div>
-          <div class="element">
-            <p class="inline">所在店铺</p>
-            <div class="width200 inline">
-              <el-input size="medium" clearable placeholder="所在店铺查询" class="input" v-model="searchs.shopname" @keyup.enter.native="searchData"></el-input>
-            </div>
-          </div>
-          <div class="element">
-            <p class="inline">所属商户</p>
-            <div class="width160 inline">
-              <el-input size="medium" clearable placeholder="所属商户查询" class="input" v-model="searchs.merchantname" @keyup.enter.native="searchData"></el-input>
-            </div>
-          </div>
-          <div class="element" >
-            <el-button size="medium" class="searchBtn" @click="searchData">查询</el-button>
+      <search-condition @clickSearchData="searchData">
+        <div class="element">
+          <p class="inline">姓名</p>
+          <div class="width100 inline">
+            <el-input size="medium" clearable placeholder="姓名查询" class="input" v-model="searchs.username" @keyup.enter.native="searchData"></el-input>
           </div>
         </div>
-      </div>
+        <div class="element">
+          <p class="inline">性别</p>
+          <div class="width120 inline">
+            <el-select size="medium" v-model="searchs.sex" placeholder="请选择" @change="searchData">
+              <el-option v-for="item in sexList" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
+        </div>
+        <div class="element">
+          <p class="inline">角色</p>
+          <div class="width120 inline">
+            <el-select size="medium" v-model="searchs.type" placeholder="请选择" @change="searchData">
+              <el-option v-for="item in typeList" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
+        </div>
+        <div class="element">
+          <p class="inline">手机号码</p>
+          <div class="width130 inline">
+            <el-input size="medium" clearable placeholder="手机号码查询" :maxlength="maxLengthMobile" class="input" v-model="searchs.mobile" @keyup.enter.native="searchData"></el-input>
+          </div>
+        </div>
+        <div class="element">
+          <p class="inline">所在店铺</p>
+          <div class="width200 inline">
+            <el-input size="medium" clearable placeholder="所在店铺查询" class="input" v-model="searchs.shopname" @keyup.enter.native="searchData"></el-input>
+          </div>
+        </div>
+        <div class="element">
+          <p class="inline">所属商户</p>
+          <div class="width160 inline">
+            <el-input size="medium" clearable placeholder="所属商户查询" class="input" v-model="searchs.merchantname" @keyup.enter.native="searchData"></el-input>
+          </div>
+        </div>
+      </search-condition>
       <div class="tableWrapper">
         <el-table :data="tableData" stripe>
-          <el-table-column prop="createtime" label="添加时间" width="180">
+          <el-table-column prop="createtime" label="添加时间" width="180" fixed="left">
             <template slot-scope="scope">
               {{scope.row.createtime | time}}
             </template>
           </el-table-column>
-          <el-table-column prop="operatorname" label="姓名"></el-table-column>
+          <el-table-column prop="operatorname" label="姓名" width="100"></el-table-column>
           <el-table-column prop="sex" label="性别" :formatter="sexFilter"></el-table-column>
           <el-table-column prop="type" label="角色" :formatter="roleFilter"></el-table-column>
-          <el-table-column prop="mobile" label="手机号码"></el-table-column>
+          <el-table-column prop="mobile" label="手机号码" width="120"></el-table-column>
           <el-table-column prop="idcard" label="身份证号" width="180"></el-table-column>
           <el-table-column prop="shopname" label="所在店铺" show-overflow-tooltip></el-table-column>
-          <el-table-column prop="merchantname" label="所属商户">
+          <el-table-column prop="merchantname" label="所属商户" width="200" show-overflow-tooltip="">
           </el-table-column>
         </el-table>
       </div>
@@ -97,6 +92,7 @@ import { SexList, TypeListNoBoss } from "common/js/config";
 import { sexFilter, roleFilter } from 'common/js/utils'
 import { zsyOper } from "@/api/index.js";
 import { getDateHM } from 'common/js/times'
+import searchCondition from 'components/searchCondition.vue'
 export default {
   data() {
     return {
@@ -225,7 +221,9 @@ export default {
       this.searchData();
     }
   },
-  components: {}
+  components: {
+    searchCondition
+  }
 };
 </script>
 

@@ -56,9 +56,9 @@
       <div class="tableWrapper">
         <el-table :data="tableData" stripe>
           <el-table-column prop="shopname" label="店铺名称" show-overflow-tooltip width="180"></el-table-column>
-          <el-table-column prop="merchantname" label="所属商户"></el-table-column>
+          <el-table-column prop="merchantname" label="所属商户" width="150" show-overflow-tooltip></el-table-column>
           <el-table-column prop="responsiblename" label="负责人"></el-table-column>
-          <el-table-column prop="phone" label="手机号码"></el-table-column>
+          <el-table-column prop="phone" label="手机号码" width="120"></el-table-column>
           <el-table-column prop="province" label="店铺地址" show-overflow-tooltip width="300">
             <template slot-scope="scope">{{scope.row.province}}{{scope.row.city}}{{scope.row.area}}{{scope.row.address}}</template>
           </el-table-column>

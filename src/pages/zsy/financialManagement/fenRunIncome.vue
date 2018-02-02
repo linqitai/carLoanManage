@@ -21,15 +21,6 @@
     <div class="searchCondition">
       <div class="searchBox">
         <div class="element">
-          <p class="inline">分润收入排序:</p>
-          <div class="width120 inline">
-            <el-select size="medium" placeholder="请选择" @change="searchData" v-model="searchs.orderType">
-              <el-option v-for="item in IncomeList" :key="item.value" :label="item.label" :value="item.value" >
-              </el-option>
-            </el-select>
-          </div>
-        </div>
-        <div class="element">
           <p class="inline">时间</p>
           <div class="inline">
             <el-date-picker size="medium" class="inline" style="width:134px;" type="date" placeholder="开始时间" value-format="yyyy-MM-dd" @change="startTimeChange" v-model="searchs.sdate">
@@ -37,6 +28,15 @@
             <span class="inline">至</span>
             <el-date-picker size="medium" class="inline" style="width:134px;" type="date" placeholder="结束时间" value-format="yyyy-MM-dd" @change="endTimeChange" v-model="searchs.edate">
             </el-date-picker>
+          </div>
+        </div>
+        <div class="element">
+          <p class="inline">分润收入排序:</p>
+          <div class="width120 inline">
+            <el-select size="medium" placeholder="请选择" @change="searchData" v-model="searchs.orderType">
+              <el-option v-for="item in IncomeList" :key="item.value" :label="item.label" :value="item.value" >
+              </el-option>
+            </el-select>
           </div>
         </div>
         <div class="element">

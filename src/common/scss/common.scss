@@ -273,17 +273,11 @@ $dialogPadding: 20px;
 .el-dialog__footer{
   border-top: 1px solid $tableLineColor;
 }
-thead, thead tr {
-  background-color: $tableTheadColor !important;
-  color: #ffffff;
-  height: 38px !important;
-}
+
 .el-table{
   font-family: '微软雅黑';
 }
-.el-table tr {
-  height: 36px !important;
-}
+
 .el-table th {
   text-align: center;
 }

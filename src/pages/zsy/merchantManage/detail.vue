@@ -343,10 +343,10 @@
               <span class="label">结算方式</span>
               <span class="value">{{infor.clearmode | clearmodeState}}</span>
               <!-- <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
-                        <el-checkbox :label="Object.assign(newObj.clearmode, {'journeys': 4,'errorFlags': 1})" class="fl">未通过
-                        </el-checkbox>
-                        <input type="text" v-if="newObj.clearmode.check" v-model="newObj.clearmode.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
-                      </div> -->
+                          <el-checkbox :label="Object.assign(newObj.clearmode, {'journeys': 4,'errorFlags': 1})" class="fl">未通过
+                          </el-checkbox>
+                          <input type="text" v-if="newObj.clearmode.check" v-model="newObj.clearmode.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
+                        </div> -->
             </div>
             <div class="lineText">
               <span class="label">账户类型</span>
@@ -715,8 +715,8 @@
             <el-checkbox label="02" key="2">禁用信用卡（微信支付刷卡支付（被扫）模式无法禁用信用卡支付）</el-checkbox>
           </span>
         </el-checkbox-group>
-        <div v-if="isDisabledHB">
-          <el-checkbox v-model="supportStage" @change="supportStageClick" key="3">买家不可使用(花呗分期) </el-checkbox>
+        <div v-show="isDisabledHB">
+          <el-checkbox :checked="isSupportHBStage" @change="supportStageClick" key="3">买家不可使用(花呗分期) </el-checkbox>
         </div>
       </div>
       <div slot="footer" class="dialog-footer">
@@ -863,7 +863,6 @@ export default {
       supportStageValue: '',
       tradetypes: [],
       tradetypesStr: '',
-      isDisabledHB: 0,
       isDisabledHB2: 1,
       isDisabledHB3: 1,
       isDisabledHB4: true,
@@ -903,7 +902,9 @@ export default {
         county: null,
         countyList: []
       },
-      supportStage: false
+      supportStage: '',
+      isDisabledHB: this.supportStage == 'Y' ? false : true,
+      isSupportHBStage: false
     }
   },
   filters: {
@@ -935,7 +936,7 @@ export default {
       return value === 1 ? '支持' : value === 2 ? '不支持' : '---'
     },
     supportStageState(value) {
-      return value === '01' ? '支持' : value === '02' ? '不支持' : '不支持'
+      return value == 'Y' ? '支持' : value == 'N' ? '不支持' : '不支持'
     },
     publicNumTypeState(value) {
       return value === 1 ? '合作机构公众号（捷信安保公众号）' : value === 2 ? '商户自有公众号' : value === 3 ? '其他商户公众号' : '---'
@@ -1095,8 +1096,9 @@ export default {
         this.supportStageValue = 'N'
       } else {
         this.isDisabledHB = true
+        this.supportStageValue = 'Y'
       }
-      this.supportStage = false
+      // this.supportStage = false
     },
     queryMybankState() {
       let params = {}
@@ -1153,7 +1155,11 @@ export default {
           }
         }
       }
-
+      this.supportStage = this.infor.supportStage;
+      this.isSupportHBStage = this.supportStage == 'Y' ? false : true
+      this.supportStageValue = this.supportStage
+      console.log('this.supportStage:' + this.supportStage)
+      console.log('this.isSupportHBStage:' + this.isSupportHBStage)
       this.phone = this.infor.phone;
       this.supportT0 = this.infor.supportT0 ? this.infor.supportT0 : 2;
       this.clearmode = this.infor.clearmode === 2 ? 1 : 0;
@@ -1610,7 +1616,7 @@ export default {
             type: 'success',
             message: `操作成功！`
           })
-          this.$router.push('/merchantManage')
+          this.$router.push('/merchantManage?random=0.11')
         } else {
           this.$message({
             type: 'fail',
@@ -1653,7 +1659,8 @@ export default {
           clearmode: this.clearmode,
           publicNumType: this.publicNumType,// 公众号类型
           applyTime: this.infor.created,
-          isaudit: this.infor.isaudit
+          isaudit: this.infor.isaudit,
+          supportStage: this.infor.supportStage
         }
         saveDetailInfo(params)
         this.$router.push('/merchantManage/check')

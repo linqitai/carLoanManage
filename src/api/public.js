@@ -1,6 +1,7 @@
 import axios from 'axios'
 import qs from 'qs'
 import router from '../router/index'
+import { openLoading, closeLoading } from 'common/js/utils'
 
 axios.defaults.timeout = 5000
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www=form-urlencoded'
@@ -45,11 +46,14 @@ export default {
     })
   },
   fetchPost(url, data = {}) {
+    let loading = openLoading()
     return new Promise((resolve, reject) => {
       axios.post(url, qs.stringify(data)).then(res => {
+        closeLoading(loading)
         resolve(res.data)
       }).catch(error => {
         reject(error)
+        closeLoading(loading)
       })
     })
   }

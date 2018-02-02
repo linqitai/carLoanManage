@@ -15,121 +15,112 @@
       </el-breadcrumb>
     </div>
     <div class="allWrapper">
-      <div class="searchCondition">
-        <div class="searchBox">
-          <div class="element">
-            <p class="inline">提额时间</p>
-            <div class="inline">
-              <el-date-picker class="inline" style="width:140px;" v-model="sdate" type="date" placeholder="开始时间" @change="startTimeChange">
-              </el-date-picker>
-              <span class="inline">至</span>
-              <el-date-picker class="inline" style="width:140px;" v-model="edate" type="date" placeholder="结束时间" @change="endTimeChange">
-              </el-date-picker>
-            </div>
-          </div>
-          <div class="element">
-            <p class="inline">手机号</p>
-            <div class="width140 inline">
-              <el-input type="number" v-model="mobile" placeholder="请输入手机号" class="input" @keyup.enter.native="search"></el-input>
-            </div>
-          </div>
-          <div class="element">
-            <p class="inline">姓名</p>
-            <div class="width120 inline">
-              <el-input v-model="name" placeholder="请输入姓名" class="input" @keyup.enter.native="search"></el-input>
-            </div>
-          </div>
-          <div class="element ">
-            <p class="inline ">提升额度</p>
-            <div class="width120 inline ">
-              <el-input type="number" v-model='quotaMin' placeholder="元 " class="input "></el-input>
-            </div>
-            <p class="inline ">至</p>
-            <div class="width120 inline ">
-              <el-input type="number" v-model='quotaMax' placeholder="元 " class="input "></el-input>
-            </div>
-          </div>
-          <div class="element" v-if="searchCell">
-            <p class="inline">房产价值</p>
-            <div class="width120 inline">
-              <el-select v-model="house" placeholder="" @change="searchByHouseValue">
-                <el-option v-for="item in houseState" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-          </div>
-          <div class="element" v-if="searchCell">
-            <p class="inline">车辆价值</p>
-            <div class="width120 inline">
-              <el-select v-model="car" placeholder="" @change="searchByCarValue">
-                <el-option v-for="item in carState" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-          </div>
-          <div class="element" v-if="searchCell">
-            <p class="inline">是否店铺所有者</p>
-            <div class="width120 inline">
-              <el-select v-model="shopOwner" placeholder="" @change="search">
-                <el-option v-for="item in shopOwnerState" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-          </div>
-          <div class="element" v-if="searchCell">
-            <p class="inline">安保服务</p>
-            <div class="width120 inline">
-              <el-select v-model="openDoor" placeholder="" @change="searchByOpenDoor">
-                <el-option v-for="item in openDoorState" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-          </div>
-          <div class="element" v-if="searchCell">
-            <p class="inline">臻收银</p>
-            <div class="width120 inline">
-              <el-select v-model="collectMoney" placeholder="" @change="search">
-                <el-option v-for="item in collectMoneyState" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-          </div>
-          <div class="element" v-if="searchCell">
-            <p class="inline">客流统计</p>
-            <div class="width120 inline">
-              <el-select v-model="people" placeholder="" @change="search">
-                <el-option v-for="item in peopleState" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-          </div>
-          <div class="element" v-if="searchCell">
-            <p class="inline">银行流水</p>
-            <div class="width120 inline">
-              <el-select v-model="bank" placeholder="" @change="search">
-                <el-option v-for="item in bankState" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-          </div>
-          <div class="element" v-if="searchCell">
-            <p class="inline">征信报告</p>
-            <div class="width120 inline">
-              <el-select v-model="report" placeholder="" @change="search">
-                <el-option v-for="item in reportState" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-          </div>
-          <div class="element">
-            <el-button size="medium" type="primary" class="searchBtn left" @click.native="search()">查询</el-button>
-            <div class="ml10 right">
-              <img class="moreIcon" src="../../../common/images/arrow_down.png" width="32" v-if="!searchCell" @click="moreBtn">
-              <img class="moreIcon iconTransform" src="../../../common/images/arrow_down.png" width="32" v-if="searchCell" @click="moreBtn">
-            </div>
+      <search-condition @clickSearchData="search">
+        <div class="element">
+          <p class="inline">提额时间</p>
+          <div class="inline">
+            <el-date-picker class="inline" style="width:140px;" v-model="sdate" type="date" placeholder="开始时间" @change="startTimeChange">
+            </el-date-picker>
+            <span class="inline">至</span>
+            <el-date-picker class="inline" style="width:140px;" v-model="edate" type="date" placeholder="结束时间" @change="endTimeChange">
+            </el-date-picker>
           </div>
         </div>
-      </div>
+        <div class="element">
+          <p class="inline">手机号</p>
+          <div class="width140 inline">
+            <el-input clearable v-model="mobile" placeholder="请输入手机号" :maxlength="maxLengthMobile" class="input" @keyup.enter.native="search"></el-input>
+          </div>
+        </div>
+        <div class="element">
+          <p class="inline">姓名</p>
+          <div class="width120 inline">
+            <el-input v-model="name" clearable placeholder="请输入姓名" class="input" @keyup.enter.native="search"></el-input>
+          </div>
+        </div>
+        <div class="element ">
+          <p class="inline ">提升额度</p>
+          <div class="width120 inline ">
+            <el-input type="number" v-model='quotaMin' placeholder="元 " class="input "></el-input>
+          </div>
+          <p class="inline ">至</p>
+          <div class="width120 inline ">
+            <el-input type="number" v-model='quotaMax' placeholder="元 " class="input "></el-input>
+          </div>
+        </div>
+        <div class="element" v-if="searchCell">
+          <p class="inline">房产价值</p>
+          <div class="width120 inline">
+            <el-select v-model="house" placeholder="" @change="searchByHouseValue">
+              <el-option v-for="item in houseState" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
+        </div>
+        <div class="element" v-if="searchCell">
+          <p class="inline">车辆价值</p>
+          <div class="width120 inline">
+            <el-select v-model="car" placeholder="" @change="searchByCarValue">
+              <el-option v-for="item in carState" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
+        </div>
+        <div class="element" v-if="searchCell">
+          <p class="inline">是否店铺所有者</p>
+          <div class="width120 inline">
+            <el-select v-model="shopOwner" placeholder="" @change="search">
+              <el-option v-for="item in shopOwnerState" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
+        </div>
+        <div class="element" v-if="searchCell">
+          <p class="inline">安保服务</p>
+          <div class="width120 inline">
+            <el-select v-model="openDoor" placeholder="" @change="searchByOpenDoor">
+              <el-option v-for="item in openDoorState" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
+        </div>
+        <div class="element" v-if="searchCell">
+          <p class="inline">臻收银</p>
+          <div class="width120 inline">
+            <el-select v-model="collectMoney" placeholder="" @change="search">
+              <el-option v-for="item in collectMoneyState" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
+        </div>
+        <div class="element" v-if="searchCell">
+          <p class="inline">客流统计</p>
+          <div class="width120 inline">
+            <el-select v-model="people" placeholder="" @change="search">
+              <el-option v-for="item in peopleState" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
+        </div>
+        <div class="element" v-if="searchCell">
+          <p class="inline">银行流水</p>
+          <div class="width120 inline">
+            <el-select v-model="bank" placeholder="" @change="search">
+              <el-option v-for="item in bankState" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
+        </div>
+        <div class="element" v-if="searchCell">
+          <p class="inline">征信报告</p>
+          <div class="width120 inline">
+            <el-select v-model="report" placeholder="" @change="search">
+              <el-option v-for="item in reportState" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
+        </div>
+      </search-condition>
       <!--表格-->
       <div class="tableWrapper" style="overflow: auto;">
         <table class="tableList" style="min-width:2000px;width:99%;">
@@ -159,7 +150,7 @@
           </thead>
           <tbody>
             <tr v-for="item in getList" :key="item.id">
-              <td class="width70 fix">{{item.modifyDate | getDateHM}}</td>
+              <td class="width100 fix">{{item.modifyDate | getDateHM}}</td>
               <td class="width40 fix">{{item.mobile}}</td>
               <td class="width30 fix">{{item.name}}</td>
               <td class="width50">{{item.house | houseStatus}}</td>
@@ -223,10 +214,14 @@
 import axios from 'axios'
 import { format, getDate, getDateHM } from '../../../common/js/times'
 import { zsf, config } from '../../../api/index'
-
+import searchCondition from 'components/searchCondition.vue'
+// import utils from 'common/js/utils'
+// import Loading from 'element-ui'
+import { openLoading, closeLoading } from 'common/js/utils'
 export default {
   data() {
     return {
+      maxLengthMobile: 11,
       installDays: '',
       threeWeekPeople: '',
       nineWeekPeople: '',
@@ -410,6 +405,9 @@ export default {
       this.nineWeekPeople = nineWeekPeople
     },
     search() {
+      // let loading = this.openLoading()
+      // let loading = utils.openLoading()
+      // let loading = openLoading()
       let params = {
         mobile: this.mobile,
         page: this.pageIndex,
@@ -446,6 +444,8 @@ export default {
             } else {
               this.showPageTag = true
             }
+            // this.closeLoading(loading)
+            // closeLoading(loading)
           })
         }
       })
@@ -492,6 +492,9 @@ export default {
         this.search()
       }
     }
+  },
+  components: {
+    searchCondition
   }
 }
 </script>

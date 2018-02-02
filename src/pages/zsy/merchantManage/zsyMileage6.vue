@@ -24,25 +24,25 @@
             <div class="element fl">
               <p class="inline">处理结果</p>
               <div class="width120 inline">
-                <el-select size="medium" v-model="form.dealResult" placeholder="请选择">
+                <el-select size="medium" v-model="form.dealResult" placeholder="请选择" @change="searchTable">
                   <el-option v-for="item in form.mtypeList" :key="item.value" :label="item.label" :value="item.value">
                   </el-option>
                 </el-select>
               </div>
             </div>
-            <div class="element fr" @click="searchTable">
+            <!-- <div class="element fr" @click="searchTable">
               <el-button size="medium" class="searchBtn">查询</el-button>
-            </div>
+            </div> -->
           </el-form>
         </div>
       </div>
       <div class="tableWrapper">
-        <el-table :data="tableData" stripe fit style="width: 100%" v-loading="loading">
+        <el-table :data="tableData" stripe fit style="width: 100%">
+          <el-table-column prop="submitTime" label="提交时间" width="160" fixed="left"></el-table-column>
           <el-table-column prop="operatorname" label="昵称"></el-table-column>
-          <el-table-column prop="userName" label="账号"></el-table-column>
+          <el-table-column prop="userName" label="账号" width="120"></el-table-column>
           <el-table-column prop="context" label="内容" show-overflow-tooltip></el-table-column>
-          <el-table-column prop="submitTime" label="提交时间"></el-table-column>
-          <el-table-column prop="mobile" label="手机号码"></el-table-column>
+          <el-table-column prop="mobile" label="手机号码" width="120"></el-table-column>
           <el-table-column prop="handleResult" label="处理结果"></el-table-column>
           <el-table-column prop="" label="操作">
             <template slot-scope="scope">
@@ -135,8 +135,7 @@ export default {
       currentPage: 1,
       totalNum: 0,
       dialogVisible1: false,
-      dialogVisible2: false,
-      loading: false
+      dialogVisible2: false
     }
   },
   filters: {
@@ -147,7 +146,6 @@ export default {
   },
   methods: {
     searchTable: function() {
-      this.loading = true;
       let params = {
         status: this.form.dealResult,
         pageSize: this.form.pageSize,
@@ -155,7 +153,6 @@ export default {
       }
       mileageList(params).then(res => {
         if (res.code === 200) {
-          this.loading = false;
           this.tableData = res.result;
           this.totalNum = res.count;
           for (let i = 0; i < this.tableData.length; i++) {
@@ -257,10 +254,6 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
-}
-.searchCondition{
-  width: 100%;
-  margin-top: 30px;
 }
 .home .contentWrapper .content .allWrapper .searchCondition{
   min-width: auto;

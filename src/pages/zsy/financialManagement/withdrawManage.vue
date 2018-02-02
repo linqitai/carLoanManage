@@ -23,13 +23,13 @@
         <div class="element">
           <p class="inline">商户:</p>
           <div class="width140 inline">
-            <el-input size="medium" clearable placeholder="" class="input" @keyup.enter.native="searchData" v-model="searchs.merchantName"></el-input>
+            <el-input size="medium" clearable placeholder="商户查询" class="input" @keyup.enter.native="searchData" v-model="searchs.merchantName"></el-input>
           </div>
         </div>
         <div class="element">
           <p class="inline">商户手机:</p>
           <div class="width140 inline">
-            <el-input size="medium" clearable placeholder="" class="input" @keyup.enter.native="searchData" v-model="searchs.phone"></el-input>
+            <el-input size="medium" clearable placeholder="商户手机查询" class="input" @keyup.enter.native="searchData" v-model="searchs.phone"></el-input>
           </div>
         </div>
         <div class="element">
@@ -48,15 +48,19 @@
     </div>
     <div class="tableWrapper">
       <el-table :data="tableData" stripe>
-        <el-table-column prop="created" label="交易时间"></el-table-column>
+        <el-table-column prop="created" label="交易时间" width="160" fixed="left">
+          <template slot-scope="scope">
+              {{scope.row.created | time}}
+            </template>
+        </el-table-column>
         <el-table-column label="完成时间">
           <template slot-scope="scope">{{scope.row.transDate}} {{scope.row.transTime}}</template>
         </el-table-column>
         <el-table-column prop="merchantName" label="商户"></el-table-column>
         <el-table-column prop="operPhone" label="手机号"></el-table-column>
-        <el-table-column prop="buyerPayAmount" label="提现金额(元)"></el-table-column>
-        <el-table-column prop="residualAmount" label="剩余金额(元)"></el-table-column>
-        <el-table-column prop="handCharge" label="手续费(元)"></el-table-column>
+        <el-table-column prop="buyerPayAmount" label="提现金额(元)" width="150"></el-table-column>
+        <el-table-column prop="residualAmount" label="剩余金额(元)" width="150"></el-table-column>
+        <el-table-column prop="handCharge" label="手续费(元)" width="150"></el-table-column>
         <el-table-column prop="bankCardName" label="银行卡"></el-table-column>
         <el-table-column prop="tradeStatus" label="状态"></el-table-column>
       </el-table>
@@ -72,6 +76,7 @@
 <script>
 import { statesList } from "common/js/config";
 import { zsyRedeemList } from "@/api/index.js";
+import { getDateHM } from 'common/js/times'
 export default {
   data() {
     return {
@@ -97,6 +102,11 @@ export default {
   },
   created() {
     this.searchData();
+  },
+  filters: {
+    time(value) {
+      return getDateHM(value)
+    }
   },
   methods: {
     searchData() {

@@ -18,46 +18,44 @@
       </el-breadcrumb>
     </div>
     <div class="allWrapper">
-      <div class="searchCondition">
-        <div class="searchBox">
-          <div class="element">
-            <p class="inline">代理商:</p>
-            <div class="width140 inline">
-              <el-input size="medium" clearable placeholder="" class="input" @keyup.enter.native="searchData" v-model="searchs.agentName"></el-input>
-            </div>
-          </div>
-          <div class="element">
-            <p class="inline">服务码:</p>
-            <div class="width140 inline">
-              <el-input size="medium" clearable placeholder="" class="input" @keyup.enter.native="searchData" v-model="searchs.code"></el-input>
-            </div>
-          </div>
-          <div class="element">
-            <p class="inline">分润排序:</p>
-            <div class="width120 inline">
-              <el-select size="medium" placeholder="请选择" @change="searchData" v-model="searchs.orderType">
-                <el-option v-for="item in moneyList" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-          </div>
-          <div class="element">
-            <p class="inline">时间</p>
-            <div class="inline">
-              <el-date-picker size="medium" class="inline" style="width:134px;" type="month" placeholder="开始时间" value-format="yyyy-MM-dd" @change="startTimeChange" v-model="searchs.sdate">
-              </el-date-picker>
-              <span class="inline">至</span>
-              <el-date-picker size="medium" class="inline" style="width:134px;" type="month" placeholder="结束时间" value-format="yyyy-MM-dd" @change="endTimeChange" v-model="searchs.edate">
-              </el-date-picker>
-            </div>
-          </div>
-          <div class="element" @click="search">
-            <el-button size="medium" class="searchBtn" @click="searchData">查询</el-button>
+      <search-condition @clickSearchData="searchData">
+        <div class="element">
+          <p class="inline">时间</p>
+          <div class="inline">
+            <el-date-picker size="medium" class="inline" style="width:134px;" type="month" placeholder="开始时间" value-format="yyyy-MM-dd" @change="startTimeChange" v-model="searchs.sdate">
+            </el-date-picker>
+            <span class="inline">至</span>
+            <el-date-picker size="medium" class="inline" style="width:134px;" type="month" placeholder="结束时间" value-format="yyyy-MM-dd" @change="endTimeChange" v-model="searchs.edate">
+            </el-date-picker>
           </div>
         </div>
-      </div>
+        <div class="element">
+          <p class="inline">代理商:</p>
+          <div class="width140 inline">
+            <el-input size="medium" clearable placeholder="代理商查询" class="input" @keyup.enter.native="searchData" v-model="searchs.agentName"></el-input>
+          </div>
+        </div>
+        <div class="element">
+          <p class="inline">服务码:</p>
+          <div class="width140 inline">
+            <el-input size="medium" clearable placeholder="服务码查询" class="input" @keyup.enter.native="searchData" v-model="searchs.code"></el-input>
+          </div>
+        </div>
+        <div class="element">
+          <p class="inline">分润排序:</p>
+          <div class="width120 inline">
+            <el-select size="medium" placeholder="请选择" @change="searchData" v-model="searchs.orderType">
+              <el-option v-for="item in moneyList" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
+        </div>
+      </search-condition>
       <div class="tableWrapper">
-        <div class="tableWrapper-excel"><span class="tableWrapper-excel-pad">分润总和:{{agentIncomeSum}}</span><span class="tableWrapper-excel-border" @click="downloadExl" style="cursor:pointer">导出成excel</span></div>
+        <div class="tableWrapper-excel">
+          <span class="tableWrapper-excel-pad">分润总和:{{agentIncomeSum}}</span>
+          <span class="tableWrapper-excel-border" @click="downloadExl" style="cursor:pointer">导出成excel</span>
+        </div>
         <el-table :data="tableData" stripe>
           <el-table-column prop="transDate" label="时间" width="200"></el-table-column>
           <el-table-column prop="agentName" label="代理商"></el-table-column>
@@ -77,7 +75,9 @@
 <script>
 import { moneyList } from "common/js/config";
 import { zsyAgentIncomeList, zsyRedListExcel } from "@/api/index.js";
+// import { getDate } from "@/common/js/times"
 import qs from 'qs'
+import searchCondition from 'components/searchCondition.vue'
 export default {
   data() {
     return {
@@ -86,6 +86,8 @@ export default {
       total: null,
       agentIncomeSum: null,
       searchs: {
+        sdate: '',
+        edate: '',
         transDate: "",
         agentName: "",
         code: "",
@@ -117,6 +119,12 @@ export default {
           confirmButtonText: "确定"
         });
       } else {
+        // if (this.searchs.sdate) {
+        //   this.searchs.sdate = getDate(new Date(this.searchs.sdate)) + " 00:00:00";
+        // }
+        // if (this.searchs.edate) {
+        //   this.searchs.edate = getDate(new Date(this.searchs.edate)) + " 23:59:59";
+        // }
         zsyAgentIncomeList(this.searchs).then(res => {
           this.tableData = res.result;
           this.total = res.count;
@@ -132,7 +140,7 @@ export default {
       let query = qs.stringify(_q);
       window.open(zsyRedListExcel() + "?" + query);
     },
-    search() {},
+    search() { },
     startTimeChange(val) {
       console.log("change：" + val);
     },
@@ -147,8 +155,11 @@ export default {
       this.searchs.pageIndex = val;
       this.searchData();
     }
+  },
+  components: {
+    searchCondition
   }
-};
+}
 </script>
 
 <style scoped lang="scss">

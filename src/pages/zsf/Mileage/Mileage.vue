@@ -153,7 +153,7 @@
             </template>
           </el-table-column>
           <el-table-column prop="quota" label="自评额度(元)" min-width="100"></el-table-column>
-          <el-table-column fixed="right" label="动作">
+          <el-table-column fixed="right" label="动作" width="100">
             <template slot-scope="scope">
               {{scope.row.action | getStatus}}
             </template>

@@ -21,18 +21,6 @@
     <div class="searchCondition">
       <div class="searchBox">
         <div class="element">
-          <p class="inline">商户:</p>
-          <div class="width140 inline">
-            <el-input size="medium" v-model.trim="searchMenu.merchantname" clearable placeholder="" class="input" @keyup.enter.native="search"></el-input>
-          </div>
-        </div>
-        <div class="element">
-          <p class="inline">手机号:</p>
-          <div class="width140 inline">
-            <el-input size="medium" clearable v-model.trim="searchMenu.phone" placeholder="" class="input" @keyup.enter.native="search"></el-input>
-          </div>
-        </div>
-        <div class="element">
           <p class="inline">时间</p>
           <div class="inline">
             <el-date-picker size="medium" v-model.trim="searchMenu.sdate" class="inline" style="width:134px;" type="date" placeholder="开始时间" @change="startTimeChange">
@@ -40,6 +28,18 @@
             <span class="inline">至</span>
             <el-date-picker size="medium" v-model.trim="searchMenu.edate" class="inline" style="width:134px;" type="date" placeholder="结束时间" @change="endTimeChange">
             </el-date-picker>
+          </div>
+        </div>
+        <div class="element">
+          <p class="inline">商户:</p>
+          <div class="width140 inline">
+            <el-input size="medium" v-model.trim="searchMenu.merchantname" clearable placeholder="商户查询" class="input" @keyup.enter.native="search"></el-input>
+          </div>
+        </div>
+        <div class="element">
+          <p class="inline">手机号:</p>
+          <div class="width140 inline">
+            <el-input size="medium" clearable v-model.trim="searchMenu.phone" placeholder="手机号查询" class="input" @keyup.enter.native="search"></el-input>
           </div>
         </div>
         <div class="element" @click="search">

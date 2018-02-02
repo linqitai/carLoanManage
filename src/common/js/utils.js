@@ -2,6 +2,21 @@
  *  插件文件：utils.js
  *  作者：林祺泰  QQ：514917919
  * */
+import {Loading} from 'element-ui'
+// 启动loading
+export function openLoading() {
+  let options = {
+    lock: true,
+    text: '加载中',
+    spinner: 'el-icon-loading',
+    background: 'rgba(0, 0, 0, 0.7)'
+  }
+  return Loading.service(options);
+}
+// 关闭loading
+export function closeLoading(obj) {
+  obj.close();
+}
 // 限制文本个数
 export function getLimiteText(value) {
   let len = 24
@@ -83,6 +98,19 @@ export default {
       var m = time.getMonth() + 1
       var d = time.getDate()
       return y + '-' + (m < 10 ? '0' + m : m) + '-' + (d < 10 ? '0' + d : d)
+    }
+    // 启动loading
+    Vue.prototype.openLoading = () => {
+      return this.$loading({
+        lock: true,
+        text: '加载中',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      });
+    }
+    // 关闭loading
+    Vue.prototype.closeLoading = (obj) => {
+      obj.close();
     }
   }
 }

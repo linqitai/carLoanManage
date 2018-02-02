@@ -45,15 +45,15 @@
       </div>
       <div class="tableWrapper">
         <el-table :data="tableData" stripe>
-          <el-table-column fixed prop="codename" label="名称"></el-table-column>
-          <el-table-column prop="shopid" label="编号"></el-table-column>
-          <el-table-column prop="shopname" label="所属门店"></el-table-column>
-          <el-table-column prop="merchantname" label="所属商户"></el-table-column>
-          <el-table-column prop="created" label="添加时间">
+          <el-table-column prop="created" label="添加时间" width="160" fixed="left">
             <template slot-scope="scope">
               {{scope.row.created | time}}
             </template>
           </el-table-column>
+          <el-table-column prop="codename" label="名称"></el-table-column>
+          <el-table-column prop="shopid" label="编号"></el-table-column>
+          <el-table-column prop="shopname" label="所属门店" width="160" show-overflow-tooltip></el-table-column>
+          <el-table-column prop="merchantname" label="所属商户"  width="180" show-overflow-tooltip></el-table-column>
           <el-table-column prop="imageurl" fixed="right" label="图片">
             <template slot-scope="scope">
               <el-button @click="imgDetail(scope.$index,tableData)" type="text" size="small">查看</el-button>

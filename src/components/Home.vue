@@ -28,7 +28,7 @@ export default {
   watch: {
     screenWidth: function(value) {
       // console.log(value)
-      if (value < 970) {
+      if (value < 1099) {
         // this.$message({
         //   message: '您的设备屏幕比较小，可能会影响您的浏览效果',
         //   type: 'warning'
@@ -83,6 +83,17 @@ export default {
 <style lang="scss">
 @import '../common/scss/common.scss';
 @import '../common/scss/mixin.scss';
+.el-table tr {
+  height: 36px !important;
+}
+.el-table td, .el-table th{
+  padding: 0 0 !important;
+}
+.el-table thead tr {
+  background-color: $tableTheadColor !important;
+  color: #ffffff;
+  height: 36px !important;
+}
 .home {
   position: absolute;
   left: 0;
@@ -229,15 +240,16 @@ export default {
           tbody {
             background-color: #ffffff;
             tr {
+              height: 36px;
+              line-height: 36px;
               border-top: 1px solid $tableLineColor;
             }
             tr:hover {
               background-color: #f1f2f7;
             }
             tr td {
-              padding: 4px 8px;
               text-align: center;
-              line-height: 16px;
+              line-height: 32px;
             }
           }
           .noData {

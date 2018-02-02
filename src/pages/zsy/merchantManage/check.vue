@@ -73,7 +73,7 @@
             <br>
           </div>
           <div class="values" v-if="isDisabledHB">
-            <el-checkbox class="fl" key="3" @change="changeYN">买家不可使用(花呗分期)</el-checkbox>
+            <el-checkbox class="fl" :checked="isSupportHBStage" key="3" @change="changeYN">买家不可使用(花呗分期)</el-checkbox>
           </div>
         </div>
       </div>
@@ -108,9 +108,9 @@
         <div class="title">备忘信息</div>
         <div class="contentText">
           <!-- <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 4 && infor.isaudit !== 7 && infor.isaudit !== 2 && infor.isaudit !== 6">
-                                    <span class="label">公众号类型</span>
-                                    <span class="value">{{publicNumType | publicNumTypeState}}</span>
-                                  </div> -->
+                                      <span class="label">公众号类型</span>
+                                      <span class="value">{{publicNumType | publicNumTypeState}}</span>
+                                    </div> -->
           <el-table stripe :data="tableData">
             <el-table-column prop="created" label="时间" width="180" :formatter="formatTable"></el-table-column>
             <el-table-column prop="operatorname" label="负责人" width="120"></el-table-column>
@@ -211,7 +211,8 @@ export default {
       isSendCode: false,
       sendCodeValue: "获取验证码",
       sendCodeType: "primary",
-      autidId: 1
+      autidId: 1,
+      isSupportHBStage: false
     }
   },
   filters: {
@@ -240,6 +241,8 @@ export default {
     this.publicNumType = detailInfo.publicNumType
     // this.radio = JSON.stringify(detailInfo.publicNumType)// 公众号类型
     this.applyTime = detailInfo.applyTime
+    this.supportStage = detailInfo.supportStage
+    this.isSupportHBStage = this.supportStage == 'Y' ? false : true
     this.listByMemo()
   },
   methods: {
@@ -320,8 +323,10 @@ export default {
       console.log('val:' + val)
       if (val) {
         this.isDisabledHB = false
+        this.supportStageValue = 'N' // 不支持花呗分期
       } else {
         this.isDisabledHB = true
+        this.supportStageValue = 'Y' // 支持花呗分期
       }
     },
     supportAliClick1(val) {
@@ -352,13 +357,6 @@ export default {
         this.wechatratesT0 = ''
       }
     },
-    supportStageClick(val) {
-      if (val) {
-        this.supportStageValue = 'Y'
-      } else {
-        this.supportStageValue = 'N'
-      }
-    },
     T0Click1(val) {
       console.log(val)
       console.log('val.this.supportT0' + this.supportT0)
@@ -385,12 +383,12 @@ export default {
       this.sendBank()
     },
     sendBankYes() {
-      const loading = this.$loading({
-        lock: true,
-        text: 'Loading',
-        spinner: 'el-icon-loading',
-        background: 'rgba(0, 0, 0, 0.7)'
-      });
+      // const loading = this.$loading({
+      //   lock: true,
+      //   text: 'Loading',
+      //   spinner: 'el-icon-loading',
+      //   background: 'rgba(0, 0, 0, 0.7)'
+      // });
       let params = {
         customerid: this.customerid,
         autidId: this.autidId
@@ -403,7 +401,7 @@ export default {
             type: 'success',
             message: `提交网商成功`
           })
-          this.$router.push('/merchantManage')
+          this.$router.push('/merchantManage?random=0.1')
         } else if (res.code === 400) {
           this.$message({
             type: 'fail',
@@ -411,7 +409,7 @@ export default {
           })
         }
         this.sureToBankDialogVisible = false
-        loading.close();
+        // loading.close();
       }).catch(res => {
         this.$message({
           type: 'fail',

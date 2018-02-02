@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import ElementUI from 'element-ui'
+// import './common/js/utils'
 import 'element-ui/lib/theme-chalk/index.css'
 // import MuseUI from 'muse-ui';
 // import 'muse-ui/dist/muse-ui.css';

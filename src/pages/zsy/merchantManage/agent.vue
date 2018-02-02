@@ -18,78 +18,74 @@
       </el-breadcrumb>
     </div>
     <div class="allWrapper">
-      <div class="searchCondition">
-        <div class="searchBox">
-          <el-form ref="form" :model="form" label-width="80px">
-            <div class="element">
-              <el-button size="medium" class="add-btn" @click="agentAdd">+ 新增</el-button>
+      <search-condition @clickSearchData="searchTable">
+        <el-form ref="form" :model="form" label-width="80px">
+          <div class="element">
+            <p class="inline">加入时间:</p>
+            <div class="inline">
+              <el-date-picker size="medium" class="inline" style="width:134px;" v-model="form.startDate" type="date" placeholder="开始时间">
+              </el-date-picker>
+              <span class="inline">至</span>
+              <el-date-picker size="medium" class="inline" style="width:134px;" v-model="form.endDate" type="date" placeholder="结束时间">
+              </el-date-picker>
             </div>
-            <div class="element">
-              <p class="inline">代理人:</p>
-              <div class="width160 inline">
-                <el-input size="medium" clearable placeholder="请输入代理人" class="input" v-model="form.agentName" @keyup.enter.native="searchTable"></el-input>
-              </div>
+          </div>
+          <div class="element">
+            <el-button size="medium" class="add-btn" @click="agentAdd">+ 新增</el-button>
+          </div>
+          <div class="element">
+            <p class="inline">代理人:</p>
+            <div class="width160 inline">
+              <el-input size="medium" clearable placeholder="请输入代理人" class="input" v-model="form.agentName" @keyup.enter.native="searchTable"></el-input>
             </div>
-            <div class="element">
-              <p class="inline">手机号:</p>
-              <div class="width160 inline">
-                <el-input size="medium" clearable placeholder="请输入手机号" class="input" v-model="form.mobilePhone" @keyup.enter.native="searchTable"></el-input>
-              </div>
+          </div>
+          <div class="element">
+            <p class="inline">手机号:</p>
+            <div class="width160 inline">
+              <el-input size="medium" clearable placeholder="请输入手机号" class="input" v-model="form.mobilePhone" @keyup.enter.native="searchTable"></el-input>
             </div>
-            <div class="element">
-              <p class="inline">拓展人:</p>
-              <div class="width160 inline">
-                <el-input size="medium" clearable placeholder="请输入拓展人" class="input" v-model="form.developPerson" @keyup.enter.native="searchTable"></el-input>
-              </div>
+          </div>
+          <div class="element">
+            <p class="inline">拓展人:</p>
+            <div class="width160 inline">
+              <el-input size="medium" clearable placeholder="请输入拓展人" class="input" v-model="form.developPerson" @keyup.enter.native="searchTable"></el-input>
             </div>
-            <div class="element">
-              <p class="inline">是否启用:</p>
-              <div class="width120 inline">
-                <el-select size="medium" v-model="form.isUsing" placeholder="请选择">
-                  <el-option v-for="item in isUsingList" :key="item.value" :label="item.label" :value="item.value">
-                  </el-option>
-                </el-select>
-              </div>
+          </div>
+          <div class="element">
+            <p class="inline">是否启用:</p>
+            <div class="width120 inline">
+              <el-select size="medium" v-model="form.isUsing" placeholder="请选择">
+                <el-option v-for="item in isUsingList" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
             </div>
-            <div class="element">
-              <p class="inline">店铺地址:</p>
-              <div class="width120 inline">
-                <el-select size="medium" v-model="form.province" placeholder="请选择" @change="provinceChange">
-                  <el-option v-for="item in form.provinceList" :key="item.adcode" :label="item.name" :value="item.adcode">
-                  </el-option>
-                </el-select>
-              </div>
-              <div class="width120 inline">
-                <el-select size="medium" v-if="form.province" v-model="form.city" placeholder="请选择" @change="cityChange">
-                  <el-option v-for="item in form.cityList" :key="item.adcode" :label="item.name" :value="item.adcode">
-                  </el-option>
-                </el-select>
-              </div>
-              <div class="width120 inline">
-                <el-select size="medium" v-if="form.city" v-model="form.county" placeholder="请选择" @change="countyChange">
-                  <el-option v-for="item in form.countyList" :key="item.adcode" :label="item.name" :value="item.adcode">
-                  </el-option>
-                </el-select>
-              </div>
+          </div>
+          <div class="element">
+            <p class="inline">店铺地址:</p>
+            <div class="width120 inline">
+              <el-select size="medium" v-model="form.province" placeholder="请选择" @change="provinceChange">
+                <el-option v-for="item in form.provinceList" :key="item.adcode" :label="item.name" :value="item.adcode">
+                </el-option>
+              </el-select>
             </div>
-            <div class="element">
-              <p class="inline">加入时间:</p>
-              <div class="inline">
-                <el-date-picker size="medium" class="inline" style="width:134px;" v-model="form.startDate" type="date" placeholder="开始时间">
-                </el-date-picker>
-                <span class="inline">至</span>
-                <el-date-picker size="medium" class="inline" style="width:134px;" v-model="form.endDate" type="date" placeholder="结束时间">
-                </el-date-picker>
-              </div>
+            <div class="width120 inline" v-if="form.province">
+              <el-select size="medium" v-model="form.city" placeholder="请选择" @change="cityChange">
+                <el-option v-for="item in form.cityList" :key="item.adcode" :label="item.name" :value="item.adcode">
+                </el-option>
+              </el-select>
             </div>
-            <div class="element search">
-              <el-button size="medium" class="searchBtn" @click="searchTable">查询</el-button>
+            <div class="width120 inline" v-if="form.city">
+              <el-select size="medium" v-model="form.county" placeholder="请选择" @change="countyChange">
+                <el-option v-for="item in form.countyList" :key="item.adcode" :label="item.name" :value="item.adcode">
+                </el-option>
+              </el-select>
             </div>
-          </el-form>
-        </div>
-      </div>
+          </div>
+        </el-form>
+      </search-condition>
       <div class="tableWrapper">
         <el-table :data="tableList" stripe fit v-loading="loading">
+          <el-table-column prop="joinTime" label="加入时间" min-width="160px" fixed="left"></el-table-column>
           <el-table-column prop="agentName" label="代理人" min-width="80px"></el-table-column>
           <el-table-column prop="sexs" label="性别" min-width="50px"></el-table-column>
           <el-table-column prop="idCardNo" label="身份证号" show-overflow-tooltip></el-table-column>
@@ -99,8 +95,7 @@
           <el-table-column prop="shearRatePresent" label="分润率（%）" min-width="115px"></el-table-column>
           <el-table-column prop="states" label="状态" min-width="110px"></el-table-column>
           <el-table-column prop="developPerson" label="拓展人"></el-table-column>
-          <el-table-column prop="joinTime" label="加入时间" min-width="160px" show-overflow-tooltip></el-table-column>
-          <el-table-column prop="" label="操作" min-width="135px">
+          <el-table-column prop="" label="操作" min-width="135px" fixed="right">
             <template slot-scope="scope">
               <el-button @click="handleClick1(scope.row)" type="text" size="small">详情</el-button>
               <el-button @click="handleClick2(scope.row)" type="text" size="small">{{scope.row.editUse}}</el-button>
@@ -110,17 +105,10 @@
         </el-table>
       </div>
       <div class="tableBottom">
-        <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="currentPage"
-          :page-sizes="[10, 20, 30, 40]"
-          :page-size="10"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="totalNum">
+        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="totalNum">
         </el-pagination>
       </div>
-    </div>
+  </div>
   </div>
 </template>
 
@@ -128,6 +116,7 @@
 import { isUsingList, sexList, mtypeList, runTYpeList, statusList, tableData } from 'common/js/config'
 import { agentlist, updateUsing, cityList } from "@/api/index"
 import { getDateTime, getDate } from "@/common/js/times"
+import searchCondition from 'components/searchCondition.vue'
 export default {
   data() {
     return {
@@ -305,6 +294,7 @@ export default {
     }
   },
   components: {
+    searchCondition
   }
 }
 </script>
@@ -315,44 +305,52 @@ export default {
   width: 100%;
   height: 100%;
 }
-.searchCondition{
+
+.searchCondition {
   width: 100%;
 }
+
 .add-btn {
-		width: 90px;
-    background-color: #029e8a;
-    border-color: #029e8a;
-    color: #fff;
+  width: 90px;
+  background-color: #029e8a;
+  border-color: #029e8a;
+  color: #fff;
 }
+
 .add-btn:active {
   background-color: #048473;
-    border-color: #048473;
+  border-color: #048473;
 }
-.home .contentWrapper .content .allWrapper .searchCondition{
+
+.home .contentWrapper .content .allWrapper .searchCondition {
   min-width: auto;
 }
-.el-form{
+
+.el-form {
   overflow: hidden;
 }
-.fl{
+
+.fl {
   float: left;
 }
-.home .contentWrapper .content .allWrapper .searchCondition .fr{
-  float:right;
+
+.home .contentWrapper .content .allWrapper .searchCondition .fr {
+  float: right;
 }
-.home .contentWrapper .content .allWrapper{
+
+.home .contentWrapper .content .allWrapper {
   padding: 0 40px 0 40px;
 }
-.tableWrapper{
+
+.home .contentWrapper .content .allWrapper .tableBottom {
   margin-top: 20px;
 }
-.home .contentWrapper .content .allWrapper .tableBottom{
-  margin-top: 20px;
-}
-.el-button--text{
+
+.el-button--text {
   color: #00917e;
 }
-.element{
+
+.element {
   margin-top: 20px;
 }
 </style>
