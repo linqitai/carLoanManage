@@ -22,10 +22,10 @@
         <div class="element">
           <p class="inline">时间</p>
           <div class="inline">
-            <el-date-picker size="medium" class="inline" style="width:134px;" type="month" placeholder="开始时间" value-format="yyyy-MM-dd" @change="startTimeChange" v-model="searchs.sdate">
+            <el-date-picker size="medium" class="inline" style="width:138px;" type="date" placeholder="开始时间" value-format="yyyy-MM-dd" @change="startTimeChange" v-model="searchs.sdate">
             </el-date-picker>
             <span class="inline">至</span>
-            <el-date-picker size="medium" class="inline" style="width:134px;" type="month" placeholder="结束时间" value-format="yyyy-MM-dd" @change="endTimeChange" v-model="searchs.edate">
+            <el-date-picker size="medium" class="inline" style="width:138px;" type="date" placeholder="结束时间" value-format="yyyy-MM-dd" @change="endTimeChange" v-model="searchs.edate">
             </el-date-picker>
           </div>
         </div>

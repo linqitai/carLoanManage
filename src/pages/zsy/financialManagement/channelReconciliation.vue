@@ -23,10 +23,10 @@
           <div class="element">
             <p class="inline">订单完成时间:</p>
             <div class="inline">
-              <el-date-picker size="medium" class="inline" style="width:134px;" type="date" placeholder="开始时间" value-format="yyyy-MM-dd" v-model="searchs.startTime">
+              <el-date-picker size="medium" class="inline" style="width:138px;" type="date" placeholder="开始时间" value-format="yyyy-MM-dd" v-model="searchs.sdate">
               </el-date-picker>
               <span class="inline">至</span>
-              <el-date-picker size="medium" class="inline" style="width:134px;" type="date" placeholder="结束时间" value-format="yyyy-MM-dd" v-model="searchs.endTime">
+              <el-date-picker size="medium" class="inline" style="width:138px;" type="date" placeholder="结束时间" value-format="yyyy-MM-dd" v-model="searchs.edate">
               </el-date-picker>
             </div>
           </div>
@@ -102,8 +102,8 @@ export default {
       tradeAmountSum: '',
       handChargeSum: '',
       searchs: {
-        startTime: '',
-        endTime: '',
+        sdate: '',
+        edate: '',
         merchantNa: '',
         merchantId: '',
         pageSize: 10,
@@ -129,11 +129,11 @@ export default {
   },
   methods: {
     searchData() {
-      if (this.searchs.startTime) {
-        this.searchs.startTime = getDate(new Date(this.searchs.startTime)) + " 00:00:00";
+      if (this.searchs.sdate) {
+        this.searchs.sdate = getDate(new Date(this.searchs.sdate)) + " 00:00:00";
       }
-      if (this.searchs.endTime) {
-        this.searchs.endTime = getDate(new Date(this.searchs.endTime)) + " 23:59:59";
+      if (this.searchs.edate) {
+        this.searchs.edate = getDate(new Date(this.searchs.edate)) + " 23:59:59";
       }
       channelReconciliation(this.searchs).then(res => {
         this.tableData = res.result;
@@ -146,7 +146,7 @@ export default {
       })
     },
     search() {
-      if (this.searchs.startTime && this.searchs.endTime && new Date(this.searchs.startTime) - new Date(this.searchs.endTime) > 0) {
+      if (this.searchs.sdate && this.searchs.edate && new Date(this.searchs.sdate) - new Date(this.searchs.edate) > 0) {
         this.$message({
           type: 'error',
           message: '开始时间不大于结束时间!'

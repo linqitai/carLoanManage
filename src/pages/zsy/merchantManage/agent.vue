@@ -21,17 +21,17 @@
       <search-condition @clickSearchData="searchTable">
         <el-form ref="form" :model="form" label-width="80px">
           <div class="element">
-            <p class="inline">加入时间:</p>
-            <div class="inline">
-              <el-date-picker size="medium" class="inline" style="width:134px;" v-model="form.startDate" type="date" placeholder="开始时间">
-              </el-date-picker>
-              <span class="inline">至</span>
-              <el-date-picker size="medium" class="inline" style="width:134px;" v-model="form.endDate" type="date" placeholder="结束时间">
-              </el-date-picker>
-            </div>
+            <el-button size="medium" class="add-btn" @click="agentAdd">+ 新增</el-button>
           </div>
           <div class="element">
-            <el-button size="medium" class="add-btn" @click="agentAdd">+ 新增</el-button>
+            <p class="inline">加入时间:</p>
+            <div class="inline">
+              <el-date-picker size="medium" class="inline" style="width:138px;" v-model="form.startDate" type="date" placeholder="开始时间">
+              </el-date-picker>
+              <span class="inline">至</span>
+              <el-date-picker size="medium" class="inline" style="width:138px;" v-model="form.endDate" type="date" placeholder="结束时间">
+              </el-date-picker>
+            </div>
           </div>
           <div class="element">
             <p class="inline">代理人:</p>
@@ -108,7 +108,7 @@
         <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="totalNum">
         </el-pagination>
       </div>
-  </div>
+    </div>
   </div>
 </template>
 
