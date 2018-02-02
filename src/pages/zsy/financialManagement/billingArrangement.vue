@@ -238,6 +238,7 @@ export default {
         });
         return
       }
+      this.searchs.edate = this.searchs.edate + " 23:59:59";
       this.searchData()
     },
     handleSizeChange(val) {
