@@ -167,6 +167,10 @@ export const zedArea = (params) => {
 export const zsyCourseList = (params) => {
     return http.fetchPost(zsy + '/trade/creditAction/list.do', params)
 }
+// 报表
+export const zsyAnalyse = (params) => {
+    return http.fetchPost(zsy + '/trade/creditAction/analyse.do', params)
+}
 
 // 财务管理
 // 公司分润收入

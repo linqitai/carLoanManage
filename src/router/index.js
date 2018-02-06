@@ -232,6 +232,10 @@ export default new Router({
         {
           path: '/creditCard',
           component: resolve => require(['pages/xyk/Mileage/creditCard'], resolve)
+        },
+        {
+          path: '/reportCard',
+          component: resolve => require(['pages/xyk/Mileage/reportCard'], resolve)
         }
       ]
     }
