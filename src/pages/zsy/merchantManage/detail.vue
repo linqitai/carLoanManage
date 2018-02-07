@@ -562,7 +562,7 @@
               <i v-if="status===statusNormal && infor.isaudit === 5" class="iconfont icon-bianji-copy ml10 fontSizeM" @click="showEditForbiddenMethodEvent=true"></i>
 
             </div>
-            <div class="lineText">
+            <div class="lineText" v-if="infor.deniedpays=='02'">
               <span class="label">花呗分期</span>
               <span class="value">{{infor.supportStage | supportStageState}}</span>
             </div>
@@ -704,11 +704,12 @@
           <span class="left">
             <div class="mb20">
               <span class="width80 mr10">
-                <el-checkbox @change="supportAliClick" v-model="editRate4IsAli">支付宝</el-checkbox>
+                <el-checkbox @change="supportAliClick" label="ali" v-model="isAliChecked">支付宝</el-checkbox>
+                <!-- <el-checkbox @change="supportAliClick" v-model="editRate4IsAli">支付宝</el-checkbox> -->
               </span>
               <span>
                 <span class="t0money mr10">
-                  <span class="mr3">D+1费率</span>
+                  <span>D+1费率</span>
                   <input class="moneyInput" type="text" placeholder="0.38" v-model="aliratesT1"> %
                 </span>
                 <span class="t1money" v-if="isDisabledHB4">
@@ -719,7 +720,8 @@
             </div>
             <div>
               <span class="width80 left mr10">
-                <el-checkbox @change="supportWechatClick" v-model="editRate4IsWeichat">微信支付</el-checkbox>
+                <el-checkbox @change="supportWechatClick" label="wx" v-model="isWXChecked">微信支付</el-checkbox>
+                <!-- <el-checkbox @change="supportWechatClick" v-model="editRate4IsWeichat">微信支付</el-checkbox> -->
               </span>
               <span>
                 <span class="t0money mr10">
@@ -782,6 +784,7 @@ export default {
         key2: 12,
         key3: 13
       },
+      channelType: [],
       autidId: getUserId(),
       type: false,
       isaudit: null,
@@ -896,10 +899,8 @@ export default {
       aliratesT1: 0.38,
       wechatratesT0: 0.38,
       wechatratesT1: 0.38,
-      supportAliValue: 1,
-      supportWechatValue: 1,
-      editRate4IsALi: false,
-      editRate4IsWeichat: false,
+      // editRate4IsALi: true,
+      // editRate4IsWeichat: true,
       oldMsgCode: '',
       newMsgCode: '',
       newPhone: '',
@@ -929,7 +930,9 @@ export default {
       },
       supportStage: '',
       isDisabledHB: this.supportStage == 'Y' ? false : true,
-      isSupportHBStage: false
+      isSupportHBStage: false,
+      isAliChecked: false,
+      isWXChecked: false
     }
   },
   filters: {
@@ -961,7 +964,7 @@ export default {
       return value === 1 ? '支持' : value === 2 ? '不支持' : '---'
     },
     supportStageState(value) {
-      return value == 'Y' ? '支持' : value == 'N' ? '不支持' : '不支持'
+      return value == 'Y' ? '买家可使用' : value == 'N' ? '买家不可使用' : '买家不可使用'
     },
     publicNumTypeState(value) {
       return value === 1 ? '合作机构公众号（捷信安保公众号）' : value === 2 ? '商户自有公众号' : value === 3 ? '其他商户公众号' : '---'
@@ -1144,12 +1147,12 @@ export default {
       }
       // // console.log(val);
     },
-    editRate4IsALi() {
-      return this.editRate4IsALi
-    },
-    editRate4IsWeichat() {
-      return this.editRate4IsWeichat
-    },
+    // editRate4IsALi() {
+    //   return this.editRate4IsALi
+    // },
+    // editRate4IsWeichat() {
+    //   return this.editRate4IsWeichat
+    // },
     async search(customerid) {
       console.log('intoSearch')
       let params = {
@@ -1187,8 +1190,24 @@ export default {
         }
       }
       // v-if="infor.paychannels==='01' || infor.paychannels==='01,02'" 01:支付宝  02：微信
-      this.editRate4IsALi = (this.infor.paychannels === '01' || this.infor.paychannels === '01,02') ? true : false
-      this.editRate4IsWeichat = (this.infor.paychannels === '02' || this.infor.paychannels === '01,02') ? true : false
+      // this.editRate4IsALi = (this.infor.paychannels == '01' || this.infor.paychannels == '01,02') ? true : false
+      // this.editRate4IsWeichat = (this.infor.paychannels == '02' || this.infor.paychannels == '01,02') ? true : false
+      // console.log('this.editRate4IsWeichat:' + this.editRate4IsWeichat)
+      if (this.infor.paychannels == '01') {
+        this.channelType = ['ali']
+      }
+      if (this.infor.paychannels == '02') {
+        this.channelType = ['wx']
+      }
+      if (this.infor.paychannels == '01,02') {
+        this.channelType = ['ali', 'wx']
+      }
+      if (this.infor.paychannels.indexOf('01') > -1) {
+        this.isAliChecked = true
+      }
+      if (this.infor.paychannels.indexOf('02') > -1) {
+        this.isWXChecked = true
+      }
       this.supportStage = this.infor.supportStage;
       this.isSupportHBStage = this.supportStage == 'Y' ? false : true
       this.supportStageValue = this.supportStage
@@ -1349,25 +1368,29 @@ export default {
     },
     // 费率编辑
     clearmodeEditClick() {
-      if (this.aliratesT1 == '' && this.supportAli == 1) {
+      if (this.aliratesT1 == '' && this.channelType.indexOf('ali') > -1) {
         this.$message({
           type: 'fail',
           message: `请填写支付宝费率`
         })
         return
       }
-      if (this.wechatratesT1 == '' && this.supportWechat == 1) {
+      if (this.wechatratesT1 == '' && this.channelType.indexOf('wx') > -1) {
         this.$message({
           type: 'fail',
           message: `请填写微信费率`
         })
         return
       }
+      if (this.supportT0 == 2) {
+        this.aliratesT0 = ''
+        this.wechatratesT0 = ''
+      }
       let params = {
         customerid: this.customerid,
         supportT0: this.supportT0,
-        supportAli: parseInt(this.supportAliValue),
-        supportWechat: parseInt(this.supportWechatValue),
+        supportAli: this.channelType.indexOf('ali') > -1 ? 1 : 2,
+        supportWechat: this.channelType.indexOf('wx') > -1 ? 1 : 2,
         aliratesT0: this.aliratesT0 ? this.aliratesT0 / 100 : '',
         aliratesT1: this.aliratesT1 ? this.aliratesT1 / 100 : '',
         wechatratesT0: this.wechatratesT0 ? this.wechatratesT0 / 100 : '',
@@ -1395,32 +1418,36 @@ export default {
       }
     },
     supportAliClick(val) {
-      this.supportAli = val
-      if (this.supportAli === true) {
-        this.supportAliValue = 1
+      if (val) {
+        if (this.channelType.indexOf('ali') == -1) {
+          this.channelType.unshift('ali')
+        }
+        this.editRate4IsAli = true
         this.isDisabledHB2 = true
-        this.aliratesT1 = this.aliratesT1
-        this.aliratesT0 = this.aliratesT0
       } else {
-        this.supportAliValue = 2
+        this.channelType = ['wx']
+        this.editRate4IsAli = false
         this.isDisabledHB2 = false
         this.aliratesT1 = ''
         this.aliratesT0 = ''
       }
+      console.log('this.channelType:' + this.channelType)
     },
     supportWechatClick(val) {
-      this.supportWechat = val
-      if (this.supportWechat === true) {
-        this.supportWechatValue = 1
+      if (val) {
+        if (this.channelType.indexOf('wx') == -1) {
+          this.channelType.push('wx')
+        }
+        this.supportWechatClick = true
         this.isDisabledHB3 = true
-        this.wechatratesT1 = this.wechatratesT1
-        this.wechatratesT0 = this.wechatratesT0
       } else {
-        this.supportWechatValue = 2
+        this.channelType = ['ali']
+        this.supportWechatClick = false
         this.isDisabledHB3 = false
         this.wechatratesT1 = ''
         this.wechatratesT0 = ''
       }
+      console.log('this.channelType:' + this.channelType)
     },
     payTypeToString(val) {
       var _str = []
