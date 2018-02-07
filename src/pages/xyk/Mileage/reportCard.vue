@@ -168,7 +168,7 @@
 				return (
 					<div class="th-pos">
 						{column.label}
-						<el-tooltip class="item" effect="dark" content={content} placement="right">
+						<el-tooltip class="item" effect="dark" content={content} placement="bottom-end">
 							<i class="el-icon-question"></i>
 						</el-tooltip>
 					</div>
