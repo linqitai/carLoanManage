@@ -42,6 +42,24 @@
 					</div>
 				</div>
       </search-condition>
+			<div class="choose-block">系统流量：{{choose}} 次  
+				<el-tooltip class="item" effect="dark" content="系统流量：进入“选择银行“界面的次数" placement="right">
+					<i class="el-icon-question"></i>
+				</el-tooltip>
+			</div>
+			<el-table v-if="form.dimension == 1" :data="table_blank" stripe>
+				<el-table-column prop="actionName" label="类目"></el-table-column>
+				<el-table-column prop="operate" label="操作数（次）"></el-table-column>
+				<el-table-column prop="operateRate" :formatter="formatterMath('operateRate')" label="操作率（%）"></el-table-column>
+				<el-table-column prop="chooseRate" :formatter="formatterMath('chooseRate')" label="银行选择率（%）"></el-table-column>
+			</el-table>
+			<el-table show-summary :summary-method="getSummaries" max-height="400" v-if="form.dimension == 2" :data="table_area" stripe>
+				<el-table-column prop="actionName" label="类目"></el-table-column>
+				<el-table-column prop="operate" label="操作数（次）"></el-table-column>
+				<!-- <el-table-column prop="operate" label="日期" :render-header="renderHeader"></el-table-column> -->
+				<el-table-column prop="operateRate" :formatter="formatterMath('operateRate')" label="操作率（%）" :render-header="rr" ></el-table-column>
+				<el-table-column prop="chooseRate" :formatter="formatterMath('chooseRate')" label="地区占比（%）"></el-table-column>
+			</el-table>
 		</div>
 	</div>
 </template>
@@ -53,6 +71,7 @@
 	export default {
 		data() {
 			return {
+				choose: null,
 				thisTime: 1,
 				timeType: [
 					{value: 1, label: "全部"},
@@ -68,16 +87,29 @@
 					sdate: "",
 					edate: "",
 					dimension: 1
-				}
+				},
+				sum_area: {},
+				table_blank: [],
+				table_area: [],
 			}
 		},
 		methods: {
 			search: function() {
 				zsyAnalyse(this.form).then(
 					res => {
-						console.log(res)
+						this.choose = res.result.choose
+						if (this.form.dimension == 1) {
+							this.table_blank = res.result.resultlist
+						} else {
+							this.sum_area = res.result.resultlist[res.result.resultlist.length - 1]
+							res.result.resultlist.splice(res.result.resultlist.length - 1, 1)
+							this.table_area = res.result.resultlist
+						}
 					}
 				)
+			},
+			getSummaries: function(params) {
+				return [this.sum_area.actionName,this.sum_area.operate,this.sum_area.operateRate + '%','100%']
 			},
 			timeChange: function(val) {
 				let weekOfday = moment().format('E');//计算今天是这周第几天
@@ -118,12 +150,42 @@
 				}
 				this.search()
 			},
+			rr(createElement, { column }) {
+        return createElement(
+          'div',
+          [
+            createElement('a', ['==' + column.label + '=='], {
+              attrs: {
+                href: '#test'
+              }
+            })
+          ]
+        );
+      },
 			dimensionSelect: function(val) {
 				this.search()
+			},
+			formatterMath: function(prop) {
+				return function(row) {
+					return row[prop] + '%'
+				}
 			}
+		},
+		created() {
+			this.search()
 		},
 		components: {
 			searchCondition
 		}
 	}
 </script>
+
+<style lang="scss" scoped>
+.choose-block {
+	margin: 10px 5px;
+	font-size: 15px;
+	i {
+		color: #333;
+	}
+}
+</style>
