@@ -200,10 +200,11 @@
 	line-height: 1!important;
 }
 .choose-block {
-	margin: 10px 5px;
+	margin: 20px 5px 10px;
 	font-size: 15px;
+	color: #777;
 	i {
-		color: #333;
+		color: #777;
 	}
 }
 </style>
