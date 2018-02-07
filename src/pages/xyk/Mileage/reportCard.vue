@@ -50,15 +50,15 @@
 			<el-table v-if="form.dimension == 1" :data="table_blank" stripe>
 				<el-table-column prop="actionName" label="类目"></el-table-column>
 				<el-table-column prop="operate" label="操作数（次）"></el-table-column>
-				<el-table-column prop="operateRate" :formatter="formatterMath('operateRate')" label="操作率（%）"></el-table-column>
-				<el-table-column prop="chooseRate" :formatter="formatterMath('chooseRate')" label="银行选择率（%）"></el-table-column>
+				<el-table-column prop="operateRate" :formatter="formatterMath('operateRate')" label="操作率（%）" tip="ceshi" :render-header="renderHeader"></el-table-column>
+				<el-table-column prop="chooseRate" :formatter="formatterMath('chooseRate')" label="银行选择率（%）" :render-header="renderHeader"></el-table-column>
 			</el-table>
 			<el-table show-summary :summary-method="getSummaries" max-height="400" v-if="form.dimension == 2" :data="table_area" stripe>
 				<el-table-column prop="actionName" label="类目"></el-table-column>
 				<el-table-column prop="operate" label="操作数（次）"></el-table-column>
 				<!-- <el-table-column prop="operate" label="日期" :render-header="renderHeader"></el-table-column> -->
-				<el-table-column prop="operateRate" :formatter="formatterMath('operateRate')" label="操作率（%）" :render-header="rr" ></el-table-column>
-				<el-table-column prop="chooseRate" :formatter="formatterMath('chooseRate')" label="地区占比（%）"></el-table-column>
+				<el-table-column prop="operateRate" :formatter="formatterMath('operateRate')" label="操作率（%）" :render-header="renderHeader"></el-table-column>
+				<el-table-column prop="chooseRate" :formatter="formatterMath('chooseRate')" label="地区占比（%）" :render-header="renderHeader"></el-table-column>
 			</el-table>
 		</div>
 	</div>
@@ -150,17 +150,30 @@
 				}
 				this.search()
 			},
-			rr(createElement, { column }) {
-        return createElement(
-          'div',
-          [
-            createElement('a', ['==' + column.label + '=='], {
-              attrs: {
-                href: '#test'
-              }
-            })
-          ]
-        );
+			renderHeader(createElement, { column }) {
+				let content = ''
+				switch (column.label) {
+					case '操作率（%）':
+						content = '操作率=操作数/系统流量'
+						break;
+					case '银行选择率（%）':
+						content = '银行选择率=操作数/合计操作数'
+						break;
+					case '地区占比（%）':
+						content = '地区占比=操作数/合计操作数'
+						break;
+					default:
+						break;
+				}
+				return (
+					<div class="th-pos">
+						{column.label}
+						<el-tooltip class="item" effect="dark" content={content} placement="right">
+							<i class="el-icon-question"></i>
+						</el-tooltip>
+					</div>
+					
+				)
       },
 			dimensionSelect: function(val) {
 				this.search()
@@ -181,6 +194,11 @@
 </script>
 
 <style lang="scss" scoped>
+.th-pos {
+	position: relative;
+	top: 2px;
+	line-height: 1!important;
+}
 .choose-block {
 	margin: 10px 5px;
 	font-size: 15px;
