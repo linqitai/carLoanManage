@@ -200,6 +200,10 @@ export default {
             {
               index: '/creditCard',
               title: '历程'
+            },
+            {
+              index: '/reportCard',
+              title: '报表'
             }
           ]
         },
