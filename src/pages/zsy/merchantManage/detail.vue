@@ -342,11 +342,11 @@
             <div class="lineText" v-if="infor.isaudit !== 5 && infor.isaudit !== 8">
               <span class="label">结算方式</span>
               <span class="value">{{infor.clearmode | clearmodeState}}</span>
-              <!-- <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
-                          <el-checkbox :label="Object.assign(newObj.clearmode, {'journeys': 4,'errorFlags': 1})" class="fl">未通过
-                          </el-checkbox>
-                          <input type="text" v-if="newObj.clearmode.check" v-model="newObj.clearmode.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
-                        </div> -->
+              <div class="inforeditor" v-if="infor.isaudit === 2 || infor.isaudit === 6">
+                <el-checkbox :label="Object.assign(newObj.clearmode, {'journeys': 4,'errorFlags': 1})" class="fl">未通过
+                </el-checkbox>
+                <input type="text" v-if="newObj.clearmode.check" v-model="newObj.clearmode.errorText" class="audit fl" placeholder="最多输入15个字" maxlength="15">
+              </div>
             </div>
             <div class="lineText">
               <span class="label">账户类型</span>
@@ -516,64 +516,22 @@
             <div class="lineText">
               <span class="label">结算方式</span>
               <span class="value">{{infor.clearmode | clearmodeState}}</span>
-              <i v-if="status===statusNormal && infor.isaudit === 5 && infor.yulibaoState === 2" class="iconfont icon-bianji-copy ml10 fontSizeM" @click="showEditMoneyEvent=true"></i>
+              <i v-if="status===statusNormal && infor.isaudit === 5" class="iconfont icon-bianji-copy ml10 fontSizeM" @click="showEditMoneyEvent=true"></i>
             </div>
-            <el-dialog width="650px" title="编辑费率" :visible.sync="showEditMoneyEvent">
-              <div class="contentTextForRow">
-                <div class="lineText">
-                  <span class="label">结算方式</span>
-                  <span class="value">{{infor.clearmode | clearmodeState}}</span>
-                </div>
-                <div class="lineText">
-                  <span class="label">T+0到账</span>
-                  <span class="value">
-                    <el-checkbox class="fl" @change="T0Click" :checked="clearmode" :disabled="!clearmode">支持</el-checkbox>
-                  </span>
-                </div>
-                <div class="lineText">
-                  <span class="label">渠道类型</span>
-                  <span class="value">
-                    <span class="width80 left">
-                      <el-checkbox @change="supportAliClick" checked class="fl" v-model="supportAli">支付宝</el-checkbox>
-                    </span>
-                    <span v-if="isDisabledHB2">
-                      <span class="t0money">T+1费率&#x3000;
-                        <input class="moneyInput" type="text" placeholder="0.38" v-model="aliratesT1"> %
-                      </span>
-                      &#x3000;&#x3000;
-                      <span class="t1money" v-if="isDisabledHB4">T+0费率&#x3000;<input class="moneyInput" type="text" placeholder="0.38" v-model="aliratesT0"> %</span>
-                    </span>
-                    <br/><br/>
-                    <span class="width80 left">
-                      <el-checkbox @change="supportWechatClick" checked class="fl" v-model="supportWechat">微信支付</el-checkbox>
-                    </span>
-                    <span v-if="isDisabledHB3">
-                      <span class="t0money">T+1费率&#x3000;<input class="moneyInput" type="text" placeholder="0.38" v-model="wechatratesT1"> %</span>
-                      &#x3000;&#x3000;
-                      <span class="t1money" v-if="isDisabledHB4">T+0费率&#x3000;<input class="moneyInput" type="text" placeholder="0.38" v-model="wechatratesT0"> %</span>
-                    </span>
-                  </span>
-                </div>
-              </div>
-              <div slot="footer" class="dialog-footer">
-                <el-button size="medium" type="primary" @click="clearmodeEditClick">确 定</el-button>
-              </div>
-            </el-dialog>
             <div class="lineText">
               <span class="label">T+0到账</span>
               <span class="value">{{infor.supportT0 | supportT0State}}</span>
             </div>
             <div class="lineText">
               <span class="label">渠道类型</span>
-              <!--infor.paychannels-->
+              <!--infor.paychannels 01：支付宝 02：微信-->
               <span class="value">
-                <div v-if="infor.paychannels==='01' || infor.paychannels==='01,02'">
-                  <span class="width80 left">支付宝</span>T+1费率：{{infor.signup.aliratesT1*100}}% &#x3000;
+                <div v-if="infor.paychannels==='01' || infor.paychannels==='01,02'" style="margin-bottom:10px;">
+                  <span class="width80 left">支付宝</span>D+1费率：{{infor.signup.aliratesT1*100}}% &#x3000;
                   <span v-if="infor.supportT0!==2">T+0费率：{{infor.signup.aliratesT0*100}}%</span>
                 </div>
-                <br/>
                 <div v-if="infor.paychannels==='02' || infor.paychannels==='01,02'">
-                  <span class="width80 left">微信支付</span>T+1费率：{{infor.signup.wechatratesT1*100}}%&#x3000;
+                  <span class="width80 left">微信支付</span>D+1费率：{{infor.signup.wechatratesT1*100}}%&#x3000;
                   <span v-if="infor.supportT0!==2">T+0费率：{{infor.signup.wechatratesT0*100}}%</span>
                 </div>
               </span>
@@ -639,7 +597,7 @@
           <div class="title">签署的协议</div>
           <div class="contentText">
             <div class="lineText">
-              <a>《臻收银商户注册服务协议》、《臻收银服务隐私政策条款》、《移动支付收单服务协议》、《网商银行账户服务协议》</a>
+              <a>《臻收银商户注册服务协议》、《臻收银服务隐私政策条款》、《收单服务协议》、《网商银行账户服务协议》</a>
               <!-- 、《余利宝服务协议》 -->
             </div>
           </div>
@@ -705,22 +663,80 @@
       </div>
     </el-checkbox-group>
     <el-dialog style="editDialog" width="500px" title="编辑禁用支付方式" :visible.sync="showEditForbiddenMethodEvent">
-      <div>
-        <!-- <span>禁用支付方式</span> -->
-        <el-checkbox-group v-model="deniedpays">
-          <span>
-            <el-checkbox label="03" key="1" @change="changeIsUseHB">禁用花呗（支付宝）</el-checkbox>
-          </span>
-          <span>
-            <el-checkbox label="02" key="2">禁用信用卡（微信支付刷卡支付（被扫）模式无法禁用信用卡支付）</el-checkbox>
-          </span>
-        </el-checkbox-group>
+      <div style="padding: 10px 0">
+        <div>
+          <p class="width100 textLeft inline">禁用支付方式：</p>
+          <el-checkbox-group v-model="deniedpays">
+            <span>
+              <el-checkbox label="03" key="1" @change="changeIsUseHB">禁用花呗（支付宝）</el-checkbox>
+            </span>
+            <span>
+              <el-checkbox label="02" key="2">禁用信用卡（微信支付刷卡支付（被扫）模式无法禁用信用卡支付）</el-checkbox>
+            </span>
+          </el-checkbox-group>
+        </div>
         <div v-show="isDisabledHB">
-          <el-checkbox :checked="isSupportHBStage" @change="supportStageClick" key="3">买家不可使用(花呗分期) </el-checkbox>
+          <p class="width100 textLeft inline">花呗分期：</p>
+          <div>
+            <el-checkbox :checked="isSupportHBStage" @change="supportStageClick" key="3">买家不可使用(花呗分期) </el-checkbox>
+          </div>
         </div>
       </div>
       <div slot="footer" class="dialog-footer">
         <el-button size="medium" type="primary" @click="deniedpaysEditClick">确 定</el-button>
+      </div>
+    </el-dialog>
+    <!-- 编辑费率 -->
+    <el-dialog width="650px" title="编辑费率" :visible.sync="showEditMoneyEvent">
+      <div class="pdtb10">
+        <div class="hidden mtb10">
+          <span class="label width100 left">结算方式</span>
+          <span class="value">{{infor.clearmode | clearmodeState}}</span>
+        </div>
+        <div class="hidden mtb10">
+          <span class="label width100 left">T+0到账</span>
+          <span class="value">
+            <el-checkbox class="fl" @change="T0Click" v-model="isSupportT0" :disabled="!isSupportT0">支持</el-checkbox>
+          </span>
+        </div>
+        <div class="hidden mtb10">
+          <span class="label width100 left">渠道类型</span>
+          <span class="left">
+            <div class="mb20">
+              <span class="width80 mr10">
+                <el-checkbox @change="supportAliClick" v-model="editRate4IsAli">支付宝</el-checkbox>
+              </span>
+              <span>
+                <span class="t0money mr10">
+                  <span class="mr3">D+1费率</span>
+                  <input class="moneyInput" type="text" placeholder="0.38" v-model="aliratesT1"> %
+                </span>
+                <span class="t1money" v-if="isDisabledHB4">
+                  <span class="mr3">T+0费率</span>
+                  <input class="moneyInput" type="text" placeholder="0.38" v-model="aliratesT0"> %
+                </span>
+              </span>
+            </div>
+            <div>
+              <span class="width80 left mr10">
+                <el-checkbox @change="supportWechatClick" v-model="editRate4IsWeichat">微信支付</el-checkbox>
+              </span>
+              <span>
+                <span class="t0money mr10">
+                  <span class="mr3">D+1费率</span>
+                  <input class="moneyInput" type="text" placeholder="0.38" v-model="wechatratesT1"> %
+                </span>
+                <span class="t1money" v-if="isDisabledHB4">
+                  <span class="mr3">T+0费率</span>
+                  <input class="moneyInput" type="text" placeholder="0.38" v-model="wechatratesT0"> %
+                </span>
+              </span>
+            </div>
+          </span>
+        </div>
+      </div>
+      <div slot="footer" class="dialog-footer">
+        <el-button size="medium" type="primary" @click="clearmodeEditClick">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -761,6 +777,11 @@ import {
 export default {
   data() {
     return {
+      keys: {
+        key1: 11,
+        key2: 12,
+        key3: 13
+      },
       autidId: getUserId(),
       type: false,
       isaudit: null,
@@ -869,12 +890,16 @@ export default {
       supportAli: false,
       supportWechat: false,
       loading: false,
+      isSupportT0: false,
+      supportT0: '',
       aliratesT0: 0.38,
       aliratesT1: 0.38,
       wechatratesT0: 0.38,
       wechatratesT1: 0.38,
       supportAliValue: 1,
       supportWechatValue: 1,
+      editRate4IsALi: false,
+      editRate4IsWeichat: false,
       oldMsgCode: '',
       newMsgCode: '',
       newPhone: '',
@@ -1119,6 +1144,12 @@ export default {
       }
       // // console.log(val);
     },
+    editRate4IsALi() {
+      return this.editRate4IsALi
+    },
+    editRate4IsWeichat() {
+      return this.editRate4IsWeichat
+    },
     async search(customerid) {
       console.log('intoSearch')
       let params = {
@@ -1155,14 +1186,20 @@ export default {
           }
         }
       }
+      // v-if="infor.paychannels==='01' || infor.paychannels==='01,02'" 01:支付宝  02：微信
+      this.editRate4IsALi = (this.infor.paychannels === '01' || this.infor.paychannels === '01,02') ? true : false
+      this.editRate4IsWeichat = (this.infor.paychannels === '02' || this.infor.paychannels === '01,02') ? true : false
       this.supportStage = this.infor.supportStage;
       this.isSupportHBStage = this.supportStage == 'Y' ? false : true
       this.supportStageValue = this.supportStage
       console.log('this.supportStage:' + this.supportStage)
       console.log('this.isSupportHBStage:' + this.isSupportHBStage)
       this.phone = this.infor.phone;
-      this.supportT0 = this.infor.supportT0 ? this.infor.supportT0 : 2;
-      this.clearmode = this.infor.clearmode === 2 ? 1 : 0;
+      this.supportT0 = this.infor.supportT0 ? this.infor.supportT0 : 2; // 是否支持T0到账 1支持 2不支持 结算到余利宝时为1支持
+      this.clearmode = this.infor.clearmode == 2 ? 1 : 0;
+      this.isSupportT0 = this.infor.supportT0 == 2 ? false : true; // clearmode 结算方式：1 结算到银行卡 2 结算到余利宝
+      this.isDisabledHB4 = this.infor.supportT0 == 2 ? false : true;
+      console.log('this.isSupportT0:' + this.isSupportT0)
       this.publicNumType = this.infor.publicNumType
       this.infor.tradetypes ? this.tradetypes = this.infor.tradetypes.split(',') : this.tradetypes = []
       this.tradetypesStr = this.payTypeToString(this.tradetypes)
@@ -1312,15 +1349,29 @@ export default {
     },
     // 费率编辑
     clearmodeEditClick() {
+      if (this.aliratesT1 == '' && this.supportAli == 1) {
+        this.$message({
+          type: 'fail',
+          message: `请填写支付宝费率`
+        })
+        return
+      }
+      if (this.wechatratesT1 == '' && this.supportWechat == 1) {
+        this.$message({
+          type: 'fail',
+          message: `请填写微信费率`
+        })
+        return
+      }
       let params = {
         customerid: this.customerid,
         supportT0: this.supportT0,
         supportAli: parseInt(this.supportAliValue),
         supportWechat: parseInt(this.supportWechatValue),
-        aliratesT0: this.aliratesT0.length !== 0 ? this.aliratesT0 / 100 : '',
-        aliratesT1: this.aliratesT1.length !== 0 ? this.aliratesT1 / 100 : '',
-        wechatratesT0: this.wechatratesT0.length !== 0 ? this.wechatratesT0 / 100 : '',
-        wechatratesT1: this.wechatratesT1.length !== 0 ? this.wechatratesT1 / 100 : ''
+        aliratesT0: this.aliratesT0 ? this.aliratesT0 / 100 : '',
+        aliratesT1: this.aliratesT1 ? this.aliratesT1 / 100 : '',
+        wechatratesT0: this.wechatratesT0 ? this.wechatratesT0 / 100 : '',
+        wechatratesT1: this.wechatratesT1 ? this.wechatratesT1 / 100 : ''
       }
       updateCustomerClearmode(params).then(res => {
         this.showEditMoneyEvent = false
@@ -1332,8 +1383,7 @@ export default {
       })
     },
     T0Click(val) {
-      // // console.log(val)
-      // // console.log('val.this.supportT0：' + this.supportT0)
+      // supportT0 是否支持T0到账 1：支持 2：不支持 结算到余利宝时支持
       if (val) {
         this.isDisabledHB4 = true
         this.supportT0 = '1'
@@ -1346,19 +1396,16 @@ export default {
     },
     supportAliClick(val) {
       this.supportAli = val
-      // // console.log('this.supportAli:' + this.supportAli)
       if (this.supportAli === true) {
         this.supportAliValue = 1
         this.isDisabledHB2 = true
         this.aliratesT1 = this.aliratesT1
         this.aliratesT0 = this.aliratesT0
-        // // console.log('this.supportAli1111111:' + this.supportAli)
       } else {
         this.supportAliValue = 2
         this.isDisabledHB2 = false
         this.aliratesT1 = ''
         this.aliratesT0 = ''
-        // // console.log('this.supportAli222222:' + this.supportAli)
       }
     },
     supportWechatClick(val) {

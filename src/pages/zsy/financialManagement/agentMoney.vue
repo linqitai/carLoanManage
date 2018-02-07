@@ -60,7 +60,7 @@
           <el-table-column prop="transDate" label="时间" width="200"></el-table-column>
           <el-table-column prop="agentName" label="代理商"></el-table-column>
           <el-table-column prop="code" label="服务码"></el-table-column>
-          <el-table-column prop="agentIncome" label="分润金额(元)" width="100"></el-table-column>
+          <el-table-column prop="agentIncome" label="分润金额(元)" min-width="120"></el-table-column>
           <el-table-column prop="buyerPayAmount" label="商户收款总额(元)"></el-table-column>
         </el-table>
         <div class="tableBottom">

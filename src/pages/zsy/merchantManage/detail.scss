@@ -5,6 +5,70 @@
   width: 100%;
   height: 100%;
   background-color: white;
+  .contentTextForRow{
+    padding: 12px 0;
+    .contentTextL{
+      display: inline-block;
+      vertical-align: top;
+    }
+    .contentTextR{
+      padding-left: 50px;
+      display: inline-block;
+    }
+  }
+  .infoBox{
+    border-bottom: 1px solid $tableLineColor;
+    padding-bottom: 6px;
+    .title{
+      font-size: $font-size-ml;
+      height: $detailTitleHeight;
+      line-height: $detailTitleHeight;
+      font-weight: bold;
+      border-bottom: 1px solid $tableLineColor;
+      color: $borderLineColor;
+      padding-left: 10px;
+    }
+    .contentTextForRow{
+      padding: 12px 0;
+      .contentTextL{
+        display: inline-block;
+        vertical-align: top;
+      }
+      .contentTextR{
+        padding-left: 50px;
+        display: inline-block;
+      }
+    }
+    .contentText{
+      padding: 12px 20px 12px 10px;
+      overflow: hidden;
+      .lineText{
+        overflow: hidden;
+        position: relative;
+        font-size: $font-size-m;
+        padding: 8px 0;
+        .inforeditor {
+          position: absolute;
+          left: 600px;
+          top: 8px;
+        }
+        .label{
+          float: left;
+          width: 110px;
+          color: $textColor;
+        }
+        .value{
+          float: left;
+          color: $tableTextColor;
+          margin-left: 10px;
+        }
+        a{
+          color: blue;
+          cursor: pointer;
+        }
+      }
+    }
+  }
   // z-index: 4;
   .allWrapper{
     overflow-y: auto;
@@ -13,59 +77,6 @@
     right: 0;
     top: $breadcrumbHeight;
     bottom: 40px;
-    .infoBox{
-      border-bottom: 1px solid $tableLineColor;
-      padding-bottom: 6px;
-      .title{
-        font-size: $font-size-ml;
-        height: $detailTitleHeight;
-        line-height: $detailTitleHeight;
-        font-weight: bold;
-        border-bottom: 1px solid $tableLineColor;
-        color: $borderLineColor;
-        padding-left: 10px;
-      }
-      .contentTextForRow{
-        padding: 12px 0;
-        .contentTextL{
-          display: inline-block;
-          vertical-align: top;
-        }
-        .contentTextR{
-          padding-left: 50px;
-          display: inline-block;
-        }
-      }
-      .contentText{
-        padding: 12px 20px 12px 10px;
-        overflow: hidden;
-        .lineText{
-          overflow: hidden;
-          position: relative;
-          font-size: $font-size-m;
-          padding: 8px 0;
-          .inforeditor {
-            position: absolute;
-            left: 600px;
-            top: 8px;
-          }
-          .label{
-            float: left;
-            width: 110px;
-            color: $textColor;
-          }
-          .value{
-            float: left;
-            color: $tableTextColor;
-            margin-left: 10px;
-          }
-          a{
-            color: blue;
-            cursor: pointer;
-          }
-        }
-      }
-    }
   }
   .element {
     text-align: left;
@@ -110,5 +121,5 @@
 .editDialog{
 }
 .moneyInput{
-  width: 100px
+  width: 60px
 }

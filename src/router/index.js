@@ -72,8 +72,8 @@ export default new Router({
           component: resolve => require(['../pages/zsy/merchantManage/QRcode'], resolve)
         },
         {
-          path: '/zsyMileage6',
-          component: resolve => require(['../pages/zsy/merchantManage/zsyMileage6'], resolve)
+          path: '/opinion',
+          component: resolve => require(['../pages/zsy/merchantManage/opinion'], resolve)
         },
         {
           path: '/agent',

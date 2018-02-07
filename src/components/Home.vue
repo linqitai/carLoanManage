@@ -228,6 +228,7 @@ export default {
           color: $tableTextColor;
           font-family: '微软雅黑'; // margin-top: 5px;
           thead {
+            background-color: $tableTheadColor !important;
             color: #ffffff;
             tr th {
               padding: 12px 8px;

@@ -38,7 +38,7 @@
                 <el-checkbox @change="supportAliClick1" checked class="fl" v-model="supportAli">支付宝</el-checkbox>
               </span>
               <span v-if="isDisabledHB2">
-                <span class="t0money">T+1费率&#x3000;<input type="text" placeholder="0.38" v-model="aliratesT1"> %</span>
+                <span class="t0money">D+1费率&#x3000;<input type="text" placeholder="0.38" v-model="aliratesT1"> %</span>
                 <span class="t1money" v-if="isDisabledHB4">T+0费率&#x3000;<input type="text" placeholder="0.38" v-model="aliratesT0"> %</span>
               </span>
               <br/><br/>
@@ -46,7 +46,7 @@
                 <el-checkbox @change="supportWechatClick1" checked class="fl" v-model="supportWechat">微信支付</el-checkbox>
               </span>
               <span v-if="isDisabledHB3">
-                <span class="t0money">T+1费率&#x3000;<input type="text" placeholder="0.38" v-model="wechatratesT1"> %</span>
+                <span class="t0money">D+1费率&#x3000;<input type="text" placeholder="0.38" v-model="wechatratesT1"> %</span>
                 <span class="t1money" v-if="isDisabledHB4">T+0费率&#x3000;<input type="text" placeholder="0.38" v-model="wechatratesT0"> %</span>
               </span>
             </span>
@@ -331,14 +331,14 @@ export default {
     },
     supportAliClick1(val) {
       this.supportAli = val
-      if (this.supportAli === true) {
+      if (this.supportAli) {
         this.supportAliValue = 1
-        this.isDisabledHB2 = true
+        // this.isDisabledHB2 = true
         this.aliratesT1 = this.aliratesT1
         this.aliratesT0 = this.aliratesT0
       } else {
         this.supportAliValue = 2
-        this.isDisabledHB2 = false
+        // this.isDisabledHB2 = false
         this.aliratesT1 = ''
         this.aliratesT0 = ''
       }
@@ -347,12 +347,12 @@ export default {
       this.supportWechat = val
       if (this.supportWechat === true) {
         this.supportWechatValue = 1
-        this.isDisabledHB3 = true
+        // this.isDisabledHB3 = true
         this.wechatratesT1 = this.wechatratesT1
         this.wechatratesT0 = this.wechatratesT0
       } else {
         this.supportWechatValue = 2
-        this.isDisabledHB3 = false
+        // this.isDisabledHB3 = false
         this.wechatratesT1 = ''
         this.wechatratesT0 = ''
       }
