@@ -121,7 +121,7 @@
 						break;
 					case 2:
 						this.form.sdate = moment().format("YYYY-MM-DD 00:00:00")
-						this.form.edate = moment().format("YYYY-MM-DD HH:mm:ss")
+						this.form.edate = moment().format("YYYY-MM-DD 23:59:59")
 						break;
 					case 3:
 						this.form.sdate = moment().subtract(1, 'days').format("YYYY-MM-DD 00:00:00")
@@ -129,7 +129,7 @@
 						break;
 					case 4:
 						this.form.sdate = moment().subtract(weekOfday - 1, 'days').format("YYYY-MM-DD 00:00:00")
-						this.form.edate = moment().format("YYYY-MM-DD HH:mm:ss")
+						this.form.edate = moment().format("YYYY-MM-DD 23:59:59")
 						break;
 					case 5:
 						this.form.sdate = moment().subtract(weekOfday - 1 + 7, 'days').format("YYYY-MM-DD 00:00:00")
@@ -137,7 +137,7 @@
 						break;
 					case 6:
 						this.form.sdate = moment().format("YYYY-MM-00 00:00:00")
-						this.form.edate = moment().format("YYYY-MM-DD HH:mm:ss")
+						this.form.edate = moment().format("YYYY-MM-DD 23:59:59")
 						break;
 					case 7:
 						this.form.sdate = moment().subtract(1, 'months').format("YYYY-MM-00 00:00:00")
