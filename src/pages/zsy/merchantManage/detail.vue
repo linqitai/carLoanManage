@@ -705,16 +705,15 @@
             <div class="mb20">
               <span class="width80 mr10">
                 <el-checkbox @change="supportAliClick" label="ali" v-model="isAliChecked">支付宝</el-checkbox>
-                <!-- <el-checkbox @change="supportAliClick" v-model="editRate4IsAli">支付宝</el-checkbox> -->
               </span>
               <span>
                 <span class="t0money mr10">
                   <span>D+1费率</span>
-                  <input class="moneyInput" type="text" placeholder="0.38" v-model="aliratesT1"> %
+                  <input class="moneyInput" type="text" placeholder="如:0.38" v-model="aliratesT1"> %
                 </span>
                 <span class="t1money" v-if="isDisabledHB4">
                   <span class="mr3">T+0费率</span>
-                  <input class="moneyInput" type="text" placeholder="0.38" v-model="aliratesT0"> %
+                  <input class="moneyInput" type="text" placeholder="如:0.38" v-model="aliratesT0"> %
                 </span>
               </span>
             </div>
@@ -726,11 +725,11 @@
               <span>
                 <span class="t0money mr10">
                   <span class="mr3">D+1费率</span>
-                  <input class="moneyInput" type="text" placeholder="0.38" v-model="wechatratesT1"> %
+                  <input class="moneyInput" type="text" placeholder="如:0.38" v-model="wechatratesT1"> %
                 </span>
                 <span class="t1money" v-if="isDisabledHB4">
                   <span class="mr3">T+0费率</span>
-                  <input class="moneyInput" type="text" placeholder="0.38" v-model="wechatratesT0"> %
+                  <input class="moneyInput" type="text" placeholder="如:0.38" v-model="wechatratesT0"> %
                 </span>
               </span>
             </div>
@@ -899,8 +898,6 @@ export default {
       aliratesT1: 0.38,
       wechatratesT0: 0.38,
       wechatratesT1: 0.38,
-      // editRate4IsALi: true,
-      // editRate4IsWeichat: true,
       oldMsgCode: '',
       newMsgCode: '',
       newPhone: '',
@@ -1090,7 +1087,6 @@ export default {
           this.search(this.customerid)
         } else {
           this.$message({
-            type: 'fail',
             message: `修改失败：${res.data.msg}`
           })
         }
@@ -1147,12 +1143,6 @@ export default {
       }
       // // console.log(val);
     },
-    // editRate4IsALi() {
-    //   return this.editRate4IsALi
-    // },
-    // editRate4IsWeichat() {
-    //   return this.editRate4IsWeichat
-    // },
     async search(customerid) {
       console.log('intoSearch')
       let params = {
@@ -1208,6 +1198,10 @@ export default {
       if (this.infor.paychannels.indexOf('02') > -1) {
         this.isWXChecked = true
       }
+      this.aliratesT1 = this.infor.signup.aliratesT1 * 100
+      this.aliratesT0 = this.infor.signup.aliratesT0 * 100
+      this.wechatratesT1 = this.infor.signup.wechatratesT1 * 100
+      this.wechatratesT0 = this.infor.signup.wechatratesT0 * 100
       this.supportStage = this.infor.supportStage;
       this.isSupportHBStage = this.supportStage == 'Y' ? false : true
       this.supportStageValue = this.supportStage
@@ -1276,7 +1270,6 @@ export default {
         })
       } else {
         this.$message({
-          type: 'fail',
           message: `修改失败`
         })
       }
@@ -1368,17 +1361,21 @@ export default {
     },
     // 费率编辑
     clearmodeEditClick() {
+      if (this.channelType.length == 0) {
+        this.$message({
+          message: `至少要选择一个渠道类型`
+        })
+        return
+      }
       if (this.aliratesT1 == '' && this.channelType.indexOf('ali') > -1) {
         this.$message({
-          type: 'fail',
           message: `请填写支付宝费率`
         })
         return
       }
       if (this.wechatratesT1 == '' && this.channelType.indexOf('wx') > -1) {
         this.$message({
-          type: 'fail',
-          message: `请填写微信费率`
+          message: `请填写微信支付费率`
         })
         return
       }
@@ -1422,11 +1419,12 @@ export default {
         if (this.channelType.indexOf('ali') == -1) {
           this.channelType.unshift('ali')
         }
-        this.editRate4IsAli = true
         this.isDisabledHB2 = true
       } else {
-        this.channelType = ['wx']
-        this.editRate4IsAli = false
+        var index = this.channelType.indexOf('ali')
+        if (this.channelType.indexOf('ali') > -1) {
+          this.channelType.splice(index, 1)
+        }
         this.isDisabledHB2 = false
         this.aliratesT1 = ''
         this.aliratesT0 = ''
@@ -1438,16 +1436,32 @@ export default {
         if (this.channelType.indexOf('wx') == -1) {
           this.channelType.push('wx')
         }
-        this.supportWechatClick = true
         this.isDisabledHB3 = true
       } else {
-        this.channelType = ['ali']
-        this.supportWechatClick = false
+        var index = this.channelType.indexOf('wx')
+        if (this.channelType.indexOf('wx') > -1) {
+          this.channelType.splice(index, 1)
+        }
         this.isDisabledHB3 = false
         this.wechatratesT1 = ''
         this.wechatratesT0 = ''
       }
       console.log('this.channelType:' + this.channelType)
+      // console.log('this.channelType:' + this.channelType)
+      // if (val) {
+      //   if (this.channelType.indexOf('wx') == -1) {
+      //     this.channelType.push('wx')
+      //   }
+      //   this.supportWechatClick = true
+      //   this.isDisabledHB3 = true
+      // } else {
+      //   this.channelType = ['ali']
+      //   this.supportWechatClick = false
+      //   this.isDisabledHB3 = false
+      //   this.wechatratesT1 = ''
+      //   this.wechatratesT0 = ''
+      // }
+      // console.log('this.channelType:' + this.channelType)
     },
     payTypeToString(val) {
       var _str = []
@@ -1500,7 +1514,6 @@ export default {
         }
       }).catch(res => {
         this.$message({
-          type: 'fail',
           message: `发送验证码失败`
         })
       })
@@ -1535,7 +1548,6 @@ export default {
           this.search(this.customerid)
         } else {
           this.$message({
-            type: 'fail',
             message: `系统出错：${res.msg}`
           })
         }
@@ -1633,7 +1645,6 @@ export default {
           this.listByMemo()
         } else {
           this.$message({
-            type: 'fail',
             message: `系统出错：${res.msg}`
           })
         }
@@ -1693,7 +1704,6 @@ export default {
           this.$router.push('/merchantManage?random=0.11')
         } else {
           this.$message({
-            type: 'fail',
             message: `系统出错：${res.msg}`
           })
         }
