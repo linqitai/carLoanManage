@@ -118,8 +118,8 @@
             <el-table-column prop="sex" label="性别" :formatter="sexFilter" width="50"></el-table-column>
             <el-table-column prop="phone" label="手机号码" width="120"></el-table-column>
             <el-table-column prop="agentName" label="代理商" width="70" :formatter="agentNameFormat"></el-table-column>
-            <el-table-column prop="isaudit" label="状态" :formatter="stateType" width="100" fixed="right"></el-table-column>
-            <el-table-column label="操作" width="150" fixed="right">
+            <el-table-column prop="isaudit" label="状态" :formatter="stateType" width="80" fixed="right"></el-table-column>
+            <el-table-column label="操作" width="130" fixed="right">
               <template slot-scope="scope">
                 <el-button type="text" size="small" v-if="scope.row.isaudit !== 2 && scope.row.isaudit !== 6" @click="detail(scope.row, false)">详情
                 </el-button>

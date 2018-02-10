@@ -1192,16 +1192,20 @@ export default {
       if (this.infor.paychannels == '01,02') {
         this.channelType = ['ali', 'wx']
       }
-      if (this.infor.paychannels.indexOf('01') > -1) {
-        this.isAliChecked = true
+      console.log('============================1')
+      if (this.infor.paychannels) {
+        if (this.infor.paychannels.indexOf('01') > -1) {
+          this.isAliChecked = true
+        }
+        if (this.infor.paychannels.indexOf('02') > -1) {
+          this.isWXChecked = true
+        }
       }
-      if (this.infor.paychannels.indexOf('02') > -1) {
-        this.isWXChecked = true
-      }
-      this.aliratesT1 = this.infor.signup.aliratesT1 * 100
-      this.aliratesT0 = this.infor.signup.aliratesT0 * 100
-      this.wechatratesT1 = this.infor.signup.wechatratesT1 * 100
-      this.wechatratesT0 = this.infor.signup.wechatratesT0 * 100
+      console.log('============================2')
+      this.aliratesT1 = this.infor.signup ? this.infor.signup.aliratesT1 * 100 : ''
+      this.aliratesT0 = this.infor.signup ? this.infor.signup.aliratesT0 * 100 : ''
+      this.wechatratesT1 = this.infor.signup ? this.infor.signup.wechatratesT1 * 100 : ''
+      this.wechatratesT0 = this.infor.signup ? this.infor.signup.wechatratesT0 * 100 : ''
       this.supportStage = this.infor.supportStage;
       this.isSupportHBStage = this.supportStage == 'Y' ? false : true
       this.supportStageValue = this.supportStage
@@ -1363,9 +1367,13 @@ export default {
     clearmodeEditClick() {
       if (this.channelType.length == 0) {
         this.$message({
-          message: `至少要选择一个渠道类型`
+          message: `请选择渠道类型`
         })
         return
+      }
+      console.log('============================3')
+      if (this.channelType == null || this.channelType == '') {
+        this.channelType = ['a']
       }
       if (this.aliratesT1 == '' && this.channelType.indexOf('ali') > -1) {
         this.$message({
@@ -1383,6 +1391,23 @@ export default {
         this.aliratesT0 = ''
         this.wechatratesT0 = ''
       }
+      if (this.channelType.indexOf('ali') > -1) {
+        if (this.aliratesT1 < 0.2 || this.aliratesT1 > 0.549) {
+          this.$message({
+            message: `支付宝的D+1费率取值范围为：0.2% ~ 0.549%`
+          })
+          return
+        }
+      }
+      if (this.channelType.indexOf('wx') > -1) {
+        if (this.wechatratesT1 < 0.21 || this.wechatratesT1 > 0.549) {
+          this.$message({
+            message: `微信支付的D+1费率取值范围为：0.21% ~ 0.549%`
+          })
+          return
+        }
+      }
+      console.log('============================4')
       let params = {
         customerid: this.customerid,
         supportT0: this.supportT0,
@@ -1415,6 +1440,10 @@ export default {
       }
     },
     supportAliClick(val) {
+      console.log('============================5')
+      if (this.channelType == null || this.channelType == '') {
+        this.channelType = ['a']
+      }
       if (val) {
         if (this.channelType.indexOf('ali') == -1) {
           this.channelType.unshift('ali')
@@ -1432,6 +1461,10 @@ export default {
       console.log('this.channelType:' + this.channelType)
     },
     supportWechatClick(val) {
+      console.log('============================6')
+      if (this.channelType == null || this.channelType == '') {
+        this.channelType = ['a']
+      }
       if (val) {
         if (this.channelType.indexOf('wx') == -1) {
           this.channelType.push('wx')

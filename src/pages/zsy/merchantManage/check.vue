@@ -38,16 +38,16 @@
                 <el-checkbox @change="supportAliClick1" checked class="fl" v-model="supportAli">支付宝</el-checkbox>
               </span>
               <span v-if="isDisabledHB2">
-                <span class="t0money">D+1费率&#x3000;<input type="text" placeholder="0.38" v-model="aliratesT1"> %</span>
-                <span class="t1money" v-if="isDisabledHB4">T+0费率&#x3000;<input type="text" placeholder="0.38" v-model="aliratesT0"> %</span>
+                <span class="t0money">D+1费率&#x3000;<input type="text" placeholder="如：0.38" v-model="aliratesT1"> %</span>
+                <span class="t1money" v-if="isDisabledHB4">T+0费率&#x3000;<input type="text" placeholder="如：0.38" v-model="aliratesT0"> %</span>
               </span>
               <br/><br/>
               <span class="width80 left">
                 <el-checkbox @change="supportWechatClick1" checked class="fl" v-model="supportWechat">微信支付</el-checkbox>
               </span>
               <span v-if="isDisabledHB3">
-                <span class="t0money">D+1费率&#x3000;<input type="text" placeholder="0.38" v-model="wechatratesT1"> %</span>
-                <span class="t1money" v-if="isDisabledHB4">T+0费率&#x3000;<input type="text" placeholder="0.38" v-model="wechatratesT0"> %</span>
+                <span class="t0money">D+1费率&#x3000;<input type="text" placeholder="如：0.38" v-model="wechatratesT1"> %</span>
+                <span class="t1money" v-if="isDisabledHB4">T+0费率&#x3000;<input type="text" placeholder="如：0.38" v-model="wechatratesT0"> %</span>
               </span>
             </span>
           </div>
@@ -107,10 +107,6 @@
       <div class="infoBox">
         <div class="title">备忘信息</div>
         <div class="contentText">
-          <!-- <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 4 && infor.isaudit !== 7 && infor.isaudit !== 2 && infor.isaudit !== 6">
-                                      <span class="label">公众号类型</span>
-                                      <span class="value">{{publicNumType | publicNumTypeState}}</span>
-                                    </div> -->
           <el-table stripe :data="tableData">
             <el-table-column prop="created" label="时间" width="180" :formatter="formatTable"></el-table-column>
             <el-table-column prop="operatorname" label="负责人" width="120"></el-table-column>
@@ -489,6 +485,34 @@ export default {
       this.deniedpays = val
     },
     sendBank() {
+      if (this.supportAliValue == 2 && this.supportWechatValue == 2) {
+        this.$message({
+          message: `请选择渠道类型`
+        })
+        return
+      }
+      if (this.supportAliValue == 1) {
+        if (this.aliratesT1 < 0.2 || this.aliratesT1 > 0.549) {
+          this.$message({
+            message: `支付宝的D+1费率取值范围为：0.2% ~ 0.549%`
+          })
+          return
+        }
+      }
+      if (this.supportWechatValue == 1) {
+        if (this.wechatratesT1 < 0.21 || this.wechatratesT1 > 0.549) {
+          this.$message({
+            message: `微信支付的D+1费率取值范围为：0.21% ~ 0.549%`
+          })
+          return
+        }
+      }
+      if (this.tradetypes.length <= 0) {
+        this.$message({
+          message: `请选择交易类型`
+        })
+        return
+      }
       if (this.radio === undefined) {
         this.$message({
           message: `请选择关注的公众号`
@@ -504,12 +528,6 @@ export default {
         })
         return
       }
-      if (this.tradetypes.length <= 0) {
-        this.$message({
-          message: `请选择交易类型`
-        })
-        return
-      }
       // this.sureToBankDialogVisible = true
       let params = {
         customerid: parseInt(this.customerid),
@@ -517,10 +535,10 @@ export default {
         supportT0: this.supportT0 ? this.supportT0 : '',
         supportAli: parseInt(this.supportAliValue),
         supportWechat: parseInt(this.supportWechatValue),
-        aliratesT0: this.aliratesT0.length !== 0 ? this.aliratesT0 / 100 : '',
-        aliratesT1: this.aliratesT1.length !== 0 ? this.aliratesT1 / 100 : '',
-        wechatratesT0: this.wechatratesT0.length !== 0 ? this.wechatratesT0 / 100 : '',
-        wechatratesT1: this.wechatratesT1.length !== 0 ? this.wechatratesT1 / 100 : '',
+        aliratesT0: this.aliratesT0 ? this.aliratesT0 / 100 : '',
+        aliratesT1: this.aliratesT1 ? this.aliratesT1 / 100 : '',
+        wechatratesT0: this.wechatratesT0 ? this.wechatratesT0 / 100 : '',
+        wechatratesT1: this.wechatratesT1 ? this.wechatratesT1 / 100 : '',
         tradetypes: this.tradetypes.toString(),
         deniedpays: this.deniedpays.toString(),
         publicNumType: (this.radio === 'null' || this.radio === null) ? '' : this.radio,
@@ -532,6 +550,7 @@ export default {
       console.log('appId:' + this.appId)
       console.log('params:')
       console.log(params)
+      const loading = this.$loading();
       updateLocalClearmode(params).then(res => {
         console.log('res：')
         console.log(res)
@@ -540,8 +559,12 @@ export default {
           this.sureToBankDialogVisible = true
         }
         if (res.code === 400) {
+          loading.close()
+          // this.$message({
+          //   message: `请修改已入驻未审核的商户(该用户审核未通过网商)`
+          // })
           this.$message({
-            message: `请修改已入驻未审核的商户(该用户审核未通过网商)`
+            message: res.msg
           })
           this.sureToBankDialogVisible = false
         }

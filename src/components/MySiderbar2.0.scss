@@ -1,0 +1,84 @@
+@import '../common/scss/common.scss';
+@import '../common/scss/mixin.scss';
+.sidebar {
+  display: block;
+  position: absolute;
+  width: $sidebarWidth;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background-color: $mainColor;
+  overflow: hidden;
+  z-index: 100;
+  .el-submenu__title i {
+    color: #ffffff
+  }
+  .el-submenu [class^=el-icon-] {
+    margin-right: 0px;
+  }
+  .el-menu {
+    border-right: none;
+    background-color: $mainColor;
+    .borderTopParent {
+      .item2 {
+        padding-left: 28px;
+      }
+      .el-submenu__title {
+        padding-left: 28px !important;
+        height: 42px;
+        line-height: 46px;
+        @include border_bottom($borderLineColor);
+        &:hover {
+          background-color: $menuHoverColor;
+        }
+        .titleIcon {
+          margin-bottom: 1px;
+        }
+        .titleText {
+          padding-left: 0px;
+          font-size: 14px;
+        }
+        .el-submenu__icon-arrow {
+          font-size: 8px;
+          margin-top: -2px;
+        }
+      }
+    }
+    .child {
+      padding-left: 60px !important;
+      font-size: 13px;
+      height: 36px;
+      line-height: 36px;
+      color: $menuColor;
+      background-color: $mainColor;
+      @include border_bottom($borderLineColor);
+      &:hover {
+        background-color: $menuHoverColor;
+      }
+    }
+    .child2 {
+      font-size: 13px;
+      height: 36px !important;
+      line-height: 36px !important;
+      color: $menuColor;
+    }
+    .child3 {
+      padding-left: 80px !important;
+      font-size: 12px;
+      height: 30px;
+      line-height: 30px;
+      color: $menuColor;
+      background-color: $mainColor;
+      @include border_bottom($borderLineColor);
+      &:hover {
+        background-color: $menuHoverColor;
+      }
+    }
+  }
+  .second{
+    .el-submenu__title {
+      height: 35px !important;
+      line-height: 37px !important;
+    }
+  }
+}

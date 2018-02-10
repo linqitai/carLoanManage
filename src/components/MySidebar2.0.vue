@@ -3,20 +3,20 @@
     <el-menu unique-opened router class="el-menu-vertical-demo menu" :default-active="$route.path" text-color="#ffffff" active-text-color="#ffff8d" :collapse="isCollapse">
       <template v-for="item in items">
         <el-submenu :index="item.index" :key="item.index" class="borderTopParent">
-          <template slot="title">
+          <template slot="title" class="title1">
             <i class="iconfont" :class="item.icon"></i>
-            <span slot="title">{{item.title}}</span>
+            <span slot="title"><span class="fontSize14">{{item.title}}</span></span>
           </template>
           <template v-if="item.subs">
             <!-- 二级目录 -->
-            <template v-for="item2 in item.subs">
+            <div v-for="item2 in item.subs" class="second">
               <template v-if="item2.subs">
                 <el-submenu :index="item2.index" :key="item2.index" class="borderTopParent">
-                  <template slot="title">
+                  <template slot="title" class="title2">
                     <template v-if="item2.icon">
                       <i class="iconfont ml20 mr3 fontSizeS" :class="item2.icon"></i>
                     </template>
-                    <span slot="title">{{item2.title}}</span>
+                    <span slot="title" class="child2">{{item2.title}}</span>
                   </template>
                   <template v-if="item2.subs">
                     <!-- 三级目录 -->
@@ -25,7 +25,7 @@
                     </template>
                   </template>
                   <!-- <el-menu-item index="1-1-1">选项1</el-menu-item>
-                              <el-menu-item index="1-1-2">选项2</el-menu-item> -->
+                                <el-menu-item index="1-1-2">选项2</el-menu-item> -->
                 </el-submenu>
               </template>
               <template v-else>
@@ -33,7 +33,7 @@
                   {{ item2.title }}
                 </el-menu-item>
               </template>
-            </template>
+            </div>
           </template>
         </el-submenu>
       </template>
@@ -58,10 +58,10 @@ export default {
               index: '/experience', // 路由名
               title: '商户管理',
               subs: [
-                {
-                  index: '/experience', // 路由名
-                  title: '历程(暂无功能)'
-                },
+                // {
+                //   index: '/experience',
+                //   title: '历程(暂无功能)'
+                // },
                 {
                   index: '/merchantManage',
                   title: '商户管理'
@@ -203,7 +203,7 @@ export default {
             },
             {
               index: '/reportCard',
-              title: '报表'
+              title: '统计分析'
             }
           ]
         },
@@ -266,76 +266,5 @@ export default {
 }
 </script>
 <style lang="scss">
-@import '../common/scss/common.scss';
-@import '../common/scss/mixin.scss';
-.sidebar {
-  display: block;
-  position: absolute;
-  width: $sidebarWidth;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  background-color: $mainColor;
-  overflow: hidden;
-  z-index: 100;
-  .el-submenu__title i {
-    color: #ffffff
-  }
-  .el-submenu [class^=el-icon-] {
-    margin-right: 0px;
-  }
-  .el-menu {
-    border-right: none;
-    background-color: $mainColor;
-    .borderTopParent {
-      .item2 {
-        padding-left: 28px;
-      }
-      .el-submenu__title {
-        padding-left: 28px !important;
-        height: 42px;
-        line-height: 46px;
-        @include border_bottom($borderLineColor);
-        &:hover {
-          background-color: $menuHoverColor;
-        }
-        .titleIcon {
-          margin-bottom: 1px;
-        }
-        .titleText {
-          padding-left: 0px;
-          font-size: 13px;
-        }
-        .el-submenu__icon-arrow {
-          font-size: 8px;
-          margin-top: -2px;
-        }
-      }
-    }
-    .child {
-      padding-left: 60px !important;
-      font-size: 12px;
-      height: 30px;
-      line-height: 30px;
-      color: $menuColor;
-      background-color: $mainColor;
-      @include border_bottom($borderLineColor);
-      &:hover {
-        background-color: $menuHoverColor;
-      }
-    }
-    .child3 {
-      padding-left: 80px !important;
-      font-size: 12px;
-      height: 30px;
-      line-height: 30px;
-      color: $menuColor;
-      background-color: $mainColor;
-      @include border_bottom($borderLineColor);
-      &:hover {
-        background-color: $menuHoverColor;
-      }
-    }
-  }
-}
+@import './MySiderbar2.0'
 </style>

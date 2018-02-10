@@ -9,7 +9,7 @@
         <el-breadcrumb-item>
           <span class="text">信用卡申请</span>
         </el-breadcrumb-item>
-        <el-breadcrumb-item>报表</el-breadcrumb-item>
+        <el-breadcrumb-item>统计分析</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
 		<div class="allWrapper">
