@@ -62,10 +62,12 @@
               {{scope.row.tradeType | tradeType}}
             </template>
           </el-table-column>
+          <el-table-column prop="payTypeName" label="支付渠道" width="180px" show-overflow-tooltip></el-table-column>
           <el-table-column prop="ccy" label="货币种类"></el-table-column>
           <el-table-column prop="tradeAmount" label="交易金额"></el-table-column>
           <el-table-column prop="rate" label="手续费费率" width="120"></el-table-column>
           <el-table-column prop="handCharge" label="手续费"></el-table-column>
+          <el-table-column prop="isvAmount" label="ISV费用"></el-table-column>
           <el-table-column prop="surplusAmount" label="结算金额"></el-table-column>
           <el-table-column prop="type" label="分账类型"></el-table-column>
           <el-table-column prop="merchantId" label="商户号"  width="200px" show-overflow-tooltip></el-table-column>

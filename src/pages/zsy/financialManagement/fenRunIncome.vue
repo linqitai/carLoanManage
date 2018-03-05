@@ -48,7 +48,13 @@
       <div class="tableWrapper-excel"><span class="tableWrapper-excel-pad">分润总和:{{companyIncomeSum}}</span></div>
       <el-table :data="tableData" stripe>
         <el-table-column prop="transDate" label="时间"></el-table-column>
-        <el-table-column prop="buyerPayAmount" label="商户收款总额(元)"></el-table-column>
+        <!-- <el-table-column prop="buyerPayAmount" label="商户收款总额(元)"></el-table-column> -->
+        <el-table-column label="商户收款总额(元)">
+          <template slot-scope="scope">
+            {{scope.row.buyerPayAmount}} &nbsp;&nbsp;
+            <el-button type="text" size="middle" @click="detail(scope.row)">明细</el-button>
+          </template>
+        </el-table-column>
         <el-table-column prop="income" label="分润收入(元)"></el-table-column>
         <el-table-column prop="companyIncome" label="分润总金额(元)">
         </el-table-column>
@@ -129,6 +135,10 @@ export default {
     handleCurrentChange(val) {
       this.searchs.pageIndex = val;
       this.searchData();
+    },
+    detail(row) {
+      console.log(row);
+      this.$router.push('bill?transDate=' + row.transDate);
     }
   }
 };
