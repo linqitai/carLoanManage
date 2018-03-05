@@ -391,7 +391,9 @@ export default {
       }
       console.log('params:')
       console.log(params)
+      const loading = this.$loading();
       auditMybank(params).then(res => {
+        loading.close()
         if (res.code === 200) {
           this.$message({
             type: 'success',
@@ -550,7 +552,7 @@ export default {
       console.log('appId:' + this.appId)
       console.log('params:')
       console.log(params)
-      const loading = this.$loading();
+      // const loading = this.$loading();
       updateLocalClearmode(params).then(res => {
         console.log('res：')
         console.log(res)
@@ -559,7 +561,7 @@ export default {
           this.sureToBankDialogVisible = true
         }
         if (res.code === 400) {
-          loading.close()
+          // loading.close()
           // this.$message({
           //   message: `请修改已入驻未审核的商户(该用户审核未通过网商)`
           // })

@@ -23,18 +23,18 @@
           <div class="element">
             <p class="inline">时间</p>
             <div class="width110 inline">
-              <el-select size="medium" v-model="selectedTimeType" placeholder="请选择">
-                <el-option v-for="item in timeType" :key="item.value" :label="item.label" :value="item.value">
+              <el-select size="medium" v-model="searchs.timeType" placeholder="请选择">
+                <el-option v-for="item in timeTypes" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
             </div>
             <div class="width110 inline">
-              <el-select size="medium" v-model="selectedDataType" placeholder="请选择" @change="changeDataType">
-                <el-option v-for="item in dataType" :key="item.value" :label="item.label" :value="item.value">
+              <el-select size="medium" v-model="dataType" placeholder="请选择" @change="changeDataType">
+                <el-option v-for="item in dataTypes" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
             </div>
-            <div class="inline" v-if="selectedDataType==4">
+            <div class="inline" v-if="dataType==4">
               <el-date-picker size="medium" class="inline" style="width:138px;" v-model="searchs.startTime" type="date" placeholder="开始时间" value-format="yyyy-MM-dd" @change="startTimeChange">
               </el-date-picker>
               <span class="inline">至</span>
@@ -45,7 +45,7 @@
           <div class="element">
             <p class="inline">状态</p>
             <div class="width120 inline">
-              <el-select size="medium" v-model="searchs.status" placeholder="请选择" @change="search">
+              <el-select size="medium" v-model="searchs.audits" placeholder="请选择" @change="search">
                 <el-option v-for="item in statusList" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
@@ -90,7 +90,7 @@
           <div class="element">
             <p class="inline">状态</p>
             <div class="width120 inline">
-              <el-select size="medium" v-model="searchs.status" placeholder="请选择" @change="search">
+              <el-select size="medium" v-model="searchs.audits" placeholder="请选择" @change="search">
                 <el-option v-for="item in statusList" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
@@ -126,7 +126,7 @@
         </search-condition>
         <div class="tableWrapper">
           <el-table :data="tableData" stripe>
-            <el-table-column fixed="left" prop="applyTime" label="提交时间" width="150"></el-table-column>
+            <el-table-column fixed="left" prop="submitTime" label="提交时间" :formatter="formatData" width="150"></el-table-column>
             <el-table-column prop="merchantname" label="商户名称" show-overflow-tooltip show-overflow-tooltip></el-table-column>
             <el-table-column prop="merchanttype" label="商户类型" :formatter="shopType" width="120"></el-table-column>
             <el-table-column prop="operatetype" label="经营类目" :formatter="manageType" width="90" show-overflow-tooltip=""></el-table-column>
@@ -190,19 +190,23 @@ export default {
       tableData: [],
       pageIndex: 1,
       pageSize: 10,
-      selectedTimeType: '1',
-      timeType: [{
-        value: '1',
-        label: '申请时间'
-      }, {
-        value: '2',
-        label: '提交时间'
-      }, {
-        value: '3',
-        label: '审核时间'
-      }],
-      selectedDataType: '',
-      dataType: [{
+      timeTypes: [
+        {
+          value: '',
+          label: '全部'
+        },
+        {
+          value: '1',
+          label: '申请时间'
+        }, {
+          value: '2',
+          label: '提交时间'
+        }, {
+          value: '3',
+          label: '审核时间'
+        }],
+      dataType: '',
+      dataTypes: [{
         value: '',
         label: '全部'
       }, {
@@ -219,6 +223,7 @@ export default {
         label: '其他'
       }],
       searchs: {
+        timeType: '', // timeType '':全部 1:申请时间 2：提交时间 3：审核时间
         startTime: '',
         endTime: '',
         mName: '',
@@ -228,7 +233,7 @@ export default {
         pageSize: 10,
         fzMan: '',
         mobile: '',
-        status: '26',
+        audits: '2,6',
         agent: '',
         province: null,
         provinceList: [],
@@ -261,6 +266,10 @@ export default {
     },
     sexFilter(row) {
       return sexFilter(row);
+    },
+    // 商户类型过滤
+    formatData: function(row, column) {
+      return getDate(row.submitTime);
     },
     // 商户类型过滤
     shopType: function(row, column) {
@@ -362,6 +371,8 @@ export default {
     },
     changeDataType(val) {
       console.log('val:' + val)
+      this.searchs.startTime = ''
+      this.searchs.endTime = ''
     },
     provinceChange(val) {
       this.searchs.province = val;
@@ -410,8 +421,8 @@ export default {
         this.searchs.endTime = getDate(new Date(this.searchs.endTime)) + " 23:59:59";
       }
       let params = {
-        // sdate: this.searchs.startTime.toString() + ' 00:00:01',
-        // edate: this.searchs.endTime.toString() + ' 23:59:59',
+        audits: this.searchs.audits,
+        timeType: this.searchs.timeType,
         sdate: this.searchs.startTime,
         edate: this.searchs.endTime,
         merchantname: this.searchs.mName,
@@ -422,7 +433,6 @@ export default {
         agentName: this.searchs.agent,
         pageSize: this.searchs.pageSize,
         pageIndex: this.searchs.pageIndex,
-        isaudit: this.searchs.status,
         agentscode: this.$route.query.code,
         province: this.searchs.province,
         city: this.searchs.city,

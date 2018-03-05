@@ -611,13 +611,13 @@
             </div>
             <div class="lineText" v-if="infor.isaudit !== 1">
               <span class="label">提交时间</span>
-              <span class="value">{{infor.created | format}}</span>
+              <span class="value">{{infor.submitTime | format}}</span>
             </div>
-            <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 6 && infor.isaudit !== 2">
+            <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 2 && infor.isaudit !== 7">
               <span class="label">审核时间</span>
-              <span class="value">{{infor.updated | format}}</span>
+              <span class="value">{{infor.auditTime | format}}</span>
             </div>
-            <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 6 && infor.isaudit !== 2">
+            <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 2 && infor.isaudit !== 7">
               <span class="label">审核人</span>
               <span class="value">{{infor.operatorname}}</span>
             </div>

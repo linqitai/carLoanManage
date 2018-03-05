@@ -46,14 +46,14 @@ export default {
     })
   },
   fetchPost(url, data = {}) {
-    let loading = openLoading()
+    // let loading = openLoading()
     return new Promise((resolve, reject) => {
       axios.post(url, qs.stringify(data)).then(res => {
-        closeLoading(loading)
+        // closeLoading(loading)
         resolve(res.data)
       }).catch(error => {
         reject(error)
-        closeLoading(loading)
+        // closeLoading(loading)
       })
     })
   }

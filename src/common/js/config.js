@@ -123,7 +123,7 @@ export const runTYpeList1 = [{
 }]
 export const statusList = [
   {
-    value: '26',
+    value: '2,6',
     label: '--'
   }, {
     value: '',
