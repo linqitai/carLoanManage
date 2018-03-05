@@ -5,7 +5,9 @@
         <el-submenu :index="item.index" :key="item.index" class="borderTopParent">
           <template slot="title" class="title1">
             <i class="iconfont" :class="item.icon"></i>
-            <span slot="title"><span class="fontSize14">{{item.title}}</span></span>
+            <span slot="title">
+              <span class="fontSize14">{{item.title}}</span>
+            </span>
           </template>
           <template v-if="item.subs">
             <!-- 二级目录 -->
@@ -14,7 +16,8 @@
                 <el-submenu :index="item2.index" :key="item2.index" class="borderTopParent">
                   <template slot="title" class="title2">
                     <template v-if="item2.icon">
-                      <i class="iconfont ml20 mr3 fontSizeS" :class="item2.icon"></i>
+                      <i class="secondIcon"></i>
+                      <!-- <i class="iconfont ml20 mr3 fontSize4siderIcon" :class="item2.icon"></i> -->
                     </template>
                     <span slot="title" class="child2">{{item2.title}}</span>
                   </template>
@@ -25,7 +28,7 @@
                     </template>
                   </template>
                   <!-- <el-menu-item index="1-1-1">选项1</el-menu-item>
-                                <el-menu-item index="1-1-2">选项2</el-menu-item> -->
+                                  <el-menu-item index="1-1-2">选项2</el-menu-item> -->
                 </el-submenu>
               </template>
               <template v-else>
@@ -55,41 +58,52 @@ export default {
           subs: [
             {
               icon: 'icon-flag',
-              index: '/experience', // 路由名
-              title: '商户管理',
-              subs: [
-                // {
-                //   index: '/experience',
-                //   title: '历程(暂无功能)'
-                // },
-                {
-                  index: '/merchantManage',
-                  title: '商户管理'
-                },
-                {
-                  index: '/storeManage',
-                  title: '门店管理'
-                },
-                {
-                  index: '/operatorManage',
-                  title: '操作员管理'
-                },
-                {
-                  index: '/QRcode',
-                  title: '收款码'
-                }
-              ]
+              index: '/merchantManage', // 路由名
+              title: '商户管理'
+              // subs: [
+              //   {
+              //     index: '/experience',
+              //     title: '历程(暂无功能)'
+              //   },
+              //   {
+              //     index: '/merchantManage',
+              //     title: '商户管理'
+              //   },
+              //   {
+              //     index: '/storeManage',
+              //     title: '门店管理'
+              //   },
+              //   {
+              //     index: '/operatorManage',
+              //     title: '操作员管理'
+              //   },
+              //   {
+              //     index: '/QRcode',
+              //     title: '收款码'
+              //   }
+              // ]
             },
             {
               icon: 'icon-flag',
               index: '/agent',
-              title: '代理商管理',
-              subs: [
-                {
-                  index: '/agent', // 路由名
-                  title: '代理商'
-                }
-              ]
+              title: '代理商管理'
+              // subs: [
+              //   {
+              //     index: '/agent', // 路由名
+              //     title: '代理商'
+              //   }
+              // ]
+            },
+            {
+              icon: 'icon-flag',
+              index: '/opinion',
+              title: '意见反馈'
+              // subs: [
+              //   {
+              //     index: '/opinion', // 路由名
+              //     title: '意见反馈'
+              //   }
+              // ]
             },
             {
               icon: 'icon-flag',
@@ -104,14 +118,14 @@ export default {
                   index: '/channelReconciliation',
                   title: '通道对账'
                 },
-                {
-                  index: '/remainTreasure',
-                  title: '余利宝'
-                },
-                {
-                  index: '/withdrawManage',
-                  title: '提现管理'
-                },
+                // {
+                //   index: '/remainTreasure',
+                //   title: '余利宝'
+                // },
+                // {
+                //   index: '/withdrawManage',
+                //   title: '提现管理'
+                // },
                 {
                   index: '/agentMoney',
                   title: '代理商分润'
@@ -119,17 +133,6 @@ export default {
                 {
                   index: '/fenRunIncome',
                   title: '分润收入'
-                }
-              ]
-            },
-            {
-              icon: 'icon-flag',
-              index: '/sysAnalysis6',
-              title: '其他管理',
-              subs: [
-                {
-                  index: '/zsyMileage6', // 路由名
-                  title: '意见反馈'
                 }
               ]
             }

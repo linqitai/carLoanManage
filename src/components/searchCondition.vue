@@ -1,18 +1,20 @@
 <template>
-  <div class="searchCondition" id="searchCondition">
-    <div class="scLeft">
+  <el-row class="searchCondition" id="searchCondition">
+    <el-col :span="20">
       <slot></slot>
-    </div>
-    <div class="scRight">
-      <div class="element">
-        <el-button size="medium" class="searchBtn" @click="searchData">查询</el-button>
+    </el-col>
+    <el-col :span="4">
+      <div style="float:right">
+        <div class="element">
+          <el-button size="medium" class="searchBtn" @click="searchData">查询</el-button>
+        </div>
+        <div class="element" @click="moreBtn" v-if="isShowMoreBtn">
+          <img class="moreIcon" src="../common/images/arrow_down.png" v-if="!isTwoLiine">
+          <img class="moreIcon iconTransform" src="../common/images/arrow_down.png" v-if="isTwoLiine">
+        </div>
       </div>
-      <div class="element" @click="moreBtn" v-if="isShowMoreBtn">
-        <img class="moreIcon" src="../common/images/arrow_down.png" v-if="!isTwoLiine">
-        <img class="moreIcon iconTransform" src="../common/images/arrow_down.png" v-if="isTwoLiine">
-      </div>
-    </div>
-  </div>
+    </el-col>
+  </el-row>
 </template>
 <script>
 export default {

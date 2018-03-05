@@ -121,31 +121,35 @@ export const runTYpeList1 = [{
   value: '11',
   label: '政府/社会组织'
 }]
-export const statusList = [{
-  value: '',
-  label: '全部'
-}, {
-  value: '1',
-  label: '待提交'
-}, {
-  value: '2',
-  label: '待审核'
-}, {
-  value: '4',
-  label: '审核驳回'
-}, {
-  value: '7',
-  label: '网商审核中'
-}, {
-  value: '6',
-  label: '网商驳回'
-}, {
-  value: '5',
-  label: '正常使用'
-}, {
-  value: '8',
-  label: '禁用中'
-}]
+export const statusList = [
+  {
+    value: '26',
+    label: '--'
+  }, {
+    value: '',
+    label: '全部'
+  }, {
+    value: '1',
+    label: '待提交'
+  }, {
+    value: '2',
+    label: '待审核'
+  }, {
+    value: '4',
+    label: '审核驳回'
+  }, {
+    value: '7',
+    label: '网商审核中'
+  }, {
+    value: '6',
+    label: '网商驳回'
+  }, {
+    value: '5',
+    label: '正常使用'
+  }, {
+    value: '8',
+    label: '禁用中'
+  }]
 
 export const tableData = [{
   id: 1,

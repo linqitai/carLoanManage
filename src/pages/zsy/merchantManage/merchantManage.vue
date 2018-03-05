@@ -22,7 +22,19 @@
         <search-condition @clickSearchData="search">
           <div class="element">
             <p class="inline">时间</p>
-            <div class="inline">
+            <div class="width110 inline">
+              <el-select size="medium" v-model="selectedTimeType" placeholder="请选择">
+                <el-option v-for="item in timeType" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+            <div class="width110 inline">
+              <el-select size="medium" v-model="selectedDataType" placeholder="请选择" @change="changeDataType">
+                <el-option v-for="item in dataType" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+            <div class="inline" v-if="selectedDataType==4">
               <el-date-picker size="medium" class="inline" style="width:138px;" v-model="searchs.startTime" type="date" placeholder="开始时间" value-format="yyyy-MM-dd" @change="startTimeChange">
               </el-date-picker>
               <span class="inline">至</span>
@@ -31,9 +43,12 @@
             </div>
           </div>
           <div class="element">
-            <p class="inline">商户名称</p>
-            <div class="width140 inline">
-              <el-input size="medium" clearable placeholder="商户名称查询" class="input" v-model="searchs.mName" @keyup.enter.native="search"></el-input>
+            <p class="inline">状态</p>
+            <div class="width120 inline">
+              <el-select size="medium" v-model="searchs.status" placeholder="请选择" @change="search">
+                <el-option v-for="item in statusList" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
             </div>
           </div>
           <div class="element">
@@ -43,6 +58,12 @@
                 <el-option v-for="item in mtypeList" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
+            </div>
+          </div>
+          <div class="element">
+            <p class="inline">商户名称</p>
+            <div class="width140 inline">
+              <el-input size="medium" clearable placeholder="商户名称查询" class="input" v-model="searchs.mName" @keyup.enter.native="search"></el-input>
             </div>
           </div>
           <div class="element">
@@ -105,10 +126,10 @@
         </search-condition>
         <div class="tableWrapper">
           <el-table :data="tableData" stripe>
-            <el-table-column fixed="left" prop="applyTime" label="申请时间" width="150"></el-table-column>
+            <el-table-column fixed="left" prop="applyTime" label="提交时间" width="150"></el-table-column>
             <el-table-column prop="merchantname" label="商户名称" show-overflow-tooltip show-overflow-tooltip></el-table-column>
             <el-table-column prop="merchanttype" label="商户类型" :formatter="shopType" width="120"></el-table-column>
-            <el-table-column prop="operatetype" label="经营类目" :formatter="manageType" width="120"></el-table-column>
+            <el-table-column prop="operatetype" label="经营类目" :formatter="manageType" width="90" show-overflow-tooltip=""></el-table-column>
             <el-table-column label="店铺地址" show-overflow-tooltip>
               <template slot-scope="scope">
                 {{scope.row.province + scope.row.city + scope.row.area + scope.row.address}}
@@ -118,7 +139,7 @@
             <el-table-column prop="sex" label="性别" :formatter="sexFilter" width="50"></el-table-column>
             <el-table-column prop="phone" label="手机号码" width="120"></el-table-column>
             <el-table-column prop="agentName" label="代理商" width="70" :formatter="agentNameFormat"></el-table-column>
-            <el-table-column prop="isaudit" label="状态" :formatter="stateType" width="80" fixed="right"></el-table-column>
+            <el-table-column prop="isaudit" label="状态" :formatter="stateType" width="100" fixed="right"></el-table-column>
             <el-table-column label="操作" width="130" fixed="right">
               <template slot-scope="scope">
                 <el-button type="text" size="small" v-if="scope.row.isaudit !== 2 && scope.row.isaudit !== 6" @click="detail(scope.row, false)">详情
@@ -169,6 +190,34 @@ export default {
       tableData: [],
       pageIndex: 1,
       pageSize: 10,
+      selectedTimeType: '1',
+      timeType: [{
+        value: '1',
+        label: '申请时间'
+      }, {
+        value: '2',
+        label: '提交时间'
+      }, {
+        value: '3',
+        label: '审核时间'
+      }],
+      selectedDataType: '',
+      dataType: [{
+        value: '',
+        label: '全部'
+      }, {
+        value: '1',
+        label: '今日'
+      }, {
+        value: '2',
+        label: '本周'
+      }, {
+        value: '3',
+        label: '本月'
+      }, {
+        value: '4',
+        label: '其他'
+      }],
       searchs: {
         startTime: '',
         endTime: '',
@@ -179,7 +228,7 @@ export default {
         pageSize: 10,
         fzMan: '',
         mobile: '',
-        status: '',
+        status: '26',
         agent: '',
         province: null,
         provinceList: [],
@@ -310,6 +359,9 @@ export default {
           this.searchs.provinceList = res.result;
         }
       })
+    },
+    changeDataType(val) {
+      console.log('val:' + val)
     },
     provinceChange(val) {
       this.searchs.province = val;

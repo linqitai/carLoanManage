@@ -86,7 +86,7 @@ export const updateOperatetype = (params) => {
 export const updateOperatecategory = (params) => {
     return http.fetchPost(zsy + '/zcash/customer/updateOperatecategory.do', params)
 }
-// 编辑客服电话
+// 编辑联系电话
 export const updateServicePhone = (params) => {
     return http.fetchPost(zsy + '/zcash/customer/updateServicePhone.do', params)
 }

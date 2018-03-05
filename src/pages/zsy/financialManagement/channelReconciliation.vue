@@ -18,35 +18,30 @@
       </el-breadcrumb>
     </div>
     <div class="allWrapper">
-      <div class="searchCondition">
-        <div class="searchBox">
-          <div class="element">
-            <p class="inline">订单完成时间:</p>
-            <div class="inline">
-              <el-date-picker size="medium" class="inline" style="width:138px;" type="date" placeholder="开始时间" value-format="yyyy-MM-dd" v-model="searchs.sdate">
-              </el-date-picker>
-              <span class="inline">至</span>
-              <el-date-picker size="medium" class="inline" style="width:138px;" type="date" placeholder="结束时间" value-format="yyyy-MM-dd" v-model="searchs.edate">
-              </el-date-picker>
-            </div>
-          </div>
-          <div class="element">
-            <p class="inline">商户:</p>
-            <div class="width140 inline">
-              <el-input size="medium" clearable placeholder="商户查询" class="input" v-model="searchs.merchantNa" @keyup.enter.native="searchData"></el-input>
-            </div>
-          </div>
-          <div class="element">
-            <p class="inline">商户号:</p>
-            <div class="width140 inline">
-              <el-input size="medium" clearable placeholder="商户号查询" class="input" v-model="searchs.merchantId" @keyup.enter.native="searchData"></el-input>
-            </div>
-          </div>
-          <div class="element" @click="searchData">
-            <el-button size="medium" class="searchBtn">查询</el-button>
+      <search-condition @clickSearchData="search">
+        <div class="element">
+          <p class="inline">订单完成时间:</p>
+          <div class="inline">
+            <el-date-picker size="medium" class="inline" style="width:138px;" type="date" placeholder="开始时间" value-format="yyyy-MM-dd" v-model="searchs.sdate">
+            </el-date-picker>
+            <span class="inline">至</span>
+            <el-date-picker size="medium" class="inline" style="width:138px;" type="date" placeholder="结束时间" value-format="yyyy-MM-dd" v-model="searchs.edate">
+            </el-date-picker>
           </div>
         </div>
-      </div>
+        <div class="element">
+          <p class="inline">商户:</p>
+          <div class="width140 inline">
+            <el-input size="medium" clearable placeholder="商户查询" class="input" v-model="searchs.merchantNa" @keyup.enter.native="searchData"></el-input>
+          </div>
+        </div>
+        <div class="element">
+          <p class="inline">商户号:</p>
+          <div class="width140 inline">
+            <el-input size="medium" clearable placeholder="商户号查询" class="input" v-model="searchs.merchantId" @keyup.enter.native="searchData"></el-input>
+          </div>
+        </div>
+      </search-condition>
       <div class="tableWrapper">
         <div class="tableWrapper-excel">
           <span>支付交易:{{payAmountSum}}，</span>
@@ -61,7 +56,7 @@
               {{scope.row.finishDate | dateFormat}}
             </template>
           </el-table-column>
-          <el-table-column prop="merchantName" label="商户" show-overflow-tooltip></el-table-column>
+          <el-table-column prop="merchantName" label="商户" width="180px" show-overflow-tooltip></el-table-column>
           <el-table-column label="交易类型">
             <template slot-scope="scope">
               {{scope.row.tradeType | tradeType}}
@@ -73,7 +68,7 @@
           <el-table-column prop="handCharge" label="手续费"></el-table-column>
           <el-table-column prop="surplusAmount" label="结算金额"></el-table-column>
           <el-table-column prop="type" label="分账类型"></el-table-column>
-          <el-table-column prop="merchantId" label="商户号" show-overflow-tooltip></el-table-column>
+          <el-table-column prop="merchantId" label="商户号"  width="200px" show-overflow-tooltip></el-table-column>
           <el-table-column prop="orderNo" label="银行订单号" width="100" show-overflow-tooltip></el-table-column>
           <el-table-column prop="orgOrderNo" width="150" label="合作机构订单号" show-overflow-tooltip></el-table-column>
           <el-table-column prop="oldOrderNo" label="原银行订单号" width="150" show-overflow-tooltip></el-table-column>
@@ -91,6 +86,7 @@
 <script>
 import { format, getDate } from 'common/js/times'
 import { channelReconciliation, channelbillTableExport } from '@/api/index.js'
+import searchCondition from 'components/searchCondition.vue'
 import qs from 'qs'
 export default {
   data() {
@@ -169,7 +165,10 @@ export default {
       delete _q['pageSize']
       let query = qs.stringify(_q);
       window.open(channelbillTableExport() + '?' + query)
-    },
+    }
+  },
+  components: {
+    searchCondition
   }
 }
 </script>

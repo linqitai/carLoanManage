@@ -97,6 +97,9 @@
 .ml20{
   margin-left: 20px;
 }
+.ml30{
+  margin-left: 30px;
+}
 // margin右
 .mr3{
   margin-right: 3px;
@@ -164,6 +167,9 @@ $font-size-ll: 18px;
 $font-size-lll: 20px;
 .fontSizeS{
   font-size: 12px;
+}
+.fontSize4siderIcon{
+  font-size: 10px;
 }
 .fontSize14{
   font-size: 14px;
@@ -371,12 +377,14 @@ table .el-button {
   line-height: 30px;
 }
 .searchCondition {
+  float: left;
   .scLeft {
-    width: 80%;
-    float: left;
+    // width: 88%;
+    // float: left;
+    // background-color: #00917e;
   }
   .scRight {
-    float: right;
+    // float: right;
   }
 }
 .iconTransform {

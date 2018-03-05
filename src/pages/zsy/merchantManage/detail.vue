@@ -99,14 +99,14 @@
               </div>
             </div>
             <div class="lineText">
-              <span class="label">客服电话</span>
+              <span class="label">联系电话</span>
               <span class="value">{{infor.servicephone}}</span>
               <i v-if="status===statusNormal && infor.isaudit === 5" class="iconfont icon-bianji-copy ml10 fontSizeM" @click="showEditServicePhone=true"></i>
-              <el-dialog width="40%" style="z-index:3000" title="编辑客服电话" :visible.sync="showEditServicePhone">
+              <el-dialog width="40%" style="z-index:3000" title="编辑联系电话" :visible.sync="showEditServicePhone">
                 <div class="element">
-                  <p class="width100 textLeft inline">客服电话</p>
+                  <p class="width100 textLeft inline">联系电话</p>
                   <div class="inline">
-                    <el-input size="medium" clearable placeholder="请输入客服电话" class="input" v-model="servicephone"></el-input>
+                    <el-input size="medium" clearable placeholder="请输入联系电话" class="input" v-model="servicephone"></el-input>
                   </div>
                 </div>
                 <div slot="footer" class="dialog-footer">
@@ -609,11 +609,15 @@
               <span class="label">申请时间</span>
               <span class="value">{{infor.created | format}}</span>
             </div>
-            <div class="lineText" v-if="infor.isaudit !== 1 && infor.merchanttype !==3 && infor.isaudit !== 4 && infor.isaudit !== 7 && infor.isaudit !== 2 && infor.isaudit !== 6">
+            <div class="lineText" v-if="infor.isaudit !== 1">
+              <span class="label">提交时间</span>
+              <span class="value">{{infor.created | format}}</span>
+            </div>
+            <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 6 && infor.isaudit !== 2">
               <span class="label">审核时间</span>
               <span class="value">{{infor.updated | format}}</span>
             </div>
-            <div class="lineText" v-if="infor.isaudit !== 1 && infor.merchanttype !==3 && infor.isaudit !== 4 && infor.isaudit !== 7 && infor.isaudit !== 2 && infor.isaudit !== 6">
+            <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 6 && infor.isaudit !== 2">
               <span class="label">审核人</span>
               <span class="value">{{infor.operatorname}}</span>
             </div>
@@ -1320,7 +1324,7 @@ export default {
         this.callFun(res)
       })
     },
-    // 客服电话编辑
+    // 联系电话编辑
     servicephoneClick() {
       let params = {
         customerid: this.customerid,

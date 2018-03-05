@@ -63,7 +63,7 @@
       color: $menuColor;
     }
     .child3 {
-      padding-left: 80px !important;
+      padding-left: 78px !important;
       font-size: 12px;
       height: 30px;
       line-height: 30px;
@@ -74,6 +74,17 @@
         background-color: $menuHoverColor;
       }
     }
+  }
+  .secondIcon{
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    color: #ffffff;
+    float: left;
+    margin-top: 14px;
+    margin-left: 22px;
+    margin-right: 5px;
   }
   .second{
     .el-submenu__title {
