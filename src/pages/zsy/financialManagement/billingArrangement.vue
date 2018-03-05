@@ -172,7 +172,8 @@ export default {
         paymode: '',
         merchantOrderNo: '',
         agentName: '',
-        agentServiceCode: '',
+        agentServiceCode: this.$route.query.code,
+        yearMonth: this.$route.query.transDate,
         sdate: '',
         edate: '',
         pageSize: 10,
@@ -181,7 +182,11 @@ export default {
     }
   },
   created() {
-    console.log(this.searchs.shopName)
+    // this.agentServiceCode = this.$route.query.code || null;
+    // this.yearMonth = this.$route.query.transDate || null;
+    // console.log(this.agentServiceCode);
+    // console.log(this.yearMonth);
+    // console.log(this.searchs);
     this.searchData()
   },
   filters: {

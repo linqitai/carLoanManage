@@ -61,7 +61,13 @@
           <el-table-column prop="agentName" label="代理商"></el-table-column>
           <el-table-column prop="code" label="服务码"></el-table-column>
           <el-table-column prop="agentIncome" label="分润金额(元)" min-width="120"></el-table-column>
-          <el-table-column prop="buyerPayAmount" label="商户收款总额(元)"></el-table-column>
+          <!-- <el-table-column prop="buyerPayAmount" label="商户收款总额(元)"></el-table-column> -->
+          <el-table-column label="商户收款总额(元)">
+            <template slot-scope="scope">
+              {{scope.row.buyerPayAmount}} &nbsp;&nbsp;
+              <el-button type="text" size="middle" @click="detail(scope.row)">明细</el-button>
+            </template>
+          </el-table-column>
         </el-table>
         <div class="tableBottom">
           <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" layout="total, sizes, prev, pager, next, jumper" :total="total">
@@ -154,6 +160,10 @@ export default {
     handleCurrentChange(val) {
       this.searchs.pageIndex = val;
       this.searchData();
+    },
+    detail(row) {
+      console.log(row);
+      this.$router.push('bill?code=' + row.code + '&transDate=' + row.transDate);
     }
   },
   components: {
