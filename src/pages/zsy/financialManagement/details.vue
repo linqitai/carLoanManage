@@ -33,7 +33,7 @@
           </div>
           <div class="lineText">
             <span class="label">收银员</span>
-            <span class="value">{{orderDetails.operName}}</span>
+            <span class="value">{{orderDetails.operName}}{{orderDetails.operPhone ? '/' + orderDetails.operPhone : ''}}</span>
           </div>
           <div class="lineText">
             <span class="label">代理商</span>
@@ -136,9 +136,9 @@ export default {
         case "2":
           return '客户付多了';
         case "3":
-          return '客户要求退货';  
+          return '客户要求退货';
         case "4":
-          return '其他';  
+          return '其他';
       }
     },
   },

@@ -21,12 +21,13 @@
       <search-condition @clickSearchData="searchData">
         <div class="element">
           <p class="inline">收款时间:</p>
-          <div class="inline">
-            <el-date-picker size="medium" class="inline" style="width:139px;" type="date" placeholder="开始时间" value-format="yyyy-MM-dd" v-model="searchs.sdate">
+          <div class="inline" style="width:400px;">
+            <el-date-picker size="medium" class="inline" style="width:400px;" type="datetimerange" range-separator="至" start-placeholder="开始日期"
+      end-placeholder="结束日期"  v-model="time" :change='timeChange()'>
             </el-date-picker>
-            <span class="inline">至</span>
-            <el-date-picker size="medium" class="inline" style="width:139px;" type="date" placeholder="结束时间" value-format="yyyy-MM-dd" v-model="searchs.edate">
-            </el-date-picker>
+            <!-- <span class="inline">至</span>
+            <el-date-picker size="medium" class="inline" style="width:139px;" type="datetimerange" placeholder="结束时间" value-format="yyyy-MM-dd" v-model="searchs.edate">
+            </el-date-picker> -->
           </div>
         </div>
         <div class="element">
@@ -126,7 +127,7 @@
 
 <script>
 import { PAGESIZES } from 'common/js/config'
-import { format, getDate } from 'common/js/times'
+import { format, getDate, getDateTime } from 'common/js/times'
 import { billManage, billTableExport } from '@/api/index.js'
 import qs from 'qs'
 import searchCondition from 'components/searchCondition.vue'
@@ -180,7 +181,8 @@ export default {
         edate: '',
         pageSize: 10,
         pageIndex: 1
-      }
+      },
+      time: ''
     }
   },
   created() {
@@ -227,11 +229,15 @@ export default {
   },
   methods: {
     searchData() {
-      if (this.searchs.sdate) {
-        this.searchs.sdate = getDate(new Date(this.searchs.sdate)) + " 00:00:00";
+      // this.sdate = getDateTime(new Date(this.value3[0]));
+      // console.log(this.sdate);
+      // this.edate = getDateTime(new Date(this.value3[1]));
+      // console.log(this.edate);
+      if (this.time) {
+        this.searchs.sdate = getDateTime(new Date(this.time[0]));
       }
-      if (this.searchs.edate) {
-        this.searchs.edate = getDate(new Date(this.searchs.edate)) + " 23:59:59";
+      if (this.time) {
+        this.searchs.edate = getDateTime(new Date(this.time[1]));
       }
       billManage(this.searchs).then(res => {
         this.tableData = res.result;
@@ -266,6 +272,9 @@ export default {
     },
     detail(item) {
       this.$router.push({ path: '/bill/details', query: { orderid: item } })
+    },
+    timeChange() {
+      console.log(this.time);
     }
   },
   components: {
