@@ -126,10 +126,6 @@ export default {
           confirmButtonText: "确定"
         });
       } else {
-        const arr = this.searchs.edate.split("-");
-        let dayCount = new Date(arr[0], arr[1], 0).getDate();
-        this.searchs.edate = this.searchs.edate.substring(0,7);
-        this.searchs.edate = this.searchs.edate + '-' + dayCount;
         zsyAgentIncomeList(this.searchs).then(res => {
           this.tableData = res.result;
           this.total = res.count;
@@ -151,6 +147,10 @@ export default {
     },
     endTimeChange(val) {
       console.log("change：" + val);
+      const arr = this.searchs.edate.split("-");
+      let dayCount = new Date(arr[0], arr[1], 0).getDate();
+      this.searchs.edate = this.searchs.edate.substring(0,7);
+      this.searchs.edate = this.searchs.edate + '-' + dayCount;
     },
     handleSizeChange(val) {
       this.searchs.pageSize = val;
