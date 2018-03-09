@@ -21,7 +21,7 @@
       <div class="searchCondition">
         <el-form ref="form" class="formClass" :model="form" label-width="100px">
           <el-form-item label="代理人">{{form.agentName}}</el-form-item>
-          <el-form-item label="添加人">{{form.creater ? form.creater : '--'}}</el-form-item>
+          <el-form-item label="添加人">{{form.createrName ? form.createrName : '--'}}</el-form-item>
           <el-form-item label="性别">{{form.sex === 1 ? "男":"女"}}</el-form-item>
           <el-form-item label="身份证号">{{form.idCardNo}}</el-form-item>
           <el-form-item label="手机号">{{form.mobilePhone}}</el-form-item>
