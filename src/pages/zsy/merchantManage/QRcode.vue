@@ -10,9 +10,6 @@
           <span class="text">臻收银管理</span>
         </el-breadcrumb-item>
         <el-breadcrumb-item>
-          <span class="text">商户管理</span>
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>
           <span class="mainColor">收款码管理</span>
         </el-breadcrumb-item>
       </el-breadcrumb>
@@ -84,8 +81,8 @@
           <el-button @click="download" class="down">下载</el-button>
         </el-dialog>
       </div>
-      <div class="tableBottom">
-        <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" layout="total, sizes, prev, pager, next, jumper" :total="total">
+      <div class="tableBottom" v-if="total>searchs.pageSize">
+        <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-size="searchs.pageSize" :page-sizes="pageSizes" layout="total, sizes, prev, pager, next, jumper" :total="total">
         </el-pagination>
       </div>
     </div>
@@ -93,13 +90,13 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { mtypeList, runTYpeList, statusList } from "common/js/config";
+import { mtypeList, runTYpeList, statusList, PAGESIZES } from "common/js/config";
 import { zsyQRcode } from "@/api/index.js";
 import { getDateHM, getDate } from 'common/js/times'
 export default {
   data() {
     return {
-      // activeShop: '',
+      pageSizes: PAGESIZES,
       showData: {},
       dialogVisible: false,
       maxLengthMobile: 11,

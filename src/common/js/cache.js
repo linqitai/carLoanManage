@@ -2,6 +2,7 @@ import storage from 'good-storage'
 
 const CURRENT_ROW = '_currentRow'
 const USERID = '_userId'
+const USERMOBILE = '_userMobile'
 const DETAILINFO = '_detailInfo'
 
 export function saveCurrentRow(row) {
@@ -16,6 +17,13 @@ export function saveUserId(value) {
 }
 export function getUserId() {
   return storage.get(USERID, [])
+}
+
+export function saveUserMobile(value) {
+  storage.set(USERMOBILE, value)
+}
+export function getUserMobile() {
+  return storage.get(USERMOBILE, [])
 }
 
 export function saveDetailInfo(obj) {

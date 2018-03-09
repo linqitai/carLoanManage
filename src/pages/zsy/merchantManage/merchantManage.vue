@@ -11,11 +11,11 @@
             <span class="text">臻收银管理</span>
           </el-breadcrumb-item>
           <el-breadcrumb-item>
-            <span class="text">商户管理</span>
-          </el-breadcrumb-item>
-          <el-breadcrumb-item>
             <span class="mainColor">商户管理</span>
           </el-breadcrumb-item>
+          <!-- <el-breadcrumb-item>
+                    <span class="mainColor">商户管理</span>
+                  </el-breadcrumb-item> -->
         </el-breadcrumb>
       </div>
       <div class="allWrapper">
@@ -23,7 +23,7 @@
           <div class="element">
             <p class="inline">时间</p>
             <div class="width110 inline">
-              <el-select size="medium" v-model="searchs.timeType" placeholder="请选择">
+              <el-select size="medium" v-model="searchs.timeType" placeholder="请选择" @change="changeTimeType">
                 <el-option v-for="item in timeTypes" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
@@ -88,15 +88,6 @@
             </div>
           </div>
           <div class="element">
-            <p class="inline">状态</p>
-            <div class="width120 inline">
-              <el-select size="medium" v-model="searchs.audits" placeholder="请选择" @change="search">
-                <el-option v-for="item in statusList" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-          </div>
-          <div class="element">
             <p class="inline">代理商</p>
             <div class="width120 inline">
               <el-input size="medium" clearable v-model="searchs.agent" placeholder="代理商查询" class="input" @keyup.enter.native="search"></el-input>
@@ -155,8 +146,8 @@
             </el-table-column>
           </el-table>
         </div>
-        <div class="tableBottom">
-          <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="searchs.pageIndex" :page-size="searchs.pageSize" :page-sizes="[8,10,12,14,16]" layout="total, sizes, prev, pager, next, jumper" :total="total">
+        <div class="tableBottom" v-if="total>searchs.pageSize">
+          <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="searchs.pageIndex" :page-size="searchs.pageSize" :page-sizes="pageSizes" layout="total, sizes, prev, pager, next, jumper" :total="total">
           </el-pagination>
         </div>
       </div>
@@ -166,7 +157,7 @@
 </template>
 
 <script>
-import { mtypeList, runTYpeList1, statusList } from 'common/js/config'
+import { mtypeList, runTYpeList1, statusList, PAGESIZES } from 'common/js/config'
 import { sexFilter } from 'common/js/utils'
 import { saveCurrentRow } from 'common/js/cache'
 import { getDateHM, getDate, format } from 'common/js/times'
@@ -190,11 +181,12 @@ export default {
       tableData: [],
       pageIndex: 1,
       pageSize: 10,
+      pageSizes: PAGESIZES,
       timeTypes: [
-        {
-          value: '',
-          label: '全部'
-        },
+        // {
+        //   value: '',
+        //   label: '全部'
+        // },
         {
           value: '1',
           label: '申请时间'
@@ -223,7 +215,7 @@ export default {
         label: '其他'
       }],
       searchs: {
-        timeType: '', // timeType '':全部 1:申请时间 2：提交时间 3：审核时间
+        timeType: '1', // timeType '':全部 1:申请时间 2：提交时间 3：审核时间
         startTime: '',
         endTime: '',
         mName: '',
@@ -250,6 +242,9 @@ export default {
     }
   },
   created() {
+    if (this.$route.query.from) {
+      this.searchs.audits = ''
+    }
     this.search()
     this.selectProvince();
   },
@@ -369,10 +364,42 @@ export default {
         }
       })
     },
+    changeTimeType(val) {
+      this.search()
+    },
+    // dataTypes: [{
+    //     value: '',
+    //     label: '全部'
+    //   }, {
+    //     value: '1',
+    //     label: '今日'
+    //   }, {
+    //     value: '2',
+    //     label: '本周'
+    //   }, {
+    //     value: '3',
+    //     label: '本月'
+    //   }, {
+    //     value: '4',
+    //     label: '其他'
+    //   }],
     changeDataType(val) {
       console.log('val:' + val)
-      this.searchs.startTime = ''
-      this.searchs.endTime = ''
+      if (val == 1) {
+        this.searchs.startTime = getDate(new Date().getTime()) + ' 00:00:01'
+        this.searchs.endTime = getDate(new Date().getTime()) + ' 23:59:59'
+      } else if (val == 2) {
+        this.searchs.startTime = getDate(new Date().getTime() - 60 * 60 * 24 * 7000) + ' 00:00:01'
+        this.searchs.endTime = getDate(new Date().getTime()) + ' 23:59:59'
+      } else if (val == 3) {
+        this.searchs.startTime = getDate(new Date().getTime() - 60 * 60 * 24 * 30000) + ' 00:00:01'
+        this.searchs.endTime = getDate(new Date().getTime()) + ' 23:59:59'
+      } else if (val == '') {
+        this.searchs.startTime = ''
+        this.searchs.endTime = ''
+      }
+      console.log(`startTime:${this.searchs.startTime},endTime:${this.searchs.endTime}`)
+      this.search()
     },
     provinceChange(val) {
       this.searchs.province = val;

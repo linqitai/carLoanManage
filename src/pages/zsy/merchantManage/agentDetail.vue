@@ -20,9 +20,8 @@
     <div class="allWrapper">
       <div class="searchCondition">
         <el-form ref="form" class="formClass" :model="form" label-width="100px">
-          <el-form-item label="拓展人">{{form.developPerson}}</el-form-item>
           <el-form-item label="代理人">{{form.agentName}}</el-form-item>
-          <el-form-item label="添加人">{{form.creater}}</el-form-item>
+          <el-form-item label="添加人">{{form.creater ? form.creater : '--'}}</el-form-item>
           <el-form-item label="性别">{{form.sex === 1 ? "男":"女"}}</el-form-item>
           <el-form-item label="身份证号">{{form.idCardNo}}</el-form-item>
           <el-form-item label="手机号">{{form.mobilePhone}}</el-form-item>
@@ -47,6 +46,9 @@
           <el-form-item label="银行卡号">
             {{form.bankCard}}
           </el-form-item>
+          <el-form-item label="拓展人">{{form.developPerson}}</el-form-item>
+          <!-- <el-form-item label="拓展人">{{form.developPerson + '/' + form.developPersonPhone}}</el-form-item> -->
+
           <el-form-item class="isEdit">
             <el-button type="primary" @click="edit">编辑</el-button>
           </el-form-item>
@@ -55,22 +57,12 @@
       <div class="bottomTable" v-if="false">
         <h2>业务员</h2>
         <div class="tableClass">
-          <el-table
-            :data="tableData"
-            style="width: 100%">
-            <el-table-column
-              prop="date"
-              label="日期"
-              width="180">
+          <el-table :data="tableData" style="width: 100%">
+            <el-table-column prop="date" label="日期" width="180">
             </el-table-column>
-            <el-table-column
-              prop="name"
-              label="姓名"
-              width="180">
+            <el-table-column prop="name" label="姓名" width="180">
             </el-table-column>
-            <el-table-column
-              prop="address"
-              label="地址">
+            <el-table-column prop="address" label="地址">
             </el-table-column>
           </el-table>
         </div>
@@ -128,42 +120,52 @@ export default {
   width: 100%;
   height: 100%;
 }
-.searchCondition{
+
+.searchCondition {
   width: 100%;
   padding-top: 10px;
 }
-.el-form-item{
+
+.el-form-item {
   margin-bottom: 0px;
 }
-.created{
+
+.created {
   margin: 50px 0 100px 150px;
 }
-.isEdit{
+
+.isEdit {
   position: absolute;
   top: 10px;
   right: 110px;
 }
-.bottomTable{
+
+.bottomTable {
   border-top: 1px solid #efefef;
   padding-top: 10px;
 }
-.bottomTable h2{
+
+.bottomTable h2 {
   font-size: 16px;
   padding-bottom: 10px;
   border-bottom: 1px solid #efefef;
   padding-left: 20px;
   color: #646464;
 }
-.bottomTable .el-table{
+
+.bottomTable .el-table {
   margin-top: 20px;
 }
-.home .contentWrapper .content .allWrapper{
+
+.home .contentWrapper .content .allWrapper {
   padding: 0;
 }
-.searchCondition{
+
+.searchCondition {
   padding: 10px 20px 10px 20px;
 }
-.tableClass{
+
+.tableClass {
   padding: 0 20px 350px 20px;
 }
 </style>

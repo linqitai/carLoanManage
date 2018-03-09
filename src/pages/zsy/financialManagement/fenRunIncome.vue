@@ -60,8 +60,8 @@
         </el-table-column>
         <el-table-column prop="agentIncome" label="代理商分润(元)"></el-table-column>
       </el-table>
-      <div class="tableBottom">
-        <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" layout="total, sizes, prev, pager, next, jumper" :total="total">
+      <div class="tableBottom" v-if="total>searchs.pageSize">
+        <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-size="searchs.pageSize" :page-sizes="pageSizes" layout="total, sizes, prev, pager, next, jumper" :total="total">
         </el-pagination>
       </div>
     </div>
@@ -70,11 +70,12 @@
 </template>
 
 <script>
-import { IncomeList } from "common/js/config";
+import { IncomeList, PAGESIZES } from "common/js/config";
 import { zsyIncomeList } from "@/api/index.js";
 export default {
   data() {
     return {
+      pageSizes: PAGESIZES,
       IncomeList: IncomeList,
       tableData: [],
       total: null,

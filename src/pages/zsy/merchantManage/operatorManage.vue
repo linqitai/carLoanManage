@@ -10,9 +10,6 @@
           <span class="text">臻收银管理</span>
         </el-breadcrumb-item>
         <el-breadcrumb-item>
-          <span class="text">商户管理</span>
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>
           <span class="mainColor">操作员管理</span>
         </el-breadcrumb-item>
       </el-breadcrumb>
@@ -49,7 +46,7 @@
             <el-input size="medium" clearable placeholder="手机号码查询" :maxlength="maxLengthMobile" class="input" v-model="searchs.mobile" @keyup.enter.native="searchData"></el-input>
           </div>
         </div>
-        <div class="element">
+        <!-- <div class="element">
           <p class="inline">所在店铺</p>
           <div class="width200 inline">
             <el-input size="medium" clearable placeholder="所在店铺查询" class="input" v-model="searchs.shopname" @keyup.enter.native="searchData"></el-input>
@@ -60,7 +57,7 @@
           <div class="width160 inline">
             <el-input size="medium" clearable placeholder="所属商户查询" class="input" v-model="searchs.merchantname" @keyup.enter.native="searchData"></el-input>
           </div>
-        </div>
+        </div> -->
       </search-condition>
       <div class="tableWrapper">
         <el-table :data="tableData" stripe>
@@ -75,12 +72,12 @@
           <el-table-column prop="mobile" label="手机号码" width="120"></el-table-column>
           <el-table-column prop="idcard" label="身份证号" width="180"></el-table-column>
           <el-table-column prop="shopname" label="所在店铺" show-overflow-tooltip></el-table-column>
-          <el-table-column prop="merchantname" label="所属商户" width="200" show-overflow-tooltip="">
+          <!-- <el-table-column prop="merchantname" label="所属商户" width="200" show-overflow-tooltip=""> -->
           </el-table-column>
         </el-table>
       </div>
-      <div class="tableBottom">
-        <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" layout="total, sizes, prev, pager, next, jumper" :total="total">
+      <div class="tableBottom" v-if="total>searchs.pageSize">
+        <el-pagination class="pagination" @size-change="handleSizeChange" :page-size="searchs.pageSize" :page-sizes="pageSizes" @current-change="handleCurrentChange" layout="total, sizes, prev, pager, next, jumper" :total="total">
         </el-pagination>
       </div>
     </div>
@@ -88,7 +85,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { SexList, TypeListNoBoss } from "common/js/config";
+import { SexList, TypeListNoBoss, PAGESIZES } from "common/js/config";
 import { sexFilter, roleFilter } from 'common/js/utils'
 import { zsyOper } from "@/api/index.js";
 import { getDateHM } from 'common/js/times'
@@ -96,6 +93,7 @@ import searchCondition from 'components/searchCondition.vue'
 export default {
   data() {
     return {
+      pageSizes: PAGESIZES,
       maxLengthMobile: 11,
       maxLengthIdentity: 18,
       isShowMore: false,

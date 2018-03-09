@@ -69,8 +69,8 @@
             </template>
           </el-table-column>
         </el-table>
-        <div class="tableBottom">
-          <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" layout="total, sizes, prev, pager, next, jumper" :total="total">
+        <div class="tableBottom" v-if="total>searchs.pageSize">
+          <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-size="searchs.pageSize" :page-sizes="pageSizes" layout="total, sizes, prev, pager, next, jumper" :total="total">
           </el-pagination>
         </div>
       </div>
@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import { moneyList } from "common/js/config";
+import { moneyList, PAGESIZES } from "common/js/config";
 import { zsyAgentIncomeList, zsyRedListExcel } from "@/api/index.js";
 // import { getDate } from "@/common/js/times"
 import qs from 'qs'
@@ -87,6 +87,7 @@ import searchCondition from 'components/searchCondition.vue'
 export default {
   data() {
     return {
+      pageSizes: PAGESIZES,
       moneyList: moneyList,
       tableData: [],
       total: null,

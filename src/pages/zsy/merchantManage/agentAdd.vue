@@ -30,7 +30,7 @@
             ></el-autocomplete>
             <span v-if="readonly">{{form.developPerson}}</span>
           </el-form-item>
-          <el-form-item label="代理人">
+          <el-form-item label=" ">
             <el-input class="width200" v-model.trim="form.agentName" placeholder="请输入代理人" v-if="!readonly"></el-input>
             <span v-if="readonly">{{form.agentName}}</span>
           </el-form-item>
@@ -125,6 +125,7 @@
 <script type="text/ecmascript-6">
 import { experienceRoleList, tableData, sexAddList } from 'common/js/config'
 import { zsPToken, addAgents, viewAgents, cityList, updateAgents, developPersonList } from '@/api/index'
+import { getUserId, getUserMobile } from 'common/js/cache'
 export default {
   data() {
     return {
@@ -377,7 +378,7 @@ export default {
         });
         return;
       }
-      var pattern = /^([1-9]{1})(\d{14}|\d{18})$/;
+      var pattern = /^([1-9]{1})(\d{14})$/;
       if (!pattern.test(this.form.bankCard)) {
         this.$message({
           type: 'error',
@@ -387,6 +388,7 @@ export default {
       }
       if (agentid) {
         let params = {
+          creater: getUserId(),
           agentid: agentid,
           developPerson: this.form.developPerson,
           agentName: this.form.agentName,
@@ -402,6 +404,8 @@ export default {
           bankCard: this.form.bankCard
         };
         updateAgents(params).then(res => {
+          console.log('addParams:')
+          console.log(params)
           if (res.code === 200) {
             this.$message({
               type: 'success',

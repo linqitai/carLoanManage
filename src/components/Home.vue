@@ -117,7 +117,7 @@ export default {
       position: absolute;
       right: 0;
       top: 0;
-      bottom: 0;
+      bottom: 40px;
       box-sizing: border-box;
       min-width: $content-min-width;
       .leftBtn {

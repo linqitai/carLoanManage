@@ -10,10 +10,7 @@
           <span class="text">臻收银管理</span>
         </el-breadcrumb-item>
         <el-breadcrumb-item>
-          <span class="text">代理商管理</span>
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>
-          <span class="mainColor">代理商</span>
+          <span class="mainColor">代理商管理</span>
         </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
@@ -104,8 +101,8 @@
           </el-table-column>
         </el-table>
       </div>
-      <div class="tableBottom">
-        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 40]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="totalNum">
+      <div class="tableBottom" v-if="total>form.pageSize">
+        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="pageSizes" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="total">
         </el-pagination>
       </div>
     </div>
@@ -113,7 +110,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { isUsingList, sexList, mtypeList, runTYpeList, statusList, tableData } from 'common/js/config'
+import { isUsingList, sexList, mtypeList, runTYpeList, statusList, tableData, PAGESIZES } from 'common/js/config'
 import { agentlist, updateUsing, cityList } from "@/api/index"
 import { getDateTime, getDate } from "@/common/js/times"
 import searchCondition from 'components/searchCondition.vue'
@@ -146,7 +143,8 @@ export default {
       mtypeList: [],
       tableList: [],
       currentPage: 1,
-      totalNum: 0
+      total: 0,
+      pageSizes: PAGESIZES
     }
   },
   filters: {
@@ -235,7 +233,7 @@ export default {
         this.loading = false;
         if (res.code === 200) {
           this.tableList = res.result;
-          this.totalNum = res.count;
+          this.total = res.count;
           for (let i = 0; i < this.tableList.length; i++) {
             if (this.tableList[i].isUsing === 0) {
               this.tableList[i].states = "禁用";
@@ -282,7 +280,7 @@ export default {
     },
     handleClick3: function(row) {
       console.log(row.code);
-      this.$router.push('merchantManage?code=' + row.code);
+      this.$router.push(`merchantManage?code=${row.code}&from='agent'`);
     },
     handleSizeChange: function(size) {
       this.form.pageSize = size;

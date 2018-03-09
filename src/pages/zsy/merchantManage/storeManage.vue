@@ -10,9 +10,6 @@
           <span class="text">臻收银管理</span>
         </el-breadcrumb-item>
         <el-breadcrumb-item>
-          <span class="text">商户管理</span>
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>
           <span class="mainColor">门店管理</span>
         </el-breadcrumb-item>
       </el-breadcrumb>
@@ -71,8 +68,8 @@
           </el-table-column>
         </el-table>
       </div>
-      <div class="tableBottom">
-        <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" layout="total, sizes, prev, pager, next, jumper" :total="total">
+      <div class="tableBottom" v-if="total>searchs.pageSize">
+        <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-size="searchs.pageSize" :page-sizes="pageSizes" layout="total, sizes, prev, pager, next, jumper" :total="total">
         </el-pagination>
       </div>
     </div>
@@ -80,12 +77,13 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { mtypeList, statusList } from "common/js/config";
+import { mtypeList, statusList, PAGESIZES } from "common/js/config";
 import { zsyStore } from "@/api/index.js";
 import searchCondition from 'components/searchCondition.vue'
 export default {
   data() {
     return {
+      pageSizes: PAGESIZES,
       maxLengthMobile: 11,
       maxLengthIdentity: 18,
       isShowMore: false,

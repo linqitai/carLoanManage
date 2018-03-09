@@ -10,9 +10,6 @@
           <span class="text">臻收银管理</span>
         </el-breadcrumb-item>
         <el-breadcrumb-item>
-          <span class="text">其他管理</span>
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>
           <span class="mainColor">意见反馈</span>
         </el-breadcrumb-item>
       </el-breadcrumb>
@@ -52,15 +49,15 @@
           </el-table-column>
         </el-table>
       </div>
-      <div class="tableBottom">
+      <div class="tableBottom" v-if="total>form.pageSize">
         <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="currentPage"
-          :page-sizes="[10, 20, 30, 40]"
+          :page-sizes="pageSizes"
           :page-size="10"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="totalNum">
+          :total="total">
         </el-pagination>
       </div>
     </div>
@@ -109,7 +106,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import { mtypeList, runTYpeList, statusList, dealResultList, resultList } from 'common/js/config'
+import { mtypeList, runTYpeList, statusList, dealResultList, resultList, PAGESIZES } from 'common/js/config'
 import { mileageList, handleMileage, handleDetail } from "@/api/index"
 import { getDateTime } from "common/js/times"
 export default {
@@ -121,6 +118,7 @@ export default {
         pageSize: 10,
         pageIndex: 1
       },
+      pageSizes: PAGESIZES,
       opinionId: null,
       dealForm: {
         opinionId: null,
@@ -133,7 +131,7 @@ export default {
       mtypeList: [],
       tableData: [],
       currentPage: 1,
-      totalNum: 0,
+      total: 0,
       dialogVisible1: false,
       dialogVisible2: false
     }
@@ -154,7 +152,7 @@ export default {
       mileageList(params).then(res => {
         if (res.code === 200) {
           this.tableData = res.result;
-          this.totalNum = res.count;
+          this.total = res.count;
           for (let i = 0; i < this.tableData.length; i++) {
             this.tableData[i].submitTime = getDateTime(this.tableData[i].created);
             if (this.tableData[i].status === 0) {

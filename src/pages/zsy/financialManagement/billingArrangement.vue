@@ -115,7 +115,7 @@
           </el-table-column>
         </el-table>
         <div v-if="total>searchs.pageSize" class="tableBottom">
-          <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="searchs.pageIndex" :page-size="searchs.pageSize" :page-sizes="[10,12,14,16]" layout="total, sizes, prev, pager, next, jumper" :total="total">
+          <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="searchs.pageIndex" :page-size="searchs.pageSize" :page-sizes="pageSizes" layout="total, sizes, prev, pager, next, jumper" :total="total">
           </el-pagination>
         </div>
       </div>
@@ -125,6 +125,7 @@
 </template>
 
 <script>
+import { PAGESIZES } from 'common/js/config'
 import { format, getDate } from 'common/js/times'
 import { billManage, billTableExport } from '@/api/index.js'
 import qs from 'qs'
@@ -132,6 +133,7 @@ import searchCondition from 'components/searchCondition.vue'
 export default {
   data() {
     return {
+      pageSizes: PAGESIZES,
       money: null,
       payList: [
         {

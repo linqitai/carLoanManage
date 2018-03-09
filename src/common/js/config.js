@@ -1,4 +1,5 @@
 export const ERR_OK = 0
+export const PAGESIZES = [8,10,12,14,16]
 // mtypeList: ['全部', '自然人', '企业商户', '个体工商户'], runTYpeList: ['全部', '美食', '超市便利店',
 // '休闲娱乐', '购物', '爱车', '生活服务', '教育培训', '医疗健康', '航旅', '专业销售/批发', '政府/社会组织'],
 export const experienceRoleList = [{
@@ -84,6 +85,40 @@ export const mtypeList = [{
   value: '1',
   label: '个体工商户'
 }]
+export const editRunTypeList = [{
+  value: '1',
+  label: '美食'
+}, {
+  value: '2',
+  label: '超市便利店'
+}, {
+  value: '3',
+  label: '休闲娱乐'
+}, {
+  value: '4',
+  label: '购物'
+}, {
+  value: '5',
+  label: '爱车'
+}, {
+  value: '6',
+  label: '生活服务'
+}, {
+  value: '7',
+  label: '教育培训'
+}, {
+  value: '8',
+  label: '医疗健康'
+}, {
+  value: '9',
+  label: '航旅'
+}, {
+  value: '10',
+  label: '专业销售/批发'
+}, {
+  value: '11',
+  label: '政府/社会组织'
+}]
 export const runTYpeList1 = [{
   value: '',
   label: '全部'
@@ -124,7 +159,7 @@ export const runTYpeList1 = [{
 export const statusList = [
   {
     value: '2,6',
-    label: '--'
+    label: '请选择'
   }, {
     value: '',
     label: '全部'

@@ -19,7 +19,7 @@
 </template>
 <script>
 import { userLoginOut, userInfo } from '../api/index'
-import { saveUserId } from 'common/js/cache'
+import { saveUserId, saveUserMobile } from 'common/js/cache'
 export default {
   data() {
     return {
@@ -40,6 +40,7 @@ export default {
           this.username = res.obj.username
           this.role = res.obj.roleName
           saveUserId(res.obj.userId)
+          saveUserMobile(res.obj.mobile)
           // console.log('role:' + this.role)
         }
       })

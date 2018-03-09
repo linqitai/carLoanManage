@@ -154,7 +154,7 @@
                   <p class="inline">经营类目</p>
                   <div class="width140 inline">
                     <el-select size="medium" placeholder="请选择" v-model="operatecategory">
-                      <el-option v-for="(item, index) in runTYpeList1" :key="index" :label="item.label" :value="item.value">
+                      <el-option v-for="(item, index) in editRunTypeList" :key="index" :label="item.label" :value="item.value">
                       </el-option>
                     </el-select>
                   </div>
@@ -611,15 +611,15 @@
             </div>
             <div class="lineText" v-if="infor.isaudit !== 1">
               <span class="label">提交时间</span>
-              <span class="value">{{infor.submitTime | format}}</span>
+              <span class="value">{{infor.updated | format}}</span>
             </div>
-            <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 2 && infor.isaudit !== 7">
+            <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 2">
               <span class="label">审核时间</span>
               <span class="value">{{infor.auditTime | format}}</span>
             </div>
-            <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 2 && infor.isaudit !== 7">
+            <div class="lineText" v-if="infor.isaudit !== 1 && infor.isaudit !== 2">
               <span class="label">审核人</span>
-              <span class="value">{{infor.operatorname}}</span>
+              <span class="value">admin</span>
             </div>
           </div>
         </div>
@@ -749,7 +749,7 @@
 
 <script>
 // import { mapGetters } from 'vuex'
-import { manageTypeList, runTYpeList1, memoList } from 'common/js/config'
+import { manageTypeList, editRunTypeList, memoList } from 'common/js/config'
 import { format } from 'common/js/times'
 import { getCurrentRow, getUserId, saveDetailInfo } from 'common/js/cache'
 import { Loading } from 'element-ui'
@@ -873,7 +873,7 @@ export default {
       },
       customerid: null,
       manageTypeList: manageTypeList,
-      runTYpeList1: runTYpeList1,
+      editRunTypeList: editRunTypeList,
       abbreviation: '',
       operatetype: '',
       operatecategory: '',
