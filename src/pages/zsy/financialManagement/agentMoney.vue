@@ -22,10 +22,10 @@
         <div class="element">
           <p class="inline">时间</p>
           <div class="inline">
-            <el-date-picker size="medium" class="inline" style="width:138px;" type="date" placeholder="开始时间" value-format="yyyy-MM-dd" @change="startTimeChange" v-model="searchs.sdate">
+            <el-date-picker size="medium" class="inline" style="width:138px;" type="month" placeholder="开始时间" value-format="yyyy-MM-dd" @change="startTimeChange" v-model="searchs.sdate">
             </el-date-picker>
             <span class="inline">至</span>
-            <el-date-picker size="medium" class="inline" style="width:138px;" type="date" placeholder="结束时间" value-format="yyyy-MM-dd" @change="endTimeChange" v-model="searchs.edate">
+            <el-date-picker size="medium" class="inline" style="width:138px;" type="month" placeholder="结束时间" value-format="yyyy-MM-dd" @change="endTimeChange" v-model="searchs.edate">
             </el-date-picker>
           </div>
         </div>
@@ -125,12 +125,10 @@ export default {
           confirmButtonText: "确定"
         });
       } else {
-        // if (this.searchs.sdate) {
-        //   this.searchs.sdate = getDate(new Date(this.searchs.sdate)) + " 00:00:00";
-        // }
-        // if (this.searchs.edate) {
-        //   this.searchs.edate = getDate(new Date(this.searchs.edate)) + " 23:59:59";
-        // }
+        const arr = this.searchs.edate.split("-");
+        let dayCount = new Date(arr[0], arr[1], 0).getDate();
+        this.searchs.edate = this.searchs.edate.substring(0,7);
+        this.searchs.edate = this.searchs.edate + '-' + dayCount;
         zsyAgentIncomeList(this.searchs).then(res => {
           this.tableData = res.result;
           this.total = res.count;

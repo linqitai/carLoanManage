@@ -44,10 +44,10 @@
       </search-condition>
       <div class="tableWrapper">
         <div class="tableWrapper-excel">
-          <span>支付交易:{{payAmountSum}}，</span>
-          <span>退款交易:{{refundAmountSum}}，</span>
-          <span>手续费:{{handChargeSum}}，</span>
-          <span class="tableWrapper-excel-pad">清算金额:{{tradeAmountSum}}</span>
+          <span>支付交易:{{payAmountSum ? payAmountSum : 0}}，</span>
+          <span>退款交易:{{refundAmountSum ? refundAmountSum : 0}}，</span>
+          <span>手续费:{{handChargeSum ? handChargeSum : 0}}，</span>
+          <span class="tableWrapper-excel-pad">清算金额:{{tradeAmountSum ? tradeAmountSum : 0}}</span>
           <span class="tableWrapper-excel-border" @click="downloadExl()" style="cursor: pointer;">导出成excel</span>
         </div>
         <el-table :data="tableData" stripe>
@@ -68,7 +68,7 @@
           <el-table-column prop="rate" label="手续费费率" width="120"></el-table-column>
           <el-table-column prop="handCharge" label="手续费"></el-table-column>
           <el-table-column prop="isvAmount" label="ISV费用"></el-table-column>
-          <el-table-column prop="surplusAmount" label="结算金额"></el-table-column>
+          <el-table-column prop="surplusAmount" label="清算金额"></el-table-column>
           <el-table-column prop="type" label="分账类型"></el-table-column>
           <el-table-column prop="merchantId" label="商户号"  width="200px" show-overflow-tooltip></el-table-column>
           <el-table-column prop="orderNo" label="银行订单号" width="100" show-overflow-tooltip></el-table-column>
