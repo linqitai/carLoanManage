@@ -47,7 +47,7 @@
           <span>支付交易:{{payAmountSum ? payAmountSum : 0}}，</span>
           <span>退款交易:{{refundAmountSum ? refundAmountSum : 0}}，</span>
           <span>手续费:{{handChargeSum ? handChargeSum : 0}}，</span>
-          <span class="tableWrapper-excel-pad">清算金额:{{tradeAmountSum ? tradeAmountSum : 0}}</span>
+          <span class="tableWrapper-excel-pad">清算金额:{{surplusAmountSum ? surplusAmountSum : 0}}</span>
           <span class="tableWrapper-excel-border" @click="downloadExl()" style="cursor: pointer;">导出成excel</span>
         </div>
         <el-table :data="tableData" stripe>
@@ -101,6 +101,7 @@ export default {
       refundAmountSum: '',
       tradeAmountSum: '',
       handChargeSum: '',
+      surplusAmountSum: '',
       searchs: {
         sdate: '',
         edate: '',
@@ -141,8 +142,8 @@ export default {
         this.payAmountSum = res.payAmountSum;
         this.payAmountSum = res.payAmountSum;
         this.refundAmountSum = res.refundAmountSum;
-        this.tradeAmountSum = res.tradeAmountSum;
-        this.handChargeSum = res.handChargeSum
+        this.handChargeSum = res.handChargeSum;
+        this.surplusAmountSum = res.surplusAmountSum;
       })
     },
     search() {

@@ -66,11 +66,11 @@ module.exports = {
         // target:'http://192.168.18.220:8061', // 修庆
         // target:'http://192.168.18.218:8061',
         // target:'http://192.168.18.227:8090',
-        target: 'http://www.zsbigdata.com.cn/zsy', // 正式环境新
+        // target: 'http://www.zsbigdata.com.cn/zsy', // 正式环境新
         // target: 'http://47.96.251.43:8084/zsmanage',// 测试环境新
         // target: 'http://192.168.20.214:8080', // 测试环境
         // target:'http://192.168.18.178:3000',
-        // target: 'http://192.168.20.47', //张尊
+        target: 'http://192.168.20.47', //张尊
         changeOrigin: true,
         pathRewrite: {
           '^/zsy_manage': ''
