@@ -22,7 +22,7 @@
         <el-form ref="form" :model="form" label-width="100px">
           <el-form-item label="拓展人">
             <el-autocomplete
-              v-model="form.developPerson"
+              v-model="form.developPersonDetail"
               :fetch-suggestions="developPersonClick"
               placeholder="请输入内容"
               @select="handleSelect"
@@ -30,7 +30,7 @@
             ></el-autocomplete>
             <span v-if="readonly">{{form.developPerson}}</span>
           </el-form-item>
-          <el-form-item label=" ">
+          <el-form-item label="代理人">
             <el-input class="width200" v-model.trim="form.agentName" placeholder="请输入代理人" v-if="!readonly"></el-input>
             <span v-if="readonly">{{form.agentName}}</span>
           </el-form-item>
@@ -132,6 +132,9 @@ export default {
       readonly: false,
       form: {
         developPerson: null,
+        developPersonPhone: null,
+        developPersonDetail: null,
+        creater: getUserId(),
         agentName: null,
         sexSelect: sexAddList,
         sex: null,
@@ -181,6 +184,7 @@ export default {
       viewAgents(paramsView).then(res => {
         if (res.code === 200) {
           this.form.developPerson = res.result.developPerson;
+          this.form.developPersonPhone = res.result.developPersonPhone;
           this.form.agentName = res.result.agentName;
           this.form.mobilePhone = res.result.mobilePhone;
           this.form.idCardNo = res.result.idCardNo;
@@ -224,6 +228,8 @@ export default {
     handleSelect(item) {
       console.log(item);
       this.form.developPerson = item.realName;
+      this.form.developPersonPhone = item.mobile;
+      this.form.developPersonDetail = item.realName + "/" + item.mobile;
     },
     selectProvince() {
       let params = {
@@ -378,19 +384,20 @@ export default {
         });
         return;
       }
-      var pattern = /^([1-9]{1})(\d{14})$/;
-      if (!pattern.test(this.form.bankCard)) {
-        this.$message({
-          type: 'error',
-          message: '请输入合法银行卡号！'
-        });
-        return;
-      }
+      // var pattern = /^([1-9]{1})(\d{14})$/;
+      // if (!pattern.test(this.form.bankCard)) {
+      //   this.$message({
+      //     type: 'error',
+      //     message: '请输入合法银行卡号！'
+      //   });
+      //   return;
+      // }
       if (agentid) {
         let params = {
           creater: getUserId(),
           agentid: agentid,
           developPerson: this.form.developPerson,
+          developPersonPhone: this.form.developPersonPhone,
           agentName: this.form.agentName,
           sex: this.form.sex,
           idCardNo: this.form.idCardNo,
@@ -430,7 +437,9 @@ export default {
           return;
         }
         let params = {
+          creater: getUserId(),
           developPerson: this.form.developPerson,
+          developPersonPhone: this.form.developPersonPhone,
           agentName: this.form.agentName,
           sex: this.form.sex,
           idCardNo: this.form.idCardNo,
