@@ -399,7 +399,8 @@ export default {
             type: 'success',
             message: `提交网商成功`
           })
-          this.$router.push('/merchantManage?random=0.1')
+          let d = new Date().getTime()
+          this.$router.push(`/merchantManage?random=${d}`)
         } else if (res.code === 400) {
           this.$message({
             type: 'fail',
@@ -469,7 +470,8 @@ export default {
             message: `提交网商成功`
           })
           this.showEditMobile = false
-          this.$router.push('/merchantManage')
+          let d = new Date().getTime()
+          this.$router.push(`/merchantManage?random=${d}`)
         }
       }).catch(res => {
         this.$message({

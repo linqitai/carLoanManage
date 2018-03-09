@@ -1738,7 +1738,8 @@ export default {
             type: 'success',
             message: `操作成功！`
           })
-          this.$router.push('/merchantManage?random=0.11')
+          let d = new Date().getTime()
+          this.$router.push(`/merchantManage?random=${d}`)
         } else {
           this.$message({
             message: `系统出错：${res.msg}`
