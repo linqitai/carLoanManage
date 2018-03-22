@@ -19,92 +19,82 @@
     </div>
     <div class="allWrapper">
       <div class="searchCondition">
-        <div class="searchBox">
-          <div class="element">
-            <p class="inline">时间</p>
-            <div class="inline">
-              <el-date-picker size="medium" class="inline" style="width:134px;" v-model="searchs.startTime" type="date" placeholder="开始时间" @change="startTimeChange">
-              </el-date-picker>
-              <span class="inline">至</span>
-              <el-date-picker size="medium" class="inline" style="width:134px;" v-model="searchs.endTime" type="date" placeholder="结束时间" @change="endTimeChange">
-              </el-date-picker>
-            </div>
-          </div>
-          <div class="element">
-            <p class="inline">商户名称</p>
-            <div class="width140 inline">
-              <el-input size="medium" clearable placeholder="商户名称查询" class="input" v-model="searchs.mName" @keyup.enter.native="search"></el-input>
-            </div>
-          </div>
-          <div class="element">
-            <p class="inline">商户类型</p>
-            <div class="width120 inline">
-              <el-select size="medium" v-model="searchs.mtype" placeholder="请选择" @change="search">
-                <el-option v-for="item in mtypeList" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-          </div>
-          <div class="element">
-            <p class="inline">经营类目</p>
-            <div class="width140 inline">
-              <el-select size="medium" v-model="searchs.runTYpe" placeholder="请选择" @change="search">
-                <el-option v-for="item in runTYpeList" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-          </div>
-          <div class="element" @click="search">
-            <el-button size="medium" class="searchBtn">查询</el-button>
-          </div>
-          <div class="element" @click="moreBtn">
-            <img class="moreIcon" src="../../../common/images/arrow_down.png" v-if="!searchCell">
-            <img class="moreIcon iconTransform" src="../../../common/images/arrow_down.png" v-if="searchCell">
+        <div class="element">
+          <p class="inline">时间</p>
+          <div class="inline">
+            <el-date-picker size="medium" class="inline" style="width:134px;" v-model="searchs.startTime" type="date" placeholder="开始时间" @change="startTimeChange">
+            </el-date-picker>
+            <span class="inline">至</span>
+            <el-date-picker size="medium" class="inline" style="width:134px;" v-model="searchs.endTime" type="date" placeholder="结束时间" @change="endTimeChange">
+            </el-date-picker>
           </div>
         </div>
-        <transition name="">
-          <div class="searchBox clear" v-if="searchCell">
-            <div class="element">
-              <p class="inline">负责人</p>
-              <div class="width120 inline">
-                <el-input size="medium" clearable v-model="searchs.fzMan" placeholder="负责人查询" class="input" @keyup.enter.native="search"></el-input>
-              </div>
-            </div>
-            <div class="element">
-              <p class="inline">手机号码</p>
-              <div class="width130 inline">
-                <el-input size="medium" clearable v-model="searchs.mobile" placeholder="手机号码查询" :maxlength="maxLengthMobile" class="input" @keyup.enter.native="search"></el-input>
-              </div>
-            </div>
-            <div class="element">
-              <p class="inline">状态</p>
-              <div class="width120 inline">
-                <el-select size="medium" v-model="searchs.status" placeholder="请选择" @change="search">
-                  <el-option v-for="item in statusList" :key="item.value" :label="item.label" :value="item.value">
-                  </el-option>
-                </el-select>
-              </div>
-            </div>
-            <div class="element">
-              <p class="inline">代理商</p>
-              <div class="width120 inline">
-                <el-input size="medium" clearable v-model="searchs.agent" placeholder="代理商查询" class="input" @keyup.enter.native="search"></el-input>
-              </div>
-            </div>
-            <div class="element">
-              <p class="inline">店铺地址</p>
-              <div class="width140 inline">
-                <el-select size="medium" v-model="searchs.runTYpe" placeholder="请选择" @change="search">
-                  <el-option v-for="item in runTYpeList" :key="item.value" :label="item.label" :value="item.value">
-                  </el-option>
-                </el-select>
-              </div>
-            </div>
+        <div class="element">
+          <p class="inline">商户名称</p>
+          <div class="width140 inline">
+            <el-input size="medium" clearable placeholder="商户名称查询" class="input" v-model="searchs.mName" @keyup.enter.native="search"></el-input>
           </div>
-        </transition>
+        </div>
+        <div class="element">
+          <p class="inline">商户类型</p>
+          <div class="width120 inline">
+            <el-select size="medium" v-model="searchs.mtype" placeholder="请选择" @change="search">
+              <el-option v-for="item in mtypeList" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
+        </div>
+        <div class="element">
+          <p class="inline">经营类目</p>
+          <div class="width140 inline">
+            <el-select size="medium" v-model="searchs.runTYpe" placeholder="请选择" @change="search">
+              <el-option v-for="item in runTYpeList" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
+        </div>
+        <div class="element">
+          <p class="inline">负责人</p>
+          <div class="width120 inline">
+            <el-input size="medium" clearable v-model="searchs.fzMan" placeholder="负责人查询" class="input" @keyup.enter.native="search"></el-input>
+          </div>
+        </div>
+        <div class="element">
+          <p class="inline">手机号码</p>
+          <div class="width130 inline">
+            <el-input size="medium" clearable v-model="searchs.mobile" placeholder="手机号码查询" :maxlength="maxLengthMobile" class="input" @keyup.enter.native="search"></el-input>
+          </div>
+        </div>
+        <div class="element">
+          <p class="inline">状态</p>
+          <div class="width120 inline">
+            <el-select size="medium" v-model="searchs.status" placeholder="请选择" @change="search">
+              <el-option v-for="item in statusList" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
+        </div>
+        <div class="element">
+          <p class="inline">代理商</p>
+          <div class="width120 inline">
+            <el-input size="medium" clearable v-model="searchs.agent" placeholder="代理商查询" class="input" @keyup.enter.native="search"></el-input>
+          </div>
+        </div>
+        <div class="element">
+          <p class="inline">店铺地址</p>
+          <div class="width140 inline">
+            <el-select size="medium" v-model="searchs.runTYpe" placeholder="请选择" @change="search">
+              <el-option v-for="item in runTYpeList" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
+        </div>
+        <div class="element">
+          <el-button size="medium" class="searchBtn" @click.native="search">查询</el-button>
+        </div>
       </div>
       <div class="tableWrapper">
-        <el-table :data="tableData" stripe style="min-width:880px;max-width:1660px;width: 100%;">
+        <el-table :data="tableData" stripe>
           <el-table-column fixed="left" prop="date" label="申请时间" width="170"></el-table-column>
           <el-table-column prop="name" label="商户名称"></el-table-column>
           <el-table-column prop="name" label="商户类型"></el-table-column>
@@ -252,6 +242,7 @@ export default {
     },
     search() {
       // ...
+      console.log('search')
     },
     searchEvent() {
       console.log('searchEvent')

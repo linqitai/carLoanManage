@@ -140,7 +140,6 @@ $borderColor:#ffffff;
 $borderColor2:#069F8B;
 $mainColor:#00917e;
 $colorBtnHover:#02A08B;
-$sidebarWidth: 190px;
 $textColor: #323232;
 $textColor-t: #646464;
 .colorGray {
@@ -166,7 +165,8 @@ $font-size-lll: 20px;
   }
 }
 // 宽度
-$content-min-width: 1370px;
+$sidebarWidth: 190px;
+$content-min-width: 780px;
 // 高度
 $detailTitleHeight: 40px;
 $detailLineTextHeight: 30px;

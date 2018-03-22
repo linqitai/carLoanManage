@@ -31,7 +31,7 @@ export function getDateHM(t) {
   var h = time.getHours()
   var mm = time.getMinutes()
   return y + '-' + (m < 10 ? '0' + m : m) + '-' + (d < 10 ? '0' + d : d) + ' ' + (h < 10 ? '0' + h : h) + ':' +
-  (mm < 10 ? '0' + mm : mm)
+    (mm < 10 ? '0' + mm : mm)
 }
 // 获取完整的时间
 export function getDateTime(t) {
@@ -51,4 +51,11 @@ export function getDateTime(t) {
 export function getTime(t) {
   var time = new Date(t)
   return time.getTime()
+}
+// 获取昨天时间
+export function getYesterday() {
+  var day1 = new Date();
+  day1.setTime(day1.getTime() - 24 * 60 * 60 * 1000);
+  var s1 = day1.getFullYear() + "-" + (day1.getMonth() + 1) + "-" + day1.getDate();
+  return s1;
 }
