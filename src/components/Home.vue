@@ -255,6 +255,23 @@ export default {
             float: right;
           }
         }
+        .tableWrapper-excel{
+          float: right;
+          font-size: 15px;
+          margin-bottom: 10px;
+          .tableWrapper-excel-pad{
+             padding-right: 20px
+           }
+          .tableWrapper-excel-border{
+            display: inline-block;
+            width: 120px;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            border: 1px solid black;
+            border-radius: 5px;
+          }
+        }
       }
     }
   }

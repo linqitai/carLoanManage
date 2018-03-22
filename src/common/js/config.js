@@ -261,3 +261,71 @@ export const operatorData = [
     store: '上海市普陀区金沙江路 ',
     merchant: 200333
   }]
+
+export const payList = [
+  {
+    value: '',
+    label: '全部'
+  }, {
+    value: '1',
+    label: '支付宝'
+  }, {
+    value: '2',
+    label: '微信支付'
+  }
+]
+
+export const collectionList = [
+  {
+    value: '',
+    label: '全部'
+  }, {
+    value: '1',
+    label: '动态正扫'
+  }, {
+    value: '2',
+    label: '动态反扫'
+  }, {
+    value: '3',
+    label: '静态二维码'
+  }
+]
+
+export const statesList = [
+  {
+    value: '',
+    label: '全部'
+  }, {
+    value: '1',
+    label: '提现中'
+  }, {
+    value: '2',
+    label: '已到账'
+  }
+]
+
+export const moneyList = [
+  {
+    value: '',
+    label: '无'
+  }, {
+    value: '1',
+    label: '从高到低'
+  }, {
+    value: '2',
+    label: '从低到高'
+  }
+]
+
+export const IncomeList = [
+  {
+    value: '',
+    label: '无'
+  }, {
+    value: '1',
+    label: '从高到低'
+  }, {
+    value: '2',
+    label: '从低到高'
+  }
+]

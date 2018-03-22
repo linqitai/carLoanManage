@@ -101,23 +101,27 @@ export default {
                   title: '账单管理'
                 },
                 {
-                  index: 'sysAnalysis1',
+                  index: 'details', // 路由名
+                  title: '详情'
+                },
+                {
+                  index: 'channelReconciliation',
                   title: '通道对账'
                 },
                 {
-                  index: 'comCalculation2',
+                  index: 'remainTreasure',
                   title: '余利宝'
                 },
                 {
-                  index: 'comCalculation3',
+                  index: 'withdrawManage',
                   title: '提现管理'
                 },
                 {
-                  index: 'comCalculation4',
+                  index: 'agentMoney',
                   title: '代理商分润'
                 },
                 {
-                  index: 'comCalculation5',
+                  index: 'fenRunIncome',
                   title: '分润收入'
                 }
               ]
