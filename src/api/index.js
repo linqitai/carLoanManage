@@ -27,3 +27,10 @@ export const zsf = '/zsf'
 export const zsfQuery = (params) => {
   return http.fetchPost2(zsf + '/selfeval/query', params)
 }
+// 【臻收银模块】
+export const zsy = '/zsy'
+// ===商户管理模块接口===
+// 用户列表(商户列表)
+export const merchantList = (params) => {
+  return http.fetchPost(zsy + '/zcash/customer/list.do', params)
+}

@@ -135,6 +135,7 @@
 <script>
 import { mtypeList, runTYpeList, statusList, tableData } from 'common/js/config'
 import { saveCurrentRow } from 'common/js/cache'
+import { merchantList } from '@/api/index'
 // import { mapMutations } from 'vuex'
 export default {
   data() {
@@ -179,7 +180,15 @@ export default {
       return value === 1 ? '禁用' : value === 0 ? '启用' : '---'
     }
   },
+  created() {
+    this.getMerchantList()
+  },
   methods: {
+    getMerchantList() {
+      merchantList().then(res => {
+        console.log(res)
+      })
+    },
     tableSwitchChange(val) {
       console.log(val)
       if (parseInt(val) === 1) {
