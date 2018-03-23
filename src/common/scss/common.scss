@@ -226,6 +226,10 @@ $breadcrumbHeight: 40px;
 .fade-enter, .fade-leave-to /* .fade-leave-active in below version 2.1.8 */ {
     opacity: 0
 }
+// 覆盖弹窗层级样式
+.el-dialog{
+  z-index: 2002
+}
 // 修改页面elementUI样式
 .el-breadcrumb {
   font-size: 13px !important;

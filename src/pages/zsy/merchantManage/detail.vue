@@ -62,7 +62,7 @@
             <span class="label">客服电话</span>
             <span class="value">0571-88888888</span>
             <i v-if="status===statusNormal" class="iconfont icon-bianji-copy ml10 fontSizeM" @click="showEditServicePhone=true"></i>
-            <el-dialog width="40%" title="编辑商客服电话" :visible.sync="showEditServicePhone">
+            <el-dialog width="40%" style="z-index:3000" title="编辑商客服电话" :visible.sync="showEditServicePhone">
               <div class="element">
                 <p class="width100 textLeft inline">客服电话</p>
                 <div class="inline">
