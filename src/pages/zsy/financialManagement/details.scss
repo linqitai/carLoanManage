@@ -1,0 +1,40 @@
+@import '~common/scss/common';
+@import '~common/scss/mixin';
+.details {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #fff;
+    .allWrapper{
+        overflow-y: auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: $breadcrumbHeight;
+        bottom: 40px;
+        .infoBox{
+          padding-bottom: 6px;
+          .contentText{
+            padding: 12px 20px 12px 10px;
+            overflow: hidden;
+            .lineText{
+              overflow: hidden;
+              font-size: $font-size-m;
+              padding: 8px 0;
+              .label{
+                float: left;
+                width: 110px;
+                color: $textColor;
+              }
+              .value{
+                float: left;
+                color: $tableTextColor;
+                margin-left: 10px;
+              }
+            }
+          }
+        }
+      }
+}

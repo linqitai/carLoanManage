@@ -106,7 +106,11 @@
          <el-table-column prop="name" label="收款方式"></el-table-column>
          <el-table-column prop="name" label="订单号"></el-table-column>
          <el-table-column prop="name" label="代理商"></el-table-column>
-         <el-table-column prop="name" label="操作"></el-table-column>
+         <el-table-column prop="name" label="操作">
+           <template slot-scope="scope">
+              <el-button type="text" size="small" @click="detail(scope.row)">详情</el-button>
+            </template>
+         </el-table-column>
        </el-table>
        <div class="tableBottom">
          <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex" :page-size="pageSize" :page-sizes="[10,12,14,16]" layout="total, sizes, prev, pager, next, jumper" :total="total">
@@ -114,6 +118,7 @@
        </div>
      </div>
    </div>
+   <router-view></router-view>
  </div>
 </template>
 
@@ -158,6 +163,13 @@
 //          "&province="+this.form.province+
 //          "&city="+this.form.city+
 //          "&area="+this.form.area;
+      },
+      detail(item) {
+        // let status = 2
+        // this.setStatus(status)
+        console.log(item);
+        // saveCurrentRow(item)
+        this.$router.push('/bill/details')
       }
     }
   }
@@ -166,4 +178,5 @@
 <style scoped lang="scss">
   @import '~common/scss/common.scss';
   @import './billingArrangement.scss'
+  
 </style>
