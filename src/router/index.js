@@ -67,6 +67,18 @@ export default new Router({
           component: resolve => require(['../pages/zsy/merchantManage/QRcode'], resolve)
         },
         {
+          path: '/zsyMileage6',
+          component: resolve => require(['../pages/zsy/merchantManage/zsyMileage6'], resolve)
+        },
+        {
+          path: '/agent',
+          component: resolve => require(['../pages/zsy/merchantManage/agent'], resolve)
+        },
+        {
+          path: '/agentAdd',
+          component: resolve => require(['../pages/zsy/merchantManage/agentAdd'], resolve)
+        },
+        {
           path: '/bill',
           component: resolve => require(['../pages/zsy/financialManagement/billingArrangement.vue'], resolve)
         },
