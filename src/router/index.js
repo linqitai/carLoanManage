@@ -46,11 +46,13 @@ export default new Router({
         },
         {
           path: '/merchantManage',
-          component: resolve => require(['../pages/zsy/merchantManage/merchantManage'], resolve)
-        },
-        {
-          path: '/merchantManageDetail',
-          component: resolve => require(['../pages/zsy/merchantManage/detail'], resolve)
+          component: resolve => require(['../pages/zsy/merchantManage/merchantManage'], resolve),
+          children: [
+            {
+              path: '/merchantManage/detail',
+              component: resolve => require(['../pages/zsy/merchantManage/detail'], resolve)
+            }
+          ]
         },
         {
           path: '/storeManage',

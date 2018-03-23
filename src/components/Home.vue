@@ -135,7 +135,6 @@ export default {
         }
       }
       .breadcrumbWrapper {
-        display: block;
         width: 100%;
         min-width: $content-min-width;
         background: #ffffff;
